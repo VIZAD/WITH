@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 24
@@ -17,6 +19,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+repositories {
+    jcenter()
 }
 
 dependencies {
@@ -26,4 +36,34 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:24.1.1'
     testCompile 'junit:junit:4.12'
+
+    //注解库，省去findId
+    compile 'com.jakewharton:butterknife:8.4.0'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+
+    //rxjava
+    compile 'io.reactivex:rxjava:1.1.0'
+    compile 'io.reactivex:rxandroid:1.1.0'
+
+    //Gson
+    compile 'com.google.code.gson:gson:2.6.2'
+
+    //facebook图片处理库
+    compile 'com.facebook.fresco:fresco:0.10.0'
+    compile "com.facebook.fresco:imagepipeline-okhttp3:0.10.0"
+    compile 'com.facebook.fresco:animated-gif:0.10.0'
+
+    //recyclerview的adapter封装
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v1.9.7'
+
+    //material dialog样式，兼容4.0以上
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.2@aar') {
+        transitive = true
+    }
+
+    //缓存数据
+    compile 'com.anupcowkur:reservoir:3.1.0'
+
+/*    //Okhttp
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'*/
 }

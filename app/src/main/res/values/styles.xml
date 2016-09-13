@@ -37,4 +37,8 @@
         <item name="android:clickable">true</item>
         <item name="android:layout_centerHorizontal">true</item>
     </style>
+
+    <style name="SwipeBackLayout">
+        <item name="edge_size">0dp</item>
+    </style>
 </resources>

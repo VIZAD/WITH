@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -16,6 +16,12 @@
         <attr name="centerText" format="string" />
         <!--右侧文字-->
         <attr name="rightText" format="string" />
+        <!--左侧文字大小-->
+        <attr name="leftTextSize" format="integer" />
+        <!--中间文字大小-->
+        <attr name="rightTextSize" format="integer" />
+        <!--右侧文字大小-->
+        <attr name="centerTextSize" format="integer" />
         <!--左侧图标-->
         <attr name="leftIcon" format="reference" />
         <!--右侧图标-->

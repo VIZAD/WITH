@@ -39,7 +39,7 @@ public class BaseToolBar extends Toolbar {
         initViews();
         setContentInsetsRelative(0, 0);
         if (attrs != null) {
-            TintTypedArray array = TintTypedArray.obtainStyledAttributes(context, attrs, R.styleable.BaseToolBar, defStyleAttr, 0);
+            TintTypedArray array = TintTypedArray.obtainStyledAttributes(context, attrs, R.style.BaseToolBar, defStyleAttr, 0);
             String leftText = array.getString(R.styleable.BaseToolBar_leftText);
             String centerText = array.getString(R.styleable.BaseToolBar_centerText);
             String rightText = array.getString(R.styleable.BaseToolBar_rightText);

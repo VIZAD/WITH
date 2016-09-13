@@ -1,4 +1,4 @@
-package com.example.vizax.with.util;
+package com.example.vizax.with.customView;
 
 import android.content.Context;
 import android.util.AttributeSet;

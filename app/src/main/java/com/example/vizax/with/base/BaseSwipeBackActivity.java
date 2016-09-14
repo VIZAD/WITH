@@ -14,7 +14,6 @@ import com.example.vizax.with.util.swipeback.Utils;
 /**
  * Created by prj on 2016/8/16.
  */
-
 public abstract class BaseSwipeBackActivity extends BaseActivity implements SwipeBackActivityBase {
 
     private SwipeBackActivityHelper mHelper;
@@ -49,13 +48,13 @@ public abstract class BaseSwipeBackActivity extends BaseActivity implements Swip
         super.finish();
     }
 
-    public void initToolBar(Toolbar mToolBar) {
+    /*public void initToolBar(Toolbar mToolBar) {
         if (null != mToolBar) {
             setSupportActionBar(mToolBar);
             getSupportActionBar().setDisplayShowHomeEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-    }
+    }*/
 
     @Override protected void onResume() {
         super.onResume();

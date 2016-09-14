@@ -1,6 +1,7 @@
 package com.example.vizax.with.util;
 
 import android.animation.Animator;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -59,8 +60,7 @@ public class AnimationUtil {
         Animator animator =
                 ViewAnimationUtils.createCircularReveal(view, centerX, centerY, 0, finalRadius*MultipleRadius);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
-        //不是从左上角(0,0)位置开始，动画时间被缩小10倍。故放大10倍   why????
-        animator.setDuration(Duration*10);
+        animator.setDuration(Duration);
         return animator;
     }
 

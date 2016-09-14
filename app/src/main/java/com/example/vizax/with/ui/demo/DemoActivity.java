@@ -23,6 +23,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
+ * MVP的DEMO
+ * Activity需实现View层的接口
  * Created by prj on 2016/9/14.
  */
 
@@ -49,11 +51,13 @@ public class DemoActivity extends BaseActivity implements DemoContact.View {
 
     @Override
     protected int initContentView() {
+        //直接传入当前的布局文件
         return R.layout.demo_activity;
     }
 
     @Override
     protected boolean isApplyStatusBarTranslucency() {
+        //状态栏是否透明
         return true;
     }
 
@@ -73,12 +77,16 @@ public class DemoActivity extends BaseActivity implements DemoContact.View {
 
         AnimationUtil.showCircularReveal(root,2,2000);
 
+        /*Presenter和视图进行绑定
+        大家以后有时间可以学学dragger2
+        因为，解耦，可以实现依赖注入，不用构造方法。好处还有好多好多。。。*/
         mPresenter = new DemoPresenter();
         mPresenter.attachView(this);
     }
 
     @Override
     protected boolean isApplyStatusBarColor() {
+        //是否将状态栏颜色设置为colorPrimay
         return true;
     }
 
@@ -95,7 +103,11 @@ public class DemoActivity extends BaseActivity implements DemoContact.View {
     @Override
     public void loginSuccess(String Msg) {
         SnackbarUtils.show(root, Msg, 0, null);
+
         Intent intent = new Intent(this,DemoSwipBackActivity.class);
+        /*动画效果开启下个activity。有toolbar的话，toolbar可以不动，只改变视图
+          建议自己可以加个toolbar试试*/
+        overridePendingTransition(0, 0);
         startActivity(intent);
     }
 

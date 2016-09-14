@@ -12,7 +12,7 @@
         <item name="android:textColorPrimary">@color/black</item>
         <!--背景色-->
         <item name="android:windowBackground">@color/white</item>
-
+        <item name="android:windowIsTranslucent">true</item>
         <!--android:colorPrimaryDark 应用的主要暗色调，statusBarColor默认使用该颜色
         android:statusBarColor 状态栏颜色，默认使用colorPrimaryDark
         android:colorPrimary 应用的主要色调，actionBar默认使用该颜色

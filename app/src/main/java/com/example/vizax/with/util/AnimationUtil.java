@@ -2,6 +2,7 @@ package com.example.vizax.with.util;
 
 import android.animation.Animator;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import io.codetail.animation.ViewAnimationUtils;
@@ -58,7 +59,35 @@ public class AnimationUtil {
         Animator animator =
                 ViewAnimationUtils.createCircularReveal(view, centerX, centerY, 0, finalRadius*MultipleRadius);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
-        animator.setDuration(Duration);
+        //不是从左上角(0,0)位置开始，动画时间被缩小10倍。故放大10倍   why????
+        animator.setDuration(Duration*10);
         return animator;
+    }
+
+    public static void showCircularReveal(View view,int MultipleRadius,int Duration){
+
+        view.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                view.getViewTreeObserver().removeOnPreDrawListener(this);
+                Animator animator = AnimationUtil.getCircularReveal(view, MultipleRadius, Duration);
+                animator.start();
+                return true;
+            }
+        });
+
+    }
+
+    public static void showCircularReveal(View view,int centerX,int centerY,int MultipleRadius,int Duration){
+
+        view.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                view.getViewTreeObserver().removeOnPreDrawListener(this);
+                Animator animator = AnimationUtil.getCircularReveal(view, centerX, centerY, MultipleRadius, Duration);
+                animator.start();
+                return true;
+            }
+        });
     }
 }

@@ -30,6 +30,10 @@
         android:textColorPrimary 应用的主要文字颜色，actionBar的标题文字默认使用该颜色-->
     </style>
 
+    <style name="TransparentTheme" parent="AppTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
     <!--通用工具栏-->
     <declare-styleable name="BaseToolBar">
         <!--左侧文字-->

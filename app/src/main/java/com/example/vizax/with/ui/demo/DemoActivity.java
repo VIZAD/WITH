@@ -1,8 +1,11 @@
 package com.example.vizax.with.ui.demo;
 
+import android.animation.Animator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TextInputLayout;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -11,6 +14,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.R;
 import com.example.vizax.with.base.BaseActivity;
 import com.example.vizax.with.customView.BaseToolBar;
+import com.example.vizax.with.util.AnimationUtil;
 import com.example.vizax.with.util.SnackbarUtils;
 import com.example.vizax.with.util.TextUtil;
 
@@ -67,6 +71,8 @@ public class DemoActivity extends BaseActivity implements DemoContact.View {
         toolbar.setLeftIcon(getResources().getDrawable(R.drawable.back_ic));
         toolbar.setRightIcon(getResources().getDrawable(R.drawable.delete_forever_ic));
 
+        AnimationUtil.showCircularReveal(root,2,2000);
+
         mPresenter = new DemoPresenter();
         mPresenter.attachView(this);
     }
@@ -89,6 +95,8 @@ public class DemoActivity extends BaseActivity implements DemoContact.View {
     @Override
     public void loginSuccess(String Msg) {
         SnackbarUtils.show(root, Msg, 0, null);
+        Intent intent = new Intent(this,DemoSwipBackActivity.class);
+        startActivity(intent);
     }
 
     @Override

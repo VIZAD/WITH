@@ -4,7 +4,7 @@ import com.example.vizax.with.base.BasePresenter;
 import com.example.vizax.with.base.BaseView;
 
 /**
- * Created by Administrator on 2016/9/14.
+ * Created by prj on 2016/9/14.
  */
 
 public interface DemoContact {
@@ -14,7 +14,7 @@ public interface DemoContact {
 
         void dimissLoading();
 
-        void loginSuccess();
+        void loginSuccess(String Msg);
 
         void loginFailure(String Error);
     }

@@ -1,13 +1,17 @@
 package com.example.vizax.with.bean;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 /**
- * Created by Administrator on 2016/9/14.
+ * Created by prj on 2016/9/14.
  */
 
-public class BaseBean {
+public class BaseBean<T> implements Serializable{
 
     private String msg;
     private String code;
+    private T data;
 
     public String getMsg() {
         return msg;
@@ -25,4 +29,11 @@ public class BaseBean {
         this.code = code;
     }
 
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
 }

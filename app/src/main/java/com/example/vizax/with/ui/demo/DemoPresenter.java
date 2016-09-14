@@ -2,6 +2,7 @@ package com.example.vizax.with.ui.demo;
 
 import android.support.annotation.NonNull;
 
+import com.example.vizax.with.bean.BaseBean;
 import com.example.vizax.with.bean.User;
 import com.example.vizax.with.constant.APIConstant;
 import com.example.vizax.with.util.GsonUtil;
@@ -13,7 +14,7 @@ import okhttp3.Call;
 import rx.Subscription;
 
 /**
- * Created by Administrator on 2016/9/14.
+ * Created by prj on 2016/9/14.
  */
 
 public class DemoPresenter implements DemoContact.Presenter {
@@ -29,6 +30,9 @@ public class DemoPresenter implements DemoContact.Presenter {
 
     @Override
     public void login(String username, String password) {
+
+        demoView.showLoading();
+
         OkHttpUtils.post()
                 .url(APIConstant.getApi(APIConstant.USER_LOGIN))
                 .addParams("username",username)
@@ -37,12 +41,18 @@ public class DemoPresenter implements DemoContact.Presenter {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-
+                        demoView.showLoading();
+                        demoView.loginFailure(e+"");
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
-                        User user = GsonUtil.toString(response,User.class);
+                        BaseBean<User> baseBean = GsonUtil.toString(response,BaseBean.class);
+                        if (baseBean.getCode().equals("200"))
+                            demoView.loginSuccess(response);
+                        else
+                            demoView.loginFailure(baseBean.getMsg());
+                        demoView.dimissLoading();
                     }
                 });
     }

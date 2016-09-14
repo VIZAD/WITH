@@ -74,4 +74,9 @@ dependencies {
     //Okhttp
     compile 'com.squareup.okhttp3:okhttp:3.3.1'
     compile 'com.zhy:okhttputils:2.6.2'
+
+    //circularReval动画兼容库4.0以上
+    compile ('com.github.ozodrukh:CircularReveal:2.0.1@aar') {
+        transitive = true;
+    }
 }

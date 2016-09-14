@@ -8,8 +8,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <!--Checkbox、Edittext、Toggle、Seekbar颜色:一般控件的选种效果默认采用该颜色-->
         <item name="colorAccent">@color/colorAccent</item>
-        <!--toolbar字体颜色-->
-        <item name="android:textColorPrimary">@color/white</item>
+        <!--字体颜色-->
+        <item name="android:textColorPrimary">@color/black</item>
         <!--背景色-->
         <item name="android:windowBackground">@color/white</item>
 

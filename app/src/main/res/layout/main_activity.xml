@@ -9,8 +9,8 @@
 
     <com.example.vizax.with.customView.BaseToolBar
         app:centerText="哈哈"
-        app:leftIcon="@drawable/ic_arrow_back_black_36dp"
-        app:rightIcon="@drawable/ic_delete_forever_black_36dp"
+        app:leftIcon="@drawable/back_ic"
+        app:rightIcon="@drawable/delete_forever_ic"
         app:centerTextSize="24"
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"

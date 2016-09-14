@@ -2,7 +2,7 @@
 <resources>
     <!--全局颜色-->
     <color name="colorPrimary">#11cd6e</color><!--主题色-->
-    <color name="colorPrimaryDark">#00bb9c</color><!--状态栏颜色-->
+    <color name="colorPrimaryDark">#11cd6e</color><!--状态栏颜色00bb9c-->
     <color name="colorAccent">#11cd6e</color><!--默认控件颜色-->
 
     <color name="toolbar_bg">#11cd6e</color><!--toolbar背景色-->
@@ -31,7 +31,7 @@
     <color name="btn_myFollow_Follow">#11cd6e</color><!--我的关注界面关注按钮关注状态-->
 
     <!--活动详情界面-->
-    <color name="bg_detail_usercard">#f4f4f4</color><!--活动详情页面参加活动的用户列表的灰色背景-->
+    <color name="bg_detail_usercard">#ebf5f9</color><!--活动详情页面参加活动的用户列表的灰色背景-->
 
     <!--坚持界面-->
     <color name="btn_mission_unfocus">#336666</color><!--坚持页面坚持抽屉未选中状态背景色-->

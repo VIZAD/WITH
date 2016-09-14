@@ -1,8 +1,5 @@
 package com.example.vizax.with.ui;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 import com.example.vizax.with.R;
 import com.example.vizax.with.base.BaseActivity;
 
@@ -10,7 +7,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected int initContentView() {
-        return R.layout.activity_main;
+        return R.layout.main_activity;
     }
 
     @Override

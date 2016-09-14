@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.vizax.with.R;
-import com.example.vizax.with.util.DisplayUtil;
 
 /**
  * Created by prj on 2016/9/9.
@@ -87,7 +86,7 @@ public class BaseToolBar extends Toolbar {
     private void initViews() {
         if (view == null) {
             layoutInflater = LayoutInflater.from(getContext());
-            view = layoutInflater.inflate(R.layout.item_toolbar, null);
+            view = layoutInflater.inflate(R.layout.toolbar_item, null);
             leftView = (TextView) view.findViewById(R.id.tv_left);
             centerView = (TextView) view.findViewById(R.id.tv_center);
             rightView = (TextView) view.findViewById(R.id.tv_right);

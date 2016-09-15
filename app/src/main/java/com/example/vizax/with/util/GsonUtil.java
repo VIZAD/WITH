@@ -1,5 +1,7 @@
 package com.example.vizax.with.util;
 
+import android.util.Log;
+
 import com.example.vizax.with.bean.BaseBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -13,21 +15,27 @@ import java.lang.reflect.Type;
 
 public class GsonUtil {
 
-    //Json转字符串
-    public static <T> T toString(String response,Class<T> classZ){
+    //Json转字符串,如需获取T类型的话调用以下方法
+    /*public static <T> T toString(String response,Class<T> classZ){
         Gson gson = new Gson();
         Type objectType = type(BaseBean.class,classZ);
+        Log.w("WITHRRRRR",objectType.toString());
         return gson.fromJson(response,objectType);
+    }*/
+
+    public static <T> T toString(String response,Class<T> classZ) {
+        return new Gson().fromJson(response,classZ);
     }
 
-    //Json转字符串，传入对象
-    public static Object toString(String response,Object object){
+    /*会报错，因为Gson进行序列化、反序列化的时候会将泛型擦除，所有的类都变成Object，故得不到所需要的泛型。
+    public static <T> T toString(String response,Class<T> classZ){
         try {
-            return new Gson().fromJson(response,new TypeToken<Object>(){}.getType());
+            Log.w("WITHRRRRR",new TypeToken<T>(){}.getType()+"");
+            return new Gson().fromJson(response,new TypeToken<T>(){}.getType());
         }catch (Throwable e){
             return null;
         }
-    }
+    }*/
 
     //字符串转Json
     public static String toJson(Object object){

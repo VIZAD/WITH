@@ -1,5 +1,6 @@
 package com.example.vizax.with.util;
 
+import com.example.vizax.with.bean.BaseEmptyBean;
 import com.google.gson.Gson;
 
 import java.lang.reflect.ParameterizedType;
@@ -18,6 +19,9 @@ public class GsonUtil {
         //Log.w("WITHRRRRR",objectType.toString());
         return gson.fromJson(response,objectType);
     }*/
+    public static BaseEmptyBean toString(String response) {
+        return new Gson().fromJson(response,BaseEmptyBean.class);
+    }
 
     public static <T> T toString(String response,Class<T> classZ) {
         return new Gson().fromJson(response,classZ);

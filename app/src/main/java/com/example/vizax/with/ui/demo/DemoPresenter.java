@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.vizax.with.bean.BaseBean;
+import com.example.vizax.with.bean.BaseEmptyBean;
 import com.example.vizax.with.bean.Test;
 import com.example.vizax.with.bean.User;
 import com.example.vizax.with.constant.APIConstant;
@@ -34,6 +35,9 @@ public class DemoPresenter implements DemoContact.Presenter {
 
         demoView.showLoading();
 
+        //大家装个插件  <GsonFormat>  用json直接生成bean类。。
+
+        //获取list的json数据解析
         OkHttpUtils.post()
                 .url(APIConstant.getApi(APIConstant.INVITATION_GETCONCERNEDUSERS ))
                 .addParams("token","111")
@@ -53,6 +57,10 @@ public class DemoPresenter implements DemoContact.Presenter {
                         //获取的data如果是list类型的话，调用该方法。否则调用下面的方法
                         Test test = GsonUtil.toListString(response,Test.class);
                         Log.w("haha",test.getData().get(0).getHeadUrl());
+
+                        //获取的data如果只有msg和code，用下面的解析
+                        /*BaseEmptyBean baseEmptyBean = GsonUtil.toString(response);
+                        Log.w("haha",baseEmptyBean.getMsg());*/
                     }
                 });
 

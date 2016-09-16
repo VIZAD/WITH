@@ -82,6 +82,11 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     private int color3_mission;
     private int color4_mission;
     private int color5_mission;
+    private int color1_mood;
+    private int color2_mood;
+    private int color3_mood;
+    private int color4_mood;
+    private int color5_mood;
     private ToDayDecorator toDayDecorator = new ToDayDecorator();
     private static final DateFormat FORMATTER = SimpleDateFormat.getDateInstance();
     private SharedPreferences sp;
@@ -159,6 +164,11 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         color3_mission = getResources().getColor(R.color.btn_misson_3);
         color4_mission = getResources().getColor(R.color.btn_misson_4);
         color5_mission = getResources().getColor(R.color.btn_misson_5);
+        color1_mood = getResources().getColor(R.color.bg_mood_1);
+        color2_mood = getResources().getColor(R.color.bg_mood_2);
+        color3_mood = getResources().getColor(R.color.bg_mood_3);
+        color4_mood = getResources().getColor(R.color.bg_mood_4);
+        color5_mood = getResources().getColor(R.color.bg_mood_5);
 
         mPresenter = new InsistPresenter();
         mPresenter.attachView(this);
@@ -275,10 +285,10 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         animator.start();
         ContentFragment contentFragment = ContentFragment.newInstance(color_cl,color_mi);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, contentFragment).commit();
-        System.out.println("ScreenShotable color ="+color_cl);
+        System.out.println("ScreenShotable color ="+color_md);
         mTxtVi_title.setTextColor(color_md);
         mTxtVi_center_txt.setTextColor(color_md);
-        mTxtVi_foot_txt.setTextColor(color_md);
+        //mTxtVi_foot_txt.setTextColor(color_md);
         reset.run();
 
         return contentFragment;
@@ -291,17 +301,17 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         switch (slideMenuItem.getName()) {
             case ContentFragment.CLOSE:
                 //// TODO: 2016/09/16
-                return replaceFragment(screenShotable, position,color1_calender,color1_mission,R.color.bg_mood_1);
+                return replaceFragment(screenShotable, position,color1_calender,color1_mission,color1_mood);
             case ContentFragment.BUILDING:
-                return replaceFragment(screenShotable, position,color2_calender,color2_mission,R.color.bg_mood_2);
+                return replaceFragment(screenShotable, position,color2_calender,color2_mission,color2_mood);
             case ContentFragment.BOOK:
-                return replaceFragment(screenShotable, position,color3_calender,color3_mission,R.color.bg_mood_3);
+                return replaceFragment(screenShotable, position,color3_calender,color3_mission,color3_mood);
             case ContentFragment.PAINT:
-                return replaceFragment(screenShotable, position,color4_calender,color4_mission,R.color.bg_mood_4);
+                return replaceFragment(screenShotable, position,color4_calender,color4_mission,color4_mood);
             case ContentFragment.CASE:
-                return replaceFragment(screenShotable, position,color5_calender,color5_mission,R.color.bg_mood_5);
+                return replaceFragment(screenShotable, position,color5_calender,color5_mission,color5_mood);
             default:
-                return replaceFragment(screenShotable, position,color_calender,color1_mission,R.color.bg_mood_1);
+                return replaceFragment(screenShotable, position,color_calender,color1_mission,color1_mood);
         }
     }
 

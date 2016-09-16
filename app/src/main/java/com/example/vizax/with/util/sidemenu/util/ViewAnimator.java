@@ -264,12 +264,7 @@ public class ViewAnimator<T extends Resourceble> {
 
 
 
-    //判断
-    private void switchItem(Resourceble slideMenuItem, int topPosition) {
-            this.screenShotable = animatorListener.onSwitch(slideMenuItem, screenShotable, topPosition);
-            hideMenuContent();
 
-    }
 
     //翻牌效果
     private void playFlipAnimation(DraweeView draweeView,int finalI) {
@@ -306,6 +301,13 @@ public class ViewAnimator<T extends Resourceble> {
             }
         });
         animatorSetOut.start();
+    }
+
+    //判断
+    private void switchItem(Resourceble slideMenuItem, int topPosition) {
+        this.screenShotable = animatorListener.onSwitch(slideMenuItem, screenShotable, topPosition);
+        hideMenuContent();
+
     }
 
     /**

@@ -16,12 +16,12 @@ import java.util.HashSet;
 /**
  * Decorate several days with a dot
  */
-public class EventDecorator  implements DayViewDecorator {
+public class EventDocDecorator  implements DayViewDecorator {
 
     private int color;
     private HashSet<CalendarDay> dates;
     private Context context;
-    public EventDecorator(int color, Collection<CalendarDay> dates) {
+    public EventDocDecorator(int color, Collection<CalendarDay> dates) {
         this.color = color;
         this.dates = new HashSet<>(dates);
     }
@@ -33,7 +33,7 @@ public class EventDecorator  implements DayViewDecorator {
 
     @Override
     public void decorate(DayViewFacade view) {
-        view.addSpan(new tickAnimeSpan(color));
+        view.addSpan(new DotSpan(5,color));
     }
 
 }

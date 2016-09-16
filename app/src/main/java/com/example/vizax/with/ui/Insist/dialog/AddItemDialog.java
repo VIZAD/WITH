@@ -10,11 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.NumberPicker;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.vizax.with.R;
 import com.example.vizax.with.ui.Insist.AddDateRcyViAdapter;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,13 +28,17 @@ import butterknife.OnClick;
 public class AddItemDialog extends Dialog implements NumberPicker.OnValueChangeListener,NumberPicker.OnScrollListener,NumberPicker.Formatter {
 
     private Context context;
-    private Activity activity;
     private ClickListenerInterface clickListenerInterface;
     private AddDateRcyViAdapter adapter;
     private int finalI;
     @BindView(R.id.insist_ic_bg_rcyVi)
     RecyclerView mRcyVi;
-
+    @BindView(R.id.mission_title)
+    EditText EdtTxt_title;
+    @BindView(R.id.mission_content)
+    EditText EdtTxt_content;
+    public String title;
+    public String content;
 
     @Override
     public void onScrollStateChange(NumberPicker numberPicker, int i) {
@@ -52,12 +58,12 @@ public class AddItemDialog extends Dialog implements NumberPicker.OnValueChangeL
     public interface ClickListenerInterface {
 
         public int doConfirm();
-
         public int doCancel();
     }
 
     public AddItemDialog(Context context,int finalI, String title, String confirmButtonText, String cacelButtonText) {
         super(context, R.style.AppTheme);
+
         this.context = context;
         this.finalI = finalI;
 
@@ -67,6 +73,7 @@ public class AddItemDialog extends Dialog implements NumberPicker.OnValueChangeL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
+        Fresco.initialize(context);
         super.onCreate(savedInstanceState);
         init();
 
@@ -78,7 +85,8 @@ public class AddItemDialog extends Dialog implements NumberPicker.OnValueChangeL
         setContentView(view);
 
         ButterKnife.bind(this);
-
+        title = EdtTxt_title.getText().toString();
+        content = EdtTxt_content.getText().toString();
         mRcyVi = (RecyclerView) view.findViewById(R.id.insist_ic_bg_rcyVi);
         List<String> list = new ArrayList<>();
 
@@ -87,7 +95,6 @@ public class AddItemDialog extends Dialog implements NumberPicker.OnValueChangeL
         list.add(String.valueOf(R.drawable.icn_3));
         list.add(String.valueOf(R.drawable.icn_4));
         list.add(String.valueOf(R.drawable.icn_5));
-
         adapter = new AddDateRcyViAdapter(list,context);
         adapter.openLoadAnimation();
 

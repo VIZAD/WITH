@@ -14,11 +14,13 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import com.example.vizax.with.ui.Insist.ContentFragment;
+import com.example.vizax.with.ui.Insist.InsistPresenter;
 import com.example.vizax.with.ui.Insist.dialog.AddItemDialog;
 import com.example.vizax.with.util.sidemenu.animation.FlipAnimation;
 import com.example.vizax.with.util.sidemenu.interfaces.Resourceble;
 import com.example.vizax.with.util.sidemenu.interfaces.ScreenShotable;
 import com.example.vizax.with.util.sidemenu.model.SlideMenuItem;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.DraweeView;
 import com.example.vizax.with.R;
 import java.util.ArrayList;
@@ -39,6 +41,7 @@ public class ViewAnimator<T extends Resourceble> {
     private ScreenShotable screenShotable;
     private DrawerLayout drawerLayout;
     private ViewAnimatorListener animatorListener;
+    private InsistPresenter mPresenter;
     private SharedPreferences sp;
 
     public ViewAnimator(Activity activity, List<T> items, ScreenShotable screenShotable, final DrawerLayout drawerLayout, ViewAnimatorListener animatorListener){
@@ -261,12 +264,7 @@ public class ViewAnimator<T extends Resourceble> {
 
 
 
-    //判断
-    private void switchItem(Resourceble slideMenuItem, int topPosition) {
-            this.screenShotable = animatorListener.onSwitch(slideMenuItem, screenShotable, topPosition);
-            hideMenuContent();
 
-    }
 
     //翻牌效果
     private void playFlipAnimation(DraweeView draweeView,int finalI) {
@@ -305,6 +303,13 @@ public class ViewAnimator<T extends Resourceble> {
         animatorSetOut.start();
     }
 
+    //判断
+    private void switchItem(Resourceble slideMenuItem, int topPosition) {
+        this.screenShotable = animatorListener.onSwitch(slideMenuItem, screenShotable, topPosition);
+        hideMenuContent();
+
+    }
+
     /**
      * 弹出添加任务dialog
      * @param activity
@@ -320,6 +325,8 @@ public class ViewAnimator<T extends Resourceble> {
                 mList.set(finalI, (SlideMenuItem) add);
                 list.set(finalI,(T)add);
                 confirmDialog.dismiss();
+                mPresenter = new InsistPresenter();
+                mPresenter.createTask(confirmDialog.title,confirmDialog.content,finalI);
                 return 0;
             }
 

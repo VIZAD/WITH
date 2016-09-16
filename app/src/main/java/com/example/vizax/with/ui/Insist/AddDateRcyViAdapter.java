@@ -29,7 +29,6 @@ public class AddDateRcyViAdapter extends BaseQuickAdapter<String> {
 
 
 
-
     @Override
     protected void convert(BaseViewHolder baseViewHolder, String s) {
         //SimpleDraweeView view = baseViewHolder.getView(R.id.pic);
@@ -54,6 +53,8 @@ public class AddDateRcyViAdapter extends BaseQuickAdapter<String> {
         this.finalI = finalI;
         notifyDataSetChanged();
     }
+
+
 
 
 }

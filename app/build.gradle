@@ -3,12 +3,12 @@ apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'android-apt'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    compileSdkVersion 23
+    buildToolsVersion "24.0.1"
     defaultConfig {
         applicationId "com.example.vizax.with"
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -34,11 +34,11 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support:support-v4:24.2.0'
-    compile 'com.android.support:support-v13:24.2.0'
-    compile 'com.android.support:design:24.2.0'
-    compile 'com.android.support:cardview-v7:24.2.0'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.android.support:support-v13:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support:cardview-v7:23.4.0'
     testCompile 'junit:junit:4.12'
 
     //注解库，省去findId
@@ -53,9 +53,40 @@ dependencies {
     compile 'com.google.code.gson:gson:2.6.2'
 
     //facebook图片处理库
+    /*compile 'com.facebook.fresco:fresco:0.10.0'
+    compile "com.facebook.fresco:imagepipeline-okhttp3:0.10.0"
+    compile 'com.facebook.fresco:animated-gif:0.10.0'*/
+
+    //recyclerview的adapter封装
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v1.9.7'
+
+    //material dialog样式，兼容4.0以上
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.2@aar') {
+        transitive = true
+    }
+
+    //缓存数据
+    compile 'com.anupcowkur:reservoir:3.1.0'
+
+    //square的图片处理库：轻量级
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
+    //Okhttp
+    compile 'com.squareup.okhttp3:okhttp:3.3.1'
+    compile 'com.zhy:okhttputils:2.6.2'
+
+    //circularReval动画兼容库4.0以上
+    compile ('com.github.ozodrukh:CircularReveal:2.0.1@aar') {
+        transitive = true;
+
+    }
+    compile 'me.imid.swipebacklayout.lib:library:1.0.0'
+
+//facebook图片处理库
     compile 'com.facebook.fresco:fresco:0.10.0'
     compile "com.facebook.fresco:imagepipeline-okhttp3:0.10.0"
     compile 'com.facebook.fresco:animated-gif:0.10.0'
+
 
     //recyclerview的adapter封装
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v1.9.7'

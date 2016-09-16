@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_height="wrap_content"
     android:paddingLeft="15dp"
@@ -15,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:id="@+id/item_invitation_imagVi"
+            android:id="@+id/item_invitation_originator_imagVi"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/user_img" />
@@ -28,18 +29,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:id="@+id/item_invitation_name"
+                    android:id="@+id/item_invitation_originator_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="阿道克"
+                    android:text="aaa"
                     android:layout_marginTop="10dp"
                     android:textSize="15sp"
                     android:textColor="@color/recyclerview_item_name"/>
                 <TextView
+                    android:id="@+id/item_invitation_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="发起了狼人杀"
-                    android:layout_toRightOf="@+id/item_invitation_name"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:textSize="15sp"/>
@@ -48,11 +49,11 @@
                     android:layout_height="wrap_content"
                     android:gravity="right">
                     <TextView
+                        android:id="@+id/item_invitation_publish_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="19:30"
                         android:layout_alignParentRight="true"
-                        android:layout_toLeftOf="@+id/arrow"
                         android:layout_marginTop="10dp"
                         android:textSize="15sp"
                         android:textColor="@color/time_def"/>
@@ -68,6 +69,7 @@
 
             </LinearLayout>
             <TextView
+                android:id="@+id/item_invitation_contents"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -76,10 +78,10 @@
         </LinearLayout>
     </LinearLayout>
     <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Material_Card_View"
+        style="@style/CardView"
         android:layout_marginTop="9dp"
         card_view:cardCornerRadius="@dimen/card_corner_radius"
         card_view:cardElevation="@dimen/card_elevation">
@@ -89,6 +91,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white">
             <ImageView
+                android:id="@+id/item_invitation_icon"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:src="@drawable/langrensha"/>
@@ -99,18 +102,21 @@
                 android:background="@color/bg_detail_usercard"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/item_invitation_invitation_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="时间：2016-12-25 19:30"
                     android:layout_weight="1"
                     android:textSize="11sp"/>
                 <TextView
+                    android:id="@+id/item_invitation_place"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="地点：九栋304"
                     android:layout_weight="1"
                     android:textSize="11sp"/>
                 <TextView
+                    android:id="@+id/item_invitation_sex_require"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="性别要求：无"
@@ -168,6 +174,7 @@
                 android:src="@drawable/user5"/>
     </GridLayout>-->
         <TextView
+            android:id="@+id/item_invitation_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -176,12 +183,12 @@
             android:layout_toLeftOf="@+id/baoming_btn"
             android:text="6/12"/>
         <ImageView
-            android:id="@+id/baoming_btn"
+            android:id="@+id/item_invitation_join_btn"
             android:layout_alignParentRight="true"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/baoming"/>
+            android:src="@drawable/join_unselected"/>
     </LinearLayout>
 
 

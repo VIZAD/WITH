@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:background="@color/white" >
     <TextView
-        android:id="@+id/item_applicants_faqirendetail"
+        android:id="@+id/item_applicants_orginator_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="15dp"
@@ -70,7 +70,7 @@
                 android:layout_toRightOf="@+id/item_applicants_userphone"/>
         </RelativeLayout>
     <TextView
-        android:id="@+id/item_applicants_userdetail"
+        android:id="@+id/item_applicants_usersdetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="15dp"

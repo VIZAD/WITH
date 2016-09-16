@@ -1,45 +1,46 @@
-package com.example.vizax.with.ui;
+package com.example.vizax.with.ui.invitationList;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.R;
-import com.example.vizax.with.adapter.MyFocusRecyclerViewAdapter;
+import com.example.vizax.with.adapter.InvitationRecyclerViewAdapter;
 import com.example.vizax.with.customView.BaseToolBar;
+import com.example.vizax.with.util.SnackbarUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MyFocusActivity extends AppCompatActivity {
+public class InvitationActivity extends AppCompatActivity implements InvitationView {
     private static final String MY_INVITATION = "my";
     @BindView(R.id.baseToolBar)
     BaseToolBar mBaseToolBar;
     @BindView(R.id.activity_my_focus_recyclerview)
-    RecyclerView mActivityMyFocusRecyclerview;
-    private RecyclerView mRecyclerView;
-    private MyFocusRecyclerViewAdapter mAdapter;
+    RecyclerView mRecyclerView;
+    @BindView(R.id.invitation_root)
+    LinearLayout mRoot;
+    private InvitationRecyclerViewAdapter mAdapter;
     private String type;
     private String centerTxt;
     private Intent it;
     private int visible;
-    MaterialDialog mMaterialDialog;
-
+    private InvitationListPresenter mInvitationListPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_focus);
         ButterKnife.bind(this);
-
+        mInvitationListPresenter = new InvitationListPresenter(this);
+        //设置邀约列表的类型
         setType();
         //初始化recyclerView
-        initRecyclerView();
+        mInvitationListPresenter.setAdapter(this, mRecyclerView, visible,null,null);
         //初始化toolbar
         initToolbar();
     }
@@ -47,7 +48,7 @@ public class MyFocusActivity extends AppCompatActivity {
     private void setType() {
         it = getIntent();
         type = it.getStringExtra("type");
-        if(type != null) {
+        if (type != null) {
             if (type.equals(MY_INVITATION)) {
                 centerTxt = "我发起的";
                 visible = View.VISIBLE;
@@ -55,12 +56,12 @@ public class MyFocusActivity extends AppCompatActivity {
                 centerTxt = type;
                 visible = View.GONE;
             }
-        }else {
-            centerTxt = "运动";
-            visible = View.GONE;
+        } else {
+            centerTxt = "我发起的";
+            visible = View.VISIBLE;
         }
-    }
 
+    }
 
     private void initToolbar() {
         mBaseToolBar.setCenterText(centerTxt);
@@ -68,17 +69,23 @@ public class MyFocusActivity extends AppCompatActivity {
         mBaseToolBar.setRightViewOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO
+                new MaterialDialog.Builder(InvitationActivity.this)
+                        .items(R.array.sports)
+                        .itemsCallback(new MaterialDialog.ListCallback() {
+                            @Override
+                            public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+
+                            }
+                        })
+                        .show();
             }
         });
     }
 
-    private void initRecyclerView() {
-        mRecyclerView = (RecyclerView) findViewById(R.id.activity_my_focus_recyclerview);
-        mAdapter = new MyFocusRecyclerViewAdapter(this);
-        mAdapter.setExpend(visible);//设置时间右边的expend箭头是否显示 我发起的界面显示，其他界面不显示
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mAdapter);
-
+    @Override
+    public void loadDataFailure() {
+        SnackbarUtils.show(mRoot, "获取数据失败，请检查网络", 0, null);
     }
+
+
 }

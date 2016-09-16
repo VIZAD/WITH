@@ -8,8 +8,6 @@ public class APIConstant {
 
    //---------------------------------------------------------邀约活动模块---------------------------------------------------------------------
     public static final String INVITATION_GETINVITATIONS           = "invitation/getInvitations";//获取邀约列表
-    public static final String INVITATION_GETCONCERNEDINVITATIONS  = "invitation/getConcernedInvitations";//获取我的关注邀约列表
-    public static final String INVITATION_GETINVITATION            = "invitation/getInvitation";//获取某个邀约详情
     public static final String INVITATION_PUBLISHINVITATION        = "invitation/publishInvitation";//发起邀约
     public static final String INVITAION_ALTERINVITATION           = "invitation/alterInvitation";//维护、修改邀约
     public static final String INVITAION_PARTICIPATEINVITATION     = "invitation/participateInvitation";//参加邀约

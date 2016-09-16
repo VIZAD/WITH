@@ -8,24 +8,17 @@ public class APIConstant {
 
    //---------------------------------------------------------邀约活动模块---------------------------------------------------------------------
     public static final String INVITATION_GETINVITATIONS           = "invitation/getInvitations";//获取邀约列表
-    public static final String INVITATION_GETCONCERNEDINVITATIONS  = "invitation/getConcernedInvitations";//获取我的关注邀约列表
-    public static final String INVITATION_GETINVITATION            = "invitation/getInvitation";//获取某个邀约详情
     public static final String INVITATION_PUBLISHINVITATION        = "invitation/publishInvitation";//发起邀约
     public static final String INVITAION_ALTERINVITATION           = "invitation/alterInvitation";//维护、修改邀约
-    public static final String INVITAION_PARTICIPATEINVITATION     = "invitation/participateInvitation";//参加邀约
-    public static final String INVITAION_GETPARTICIPATORS          = "invitation/getParticipators";//获取某个邀约所有参与人信息列表
-    public static final String INVITATION_APPLYINVITATION          = "invitation/applyInvitation";//申请加入特批
+    public static final String INVITAION_PARTICIPATEINVITATION     = "invitation/participateInvitation";//参加邀约/申请加入特批
     public static final String INVITATION_DELETEINVITATION         = "invitation/deleteInvitation";//删除指定邀约
     public static final String INVITATION_GETCONCERNEDUSERS        = "invitation/getConcernedUsers";//获取我关注的用户列表
-    public static final String INVITATION_CONCERNUSER              = "invitation/concernUser";//关注某用户
-    public static final String INVITATION_CANCELCONCERNUSER        = "invitation/cancelConcernUser";//取消关注某用户/
+    public static final String INVITATION_CONCERNUSER              = "invitation/concernUser";//关注/取消关注某用户
 
     //---------------------------------------------------------坚持模块---------------------------------------------------------------------
-    public static final String KEEP_GETTASKS         = "keep/getTasks";//获取任务列表
-    public static final String KEEP_GETTASKCOUNT     = "keep/getTaskCount";//获取当前正在进行的任务数量
+    public static final String KEEP_GETTASKS         = "keep/getTasks";//获取任务列表(正在进行的任务和过去的任务)
     public static final String KEEP_CREATETASK       = "keep/createTask";//新建任务
-    public static final String KEEP_GETTASKMESSAGE   = "keep/getTaskMessage";//获取某任务指定日期的相关信息
-    public static final String KEEP_GETCANLENDAR     = "keep/getCanlendar";//获取某个任务的指定日期的日历信息(返回这个月的哪些天打卡)
+    public static final String KEEP_GETTASKMESSAGE   = "keep/getTaskMessage";//获取某任务指定某月份下的所有相关信息
     public static final String KEEP_SIGNIN           = "keep/signIn ";//打卡签到
     public static final String KEEP_EDITTASKMESSAGE  = "keep/editTaskMessage";//打卡编辑
 

@@ -2,6 +2,8 @@ package com.example.vizax.with.ui.demo;
 
 import com.example.vizax.with.base.BasePresenter;
 import com.example.vizax.with.base.BaseView;
+import com.zhy.http.okhttp.callback.StringCallback;
+import com.zhy.http.okhttp.request.RequestCall;
 
 /**
  * 创建一个公共的接口。将view层和presenter的接口囊括其中
@@ -26,9 +28,12 @@ public interface DemoContact {
         void loginFailure(String Error);
     }
 
+    interface DemoIModle{
+        void login(String username, String password,StringCallback stringCallback);
+    }
+
     //Presenter操作接口，自己定义一个Presenter实现该接口
     interface Presenter extends BasePresenter<View>{
         void login(String username,String password);
     }
-
 }

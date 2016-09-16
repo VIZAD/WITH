@@ -12,7 +12,7 @@
         <item name="android:textColorPrimary">@color/black</item>
         <!--背景色-->
         <item name="android:windowBackground">@color/white</item>
-
+        <item name="android:windowIsTranslucent">true</item>
         <!--android:colorPrimaryDark 应用的主要暗色调，statusBarColor默认使用该颜色
         android:statusBarColor 状态栏颜色，默认使用colorPrimaryDark
         android:colorPrimary 应用的主要色调，actionBar默认使用该颜色
@@ -28,6 +28,10 @@
         android:textColor Button，textView的文字颜色
         android:textColorPrimaryDisableOnly RadioButton checkbox等控件的文字
         android:textColorPrimary 应用的主要文字颜色，actionBar的标题文字默认使用该颜色-->
+    </style>
+
+    <style name="TransparentTheme" parent="AppTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
     <!--通用工具栏-->
@@ -68,5 +72,10 @@
 
     <style name="SwipeBackLayout">
         <item name="edge_size">0dp</item>
+    </style>
+    <!-- 设置dialog弹出，退出动画 -->
+    <style name="dialogWindowAnim" parent="android:Animation" mce_bogus="1">
+                <item name="android:windowEnterAnimation">@anim/dialog_open</item>
+                <item name="android:windowExitAnimation">@anim/dialog_close</item>
     </style>
 </resources>

@@ -1,7 +1,9 @@
 package com.example.vizax.with.util;
 
 import android.animation.Animator;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import io.codetail.animation.ViewAnimationUtils;
@@ -60,5 +62,32 @@ public class AnimationUtil {
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
         animator.setDuration(Duration);
         return animator;
+    }
+
+    public static void showCircularReveal(View view,int MultipleRadius,int Duration){
+
+        view.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                view.getViewTreeObserver().removeOnPreDrawListener(this);
+                Animator animator = AnimationUtil.getCircularReveal(view, MultipleRadius, Duration);
+                animator.start();
+                return true;
+            }
+        });
+
+    }
+
+    public static void showCircularReveal(View view,int centerX,int centerY,int MultipleRadius,int Duration){
+
+        view.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                view.getViewTreeObserver().removeOnPreDrawListener(this);
+                Animator animator = AnimationUtil.getCircularReveal(view, centerX, centerY, MultipleRadius, Duration);
+                animator.start();
+                return true;
+            }
+        });
     }
 }

@@ -22,12 +22,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".ui.MainActivity"/>
+        <activity android:name=".ui.Insist.InsistActivity"/>
+
+        <activity android:name=".ui.demo.DemoSwipBackActivity" android:theme="@style/TransparentTheme"/>
     </application>
 
 </manifest>

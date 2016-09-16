@@ -1,17 +1,17 @@
 package com.example.vizax.with.ui.demo;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.example.vizax.with.bean.BaseBean;
+import com.example.vizax.with.bean.Test;
 import com.example.vizax.with.bean.User;
 import com.example.vizax.with.constant.APIConstant;
 import com.example.vizax.with.util.GsonUtil;
-import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import okhttp3.Call;
-import rx.Subscription;
 
 /**
  * Created by prj on 2016/9/14.
@@ -33,6 +33,28 @@ public class DemoPresenter implements DemoContact.Presenter {
     public void login(String username, String password) {
 
         demoView.showLoading();
+
+        OkHttpUtils.post()
+                .url(APIConstant.getApi(APIConstant.INVITATION_GETCONCERNEDUSERS ))
+                .addParams("token","111")
+                .addParams("typeId","111")
+                .addParams("userId","111")
+                .addParams("lastInvitationId","111")
+                .addParams("limit","111")
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        //获取的data如果是list类型的话，调用该方法。否则调用下面的方法
+                        Test test = GsonUtil.toListString(response,Test.class);
+                        Log.w("haha",test.getData().get(0).getHeadUrl());
+                    }
+                });
 
         /*Okhttp的post请求，传入url、参数、然后执行回调接口
         Okhttp结合回调写起来代码有点长

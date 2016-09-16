@@ -73,4 +73,9 @@
     <style name="SwipeBackLayout">
         <item name="edge_size">0dp</item>
     </style>
+    <!-- 设置dialog弹出，退出动画 -->
+    <style name="dialogWindowAnim" parent="android:Animation" mce_bogus="1">
+                <item name="android:windowEnterAnimation">@anim/dialog_open</item>
+                <item name="android:windowExitAnimation">@anim/dialog_close</item>
+    </style>
 </resources>

@@ -61,6 +61,12 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+            <Button
+                android:text="日历入口test"
+                android:id="@+id/calendarView_enter"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </android.support.v7.widget.ButtonBarLayout>
     </LinearLayout>
 

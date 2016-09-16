@@ -23,6 +23,7 @@
         </activity>
 
         <activity android:name=".ui.MainActivity"/>
+        <activity android:name=".ui.Insist.InsistActivity"/>
 
         <activity android:name=".ui.demo.DemoSwipBackActivity" android:theme="@style/TransparentTheme"/>
     </application>

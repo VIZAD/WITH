@@ -14,6 +14,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.R;
 import com.example.vizax.with.base.BaseActivity;
 import com.example.vizax.with.customView.BaseToolBar;
+import com.example.vizax.with.ui.Insist.InsistActivity;
 import com.example.vizax.with.util.AnimationUtil;
 import com.example.vizax.with.util.SnackbarUtils;
 import com.example.vizax.with.util.TextUtil;
@@ -119,5 +120,11 @@ public class DemoActivity extends BaseActivity implements DemoContact.View {
     @OnClick(R.id.demo_commit_btn)
     public void onClick() {
         mPresenter.login(TextUtil.getText(demoUsernameEdtTxt),TextUtil.getText(demoPasswordEdtTxt));
+    }
+
+    @OnClick(R.id.calendarView_enter)
+    public void enter() {
+        Intent intent = new Intent(this, InsistActivity.class);
+        startActivity(intent);
     }
 }

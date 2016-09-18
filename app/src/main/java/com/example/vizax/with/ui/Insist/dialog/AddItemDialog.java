@@ -123,7 +123,7 @@ public class AddItemDialog extends Dialog implements NumberPicker.OnValueChangeL
         //DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
         //lp.alpha = 0.5f;
         setCanceledOnTouchOutside(true);
-        lp.height = 600;
+        lp.height = 780;
         lp.width = 1000;
         //lp.alpha = 0.6f;
         //lp.dimAmount = 0.7f;

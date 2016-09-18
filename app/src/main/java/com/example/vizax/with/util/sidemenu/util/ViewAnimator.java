@@ -43,6 +43,7 @@ public class ViewAnimator<T extends Resourceble> {
     private ViewAnimatorListener animatorListener;
     private InsistPresenter mPresenter;
     private SharedPreferences sp;
+    private int mClicked=-1;
 
     public ViewAnimator(Activity activity, List<T> items, ScreenShotable screenShotable, final DrawerLayout drawerLayout, ViewAnimatorListener animatorListener){
         this.activity = activity;
@@ -85,7 +86,7 @@ public class ViewAnimator<T extends Resourceble> {
                     //System.out.println("图片Resources = "+((DraweeView) viewMenu.findViewById(R.id.menu_item_image)).getResources()+" close = "+R.drawable.icn_close);
                     if(list.get(finalI).getImageRes()!= R.drawable.icn_close&&list.get(finalI).getImageRes()!= R.drawable.icn_add) {
                         switchItem(list.get(finalI), location[1] + v.getHeight() / 2);
-
+                        mClicked = finalI;
                         System.out.println("click item");
                     }
                     else if (list.get(finalI).getImageRes()== R.drawable.icn_add) {
@@ -150,8 +151,13 @@ public class ViewAnimator<T extends Resourceble> {
                 }
             });
 
-
-            ((DraweeView) viewMenu.findViewById(R.id.menu_item_image)).setImageResource(mList.get(i).getImageRes());
+            if (mClicked==finalI) {
+                (viewMenu.findViewById(R.id.menu_item_container)).setBackgroundResource(R.drawable.buttonshape_down);
+                ((DraweeView) viewMenu.findViewById(R.id.menu_item_image)).setImageResource(mList.get(i).getImageRes());
+            } else {
+                ((DraweeView) viewMenu.findViewById(R.id.menu_item_image)).setImageResource(mList.get(i).getImageRes());
+                System.out.println("height = "+(viewMenu.findViewById(R.id.menu_item_container)).getHeight());
+            }
             SlideMenuItem close = new SlideMenuItem(list.get(finalI).getName(),mList.get(finalI).getImageRes());
             list.set(finalI,(T)close);
             System.out.println("RC_list =" +(mList.get(i).getImageRes()));

@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.vizax.with.R;
@@ -37,6 +38,8 @@ public class AddItemDialog extends Dialog implements NumberPicker.OnValueChangeL
     EditText EdtTxt_title;
     @BindView(R.id.mission_content)
     EditText EdtTxt_content;
+    @BindView(R.id.mission_add_focus_txt)
+    TextView TxtVi_content;
     public String title;
     public String content;
 
@@ -83,8 +86,9 @@ public class AddItemDialog extends Dialog implements NumberPicker.OnValueChangeL
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.add_item_dialog, null);
         setContentView(view);
-
         ButterKnife.bind(this);
+        TxtVi_content.setFocusable(true);
+        TxtVi_content.setFocusableInTouchMode(true);
         title = EdtTxt_title.getText().toString();
         content = EdtTxt_content.getText().toString();
         mRcyVi = (RecyclerView) view.findViewById(R.id.insist_ic_bg_rcyVi);
@@ -123,7 +127,7 @@ public class AddItemDialog extends Dialog implements NumberPicker.OnValueChangeL
         //DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
         //lp.alpha = 0.5f;
         setCanceledOnTouchOutside(true);
-        lp.height = 600;
+        lp.height = 780;
         lp.width = 1000;
         //lp.alpha = 0.6f;
         //lp.dimAmount = 0.7f;

@@ -30,10 +30,9 @@ public class ContentFragment extends Fragment implements ScreenShotable {
     protected ImageView mImageView;
     protected LinearLayout mLinearLayout_head;
     protected LinearLayout mLinearLayout_foot;
-    protected int res;
-    protected int color_cl;
-    protected int color_mi;
-    private Bitmap bitmap;
+    protected int mColor_cl;
+    protected int mColor_mi;
+    private Bitmap mBitmap;
 
     public static ContentFragment newInstance(int color_cl,int color_mi) {
         ContentFragment contentFragment = new ContentFragment();
@@ -56,25 +55,25 @@ public class ContentFragment extends Fragment implements ScreenShotable {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //res = getArguments().getInt(Integer.class.getName());
-        color_cl = getArguments().getInt("color_cl");
-        color_mi = getArguments().getInt("color_mi");
+        mColor_cl = getArguments().getInt("color_cl");
+        mColor_mi = getArguments().getInt("color_mi");
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_insist, container, false);
 
 //        mImageView = (ImageView) rootView.findViewById(R.id.image_content);
 //        mImageView.setClickable(true);
 //        mImageView.setFocusable(true);
 //        mImageView.setImageResource(res);
         mLinearLayout_head = (LinearLayout) rootView.findViewById(R.id.head_linear);
-        mLinearLayout_head.setBackgroundColor(color_cl);
+        mLinearLayout_head.setBackgroundColor(mColor_cl);
         mLinearLayout_foot = (LinearLayout) rootView.findViewById(R.id.foot_linear);
-        mLinearLayout_foot.setBackgroundColor(color_mi);
-        System.out.println("create view color_cl = "+color_cl+" color_mi = " +color_mi);
+        mLinearLayout_foot.setBackgroundColor(mColor_mi);
+        System.out.println("create view color_cl = "+mColor_cl+" color_mi = " +mColor_mi);
         return rootView;
     }
 
@@ -87,8 +86,8 @@ public class ContentFragment extends Fragment implements ScreenShotable {
                         containerView.getHeight(), Bitmap.Config.ARGB_8888);
                 Canvas canvas = new Canvas(bitmap);
                 containerView.draw(canvas);
-                ContentFragment.this.bitmap = bitmap;
-                System.out.println("takeScreenShot");
+                ContentFragment.this.mBitmap = bitmap;
+                System.out.println("takeScreenShot"+containerView.getWidth()+"height = "+containerView.getHeight());
             }
         };
 
@@ -98,7 +97,7 @@ public class ContentFragment extends Fragment implements ScreenShotable {
 
     @Override
     public Bitmap getBitmap() {
-        return bitmap;
+        return mBitmap;
     }
 }
 

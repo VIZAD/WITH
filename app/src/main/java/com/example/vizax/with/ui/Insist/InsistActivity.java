@@ -6,38 +6,33 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.vizax.with.R;
 
 import com.example.vizax.with.base.BaseActivity;
 import com.example.vizax.with.bean.Misson;
 import com.example.vizax.with.bean.TaskMsg;
 import com.example.vizax.with.customView.BaseToolBar;
-import com.example.vizax.with.ui.Insist.ContentFragment;
 import com.example.vizax.with.ui.Insist.decorators.EventDecorator;
 import com.example.vizax.with.ui.Insist.decorators.EventDocDecorator;
 import com.example.vizax.with.ui.Insist.decorators.HighlightWeekendsDecorator;
 import com.example.vizax.with.ui.Insist.decorators.ToDayDecorator;
 import com.example.vizax.with.ui.Insist.dialog.DateDialog;
+import com.example.vizax.with.util.AnimationUtil;
 import com.example.vizax.with.util.sidemenu.interfaces.Resourceble;
 import com.example.vizax.with.util.sidemenu.interfaces.ScreenShotable;
 import com.example.vizax.with.util.sidemenu.model.SlideMenuItem;
@@ -52,7 +47,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.Executors;
 
 import butterknife.*;
 import butterknife.ButterKnife;
@@ -61,41 +55,24 @@ import butterknife.OnClick;
 
 public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAnimatorListener,OnDateSelectedListener,OnMonthChangedListener,InsistContact.View {
     private ActionBarDrawerToggle drawerToggle;
-    private List<SlideMenuItem> list = new ArrayList<>();
+    private List<SlideMenuItem> mList = new ArrayList<>();
     private ArrayList<String> mRemark_txt = new ArrayList<>();
     private ContentFragment contentFragment;
-    private ViewAnimator viewAnimator;
+    private ViewAnimator mViewAnimator;
    // private int ripple = R.drawable.ripple_bg;
     private InsistPresenter mPresenter;
     private String INSIST = "签到";
     //Resources.getSystem().getColor(R.color.bg_calendar_1);
-    private int year;
-    private int color_calender ;
-    private int color1_calender;
-    private int color2_calender;
-    private int color3_calender;
-    private int color4_calender;
-    private int color5_calender;
-    private int color_mission;
-    private int color1_mission;
-    private int color2_mission;
-    private int color3_mission;
-    private int color4_mission;
-    private int color5_mission;
-    private int color1_mood;
-    private int color2_mood;
-    private int color3_mood;
-    private int color4_mood;
-    private int color5_mood;
+    private InsistColor mInsistColor;
     private ToDayDecorator toDayDecorator = new ToDayDecorator();
     private static final DateFormat FORMATTER = SimpleDateFormat.getDateInstance();
     private SharedPreferences sp;
 
     @BindView(R.id.calendarView)
-    MaterialCalendarView widget;
+    MaterialCalendarView mMaterialCalendarView;
 
     @BindView(R.id.insist_scrollView)
-    ScrollView scrVi;
+    ScrollView mScrVi;
 
     @BindView(R.id.title_id)
     TextView mTxtVi_title;
@@ -110,17 +87,17 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     DrawerLayout mDrawerLayout;
 
     @BindView(R.id.left_drawer)
-    LinearLayout linearLayout;
+    LinearLayout mLinearLayout;
 
     @BindView(R.id.insist_baseToolBar)
-    BaseToolBar toolBar;
+    BaseToolBar mToolBar;
 
     @BindView(R.id.content_frame)
-    View view;
+    View mView;
 
     @Override
     protected int initContentView() {
-        return R.layout.insist_main;
+        return R.layout.activity_insist;
     }
 
     @Override
@@ -131,52 +108,42 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     @Override
     public void initUiAndListener() {
         ButterKnife.bind(this);
-        color_calender = getResources().getColor(R.color.insist_calendar_bg1);
-        color_mission = getResources().getColor(R.color.insist_mission_btn1);
-        contentFragment = ContentFragment.newInstance(color_calender,color1_mission);
+        mInsistColor =  new InsistColor(this);
+        contentFragment = ContentFragment.newInstance(mInsistColor.COLOR_CALENDER,mInsistColor.COLOR_CALENDER);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, contentFragment)
                 .commit();
         mDrawerLayout.setScrimColor(Color.TRANSPARENT);
-        linearLayout.setOnClickListener(new View.OnClickListener() {
+        mLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mDrawerLayout.closeDrawers();
             }
         });
-        viewAnimator = new ViewAnimator(this, list, contentFragment, mDrawerLayout, this);
-        widget.setOnDateChangedListener(this);
-        widget.setOnMonthChangedListener(this);
-        widget.addDecorators(
+        mViewAnimator = new ViewAnimator(this, mList, contentFragment, mDrawerLayout, this);
+        mMaterialCalendarView.setOnDateChangedListener(this);
+        mMaterialCalendarView.setOnMonthChangedListener(this);
+        mMaterialCalendarView.addDecorators(
                 //new MySelectorDecorator(this),
                 new HighlightWeekendsDecorator()
                 //toDayDecorator
-
         );
-
-        color1_calender = getResources().getColor(R.color.insist_calendar_bg1);
-        color2_calender = getResources().getColor(R.color.insist_calendar_bg2);
-        color3_calender = getResources().getColor(R.color.insist_calendar_bg3);
-        color4_calender = getResources().getColor(R.color.insist_calendar_bg4);
-        color5_calender = getResources().getColor(R.color.insist_calendar_bg5);
-        color1_mission = getResources().getColor(R.color.insist_mission_btn1);
-        color2_mission = getResources().getColor(R.color.insist_mission_btn2);
-        color3_mission = getResources().getColor(R.color.insist_mission_btn3);
-        color4_mission = getResources().getColor(R.color.insist_mission_btn4);
-        color5_mission = getResources().getColor(R.color.insist_mission_btn5);
-        color1_mood = getResources().getColor(R.color.insist_mood_bg1);
-        color2_mood = getResources().getColor(R.color.insist_mood_bg2);
-        color3_mood = getResources().getColor(R.color.insist_mood_bg3);
-        color4_mood = getResources().getColor(R.color.insist_mood_bg4);
-        color5_mood = getResources().getColor(R.color.insist_mood_bg5);
-
         mPresenter = new InsistPresenter();
         mPresenter.attachView(this);
         setActionBar();
         createMenuList();
         mPresenter.getTask();
+        //暂时使用假数据
         mPresenter.TaskMessages("2016-10-1 9:20:21","1");
+        AnimationUtil.showCircularReveal(mView,2,1000);
 
+        DisplayMetrics metric = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metric);
+        int width = metric.widthPixels;     // 屏幕宽度（像素）
+        int height = metric.heightPixels;   // 屏幕高度（像素）
+        float density = metric.density;      // 屏幕密度（0.75 / 1.0 / 1.5）
+        int densityDpi = metric.densityDpi;  // 屏幕密度DPI（120 / 160 / 240)
+        System.out.println("width = "+width+" height = "+height+" density = "+density + "densityDpi ="+densityDpi);
     }
 
     @Override
@@ -185,30 +152,30 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     }
 
     private void createMenuList() {
+        //侧滑ITEM的初始化
         SlideMenuItem menuItem0 = new SlideMenuItem(ContentFragment.CLOSE, R.drawable.icn_add);
-        list.add(menuItem0);
+        mList.add(menuItem0);
         SlideMenuItem menuItem = new SlideMenuItem(ContentFragment.BUILDING, R.drawable.icn_add);
-        list.add(menuItem);
+        mList.add(menuItem);
         SlideMenuItem menuItem2 = new SlideMenuItem(ContentFragment.BOOK, R.drawable.icn_add);
-        list.add(menuItem2);
+        mList.add(menuItem2);
         SlideMenuItem menuItem3 = new SlideMenuItem(ContentFragment.PAINT, R.drawable.icn_add);
-        list.add(menuItem3);
+        mList.add(menuItem3);
         SlideMenuItem menuItem4 = new SlideMenuItem(ContentFragment.CASE, R.drawable.icn_add);
-        list.add(menuItem4);
+        mList.add(menuItem4);
         System.out.println("setList");
-        //模拟数据
     }
 
     private void setActionBar() {
 
-        setSupportActionBar(toolBar);
+        setSupportActionBar(mToolBar);
         getSupportActionBar().setHomeButtonEnabled(true);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         drawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
                 mDrawerLayout,         /* DrawerLayout object */
-                toolBar,  /* nav drawer icon to replace 'Up' caret */
+                mToolBar,  /* nav drawer icon to replace 'Up' caret */
                 R.string.drawer_open,  /* "open drawer" description */
                 R.string.drawer_close  /* "close drawer" description */
         ) {
@@ -216,15 +183,15 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                linearLayout.removeAllViews();
-                linearLayout.invalidate();
+                mLinearLayout.removeAllViews();
+                mLinearLayout.invalidate();
             }
 
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
-                if (slideOffset > 0.6 && linearLayout.getChildCount() == 0)
-                    viewAnimator.showMenuContent();
+                if (slideOffset > 0.6 && mLinearLayout.getChildCount() == 0)
+                    mViewAnimator.showMenuContent();
                 //System.out.println("drawview = "+drawerView);
             }
 
@@ -236,19 +203,19 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
 
         mDrawerLayout.setDrawerListener(drawerToggle);
 
-        toolBar.setCenterViewOnClickListener(new View.OnClickListener() {
+        mToolBar.setCenterViewOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mDrawerLayout.openDrawer(scrVi);
+                mDrawerLayout.openDrawer(mScrVi);
             }
         });
-        toolBar.setLeftViewOnClickListener(new View.OnClickListener() {
+        mToolBar.setLeftViewOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 InsistActivity.this.finish();
             }
         });
-        toolBar.setRightViewOnClickListener(new View.OnClickListener() {
+        mToolBar.setRightViewOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 tick();
@@ -273,11 +240,10 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         //测试
         //this.color = this.color == color1?color2:color1;
         //
-
-        int finalRadius = Math.max(view.getWidth(), view.getHeight());
+        int finalRadius = Math.max(mView.getWidth(), mView.getHeight());
         Animator animator = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            animator = ViewAnimationUtils.createCircularReveal(view, 0, topPosition, 0, finalRadius);
+            animator = ViewAnimationUtils.createCircularReveal(mView, 0, topPosition, 0, finalRadius);
         }
         animator.setInterpolator(new AccelerateInterpolator());
         animator.setDuration(ViewAnimator.CIRCULAR_REVEAL_ANIMATION_DURATION);
@@ -301,17 +267,17 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         switch (slideMenuItem.getName()) {
             case ContentFragment.CLOSE:
                 //// TODO: 2016/09/16
-                return replaceFragment(screenShotable, position,color1_calender,color1_mission,color1_mood);
+                return replaceFragment(screenShotable, position,mInsistColor.COLOR1_CALENDER,mInsistColor.COLOR1_MISSION,mInsistColor.COLOR1_MOOD);
             case ContentFragment.BUILDING:
-                return replaceFragment(screenShotable, position,color2_calender,color2_mission,color2_mood);
+                return replaceFragment(screenShotable, position,mInsistColor.COLOR2_CALENDER,mInsistColor.COLOR2_MISSION,mInsistColor.COLOR2_MOOD);
             case ContentFragment.BOOK:
-                return replaceFragment(screenShotable, position,color3_calender,color3_mission,color3_mood);
+                return replaceFragment(screenShotable, position,mInsistColor.COLOR3_CALENDER,mInsistColor.COLOR3_MISSION,mInsistColor.COLOR3_MOOD);
             case ContentFragment.PAINT:
-                return replaceFragment(screenShotable, position,color4_calender,color4_mission,color4_mood);
+                return replaceFragment(screenShotable, position,mInsistColor.COLOR4_CALENDER,mInsistColor.COLOR4_MISSION,mInsistColor.COLOR4_MOOD);
             case ContentFragment.CASE:
-                return replaceFragment(screenShotable, position,color5_calender,color5_mission,color5_mood);
+                return replaceFragment(screenShotable, position,mInsistColor.COLOR5_CALENDER,mInsistColor.COLOR5_MISSION,mInsistColor.COLOR5_MOOD);
             default:
-                return replaceFragment(screenShotable, position,color_calender,color1_mission,color1_mood);
+                return replaceFragment(screenShotable, position,mInsistColor.COLOR1_CALENDER,mInsistColor.COLOR1_MISSION,mInsistColor.COLOR1_MOOD);
         }
     }
 
@@ -330,7 +296,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
 
     @Override
     public void addViewToContainer(View view) {
-        linearLayout.addView(view);
+        mLinearLayout.addView(view);
     }
 
     @Override
@@ -352,8 +318,8 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     public void tick(){
         //this.ripple = this.ripple== R.drawable.ripple_bg ? R.drawable.rippled_bg:R.drawable.ripple_bg;
         //this.INSIST = this.INSIST.equals("签到")?"已签到":"签到";
-        toolBar.setRightIcon(R.drawable.back_ic);
-        toolBar.setRightViewEnable(false);
+        mToolBar.setRightIcon(R.drawable.back_ic);
+        mToolBar.setRightViewEnable(false);
         System.out.println("onclick");
         toDayDecorator = new ToDayDecorator();
         runnable.run();
@@ -379,7 +345,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
                 year = confirmDialog.yearPicker.getValue();
                 month = confirmDialog.monthPicker.getValue();
                 cl = CalendarDay.from(year,month-1,1);
-                widget.setCurrentDate(cl);
+                mMaterialCalendarView.setCurrentDate(cl);
                 // TODO Auto-generated method stub
                 confirmDialog.dismiss();
                 //toUserHome(context);
@@ -452,8 +418,8 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
 
                 calendar.add(Calendar.DATE, 1);
             }
-            widget.addDecorator(new EventDecorator(Color.RED, dates));
-            widget.addDecorator(new EventDocDecorator(Color.RED, dates_remark));
+            mMaterialCalendarView.addDecorator(new EventDecorator(Color.RED, dates));
+            mMaterialCalendarView.addDecorator(new EventDocDecorator(Color.RED, dates_remark));
         }
 
 
@@ -462,7 +428,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            widget.addDecorators(
+            mMaterialCalendarView.addDecorators(
                     //new MySelectorDecorator(this),
                     //new HighlightWeekendsDecorator(),
                     toDayDecorator
@@ -475,10 +441,10 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         @Override
         public void run() {
             CalendarDay calendarDay = CalendarDay.today();
-            widget.removeDecorators();
-            widget.clearSelection();
-            widget.setCurrentDate(calendarDay);
-            widget.addDecorators(
+            mMaterialCalendarView.removeDecorators();
+            mMaterialCalendarView.clearSelection();
+            mMaterialCalendarView.setCurrentDate(calendarDay);
+            mMaterialCalendarView.addDecorators(
                     //new MySelectorDecorator(this),
                     new HighlightWeekendsDecorator()
                     //toDayDecorator

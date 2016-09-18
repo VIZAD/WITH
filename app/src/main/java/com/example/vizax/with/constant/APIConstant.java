@@ -35,6 +35,8 @@ public class APIConstant {
     public static final String USER_GETUSERINFO               = "user/getUserInfo";//获取指定用户的信息
     public static final String USER_CHANGPASSWORD             = "user/changPassword";//密码修改
 
+ //---------------------------------------------------------邀约活动模块---------------------------------------------------------------------
+    public static final String HOME_INVITATION_GETINVITATIONS           = "invitation/getInvitations";//获取邀约列表
 
     public static String getApi(String url){
         return WITH_BASE+url;

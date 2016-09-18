@@ -1,13 +1,14 @@
 package com.example.vizax.with.bean;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.google.gson.annotations.Expose;
+
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/9/16.
+ * Created by Administrator on 2016/9/17.
  */
-
-public class Test {
-
+public class HomeInvitationBean{
 
     /**
      * data : [{"originatorHeadUrl":"image/head.png","menbersUrl":"image/head1.png,image/head2.png","invitationTime":"2016-9-8 19:33","publishTime":"2016-9-8 19:33","originatorNickname":"阿道克","iconUrl":"icon/icon1.png","invitaionId":1,"currentNumber":2,"sexRequire":"只要女生","content":"我们将迎来本学期一场狼人杀比赛","title":"狼人杀","totalNumber":16,"place":"中巴","members":[{"sex":"男","phone":1562261234,"userId":"1","realName":"潘大爷","headUrl":"image/head.png"}],"isJoin":true}]
@@ -35,7 +36,7 @@ public class Test {
      * isJoin : true
      */
 
-    private List<DataBean> data;
+    public List<DataBean> data;
 
     public int getCode() {
         return code;
@@ -61,9 +62,49 @@ public class Test {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean extends MultiItemEntity {
+        public static final int HOME_HEAD=1;
+        public static final int HOME_OTHER=2;
+
+        private transient int itemType;
+        public DataBean(int itemType, String content) {
+            this.itemType = itemType;
+        }
+
+        public DataBean(int itemType) {
+            this.itemType = itemType;
+        }
+
+        public void setItemType(int itemType){
+            this.itemType=itemType;
+        }
+        @Override
+        public int getItemType() {
+            return itemType;
+        }
+
+
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "originatorHeadUrl='" + originatorHeadUrl + '\'' +
+                    ", invitationTime='" + invitationTime + '\'' +
+                    ", publishTime='" + publishTime + '\'' +
+                    ", originatorNickname='" + originatorNickname + '\'' +
+                    ", iconUrl='" + iconUrl + '\'' +
+                    ", invitaionId=" + invitaionId +
+                    ", currentNumber=" + currentNumber +
+                    ", sexRequire='" + sexRequire + '\'' +
+                    ", content='" + content + '\'' +
+                    ", title='" + title + '\'' +
+                    ", totalNumber=" + totalNumber +
+                    ", place='" + place + '\'' +
+                    ", isJoin=" + isJoin +
+                    ", members=" + members +
+                    '}';
+        }
+
         private String originatorHeadUrl;
-        private String menbersUrl;
         private String invitationTime;
         private String publishTime;
         private String originatorNickname;
@@ -92,14 +133,6 @@ public class Test {
 
         public void setOriginatorHeadUrl(String originatorHeadUrl) {
             this.originatorHeadUrl = originatorHeadUrl;
-        }
-
-        public String getMenbersUrl() {
-            return menbersUrl;
-        }
-
-        public void setMenbersUrl(String menbersUrl) {
-            this.menbersUrl = menbersUrl;
         }
 
         public String getInvitationTime() {
@@ -206,7 +239,7 @@ public class Test {
             this.members = members;
         }
 
-        public static class MembersBean {
+        public static class MembersBean extends MultiItemEntity {
             private String sex;
             private int phone;
             private String userId;

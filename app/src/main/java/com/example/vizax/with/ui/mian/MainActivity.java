@@ -1,4 +1,4 @@
-package com.example.vizax.with.ui;
+package com.example.vizax.with.ui.mian;
 
 import com.example.vizax.with.R;
 import com.example.vizax.with.base.BaseActivity;

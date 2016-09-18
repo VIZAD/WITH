@@ -70,7 +70,7 @@ public class InvitationActivity extends AppCompatActivity implements InvitationV
             @Override
             public void onClick(View view) {
                 new MaterialDialog.Builder(InvitationActivity.this)
-                        .items(R.array.sports)
+                        //.items(R.array.sports)
                         .itemsCallback(new MaterialDialog.ListCallback() {
                             @Override
                             public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {

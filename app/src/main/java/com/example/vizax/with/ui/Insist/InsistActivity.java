@@ -28,6 +28,7 @@ import com.example.vizax.with.ui.Insist.decorators.EventDocDecorator;
 import com.example.vizax.with.ui.Insist.decorators.HighlightWeekendsDecorator;
 import com.example.vizax.with.ui.Insist.decorators.ToDayDecorator;
 import com.example.vizax.with.ui.Insist.dialog.DateDialog;
+import com.example.vizax.with.util.AnimationUtil;
 import com.example.vizax.with.util.sidemenu.interfaces.Resourceble;
 import com.example.vizax.with.util.sidemenu.interfaces.ScreenShotable;
 import com.example.vizax.with.util.sidemenu.model.SlideMenuItem;
@@ -130,6 +131,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         mPresenter.getTask();
         //暂时使用假数据
         mPresenter.TaskMessages("2016-10-1 9:20:21","1");
+        AnimationUtil.showCircularReveal(mView,2,2000);
     }
 
     @Override

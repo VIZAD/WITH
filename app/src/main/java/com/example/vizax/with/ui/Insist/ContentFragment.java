@@ -87,7 +87,7 @@ public class ContentFragment extends Fragment implements ScreenShotable {
                 Canvas canvas = new Canvas(bitmap);
                 containerView.draw(canvas);
                 ContentFragment.this.mBitmap = bitmap;
-                System.out.println("takeScreenShot");
+                System.out.println("takeScreenShot"+containerView.getWidth()+"height = "+containerView.getHeight());
             }
         };
 

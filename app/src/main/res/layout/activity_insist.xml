@@ -23,18 +23,22 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"/>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="30">
 
             <LinearLayout
                 android:id="@+id/insist_top_panel_ll"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="5"
                 android:orientation="vertical"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true">
+
                 <com.example.vizax.with.customView.BaseToolBar
                     app:centerText="坚持"
                     app:leftIcon="@drawable/ic_arrow_back_black_36dp"
@@ -59,91 +63,106 @@
                     />
 
 
-
             </LinearLayout>
             <RelativeLayout
-                android:layout_below="@id/insist_top_panel_ll"
-                android:id="@+id/insist_center_panel_rl"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="0dp"
+                android:layout_weight="25"
+                >
+                <RelativeLayout
+                    android:id="@+id/insist_center_panel_rl"
+                    android:layout_weight="19"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <Button
-                    android:id="@+id/set_date_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#00ffffff"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true" />
-                <com.example.vizax.with.customView.ReboundScrollView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true">
-                    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-                        android:id="@+id/calendarView"
+                    <Button
+                        android:id="@+id/set_date_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="#00ffffff"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true" />
+                    <com.example.vizax.with.customView.ReboundScrollView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true">
+                        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                            android:id="@+id/calendarView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
 
-                        />
-                </com.example.vizax.with.customView.ReboundScrollView>
+                            />
+                    </com.example.vizax.with.customView.ReboundScrollView>
 
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_below="@+id/insist_center_panel_rl"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/foot_bg_ll"
-                android:orientation="vertical"
-                >
-
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/foot_text_id"
-                        android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:id="@+id/foot_bg_ll"
+                    android:orientation="vertical"
+                    android:layout_below="@id/insist_center_panel_rl"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:text="每日备注：一天不早起，我浑身难受"
-                        android:inputType="text"
-                        android:textSize="13sp"
                         android:gravity="center"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="30dp"
-                        />
-                    <Button
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:text="编辑"
-                        android:textColor="@color/white"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        android:id="@+id/button"
-                        android:background="@color/colorPrimary"/>
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/foot_text_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/wheat"
+                            android:text="每日备注：一天不早起，我浑身难受"
+                            android:inputType="text"
+                            android:textSize="13sp"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="20dp"
+                            />
+                        <Button
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:text="编辑"
+                            android:textColor="@color/white"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:id="@+id/button"
+                            android:background="@color/colorPrimary"/>
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/center_panel_ll"
-               android:layout_above="@+id/foot_bg_ll">
-                <TextView
-                    android:id="@+id/center_text_id"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="一天不早起，我好难受啊"
-                    android:textSize="18sp"
-                    android:gravity="center"
-                    />
-            </LinearLayout>
+                    android:layout_weight="1"
+                    android:id="@+id/center_panel_ll"
+                    android:layout_above="@id/foot_bg_ll"
+                    >
+                    <TextView
+                        android:id="@+id/center_text_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/wheat"
+                        android:text="一天不早起，我好难受啊"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        />
+                </LinearLayout>
 
-        </RelativeLayout>
+            </RelativeLayout>
+
+
+
+
+
+
+        </LinearLayout>
 
     </io.codetail.widget.RevealFrameLayout>
 

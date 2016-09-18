@@ -105,7 +105,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     @Override
     public void initUiAndListener() {
         ButterKnife.bind(this);
-
+        mInsistColor =  new InsistColor(this);
         contentFragment = ContentFragment.newInstance(mInsistColor.COLOR_CALENDER,mInsistColor.COLOR_CALENDER);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, contentFragment)

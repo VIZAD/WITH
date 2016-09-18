@@ -59,23 +59,8 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     private String INSIST = "签到";
     //Resources.getSystem().getColor(R.color.bg_calendar_1);
     private int year;
-    private int color_calender ;
-    private int color1_calender;
-    private int color2_calender;
-    private int color3_calender;
-    private int color4_calender;
-    private int color5_calender;
-    private int color_mission;
-    private int color1_mission;
-    private int color2_mission;
-    private int color3_mission;
-    private int color4_mission;
-    private int color5_mission;
-    private int color1_mood;
-    private int color2_mood;
-    private int color3_mood;
-    private int color4_mood;
-    private int color5_mood;
+    private InsistColor mInsistColor;
+
     private ToDayDecorator toDayDecorator = new ToDayDecorator();
     private static final DateFormat FORMATTER = SimpleDateFormat.getDateInstance();
     private SharedPreferences sp;
@@ -120,9 +105,8 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     @Override
     public void initUiAndListener() {
         ButterKnife.bind(this);
-        color_calender = getResources().getColor(R.color.insist_calendar_bg1);
-        color_mission = getResources().getColor(R.color.insist_mission_btn1);
-        contentFragment = ContentFragment.newInstance(color_calender,color_mission);
+
+        contentFragment = ContentFragment.newInstance(mInsistColor.COLOR_CALENDER,mInsistColor.COLOR_CALENDER);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, contentFragment)
                 .commit();
@@ -142,22 +126,6 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
                 //toDayDecorator
 
         );
-
-        color1_calender = getResources().getColor(R.color.insist_calendar_bg1);
-        color2_calender = getResources().getColor(R.color.insist_calendar_bg2);
-        color3_calender = getResources().getColor(R.color.insist_calendar_bg3);
-        color4_calender = getResources().getColor(R.color.insist_calendar_bg4);
-        color5_calender = getResources().getColor(R.color.insist_calendar_bg5);
-        color1_mission = getResources().getColor(R.color.insist_mission_btn1);
-        color2_mission = getResources().getColor(R.color.insist_mission_btn2);
-        color3_mission = getResources().getColor(R.color.insist_mission_btn3);
-        color4_mission = getResources().getColor(R.color.insist_mission_btn4);
-        color5_mission = getResources().getColor(R.color.insist_mission_btn5);
-        color1_mood = getResources().getColor(R.color.insist_mood_bg1);
-        color2_mood = getResources().getColor(R.color.insist_mood_bg2);
-        color3_mood = getResources().getColor(R.color.insist_mood_bg3);
-        color4_mood = getResources().getColor(R.color.insist_mood_bg4);
-        color5_mood = getResources().getColor(R.color.insist_mood_bg5);
 
         mPresenter = new InsistPresenter();
         mPresenter.attachView(this);
@@ -290,17 +258,17 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         switch (slideMenuItem.getName()) {
             case ContentFragment.CLOSE:
                 //// TODO: 2016/09/16
-                return replaceFragment(screenShotable, position,color1_calender,color1_mission,color1_mood);
+                return replaceFragment(screenShotable, position,mInsistColor.COLOR1_CALENDER,mInsistColor.COLOR1_MISSION,mInsistColor.COLOR1_MOOD);
             case ContentFragment.BUILDING:
-                return replaceFragment(screenShotable, position,color2_calender,color2_mission,color2_mood);
+                return replaceFragment(screenShotable, position,mInsistColor.COLOR2_CALENDER,mInsistColor.COLOR2_MISSION,mInsistColor.COLOR2_MOOD);
             case ContentFragment.BOOK:
-                return replaceFragment(screenShotable, position,color3_calender,color3_mission,color3_mood);
+                return replaceFragment(screenShotable, position,mInsistColor.COLOR3_CALENDER,mInsistColor.COLOR3_MISSION,mInsistColor.COLOR3_MOOD);
             case ContentFragment.PAINT:
-                return replaceFragment(screenShotable, position,color4_calender,color4_mission,color4_mood);
+                return replaceFragment(screenShotable, position,mInsistColor.COLOR4_CALENDER,mInsistColor.COLOR4_MISSION,mInsistColor.COLOR4_MOOD);
             case ContentFragment.CASE:
-                return replaceFragment(screenShotable, position,color5_calender,color5_mission,color5_mood);
+                return replaceFragment(screenShotable, position,mInsistColor.COLOR5_CALENDER,mInsistColor.COLOR5_MISSION,mInsistColor.COLOR5_MOOD);
             default:
-                return replaceFragment(screenShotable, position,color_calender,color1_mission,color1_mood);
+                return replaceFragment(screenShotable, position,mInsistColor.COLOR1_CALENDER,mInsistColor.COLOR1_MISSION,mInsistColor.COLOR1_MOOD);
         }
     }
 

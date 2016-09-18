@@ -85,7 +85,8 @@ dependencies {
 
     //抽屉动画
     compile 'com.github.ozodrukh:CircularReveal:1.0.4'
-    //PhotoView
-    compile 'com.github.chrisbanes:PhotoView:1.3.0'
+
+    //滑动返回
+    compile 'me.imid.swipebacklayout.lib:library:1.0.0'
 
 }

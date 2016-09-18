@@ -10,8 +10,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -131,7 +135,15 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         mPresenter.getTask();
         //暂时使用假数据
         mPresenter.TaskMessages("2016-10-1 9:20:21","1");
-        AnimationUtil.showCircularReveal(mView,2,2000);
+        AnimationUtil.showCircularReveal(mView,2,1000);
+
+        DisplayMetrics metric = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metric);
+        int width = metric.widthPixels;     // 屏幕宽度（像素）
+        int height = metric.heightPixels;   // 屏幕高度（像素）
+        float density = metric.density;      // 屏幕密度（0.75 / 1.0 / 1.5）
+        int densityDpi = metric.densityDpi;  // 屏幕密度DPI（120 / 160 / 240)
+        System.out.println("width = "+width+" height = "+height+" density = "+density + "densityDpi ="+densityDpi);
     }
 
     @Override

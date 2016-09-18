@@ -122,7 +122,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         ButterKnife.bind(this);
         color_calender = getResources().getColor(R.color.insist_calendar_bg1);
         color_mission = getResources().getColor(R.color.insist_mission_btn1);
-        contentFragment = ContentFragment.newInstance(color_calender,color1_mission);
+        contentFragment = ContentFragment.newInstance(color_calender,color_mission);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, contentFragment)
                 .commit();

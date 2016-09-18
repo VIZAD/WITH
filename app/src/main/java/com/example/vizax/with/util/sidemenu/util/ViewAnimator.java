@@ -152,8 +152,8 @@ public class ViewAnimator<T extends Resourceble> {
             });
 
             if (mClicked==finalI) {
-                ((DraweeView) viewMenu.findViewById(R.id.menu_item_image)).setImageResource(mList.get(i).getImageRes());
                 ((DraweeView) viewMenu.findViewById(R.id.menu_item_image)).setBackgroundResource(R.drawable.item_down);
+                ((DraweeView) viewMenu.findViewById(R.id.menu_item_image)).setImageResource(mList.get(i).getImageRes());
             } else {
                 ((DraweeView) viewMenu.findViewById(R.id.menu_item_image)).setImageResource(mList.get(i).getImageRes());
             }

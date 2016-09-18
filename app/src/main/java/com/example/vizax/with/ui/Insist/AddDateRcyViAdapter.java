@@ -35,9 +35,9 @@ public class AddDateRcyViAdapter extends BaseQuickAdapter<String> {
         //view.setImageURI(Uri.parse(s));
         baseViewHolder.setImageResource(R.id.pic,Integer.parseInt((Uri.parse(s).toString())));
 //            baseViewHolder.setBackgroundRes(R.id.pic, R.drawable.item_up);
-            baseViewHolder.setBackgroundRes(R.id.pic, R.drawable.item_up);
+            baseViewHolder.setBackgroundRes(R.id.pic, R.drawable.buttonshape);
             if(s.equals(url)) {
-                baseViewHolder.setBackgroundRes(R.id.pic, R.drawable.item_down);
+                baseViewHolder.setBackgroundRes(R.id.pic, R.drawable.buttonshape_down);
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putInt("Item" + finalI, Integer.parseInt((Uri.parse(s).toString())));
                 editor.commit();

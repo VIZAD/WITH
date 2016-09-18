@@ -1,6 +1,10 @@
 package com.example.vizax.with.ui.Insist.decorators;
 
+import android.graphics.Typeface;
+import android.text.style.StyleSpan;
+
 import com.example.vizax.with.ui.Insist.decorators_util.tickAnimeSpan;
+import com.example.vizax.with.ui.Insist.decorators_util.tickSpan;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
@@ -26,8 +30,8 @@ public class ToDayDecorator implements DayViewDecorator {
 
     @Override
     public void decorate(final DayViewFacade view) {
-
-                view.addSpan(new tickAnimeSpan());
+        view.addSpan(new StyleSpan(Typeface.BOLD));
+                view.addSpan(new tickSpan());
         //view.addSpan(new RelativeSizeSpan(1.4f));
     }
 

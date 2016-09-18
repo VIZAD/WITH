@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.animation.AnimatorCompatHelper;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.DisplayMetrics;
@@ -30,6 +31,7 @@ import com.example.vizax.with.customView.BaseToolBar;
 import com.example.vizax.with.ui.Insist.decorators.EventDecorator;
 import com.example.vizax.with.ui.Insist.decorators.EventDocDecorator;
 import com.example.vizax.with.ui.Insist.decorators.HighlightWeekendsDecorator;
+import com.example.vizax.with.ui.Insist.decorators.OneDayDecorator;
 import com.example.vizax.with.ui.Insist.decorators.ToDayDecorator;
 import com.example.vizax.with.ui.Insist.dialog.DateDialog;
 import com.example.vizax.with.util.AnimationUtil;
@@ -51,7 +53,6 @@ import java.util.List;
 import butterknife.*;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
 
 public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAnimatorListener,OnDateSelectedListener,OnMonthChangedListener,InsistContact.View {
     private ActionBarDrawerToggle drawerToggle;
@@ -89,11 +90,12 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     @BindView(R.id.left_drawer)
     LinearLayout mLinearLayout;
 
-    @BindView(R.id.insist_baseToolBar)
+    @BindView(R.id.toolbar)
     BaseToolBar mToolBar;
 
     @BindView(R.id.content_frame)
     View mView;
+
 
     @Override
     protected int initContentView() {
@@ -102,13 +104,16 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
 
     @Override
     protected boolean isApplyStatusBarTranslucency() {
-        return true;
+        return false;
     }
 
     @Override
     public void initUiAndListener() {
         ButterKnife.bind(this);
         mInsistColor =  new InsistColor(this);
+        mToolBar.setCenterText("坚持");
+        mToolBar.setLeftIcon(getResources().getDrawable(R.drawable.back_ic));
+        mToolBar.setRightIcon(getResources().getDrawable(R.drawable.delete_forever_ic));
         contentFragment = ContentFragment.newInstance(mInsistColor.COLOR_CALENDER,mInsistColor.COLOR_CALENDER);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, contentFragment)
@@ -125,7 +130,8 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         mMaterialCalendarView.setOnMonthChangedListener(this);
         mMaterialCalendarView.addDecorators(
                 //new MySelectorDecorator(this),
-                new HighlightWeekendsDecorator()
+                new HighlightWeekendsDecorator(),
+                new OneDayDecorator()
                 //toDayDecorator
         );
         mPresenter = new InsistPresenter();
@@ -148,7 +154,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
 
     @Override
     protected boolean isApplyStatusBarColor() {
-        return true;
+        return false;
     }
 
     private void createMenuList() {
@@ -168,9 +174,10 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
 
     private void setActionBar() {
 
-        setSupportActionBar(mToolBar);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        //setSupportActionBar(mToolBar);
+        //getSupportActionBar().setHomeButtonEnabled(true);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         drawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
@@ -203,37 +210,22 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
 
         mDrawerLayout.setDrawerListener(drawerToggle);
 
-        mToolBar.setCenterViewOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mDrawerLayout.openDrawer(mScrVi);
-            }
-        });
-        mToolBar.setLeftViewOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                InsistActivity.this.finish();
-            }
-        });
-        mToolBar.setRightViewOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tick();
-            }
-        });
+        mToolBar.setCenterViewOnClickListener(view -> mDrawerLayout.openDrawer(mScrVi));
+        mToolBar.setLeftViewOnClickListener(view -> InsistActivity.this.finish());
+        mToolBar.setRightViewOnClickListener(view -> tick());
         //drawerToggle.syncState();
     }
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        //drawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        //drawerToggle.onConfigurationChanged(newConfig);
-    }
+//    @Override
+//    protected void onPostCreate(Bundle savedInstanceState) {
+//        super.onPostCreate(savedInstanceState);
+//        //drawerToggle.syncState();
+//    }
+//
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//        //drawerToggle.onConfigurationChanged(newConfig);
+//    }
     private ScreenShotable replaceFragment(ScreenShotable screenShotable, int topPosition , int color_cl,int color_mi,int color_md) {
         //判断颜色不一致则替换
         //this.res = this.res == R.drawable.blue_bg ? R.drawable.white_bg : R.drawable.blue_bg;
@@ -241,14 +233,17 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         //this.color = this.color == color1?color2:color1;
         //
         int finalRadius = Math.max(mView.getWidth(), mView.getHeight());
+
+
         Animator animator = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             animator = ViewAnimationUtils.createCircularReveal(mView, 0, topPosition, 0, finalRadius);
+            animator.setInterpolator(new AccelerateInterpolator());
+            animator.setDuration(ViewAnimator.CIRCULAR_REVEAL_ANIMATION_DURATION);
+            findViewById(R.id.content_overlay).setBackgroundDrawable(new BitmapDrawable(getResources(), screenShotable.getBitmap()));
+            animator.start();
         }
-        animator.setInterpolator(new AccelerateInterpolator());
-        animator.setDuration(ViewAnimator.CIRCULAR_REVEAL_ANIMATION_DURATION);
-        findViewById(R.id.content_overlay).setBackgroundDrawable(new BitmapDrawable(getResources(), screenShotable.getBitmap()));
-        animator.start();
+
         ContentFragment contentFragment = ContentFragment.newInstance(color_cl,color_mi);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, contentFragment).commit();
         System.out.println("ScreenShotable color ="+color_md);

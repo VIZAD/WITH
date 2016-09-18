@@ -17,19 +17,21 @@
             <LinearLayout
                 android:id="@+id/head_linear"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="466dp"
                 android:orientation="horizontal"
-                android:layout_above="@+id/foot_linear">
+                >
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/foot_linear"
+                android:layout_below="@+id/head_linear"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:background="@color/insist_mood_bg1"
                 >
             </LinearLayout>
         </RelativeLayout>

@@ -152,10 +152,11 @@ public class ViewAnimator<T extends Resourceble> {
             });
 
             if (mClicked==finalI) {
-                ((DraweeView) viewMenu.findViewById(R.id.menu_item_image)).setBackgroundResource(R.drawable.item_down);
+                (viewMenu.findViewById(R.id.menu_item_container)).setBackgroundResource(R.drawable.buttonshape_down);
                 ((DraweeView) viewMenu.findViewById(R.id.menu_item_image)).setImageResource(mList.get(i).getImageRes());
             } else {
                 ((DraweeView) viewMenu.findViewById(R.id.menu_item_image)).setImageResource(mList.get(i).getImageRes());
+                System.out.println("height = "+(viewMenu.findViewById(R.id.menu_item_container)).getHeight());
             }
             SlideMenuItem close = new SlideMenuItem(list.get(finalI).getName(),mList.get(finalI).getImageRes());
             list.set(finalI,(T)close);

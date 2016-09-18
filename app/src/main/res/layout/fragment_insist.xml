@@ -21,7 +21,7 @@
                     android:id="@+id/head_linear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="24"
+                    android:layout_weight="25"
                     android:orientation="horizontal"
                     >
                 </LinearLayout>
@@ -30,7 +30,7 @@
                     android:layout_below="@+id/head_linear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6"
+                    android:layout_weight="5"
                     android:orientation="horizontal"
                     android:background="@color/insist_mood_bg1"
                     >

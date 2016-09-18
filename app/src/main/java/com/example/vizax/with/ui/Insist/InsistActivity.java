@@ -228,7 +228,6 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         //测试
         //this.color = this.color == color1?color2:color1;
         //
-
         int finalRadius = Math.max(mView.getWidth(), mView.getHeight());
         Animator animator = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {

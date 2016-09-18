@@ -177,7 +177,9 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
 
     @Override
     public int getItemCount() {
+
         return mData.getData().size();
+
     }
 
     @OnClick({R.id.item_invitation_originator_imagVi, R.id.item_invitation_join_btn})

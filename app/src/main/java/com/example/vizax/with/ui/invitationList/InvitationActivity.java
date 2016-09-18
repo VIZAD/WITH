@@ -34,7 +34,7 @@ public class InvitationActivity extends AppCompatActivity implements InvitationV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_focus);
+        setContentView(R.layout.activity_invitation);
         ButterKnife.bind(this);
         mInvitationListPresenter = new InvitationListPresenter(this);
         //设置邀约列表的类型

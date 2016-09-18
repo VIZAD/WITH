@@ -131,8 +131,8 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     @Override
     public void initUiAndListener() {
         ButterKnife.bind(this);
-        color_calender = getResources().getColor(R.color.bg_calendar_1);
-        color_mission = getResources().getColor(R.color.btn_misson_1);
+        color_calender = getResources().getColor(R.color.insist_calendar_bg1);
+        color_mission = getResources().getColor(R.color.insist_mission_btn1);
         contentFragment = ContentFragment.newInstance(color_calender,color1_mission);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, contentFragment)
@@ -154,21 +154,21 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
 
         );
 
-        color1_calender = getResources().getColor(R.color.bg_calendar_1);
-        color2_calender = getResources().getColor(R.color.bg_calendar_2);
-        color3_calender = getResources().getColor(R.color.bg_calendar_3);
-        color4_calender = getResources().getColor(R.color.bg_calendar_4);
-        color5_calender = getResources().getColor(R.color.bg_calendar_5);
-        color1_mission = getResources().getColor(R.color.btn_misson_1);
-        color2_mission = getResources().getColor(R.color.btn_misson_2);
-        color3_mission = getResources().getColor(R.color.btn_misson_3);
-        color4_mission = getResources().getColor(R.color.btn_misson_4);
-        color5_mission = getResources().getColor(R.color.btn_misson_5);
-        color1_mood = getResources().getColor(R.color.bg_mood_1);
-        color2_mood = getResources().getColor(R.color.bg_mood_2);
-        color3_mood = getResources().getColor(R.color.bg_mood_3);
-        color4_mood = getResources().getColor(R.color.bg_mood_4);
-        color5_mood = getResources().getColor(R.color.bg_mood_5);
+        color1_calender = getResources().getColor(R.color.insist_calendar_bg1);
+        color2_calender = getResources().getColor(R.color.insist_calendar_bg2);
+        color3_calender = getResources().getColor(R.color.insist_calendar_bg3);
+        color4_calender = getResources().getColor(R.color.insist_calendar_bg4);
+        color5_calender = getResources().getColor(R.color.insist_calendar_bg5);
+        color1_mission = getResources().getColor(R.color.insist_mission_btn1);
+        color2_mission = getResources().getColor(R.color.insist_mission_btn2);
+        color3_mission = getResources().getColor(R.color.insist_mission_btn3);
+        color4_mission = getResources().getColor(R.color.insist_mission_btn4);
+        color5_mission = getResources().getColor(R.color.insist_mission_btn5);
+        color1_mood = getResources().getColor(R.color.insist_mood_bg1);
+        color2_mood = getResources().getColor(R.color.insist_mood_bg2);
+        color3_mood = getResources().getColor(R.color.insist_mood_bg3);
+        color4_mood = getResources().getColor(R.color.insist_mood_bg4);
+        color5_mood = getResources().getColor(R.color.insist_mood_bg5);
 
         mPresenter = new InsistPresenter();
         mPresenter.attachView(this);

@@ -172,6 +172,33 @@ public class InsistPresenter implements InsistContact.Presenter {
     @Override
     public void JourEdit() {
 
+
+
+    }
+
+    @Override
+    public void deleteTask(String taskId) {
+        OkHttpUtils.post()
+                .url(APIConstant.getApi(APIConstant.KEEP_SIGNIN))
+                .addParams("token","111")
+                .addParams("taskId",taskId)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        /*Gson解析已经封装，下次把User改成自己对应的Bean即可
+                          默认状态码200为成功*/
+                        TaskMsg = GsonUtil.toString(response,TaskMsg.class);
+
+                        System.out.println("删除:"+TaskMsg.getCode());
+
+                    }
+                });
     }
 
     @Override

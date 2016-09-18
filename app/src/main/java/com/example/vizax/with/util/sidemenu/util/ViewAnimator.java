@@ -108,6 +108,8 @@ public class ViewAnimator<T extends Resourceble> {
                                 mList.add(finalI, (SlideMenuItem) add);
                                 list.set(finalI,(T)add);
                                 dialog.dismiss();
+                                mPresenter = new InsistPresenter();
+                                mPresenter.deleteTask(String.valueOf(finalI));
 
                             }
                         });

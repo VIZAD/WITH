@@ -26,5 +26,6 @@ public interface InsistContact {
         void TaskMessages(String date,String taskId);
         void JourPunch(String taskId);
         void JourEdit();
+        void deleteTask(String taskId);
     }
 }

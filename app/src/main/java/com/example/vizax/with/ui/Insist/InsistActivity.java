@@ -6,33 +6,23 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateInterpolator;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.vizax.with.R;
 
 import com.example.vizax.with.base.BaseActivity;
 import com.example.vizax.with.bean.Misson;
 import com.example.vizax.with.bean.TaskMsg;
 import com.example.vizax.with.customView.BaseToolBar;
-import com.example.vizax.with.ui.Insist.ContentFragment;
 import com.example.vizax.with.ui.Insist.decorators.EventDecorator;
 import com.example.vizax.with.ui.Insist.decorators.EventDocDecorator;
 import com.example.vizax.with.ui.Insist.decorators.HighlightWeekendsDecorator;
@@ -52,7 +42,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.Executors;
 
 import butterknife.*;
 import butterknife.ButterKnife;
@@ -120,7 +109,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
 
     @Override
     protected int initContentView() {
-        return R.layout.insist_main;
+        return R.layout.activity_insist;
     }
 
     @Override

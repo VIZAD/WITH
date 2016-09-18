@@ -56,7 +56,7 @@ public class DemoPresenter implements DemoContact.Presenter {
                     public void onResponse(String response, int id) {
                         //获取的data如果是list类型的话，调用该方法。否则调用下面的方法
                         Test test = GsonUtil.toListString(response,Test.class);
-                        Log.w("haha",test.getData().get(0).getHeadUrl());
+                        //Log.w("haha",test.getData().get(0).getHeadUrl());
 
                         //获取的data如果只有msg和code，用下面的解析
                         /*BaseEmptyBean baseEmptyBean = GsonUtil.toString(response);

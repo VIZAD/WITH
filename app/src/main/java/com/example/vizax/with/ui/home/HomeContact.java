@@ -12,9 +12,9 @@ import java.util.List;
  */
 public interface HomeContact {
     interface View extends BaseView {
-        public void loadHomeFirstData(List<HomeInvitationBean.DataBean> lists);
-        public void loadHomeUpData(List<HomeInvitationBean.DataBean> lists);
-        public void loadHomeDownData3(List<HomeInvitationBean.DataBean> lists);
+        public void loadHomeFirstData(List<HomeInvitationBean.DataBean> lists,int lastId);
+        public void loadHomeUpData(List<HomeInvitationBean.DataBean> lists,int lastId);
+        public void loadHomeDownData3(List<HomeInvitationBean.DataBean> lists,int lastId);
         public void showHomeToast(String toast);
     }
 

@@ -30,10 +30,19 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<HomeInvitationBean.Da
     @Override
     protected void convert(BaseViewHolder baseViewHolder, HomeInvitationBean.DataBean dataBean) {
 
-        Log.i("HomeAdapter",dataBean.toString());
-        Log.i("HomeAdapter","getItemViewType():"+baseViewHolder.getItemViewType()+"");
+        //Log.i("HomeAdapter",dataBean.toString());
+        //Log.i("HomeAdapter","getItemViewType():"+baseViewHolder.getItemViewType()+"");
         switch (baseViewHolder.getItemViewType()) {
             case HomeInvitationBean.DataBean.HOME_HEAD:
+                baseViewHolder.setOnClickListener(R.id.ll_sport,new OnItemChildClickListener());
+                baseViewHolder.setOnClickListener(R.id.ll_study,new OnItemChildClickListener());
+                baseViewHolder.setOnClickListener(R.id.ll_board_game,new OnItemChildClickListener());
+                baseViewHolder.setOnClickListener(R.id.ll_online_game,new OnItemChildClickListener());
+                baseViewHolder.setOnClickListener(R.id.ll_date,new OnItemChildClickListener());
+                baseViewHolder.setOnClickListener(R.id.ll_other,new OnItemChildClickListener());
+                baseViewHolder.setOnClickListener(R.id.iv_sport1,new OnItemChildClickListener());
+                baseViewHolder.setOnClickListener(R.id.iv_sport2,new OnItemChildClickListener());
+                baseViewHolder.setOnClickListener(R.id.iv_sport3,new OnItemChildClickListener());
                 break;
             case HomeInvitationBean.DataBean.HOME_OTHER:
                 //Picasso.with(context).load(dataBean.getOriginatorHeadUrl()).into((ImageView) baseViewHolder.getView(R.id.item_invitation_originator_imagVi));
@@ -47,6 +56,9 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<HomeInvitationBean.Da
                 baseViewHolder.setText(R.id.item_invitation_number,dataBean.getCurrentNumber()+"/"+dataBean.getTotalNumber());
                 //HomeHeadUrlAdapter homeHeadUrlAdapter=new HomeHeadUrlAdapter(context,dataBean.getMembers());
                 //((RecyclerView)baseViewHolder.getView(R.id.item_invitation_userimglist)).setAdapter(homeHeadUrlAdapter);
+                baseViewHolder.setOnClickListener(R.id.item_invitation_originator_imagVi,new OnItemChildClickListener());
+                baseViewHolder.setOnClickListener(R.id.item_invitation_contents,new OnItemChildClickListener());
+                baseViewHolder.setOnClickListener(R.id.item_invitation_join_btn,new OnItemChildClickListener());
                 break;
         }
     }

@@ -56,10 +56,8 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     private ArrayList<String> mRemark_txt = new ArrayList<>();
     private ContentFragment contentFragment;
     private ViewAnimator mViewAnimator;
-    // private int ripple = R.drawable.ripple_bg;
     private InsistPresenter mPresenter;
     private String INSIST = "签到";
-    //Resources.getSystem().getColor(R.color.bg_calendar_1);
     private InsistColor mInsistColor;
     private ToDayDecorator toDayDecorator = new ToDayDecorator();
     private static final DateFormat FORMATTER = SimpleDateFormat.getDateInstance();
@@ -141,15 +139,13 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         //暂时使用假数据
         mPresenter.TaskMessages("2016-10-1 9:20:21","1");
         AnimationUtil.showCircularReveal(mView,2,1000);
-
-        DisplayMetrics metric = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metric);
-        int width = metric.widthPixels;     // 屏幕宽度（像素）
-        int height = metric.heightPixels;   // 屏幕高度（像素）
-        float density = metric.density;      // 屏幕密度（0.75 / 1.0 / 1.5）
-        int densityDpi = metric.densityDpi;  // 屏幕密度DPI（120 / 160 / 240)
-        System.out.println("width = "+width+" height = "+height+" density = "+density + "densityDpi ="+densityDpi);
-
+//        DisplayMetrics metric = new DisplayMetrics();
+//        getWindowManager().getDefaultDisplay().getMetrics(metric);
+//        int width = metric.widthPixels;     // 屏幕宽度（像素）
+//        int height = metric.heightPixels;   // 屏幕高度（像素）
+//        float density = metric.density;      // 屏幕密度（0.75 / 1.0 / 1.5）
+//        int densityDpi = metric.densityDpi;  // 屏幕密度DPI（120 / 160 / 240)
+//        System.out.println("width = "+width+" height = "+height+" density = "+density + "densityDpi ="+densityDpi);
     }
 
     @Override
@@ -249,6 +245,13 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             animator.setDuration(ViewAnimator.CIRCULAR_REVEAL_ANIMATION_DURATION);
             findViewById(R.id.content_overlay).setBackgroundDrawable(new BitmapDrawable(getResources(), screenShotable.getBitmap()));
             animator.start();
+        } else {
+            AnimationUtil.showCircularReveal(mView, 2,500);
+            findViewById(R.id.content_overlay).setBackgroundDrawable(new BitmapDrawable(getResources(), screenShotable.getBitmap()));
+            /*animator.setInterpolator(new AccelerateInterpolator());
+            animator.setDuration(ViewAnimator.CIRCULAR_REVEAL_ANIMATION_DURATION);
+            findViewById(R.id.content_overlay).setBackgroundDrawable(new BitmapDrawable(getResources(), screenShotable.getBitmap()));
+            animator.start();*/
         }
 
         ContentFragment contentFragment = ContentFragment.newInstance(color_cl,color_mi);
@@ -408,7 +411,6 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
 
     protected  void setDays (TaskMsg taskMsg){
         Calendar calendar = Calendar.getInstance();
-        //calendar.add(Calendar.MONTH,0);
         int DayNum = 0;
         int DayNum_remark=0;
         calendar.set(CalendarDay.today().getYear(),CalendarDay.today().getMonth(),1);
@@ -429,7 +431,6 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
                     DayNum_remark++;
                 }
             }
-
             calendar.add(Calendar.DATE, 1);
         }
         mMaterialCalendarView.addDecorator(new EventDecorator(Color.RED, dates));

@@ -24,7 +24,7 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<HomeInvitationBean.Da
         super(data);
         this.context=context;
         addItemType(HomeInvitationBean.DataBean.HOME_HEAD, R.layout.home_head_item);
-        addItemType(HomeInvitationBean.DataBean.HOME_OTHER, R.layout.item_invitation);
+        addItemType(HomeInvitationBean.DataBean.HOME_OTHER, R.layout.invitation_item);
     }
 
     @Override

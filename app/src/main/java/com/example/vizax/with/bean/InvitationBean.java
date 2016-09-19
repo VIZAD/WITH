@@ -249,7 +249,34 @@ public class InvitationBean implements Parcelable{
         dest.writeInt(isJoin ? 1:0 );
         dest.writeString(invitationTime);
         dest.writeString(publishTime);
-      //  dest.writeList(members);
+       // dest.writeList(members);
 
+    }
+
+    @Override
+    public String toString() {
+        return "InvitationBean{" +
+                "msg='" + msg + '\'' +
+                ", code='" + code + '\'' +
+                ", originatorHeadUrl='" + originatorHeadUrl + '\'' +
+                ", menbersUrl='" + menbersUrl + '\'' +
+                ", invitationTime='" + invitationTime + '\'' +
+                ", publishTime='" + publishTime + '\'' +
+                ", originatorNickname='" + originatorNickname + '\'' +
+                ", originatorPhone='" + originatorPhone + '\'' +
+                ", iconUrl='" + iconUrl + '\'' +
+                ", originatorId='" + originatorId + '\'' +
+                ", invitaionId='" + invitaionId + '\'' +
+                ", currentNumber='" + currentNumber + '\'' +
+                ", sexRequire='" + sexRequire + '\'' +
+                ", content='" + content + '\'' +
+                ", title='" + title + '\'' +
+                ", originatorSex='" + originatorSex + '\'' +
+                ", totalNumber='" + totalNumber + '\'' +
+                ", place='" + place + '\'' +
+                ", originatorrealName='" + originatorrealName + '\'' +
+                ", isJoin=" + isJoin +
+                ", members=" + members +
+                '}';
     }
 }

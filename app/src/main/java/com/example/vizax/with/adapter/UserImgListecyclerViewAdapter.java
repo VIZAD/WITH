@@ -10,7 +10,6 @@ import com.example.vizax.with.R;
 import com.example.vizax.with.bean.MembersBean;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,7 +27,7 @@ public class UserImgListecyclerViewAdapter extends RecyclerView.Adapter<UserImgL
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         MyViewHolder holder = new MyViewHolder(LayoutInflater.from(
-                parent.getContext()).inflate(R.layout.item_invitation_user_img, parent,
+                parent.getContext()).inflate(R.layout.invitation_user_avatar_item, parent,
                 false));
         return holder;
     }

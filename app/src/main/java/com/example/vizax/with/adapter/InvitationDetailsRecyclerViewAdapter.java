@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.vizax.with.R;
 import com.example.vizax.with.bean.MembersBean;
+import com.example.vizax.with.util.StringUtil;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public class InvitationDetailsRecyclerViewAdapter extends RecyclerView.Adapter<I
 
     private ArrayList<MembersBean> mMembersBean;
     private Context context;
-
+    private String phoneNum;
     public InvitationDetailsRecyclerViewAdapter(Context context, ArrayList<MembersBean> mMembersBean) {
         this.mMembersBean = mMembersBean;
         this.context = context;
@@ -33,7 +34,7 @@ public class InvitationDetailsRecyclerViewAdapter extends RecyclerView.Adapter<I
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         MyViewHolder holder = new MyViewHolder(LayoutInflater.from(
-                parent.getContext()).inflate(R.layout.item_applicants, parent,
+                parent.getContext()).inflate(R.layout.invitation_detail_members_item, parent,
                 false));
         return holder;
     }
@@ -58,7 +59,13 @@ public class InvitationDetailsRecyclerViewAdapter extends RecyclerView.Adapter<I
         }
         holder.itemApplicantsUsername.setText(mMembersBean.get(position).getRealName());
         holder.itemApplicantsUsersex.setText(mMembersBean.get(position).getSex());
-        holder.itemApplicantsUserphone.setText(mMembersBean.get(position).getPhone());
+       //隐藏参与者手机号码中间4位 以1831****272 显示
+        if(position == 0)
+            phoneNum = mMembersBean.get(position).getPhone();
+        else
+            phoneNum = StringUtil.phoneUtil(mMembersBean.get(position).getPhone());
+
+        holder.itemApplicantsUserphone.setText(phoneNum);
        // holder.itemApplicantsUserimg.setImageURI(Uri.parse(mMembersBean.get(position).getHeadUrl()));
 
     }

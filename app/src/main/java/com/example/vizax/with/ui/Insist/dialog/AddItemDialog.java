@@ -1,6 +1,5 @@
 package com.example.vizax.with.ui.Insist.dialog;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -85,7 +84,7 @@ public class AddItemDialog extends Dialog implements NumberPicker.OnValueChangeL
 
     public void init() {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.add_item_dialog, null);
+        View view = inflater.inflate(R.layout.item_add_dialog, null);
         setContentView(view);
         ButterKnife.bind(this);
         TxtVi_content.setFocusable(true);

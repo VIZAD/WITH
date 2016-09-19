@@ -23,7 +23,7 @@ public class AddDateRcyViAdapter extends BaseQuickAdapter<String> {
        SharedPreferences sp;
 
         public AddDateRcyViAdapter(List<String> list,Context context) {
-            super(R.layout.add_item_dialog_item, list);
+            super(R.layout.item_add_dialog_item, list);
             sp = context.getSharedPreferences("mySp", Activity.MODE_PRIVATE);
         }
 

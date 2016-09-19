@@ -28,6 +28,7 @@
 
 
         <io.codetail.widget.RevealLinearLayout
+            android:id="@+id/insist_top_rll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"

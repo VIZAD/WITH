@@ -69,7 +69,9 @@
         <item name="android:clickable">true</item>
         <item name="android:layout_centerHorizontal">true</item>
     </style>
-
+    <style name="SwipeBackLayout">
+        <item name="edge_size">0dp</item>
+    </style>
 
     <!-- 设置dialog弹出，退出动画 -->
     <style name="dialogWindowAnim" parent="android:Animation" mce_bogus="1">

@@ -3,6 +3,7 @@ package com.example.vizax.with.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,9 +18,13 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.R;
 import com.example.vizax.with.bean.InvitationBaseBean;
+import com.example.vizax.with.ui.invitationList.InvitationContact;
+import com.example.vizax.with.ui.invitationList.InvitationDetailContact;
 import com.example.vizax.with.ui.invitationList.InvitationDetailsActivity;
-import com.example.vizax.with.ui.invitationList.Join;
+import com.example.vizax.with.ui.invitationList.InvitationDetailModel;
 import com.example.vizax.with.util.StringUtil;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,16 +38,23 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
     UserImgListecyclerViewAdapter mAdapter;
     int visible = View.GONE;
     private InvitationBaseBean mData;
+    private  InvitationContact.InvitationCallBack mInvitationCallBack;
 
-    public InvitationRecyclerViewAdapter(Context context, InvitationBaseBean mData) {
+    public InvitationRecyclerViewAdapter(Context context, InvitationBaseBean mData,int visible) {
         this.context = context;
         this.mData = mData;
+        this.visible = visible;
+    }
+
+    //回调接口
+    public void setCallBack(InvitationContact.InvitationCallBack invitationCallBack){
+        mInvitationCallBack = invitationCallBack;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         MyViewHolder holder = new MyViewHolder(LayoutInflater.from(
-                parent.getContext()).inflate(R.layout.item_invitation, parent,
+                parent.getContext()).inflate(R.layout.invitation_item, parent,
                 false));
         return holder;
     }
@@ -60,7 +72,7 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
         }
         holder.itemInvitationOriginatorName.setText(mData.getData().get(position).getOriginatorNickname());
         holder.itemInvitationTitle.setText(mData.getData().get(position).getTitle());
-        mData.getData().get(position).setContent("[肇庆学院航空杯]2015年即将结束，我们将迎来本学期最后一场狼人杀比赛--航空杯狼人杀比赛，希望广大杀友踊跃报名！");//临时数据
+      //  mData.getData().get(position).setContent("[肇庆学院航空杯]2015年即将结束，我们将迎来本学期最后一场狼人杀比赛--航空杯狼人杀比赛，希望广大杀友踊跃报名！");//临时数据
         String contents = StringUtil.cutContents(mData.getData().get(position).getContent(),57);
         holder.itemInvitationContents.setText(contents);
         holder.itemInvitationInvitationTime.setText(mData.getData().get(position).getInvitationTime());
@@ -68,57 +80,31 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
         holder.itemInvitationPlace.setText(mData.getData().get(position).getPlace());
         holder.itemInvitationSexRequire.setText(mData.getData().get(position).getSexRequire());
         holder.itemInvitationNumber.setText(mData.getData().get(position).getCurrentNumber()+"/"+mData.getData().get(position).getTotalNumber());
+
+        /**
+         * 参与人头像横向recyclerView
+         */
         mAdapter = new UserImgListecyclerViewAdapter(mData.getData().get(position).getMembers());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.mRecyclerView.setLayoutManager(linearLayoutManager);
         holder.mRecyclerView.setAdapter(mAdapter);
+
         holder.expend.setVisibility(visible);
         holder.expend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new MaterialDialog.Builder(context)
-                        .items("编辑","删除")
-                        .itemsCallback(new MaterialDialog.ListCallback() {
-                            @Override
-                            public void onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                                switch (which){
-                                    case 0:
-                                        break;
-                                    case 1:
-                                        break;
-                                }
-                            }
-                        })
-                        .show();
+                mInvitationCallBack.press(null,-1,null);
             }
         });
 
         holder.itemInvitationJoinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String  type;
                 String contents = "null";
                     if(join){
-                        new MaterialDialog.Builder(context)
-                                .content("是否退出该活动")
-                                .positiveText("是")
-                                .negativeText("否")
-                                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                    @Override
-                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                        Join.join(mData.getData().get(position).getInvitaionId(), "2", new Join.changebtnsrc() {
-                                            @Override
-                                            public void setsrc() {
-                                                //holder.itemInvitationJoinBtn.setImageResource(R.drawable.join_unselected);
-                                                mData.getData().get(position).setJoin(false);
-                                                System.out.println("!!!!!!"+mData.getData().get(position).isJoin());
-                                                notifyItemChanged(position);
-                                            }
-                                        });
-                                    }
-                                }).show();
+                        mInvitationCallBack.press("是否退出该活动",position,"2");
 
                     }else {
                         if(mData.getData().get(position).getCurrentNumber() == mData.getData().get(position).getTotalNumber()) {
@@ -129,23 +115,7 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
                             type = "0";
                             contents = "是否参加该活动?";
                         }
-                        new MaterialDialog.Builder(context)
-                                .content(contents)
-                                .positiveText("是")
-                                .negativeText("否")
-                                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                                @Override
-                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                                    Join.join(mData.getData().get(position).getInvitaionId(), type, new Join.changebtnsrc() {
-                                                        @Override
-                                                        public void setsrc() {
-                                                            // holder.itemInvitationJoinBtn.setImageResource(R.drawable.join_selected);
-                                                            mData.getData().get(position).setJoin(true);
-                                                            notifyItemChanged(position);
-                                                        }
-                                                    });
-                                                }
-                                            }).show();
+                        mInvitationCallBack.press(contents,position,type);
                     }
 
 
@@ -153,26 +123,26 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
         });
 
 
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+        holder.itemInvitationRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(context, InvitationDetailsActivity.class);
                 Bundle lBundle = new Bundle();
                 Bundle memBundle = new Bundle();
+                Bundle invitationBaseBeanBundle = new Bundle();
                 memBundle.putParcelableArrayList("members",mData.getData().get(position).getMembers());
                 lBundle.putParcelable("users",mData.getData().get(position));
+                invitationBaseBeanBundle.putParcelableArrayList("invitationlist", mData.getData());
+                invitationBaseBeanBundle.putInt("index",position);
                 it.putExtras(lBundle);
                 it.putExtras(memBundle);
+                it.putExtras(invitationBaseBeanBundle);
                 context.startActivity(it);
             }
         });
 
 
 
-    }
-
-    public void setExpend(int visible) {
-        this.visible = visible;
     }
 
     @Override
@@ -193,6 +163,7 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+
         TextView textView;
         RecyclerView mRecyclerView;
         LinearLayout linearLayout;
@@ -217,8 +188,8 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
         TextView itemInvitationPlace;
         @BindView(R.id.item_invitation_sex_require)
         TextView itemInvitationSexRequire;
-        @BindView(R.id.item_invitation_card)
-        LinearLayout itemInvitationCard;
+        @BindView(R.id.item_invitation_root)
+        LinearLayout itemInvitationRoot;
         @BindView(R.id.item_invitation_userimglist)
         RecyclerView itemInvitationUserimglist;
         @BindView(R.id.item_invitation_number)
@@ -233,6 +204,5 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
             expend = (ImageView) itemView.findViewById(R.id.item_invitation_expend);
         }
     }
-
 
 }

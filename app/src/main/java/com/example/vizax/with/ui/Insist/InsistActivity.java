@@ -115,7 +115,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         mInsistColor =  new InsistColor(this);
         mToolBar.setCenterText("坚持");
         mToolBar.setLeftIcon(getResources().getDrawable(R.drawable.back_ic));
-        mToolBar.setRightIcon(getResources().getDrawable(R.drawable.delete_forever_ic));
+        mToolBar.setRightIcon(getResources().getDrawable(R.drawable.calendar_unselect));
         contentFragment = ContentFragment.newInstance(mInsistColor.COLOR_CALENDER,mInsistColor.COLOR_CALENDER);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, contentFragment)
@@ -323,7 +323,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     public void tick(){
         //this.ripple = this.ripple== R.drawable.ripple_bg ? R.drawable.rippled_bg:R.drawable.ripple_bg;
         //this.INSIST = this.INSIST.equals("签到")?"已签到":"签到";
-        mToolBar.setRightIcon(R.drawable.back_ic);
+        mToolBar.setRightIcon(R.drawable.signed);
         mToolBar.setRightViewEnable(false);
         System.out.println("onclick");
         toDayDecorator = new ToDayDecorator();

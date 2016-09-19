@@ -72,6 +72,15 @@ public class Misson implements Parcelable {
         dest.writeString(msg);
     }
 
+    @Override
+    public String toString() {
+        return "Misson{" +
+                "code='" + code + '\'' +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                '}';
+    }
+
 
     /**
      * Created by VIZAX on 2016/09/16.
@@ -95,6 +104,14 @@ public class Misson implements Parcelable {
 
         public void setPreTasks(List<Misson.data.preTasks> preTasks) {
             this.preTasks = preTasks;
+        }
+
+        @Override
+        public String toString() {
+            return "data{" +
+                    "currTasks=" + currTasks +
+                    ", preTasks=" + preTasks +
+                    '}';
         }
 
         public static class currTasks  {

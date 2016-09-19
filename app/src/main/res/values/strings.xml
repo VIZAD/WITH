@@ -3,7 +3,21 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
-
+    <string-array name="sports">
+        <item>篮球</item>
+        <item>足球+</item>
+        <item>羽毛球</item>
+        <item>乒乓球</item>
+        <item>跑步</item>
+        <item>游泳</item>
+        <item>骑行</item>
+    </string-array>
+    <string-array name="incitation">
+        <item>吃饭</item>
+        <item>ktv</item>
+        <item>看电影</item>
+        <item>散步</item>
+    </string-array>
     <!--登录页面-->
     <string name="login_tab">登录</string>
     <string name="register_tab">注册</string>

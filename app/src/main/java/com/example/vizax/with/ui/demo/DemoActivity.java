@@ -125,6 +125,7 @@ public class DemoActivity extends BaseActivity implements DemoContact.View {
     @OnClick(R.id.calendarView_enter)
     public void enter() {
         Intent intent = new Intent(this, InsistActivity.class);
+        overridePendingTransition(0, 0);
         startActivity(intent);
     }
 }

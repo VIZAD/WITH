@@ -88,9 +88,14 @@ public class tickSpan   implements LineBackgroundSpan {
         }
         // canvas.drawCircle((left + right) / 2, bottom + radius, radius, paint);
         //canvas.drawLine(30,0,0,30,paint);
-        //canvas.drawLine(0,30,30,30,paint);
-        canvas.drawLine(50,40,70,70,paint);
-        canvas.drawLine(70,70,120,30,paint);
+        paint.setStrokeWidth(5);
+        canvas.drawLine(10,10,30,30,paint);
+        paint.setAntiAlias(true);
+//        paint.setStyle(Paint.Style.STROKE);
+//        canvas.drawCircle(50,50,30,paint);
+        paint.setStrokeWidth(5);
+        //canvas.drawLine(50,40,70,70,paint);
+        canvas.drawLine(30,30,70,-15,paint);
         paint.setColor(oldColor);
 
 

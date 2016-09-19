@@ -3,6 +3,7 @@ package com.example.vizax.with.ui.Insist.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -108,11 +109,11 @@ public class DateDialog extends Dialog implements NumberPicker.OnValueChangeList
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         dialogWindow.setWindowAnimations(R.style.dialogWindowAnim); //设置窗口弹出动画
         //dialogWindow.setBackgroundDrawableResource(R.color.transparent); //设置对话框背景为透明
-        //DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
+        DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
         //lp.alpha = 0.5f;
         setCanceledOnTouchOutside(true);
-        lp.height = 800;
-        lp.width = 800;
+        lp.height = (int) (d.heightPixels*0.5);
+        lp.width = (int) (d.widthPixels*0.5);
         //lp.alpha = 0.6f;
         //lp.dimAmount = 0.7f;
         getWindow().setAttributes(lp);

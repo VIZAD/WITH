@@ -1,6 +1,10 @@
 package com.example.vizax.with.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,15 +16,15 @@ public class InvitationBaseBean {
     private String msg;
     private String code;
 
-    public List<InvitationBean> getData() {
+    public ArrayList<InvitationBean> getData() {
         return data;
     }
 
-    public void setData(List<InvitationBean> data) {
+    public void setData(ArrayList<InvitationBean> data) {
         this.data = data;
     }
 
-    private List<InvitationBean> data;
+    private ArrayList<InvitationBean> data;
 
     public String getMsg() {
         return msg;
@@ -39,4 +43,12 @@ public class InvitationBaseBean {
     }
 
 
+    @Override
+    public String toString() {
+        return "InvitationBaseBean{" +
+                "msg='" + msg + '\'' +
+                ", code='" + code + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

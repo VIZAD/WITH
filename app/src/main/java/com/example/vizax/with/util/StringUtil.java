@@ -1,7 +1,7 @@
 package com.example.vizax.with.util;
 
 /**
- * 字符串裁剪工具类
+ * 字符串工具类
  * Created by Young on 2016/9/16.
  */
 public class StringUtil {
@@ -21,5 +21,9 @@ public class StringUtil {
             result = contents;
         }
         return result;
+    }
+
+    public static  String phoneUtil(String phoneNum){
+        return phoneNum.substring(0,3)+"****"+phoneNum.substring(7,10);
     }
 }

@@ -2,7 +2,6 @@ package com.example.vizax.with.ui.invitationList;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,13 +9,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.R;
 import com.example.vizax.with.adapter.InvitationDetailsRecyclerViewAdapter;
 import com.example.vizax.with.adapter.UserImgListecyclerViewAdapter;
 import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.bean.MembersBean;
+import com.example.vizax.with.customView.BaseToolBar;
 
 import java.util.ArrayList;
 
@@ -31,7 +30,7 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
  * 邀约详情页
  */
 
-public class InvitationDetailsActivity extends SwipeBackActivity {
+public class InvitationDetailsActivity extends SwipeBackActivity implements InvitationDetailContact.View {
     @BindView(R.id.item_invitation_originator_imagVi)
     ImageView itemInvitationImagVi;
     @BindView(R.id.item_invitation_join_btn)
@@ -62,25 +61,36 @@ public class InvitationDetailsActivity extends SwipeBackActivity {
     TextView itemInvitationNumber;
     @BindView(R.id.event_details_recyclerview)
     RecyclerView eventDetailsRecyclerview;
+    @BindView(R.id.baseToolBar)
+    BaseToolBar baseToolBar;
+    @BindView(R.id.yibaoming)
+    TextView yibaoming;
+    public final static String JOIN1 = "是否参加该活动?";
+    public final static String QUIT = "是否退出该活动?";
+    public final static String JOIN2 = "该活动已满人，是否请求发起者特批允许参加?";
     private RecyclerView mRecyclerView;
     private InvitationDetailsRecyclerViewAdapter mAdapter;
     private UserImgListecyclerViewAdapter mUserImgAdapter;
     private RecyclerView mUserImgRecyclerView;
     private String mKeyTrackingMode;
     private SwipeBackLayout mSwipeBackLayout;
-    private InvitationBean mInvitationBeen;
-    private ArrayList<MembersBean> mMemberBean;
-    private boolean join;
-
+    public InvitationBean mInvitationBeen;
+    public  ArrayList<InvitationBean> mInvitationBeanList;
+    public  ArrayList<MembersBean> mMemberBean;
+    private InvitationDetailContact.Presenter mPresenter;
+    private MaterialDialog mMaterialDialog;
+    private int index;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_details);
+        setContentView(R.layout.invitation_detail_activity);
         ButterKnife.bind(this);
-
+        mPresenter = new InvitationDetailPresenter();
+        mPresenter.attachView(this);
         //获取list界面传过来的活动参与人信息
         getData();
-
+        //设置点击的item的index
+        mPresenter.setPosition(index);
         //参与人头像list
         mUserImgRecyclerView = (RecyclerView) findViewById(R.id.item_invitation_userimglist);
         mUserImgAdapter = new UserImgListecyclerViewAdapter(mMemberBean);
@@ -104,19 +114,36 @@ public class InvitationDetailsActivity extends SwipeBackActivity {
     }
 
     private void initView() {
+
         itemInvitationOriginatorName.setText(mInvitationBeen.getOriginatorrealName());
         itemInvitationInvitationTime.setText(mInvitationBeen.getInvitationTime());
         itemInvitationPublishTime.setText(mInvitationBeen.getPublishTime());
         itemInvitationContents.setText(mInvitationBeen.getContent());
         itemInvitationPlace.setText(mInvitationBeen.getPlace());
         itemInvitationSexRequire.setText(mInvitationBeen.getSexRequire());
-        itemInvitationNumber.setText(mInvitationBeen.getCurrentNumber()+"/"+mInvitationBeen.getTotalNumber());
+        itemInvitationNumber.setText(mInvitationBeen.getCurrentNumber() + "/" + mInvitationBeen.getTotalNumber());
         itemInvitationSexRequire.setText(mInvitationBeen.getSexRequire());
-        join = mInvitationBeen.isJoin();
-        if(join)
+
+
+        if (mInvitationBeen.isJoin()) {
             itemInvitationJoinBtn.setImageResource(R.drawable.join_selected);
-        else
+            //System.out.println("true!");
+        }
+        else {
             itemInvitationJoinBtn.setImageResource(R.drawable.join_unselected);
+           // System.out.println("false!");
+        }
+        initToolbar();
+    }
+    //初始化toolbar
+    private void initToolbar() {
+        baseToolBar.setCenterText("活动详情");
+        baseToolBar.setLeftViewOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InvitationDetailsActivity.this.finish();
+            }
+        });
     }
 
 
@@ -124,6 +151,8 @@ public class InvitationDetailsActivity extends SwipeBackActivity {
     public void getData() {
         Intent it = getIntent();
         if (it != null) {
+            mInvitationBeanList = it.getParcelableArrayListExtra("invitationlist");
+            index = it.getIntExtra("index",0);
             mInvitationBeen = it.getParcelableExtra("users");
             mMemberBean = it.getParcelableArrayListExtra("members");
         }
@@ -136,53 +165,33 @@ public class InvitationDetailsActivity extends SwipeBackActivity {
             case R.id.item_invitation_originator_imagVi:
                 break;
             case R.id.item_invitation_join_btn:
-                String  type;
-                String contents = "null";
-                if(join){
-                    new MaterialDialog.Builder(InvitationDetailsActivity.this)
-                            .content("是否退出该活动")
-                            .positiveText("是")
-                            .negativeText("否")
-                            .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    Join.join(mInvitationBeen.getInvitaionId(), "2", new Join.changebtnsrc() {
-                                        @Override
-                                        public void setsrc() {
-                                            mInvitationBeen.setJoin(false);
-                                            itemInvitationJoinBtn.setImageResource(R.drawable.join_unselected);
-                                        }
-                                    });
-                                }
-                            }).show();
-
-                }else {
-                    if(mInvitationBeen.getCurrentNumber() == mInvitationBeen.getTotalNumber()) {
-                        type = "1";
-                        contents = "该活动已满人，是否请求发起者特批允许参加？";
-                    }
-                    else {
-                        type = "0";
-                        contents = "是否参加该活动?";
-                    }
-                    new MaterialDialog.Builder(InvitationDetailsActivity.this)
-                            .content(contents)
-                            .positiveText("是")
-                            .negativeText("否")
-                            .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    Join.join(mInvitationBeen.getInvitaionId(), type, new Join.changebtnsrc() {
-                                        @Override
-                                        public void setsrc() {
-                                            mInvitationBeen.setJoin(true);
-                                            itemInvitationJoinBtn.setImageResource(R.drawable.join_selected);
-                                        }
-                                    });
-                                }
-                            }).show();
-                }
-                    break;
+                mPresenter.pressJoin(mInvitationBeanList.get(index));
+                break;
         }
     }
+
+    /**
+     * 点击参加邀约显示dialog
+     * @param contents
+     */
+    @Override
+    public void showDialog(String contents) {
+        mMaterialDialog = new MaterialDialog.Builder(this)
+                .content(contents)
+                .positiveText("是")
+                .negativeText("否")
+                .onPositive((dialog, which) -> mPresenter.onPositive(mInvitationBeanList.get(index)))
+                .show();
+    }
+
+    /**
+     * 改变参加邀约按钮背景色
+     */
+    @Override
+    public void changeBtnSrc() {
+
+        itemInvitationJoinBtn.setImageResource(((mInvitationBeanList.get(index).isJoin()) ? R.drawable.join_selected:R.drawable.join_unselected));
+    }
+
+
 }

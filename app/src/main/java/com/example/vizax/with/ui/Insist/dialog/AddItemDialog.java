@@ -1,11 +1,11 @@
 package com.example.vizax.with.ui.Insist.dialog;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -84,7 +84,7 @@ public class AddItemDialog extends Dialog implements NumberPicker.OnValueChangeL
 
     public void init() {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.add_item_dialog, null);
+        View view = inflater.inflate(R.layout.item_add_dialog, null);
         setContentView(view);
         ButterKnife.bind(this);
         TxtVi_content.setFocusable(true);
@@ -124,11 +124,11 @@ public class AddItemDialog extends Dialog implements NumberPicker.OnValueChangeL
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         dialogWindow.setWindowAnimations(R.style.dialogWindowAnim); //设置窗口弹出动画
         //dialogWindow.setBackgroundDrawableResource(R.color.transparent); //设置对话框背景为透明
-        //DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
+        DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
         //lp.alpha = 0.5f;
         setCanceledOnTouchOutside(true);
-        lp.height = 780;
-        lp.width = 1000;
+        lp.height = (int) (d.heightPixels*0.45);
+        lp.width = (int) (d.widthPixels*0.92);
         //lp.alpha = 0.6f;
         //lp.dimAmount = 0.7f;
         getWindow().setAttributes(lp);

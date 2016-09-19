@@ -17,14 +17,15 @@ import com.example.vizax.with.adapter.InvitationDetailsRecyclerViewAdapter;
 import com.example.vizax.with.adapter.UserImgListecyclerViewAdapter;
 import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.bean.MembersBean;
+import com.example.vizax.with.util.swipeback.SwipeBackLayout;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+
 
 /**
  * Young
@@ -67,7 +68,7 @@ public class InvitationDetailsActivity extends SwipeBackActivity {
     private UserImgListecyclerViewAdapter mUserImgAdapter;
     private RecyclerView mUserImgRecyclerView;
     private String mKeyTrackingMode;
-    private SwipeBackLayout mSwipeBackLayout;
+    private me.imid.swipebacklayout.lib.SwipeBackLayout mSwipeBackLayout;
     private InvitationBean mInvitationBeen;
     private ArrayList<MembersBean> mMemberBean;
     private boolean join;

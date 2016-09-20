@@ -2,7 +2,7 @@
 <resources>
     <!--全局颜色-->
     <color name="colorPrimary">#11cd6e</color><!--主题色-->
-    <color name="colorPrimaryDark">#00bb9c</color><!--状态栏颜色-->
+    <color name="colorPrimaryDark">#11cd6e</color><!--状态栏颜色00bb9c-->
     <color name="colorAccent">#11cd6e</color><!--默认控件颜色-->
 
     <color name="toolbar_bg">#11cd6e</color><!--toolbar背景色-->
@@ -12,49 +12,49 @@
     <color name="darkgray_text_def">#5f5f5f</color><!--界面默认黑灰text-->
     <color name="lightgray_text_def">#919191</color><!--界面默浅灰text-->
     <color name="normal_launch_activities_cancel_bg">#f1b136</color><!--发布活动界面取消按钮背景-->
-    <color name="normal_launchActivities_submit_bg">#56abe4</color><!--蓝色按钮-->
+    <color name="normal_launch_activities_submit_bg">#56abe4</color><!--蓝色按钮-->
     <color name="time_def">#858585</color><!--时间颜色-->
 
     <!--登录注册界面-->
-    <color name="tablayout_indicator_bg">#414141</color><!--登录注册界面棕色指示器-->
+    <color name="login_tablayout_indicator_bg">#414141</color><!--登录注册界面棕色指示器-->
 
     <!--with界面-->
-    <color name="subClassColor">#00bb9c</color><!--主页面子类别图标-->
-    <color name="mainClassColor">#11cd6e</color><!--主页面大类别图标-->
+    <color name="with_sub_class">#00bb9c</color><!--主页面子类别图标-->
+    <color name="with_main_class">#11cd6e</color><!--主页面大类别图标-->
     <color name="my_black_text">#242424</color><!--个人中心，黑色text-->
-    <color name="recyclerview_item_name">#56abe4</color><!--item用户蓝色姓名-->
+    <color name="invitation_item_originator_name">#56abe4</color><!--item用户蓝色姓名-->
 
     <!--个人中心界面颜色-->
-    <color name="redPrimary">#ff6347</color><!-- 默认红色 -->
-    <color name="myMessage_delete_color">#f1b136</color><!--我的信息右划删除按钮橙色背景-->
-        <color name="btn_myFollow_unFollow">#949494</color><!--我的关注界面关注按钮未关注状态-->
-    <color name="btn_myFollow_Follow">#11cd6e</color><!--我的关注界面关注按钮关注状态-->
+    <color name="my_red_icon">#ff6347</color><!-- 默认红色 -->
+    <color name="my_message_delete_bg">#f1b136</color><!--我的信息右划删除按钮橙色背景-->
+        <color name="my_follow_unfollow_btn">#949494</color><!--我的关注界面关注按钮未关注状态-->
+    <color name="my_follow_follow_btn">#11cd6e</color><!--我的关注界面关注按钮关注状态-->
 
     <!--活动详情界面-->
-    <color name="bg_detail_usercard">#f4f4f4</color><!--活动详情页面参加活动的用户列表的灰色背景-->
+    <color name="invitation_detail_usercard_bg">#ebf5f9</color><!--活动详情页面参加活动的用户列表的灰色背景-->
 
     <!--坚持界面-->
-    <color name="btn_mission_unfocus">#336666</color><!--坚持页面坚持抽屉未选中状态背景色-->
+    <color name="insist_mission_unfocus_bg">#336666</color><!--坚持页面坚持抽屉未选中状态背景色-->
 
-    <color name="bg_calendar_1">#eeeeee</color><!--坚持页面月历背景色1-->
-    <color name="btn_misson_1">#00bb9c</color><!--坚持页面坚持抽屉背景色1-->
-    <color name="bg_mood_1">#55c6be</color><!--坚持页面底部每日备注背景颜色1-->
+    <color name="insist_calendar_bg1">#eeeeee</color><!--坚持页面月历背景色1-->
+    <color name="insist_mission_btn1">#00bb9c</color><!--坚持页面坚持抽屉背景色1-->
+    <color name="insist_mood_bg1">#55c6be</color><!--坚持页面底部每日备注背景颜色1-->
 
-    <color name="bg_calendar_2">#ffe8d7</color><!--坚持页面月历背景色2-->
-    <color name="btn_misson_2">#feab6f</color><!--坚持页面坚持抽屉背景色2-->
-    <color name="bg_mood_2">#feab6f</color><!--坚持页面底部每日备注背景颜色2-->
+    <color name="insist_calendar_bg2">#ffe8d7</color><!--坚持页面月历背景色2-->
+    <color name="insist_mission_btn2">#feab6f</color><!--坚持页面坚持抽屉背景色2-->
+    <color name="insist_mood_bg2">#feab6f</color><!--坚持页面底部每日备注背景颜色2-->
 
-    <color name="bg_calendar_3">#935e8e</color><!--坚持页面月历背景色3-->
-    <color name="btn_misson_3">#ffd7fb</color><!--坚持页面坚持抽屉背景色3-->
-    <color name="bg_mood_3">#ffd7fb</color><!--坚持页面底部每日备注背景颜色3-->
+    <color name="insist_calendar_bg3">#ffd7fb</color><!--坚持页面月历背景色3-->
+    <color name="insist_mission_btn3">#935e8e</color><!--坚持页面坚持抽屉背景色3-->
+    <color name="insist_mood_bg3">#935e8e</color><!--坚持页面底部每日备注背景颜色3-->
 
-    <color name="bg_calendar_4">#d8d7ff</color><!--坚持页面月历背景色4-->
-    <color name="btn_misson_4">#6867a3</color><!--坚持页面坚持抽屉背景色4-->
-    <color name="bg_mood_4">#6867a3</color><!--坚持页面底部每日备注背景颜色4-->
+    <color name="insist_calendar_bg4">#d8d7ff</color><!--坚持页面月历背景色4-->
+    <color name="insist_mission_btn4">#6867a3</color><!--坚持页面坚持抽屉背景色4-->
+    <color name="insist_mood_bg4">#6867a3</color><!--坚持页面底部每日备注背景颜色4-->
 
-    <color name="bg_calendar_5">#fffdd7</color><!--坚持页面月历背景色5-->
-    <color name="btn_misson_5">#c1bb61</color><!--坚持页面坚持抽屉背景色5-->
-    <color name="bg_mood_5">#fffa99</color><!--坚持页面底部每日备注背景颜色5-->
+    <color name="insist_calendar_bg5">#fffdd7</color><!--坚持页面月历背景色5-->
+    <color name="insist_mission_btn5">#c1bb61</color><!--坚持页面坚持抽屉背景色5-->
+    <color name="insist_mood_bg5">#fffa99</color><!--坚持页面底部每日备注背景颜色5-->
 
 
 

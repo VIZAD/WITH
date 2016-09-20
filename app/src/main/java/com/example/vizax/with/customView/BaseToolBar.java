@@ -25,6 +25,7 @@ public class BaseToolBar extends Toolbar {
     private TextView centerView;
     private TextView rightView;
     private TextView leftrightView;
+    private final static int DEFAULT_TEXT_SIZE = 24;
 
     public BaseToolBar(Context context) {
         this(context, null);
@@ -46,15 +47,20 @@ public class BaseToolBar extends Toolbar {
             Drawable leftIcon = array.getDrawable(R.styleable.BaseToolBar_leftIcon);
             Drawable rightIcon = array.getDrawable(R.styleable.BaseToolBar_rightIcon);
             Drawable leftrightIcon = array.getDrawable(R.styleable.BaseToolBar_leftrightIcon);
+            int leftSize = array.getInt(R.styleable.BaseToolBar_leftTextSize, DEFAULT_TEXT_SIZE);
+            int rightSize = array.getInt(R.styleable.BaseToolBar_rightTextSize, DEFAULT_TEXT_SIZE);
+            int centerSize = array.getInt(R.styleable.BaseToolBar_centerTextSize, DEFAULT_TEXT_SIZE);
             Drawable leftIconBackground = array.getDrawable(R.styleable.BaseToolBar_leftIconBackground);
             Drawable rightIconBackground = array.getDrawable(R.styleable.BaseToolBar_leftIconBackground);
-
             setLeftText(leftText);
             setCenterText(centerText);
             setRightText(rightText);
             setLeftIcon(leftIcon);
             setRightIcon(rightIcon);
             setLeftRightIcon(leftrightIcon);
+            setLeftTextSize(leftSize);
+            setRightTextSize(rightSize);
+            setCenterTextSize(centerSize);
             setLeftIconBackground(leftIconBackground);
             setRightIconBackground(rightIconBackground);
             array.recycle();
@@ -80,7 +86,7 @@ public class BaseToolBar extends Toolbar {
     private void initViews() {
         if (view == null) {
             layoutInflater = LayoutInflater.from(getContext());
-            view = layoutInflater.inflate(R.layout.item_toolbar, null);
+            view = layoutInflater.inflate(R.layout.toolbar_item, null);
             leftView = (TextView) view.findViewById(R.id.tv_left);
             centerView = (TextView) view.findViewById(R.id.tv_center);
             rightView = (TextView) view.findViewById(R.id.tv_right);
@@ -210,5 +216,17 @@ public class BaseToolBar extends Toolbar {
         if (rightIconBackground!=null){
             rightView.setBackgroundDrawable(rightIconBackground);
         }
+    }
+
+    public void setLeftTextSize(int leftTextSize) {
+        leftView.setTextSize(leftTextSize);
+    }
+
+    public void setRightTextSize(int rightTextSize) {
+        rightView.setTextSize(rightTextSize);
+    }
+
+    public void setCenterTextSize(int centerTextSize) {
+        centerView.setTextSize(centerTextSize);
     }
 }

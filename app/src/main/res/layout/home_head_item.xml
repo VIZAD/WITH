@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="6dp"-->
+        <!--android:background="#33000000" />-->
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+        <!--第二行-->
+        <TableRow>
+
+
+            <LinearLayout
+                android:id="@+id/ll_sport"
+                android:layout_width="360dp"
+                android:layout_height="160dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:tag="运动"
+                android:background="@drawable/home_type_border">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_margin="5dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/colorPrimary"
+                    android:text="运动" />
+
+                <ImageView
+                    android:id="@+id/onebsport"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginBottom="25dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/home_sports" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    /*三个小活动*/
+
+                    <ImageView
+                        android:id="@+id/iv_sport1"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/litlesport"
+                        android:tag="足球" />
+
+                    <ImageView
+                        android:id="@+id/iv_sport2"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/litlesport"
+                        android:tag="篮球" />
+
+                    <ImageView
+                        android:id="@+id/iv_sport3"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/litlesport"
+                        android:tag="羽毛球" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_study"
+                android:layout_width="360dp"
+                android:layout_height="160dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:tag="学习"
+                android:background="@drawable/home_type_border">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_margin="5dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/colorPrimary"
+                    android:text="学习" />
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="25dp"
+                    android:src="@drawable/home_study" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    /*三个小活动*/
+
+                    <ImageView
+                        android:id="@+id/iv_study1"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/litlesport"
+                        android:tag="足球"/>
+
+                    <ImageView
+                        android:id="@+id/iv_study2"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/litlesport"
+                        android:tag="足球"/>
+
+                    <ImageView
+                        android:id="@+id/iv_study3"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/litlesport"
+                        android:tag="足球"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </TableRow>
+
+        <!--<View
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="#33000000" />-->
+        <!--第二行-->
+        <TableRow>
+
+            <LinearLayout
+                android:id="@+id/ll_board_game"
+                android:layout_width="360dp"
+                android:layout_height="160dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:tag="桌游"
+                android:background="@drawable/home_type_border">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_margin="5dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/colorPrimary"
+                    android:text="桌游" />
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="25dp"
+                    android:src="@drawable/home_board_games" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    /*三个小活动*/
+
+                    <ImageView
+                        android:id="@+id/iv_board_game1"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/litlesport" />
+
+                    <ImageView
+                        android:id="@+id/iv_board_game2"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/litlesport" />
+
+                    <ImageView
+                        android:id="@+id/iv_board_game3"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/litlesport" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_online_game"
+                android:layout_width="360dp"
+                android:layout_height="160dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:tag="网游"
+                android:background="@drawable/home_type_border">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_margin="5dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/colorPrimary"
+                    android:text="网游" />
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="25dp"
+                    android:src="@drawable/hone_games" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    /*三个小活动*/
+
+                    <ImageView
+                        android:id="@+id/iv_online_game1"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/litlesport" />
+
+                    <ImageView
+                        android:id="@+id/iv_online_game2"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/litlesport" />
+
+                    <ImageView
+                        android:id="@+id/iv_online_game3"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/litlesport" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </TableRow>
+
+        <!--<View
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="#33000000" />-->
+        <!--第三行-->
+        <TableRow>
+
+            <LinearLayout
+                android:id="@+id/ll_date"
+                android:layout_width="360dp"
+                android:layout_height="160dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:tag="聚会"
+                android:background="@drawable/home_type_border">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_margin="5dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/colorPrimary"
+                    android:text="聚会" />
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="25dp"
+                    android:src="@drawable/home_appointmant" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    /*三个小活动*/
+
+                    <ImageView
+                        android:id="@+id/iv_date1"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/litlesport" />
+
+                    <ImageView
+                        android:id="@+id/iv_date2"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/litlesport" />
+
+                    <ImageView
+                        android:id="@+id/iv_date3"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/litlesport" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_other"
+                android:layout_width="360dp"
+                android:layout_height="160dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:tag="其他"
+                android:background="@drawable/home_type_border">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/colorPrimary"
+                    android:text="其他" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:orientation="vertical"
+
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="top"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+
+                        >
+                        /*三个小活动*/
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/litlesport" />
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/litlesport" />
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/litlesport" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+
+                        android:orientation="horizontal">
+                        /*三个小活动*/
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/litlesport" />
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/litlesport" />
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/litlesport" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="1"
+
+                        android:orientation="horizontal">
+                        /*三个小活动*/
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/litlesport" />
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/litlesport" />
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/litlesport" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </TableRow>
+
+    </TableLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="@color/gainsboro"/>
+</LinearLayout>

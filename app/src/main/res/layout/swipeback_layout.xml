@@ -14,7 +14,7 @@
   ~ limitations under the License.
   -->
 
-<ruijie.com.my12306.widget.swipeback.SwipeBackLayout
+<me.imid.swipebacklayout.lib.SwipeBackLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/swipe"
     android:layout_width="match_parent"

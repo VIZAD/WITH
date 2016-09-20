@@ -27,8 +27,6 @@
     <string name="app_tagline_label">You Will Never Walk Alone</string>
 
 
-
-
     <!--主页和主页的侧栏-->
     <string name="home_title">首页</string>
     <string name="sport_label">运动</string>
@@ -44,7 +42,6 @@
     <string name="my_concern_label">我的关注</string>
     <string name="setting_label">设置</string>
     <string name="check_update_label">检查更新</string>
-
 
 
     <!--修改密码-->
@@ -89,15 +86,12 @@
     <string name="ensure_btn_dialog">确定</string>
 
 
-
     <!--其他用户的以及自己的个人资料页面-->
     <string name="personal_data_title">个人资料</string>
     <string name="name_label">姓名</string>
     <string name="student_number_label">学号</string>
     <string name="QQ_label">QQ</string>
     <string name="phone_number_label">手机号码</string>
-
-
 
 
     <!--活动详情页面-->
@@ -162,7 +156,7 @@
     <string name="activity_type_label">活动类型：</string>
     <string name="activity_title_label">活动标题：</string>
     <string name="description_label">内容描述：</string>
-    <string name="description_hint">请描述活动具体内容：</string>
+    <string name="description_hint">请描述活动具体内容</string>
     <string name="unlimited_label">不限</string>
     <string name="activity_time_label">活动时间：</string>
     <string name="active_site_label">活动地点：</string>

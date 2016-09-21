@@ -8,24 +8,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.vizax.with.R;
 import com.example.vizax.with.base.BaseActivity;
-import com.example.vizax.with.bean.HomeInvitationBean;
-import com.example.vizax.with.bean.InvitationBaseBean;
 import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.bean.MembersBean;
 import com.example.vizax.with.customView.BaseToolBar;
 import com.example.vizax.with.ui.invitationList.InvitationActivity;
 import com.example.vizax.with.ui.invitationList.InvitationDetailsActivity;
-import com.example.vizax.with.ui.invitationList.InvitationPresenter;
-import com.example.vizax.with.util.LoadMoreRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,10 +37,15 @@ public class HomeActivity extends BaseActivity implements HomeContact.View {
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout swipeLayout;
 
+    @BindView(R.id.sidebar_menu)
+    LinearLayout mSideBar;
+    @BindView(R.id.drawerlayout_id)
+    MyDrawerLayout mDrawerLayout;
+
     private HomePresenter mhomePresenter;
     private LinearLayoutManager mManager;
     private HomeAdapter mHomeAdapter;
-    private int lastId=2;
+    private int lastId = 2;
     //private List<HomeInvitationBean.DataBean> mhomeBeanlists;
     private List<InvitationBean> mhomeBeanlists;
 //    private int totalcount;
@@ -69,32 +70,33 @@ public class HomeActivity extends BaseActivity implements HomeContact.View {
         toolbar.setRightIcon(getResources().getDrawable(R.drawable.calenda_94dp));
 
         //新建Presenter
-        mhomePresenter=new HomePresenter(this);
+        mhomePresenter = new HomePresenter(this);
 
         //初始化SwipeRefreshLayout
         mhomePresenter.initSwipe(swipeLayout);
 
+        mDrawerLayout.setLinearLayout(mSideBar);
         //mhomePresenter.addLoadAnimation(mHomeAdapter);
 
         //设置RecyclerView
-        mManager=new LinearLayoutManager(this);
+        mManager = new LinearLayoutManager(this);
         recyVi.setLayoutManager(mManager);
         recyVi.setHasFixedSize(true);
 
         //初始化适配器
-        mhomeBeanlists=new ArrayList<>();
-        mHomeAdapter=new HomeAdapter(this,mhomeBeanlists);
+        mhomeBeanlists = new ArrayList<>();
+        mHomeAdapter = new HomeAdapter(this, mhomeBeanlists);
         recyVi.setAdapter(mHomeAdapter);
 
         //首次加载
-        mhomePresenter.loadHomeData("zxw",0,0,0,10);
+        mhomePresenter.loadHomeData("zxw", 0, 0, 0, 10);
 
         //下拉刷新
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 swipeLayout.setRefreshing(false);
-                mhomePresenter.loadHomeData("zxw",0,0,0,10);
+                mhomePresenter.loadHomeData("zxw", 0, 0, 0, 10);
                 //Log.i("HomeActivity1","onRefresh()");
             }
         });
@@ -110,11 +112,11 @@ public class HomeActivity extends BaseActivity implements HomeContact.View {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (newState ==RecyclerView.SCROLL_STATE_IDLE && mManager.findLastVisibleItemPosition() + 1 ==mHomeAdapter.getItemCount()) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && mManager.findLastVisibleItemPosition() + 1 == mHomeAdapter.getItemCount()) {
                     swipeLayout.setRefreshing(false);
                     //showHomeToast(lastId+"最后一个id");
-                    mhomePresenter.loadHomeData("zxw",0,0,lastId,10);
-                    Log.i("HomeActivity1","onScrollStateChanged()");
+                    mhomePresenter.loadHomeData("zxw", 0, 0, lastId, 10);
+                    Log.i("HomeActivity1", "onScrollStateChanged()");
 
                 }
             }
@@ -123,10 +125,10 @@ public class HomeActivity extends BaseActivity implements HomeContact.View {
         mHomeAdapter.setOnRecyclerViewItemChildClickListener(new BaseQuickAdapter.OnRecyclerViewItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-                if(i==0){
-                    mhomePresenter.setHomeHeadClick(baseQuickAdapter,view,i);
-                }else{
-                    mhomePresenter.setHomeItemClick(baseQuickAdapter,view,i);
+                if (i == 0) {
+                    mhomePresenter.setHomeHeadClick(baseQuickAdapter, view, i);
+                } else {
+                    mhomePresenter.setHomeItemClick(baseQuickAdapter, view, i);
                 }
             }
         });
@@ -157,55 +159,55 @@ public class HomeActivity extends BaseActivity implements HomeContact.View {
     }
 
     @Override
-    public void loadHomeFirstData(List<InvitationBean> lists,int lastId) {
+    public void loadHomeFirstData(List<InvitationBean> lists, int lastId) {
         //showHomeToast(lists.toString());
         mHomeAdapter.setNewData(lists);
         mHomeAdapter.notifyDataSetChanged();
-        this.lastId=lastId;
+        this.lastId = lastId;
     }
 
     @Override
-    public void loadHomeDownData(List<InvitationBean> lists,int lastId) {
+    public void loadHomeDownData(List<InvitationBean> lists, int lastId) {
 //        mHomeAdapter.addData(lists);
 //        mHomeAdapter.notifyDataSetChanged();
 //        mHomeAdapter.notifyDataChangedAfterLoadMore(lists, true);
 //        nowcount=lists.size();
         mHomeAdapter.setNewData(lists);
         mHomeAdapter.notifyDataSetChanged();
-        this.lastId=lastId;
+        this.lastId = lastId;
     }
 
     @Override
     public void showHomeToast(String toast) {
-        Toast toast1=Toast.makeText(this,toast,Toast.LENGTH_SHORT);
+        Toast toast1 = Toast.makeText(this, toast, Toast.LENGTH_SHORT);
         toast1.show();
     }
 
     @Override
     public void openHeadDetail(String string) {
-        Intent intent=new Intent(this, InvitationActivity.class);
-        intent.putExtra("type",string);
+        Intent intent = new Intent(this, InvitationActivity.class);
+        intent.putExtra("type", string);
         startActivity(intent);
     }
 
     @Override
-    public void openOtherDetail(ArrayList<InvitationBean> mhomeBeanlists,int i) {
+    public void openOtherDetail(ArrayList<InvitationBean> mhomeBeanlists, int i) {
         Intent it = new Intent(this, InvitationDetailsActivity.class);
         Bundle memBundle = new Bundle();
         Bundle invitationBaseBeanBundle = new Bundle();
-        memBundle.putParcelableArrayList("members",mhomeBeanlists.get(i).getMembers());
+        memBundle.putParcelableArrayList("members", mhomeBeanlists.get(i).getMembers());
         invitationBaseBeanBundle.putParcelableArrayList("invitationlist", mhomeBeanlists);
-        invitationBaseBeanBundle.putInt("index",i);
+        invitationBaseBeanBundle.putInt("index", i);
         it.putExtras(memBundle);
         it.putExtras(invitationBaseBeanBundle);
-        startActivityForResult(it,1);
+        startActivityForResult(it, 1);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        boolean join = data.getBooleanExtra("join",false);
-        int index = data.getIntExtra("index",0);
+        boolean join = data.getBooleanExtra("join", false);
+        int index = data.getIntExtra("index", 0);
         MembersBean mem = data.getParcelableExtra("member");
         mhomePresenter.mhomeBeanlists.get(index).setJoin(join);
         mHomeAdapter.setNewData(mhomePresenter.mhomeBeanlists);

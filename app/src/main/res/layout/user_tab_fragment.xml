@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#d8d8d8"
-    tools:context=".ui.myconcern.MyConcernActivity">
+    tools:context=".ui.myconcern.MyConcernActivity"
+    android:id="@+id/user_tab_fragment_rl">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/user_tab_fragment_recyclerview"

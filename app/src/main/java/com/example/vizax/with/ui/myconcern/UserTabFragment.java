@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -43,6 +44,9 @@ public class UserTabFragment extends Fragment implements MyConcernContact.View {
 
     }
 
+    @BindView(R.id.user_tab_fragment_rl)
+    RelativeLayout mRelativeLayout;
+
 
 
     @Nullable
@@ -56,12 +60,10 @@ public class UserTabFragment extends Fragment implements MyConcernContact.View {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
-        int spacingInPixels = 36;
-        mRecyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+
         mDatas = new ArrayList<MyConcern.DataBean>();
         initData();
         System.out.println("mdata:="+mDatas);
-
         return view;
     }
 
@@ -90,10 +92,10 @@ public class UserTabFragment extends Fragment implements MyConcernContact.View {
     public void setData (List<MyConcern.DataBean> items) {
         this.mDatas =items;
         System.out.println("items = "+items);
+        int spacingInPixels= (int) (mRelativeLayout.getHeight()*0.025);
         mAdapter = new UserTabItemAdapter(getActivity(), mDatas);
-
-        // Log.i("aaaa",mAdapter.toString());
-
+        System.out.println("el:"+spacingInPixels);
+        mRecyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
         mRecyclerView.setAdapter(mAdapter);
 
         mAdapter.setOnRecyclerViewItemChildClickListener(new BaseQuickAdapter.OnRecyclerViewItemChildClickListener() {

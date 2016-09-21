@@ -79,8 +79,8 @@
     <string name="onlinegame_label">网游</string>
     <string name="party_label">聚会</string>
     <string name="other_label">其他</string>
-    <string name="my_sponsor_label">我发起的活动</string>
-    <string name="my_partake_label">我参与的活动</string>
+    <string name="my_invitation_label">我发起的活动</string>
+    <string name="my_participation_label">我参与的活动</string>
     <string name="my_insist_label">我的坚持</string>
     <string name="my_news_label">我的信息</string>
     <string name="my_concern_label">我的关注</string>

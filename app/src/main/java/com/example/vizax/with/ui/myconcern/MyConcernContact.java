@@ -23,6 +23,7 @@ public interface MyConcernContact {
     //Presenter操作接口，自己定义一个Presenter实现该接口
     interface Presenter extends BasePresenter<MyConcernContact.View> {
         void  getMyCocernData(Context context);
+        void IsCocern(Context context);
 
     }
 }

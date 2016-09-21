@@ -6,13 +6,19 @@
     android:orientation="vertical"
     >
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/activity_tab_fragment_recyclerview"
+    <net.mobctrl.views.SuperSwipeRefreshLayout
+        android:id="@+id/concern_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="#ffff0000"
-        android:dividerHeight="10dp"
-        android:text="Hello World!" />
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/activity_tab_fragment_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#ffff0000"
+            android:dividerHeight="10dp"
+            android:text="Hello World!" />
+    </net.mobctrl.views.SuperSwipeRefreshLayout>
+
 
 
 </LinearLayout>

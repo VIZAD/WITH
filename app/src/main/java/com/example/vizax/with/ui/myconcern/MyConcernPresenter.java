@@ -16,6 +16,7 @@ import java.util.List;
 
 import okhttp3.Call;
 
+import static com.example.vizax.with.constant.APIConstant.INVITATION_CONCERNUSER;
 import static com.example.vizax.with.constant.APIConstant.INVITATION_GETCONCERNEDUSERS;
 
 /**
@@ -57,6 +58,30 @@ public class MyConcernPresenter implements MyConcernContact.Presenter  {
                     }
 
                 });
+    }
+
+    @Override
+    public void IsCocern(Context context) {
+
+        OkHttpUtils.post()
+                .url(APIConstant.getApi(INVITATION_CONCERNUSER))
+                .addParams("token","token")
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        Toast.makeText(context,e+"",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        IsConcern isConcern = GsonUtil.toListString(response,IsConcern.class);
+                        Toast.makeText(context,isConcern.getMsg().toString(),Toast.LENGTH_SHORT).show();
+
+                    }
+
+                });
+
     }
 
     @Override

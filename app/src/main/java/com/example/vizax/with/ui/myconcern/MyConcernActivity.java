@@ -23,7 +23,7 @@ public class MyConcernActivity extends AppCompatActivity {
         setContentView(R.layout.activity_myconcern);
         ButterKnife.bind(this);
         mToolBar.setCenterText("我的关注");
-        mToolBar.setLeftIcon(R.drawable.ic_arrow_back_black_36dp);
+        mToolBar.setLeftIcon(R.drawable.ic_keyboard_arrow_left);
 
     }
 

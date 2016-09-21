@@ -54,13 +54,10 @@ public class UserTabFragment extends Fragment implements MyConcernContact.View {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_tab_fragment, container, false);
         ButterKnife.bind(this, view);
-
         mRecyclerView = (RecyclerView) view.findViewById(R.id.user_tab_fragment_recyclerview);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
-
         mDatas = new ArrayList<MyConcern.DataBean>();
         initData();
         System.out.println("mdata:="+mDatas);
@@ -91,13 +88,11 @@ public class UserTabFragment extends Fragment implements MyConcernContact.View {
     @Override
     public void setData (List<MyConcern.DataBean> items) {
         this.mDatas =items;
-        System.out.println("items = "+items);
         int spacingInPixels= (int) (mRelativeLayout.getHeight()*0.025);
+
         mAdapter = new UserTabItemAdapter(getActivity(), mDatas);
-        System.out.println("el:"+spacingInPixels);
         mRecyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
         mRecyclerView.setAdapter(mAdapter);
-
         mAdapter.setOnRecyclerViewItemChildClickListener(new BaseQuickAdapter.OnRecyclerViewItemChildClickListener() {
                                                              @Override
                                                              public void onItemChildClick(BaseQuickAdapter adapter, View view, int i) {

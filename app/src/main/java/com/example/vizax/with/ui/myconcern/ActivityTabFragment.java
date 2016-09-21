@@ -18,6 +18,7 @@ import com.example.vizax.with.ui.invitationList.InvitationActivity;
 import com.example.vizax.with.ui.invitationList.InvitationContact;
 import com.example.vizax.with.ui.invitationList.InvitationDetailsActivity;
 import com.example.vizax.with.ui.invitationList.InvitationPresenter;
+import com.example.vizax.with.util.AnimationUtil;
 
 import net.mobctrl.views.SuperSwipeRefreshLayout;
 

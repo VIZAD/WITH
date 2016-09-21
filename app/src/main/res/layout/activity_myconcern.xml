@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.myconcern.MyConcernActivity">
+    tools:context=".ui.myconcern.MyConcernActivity"
+    android:id="@+id/activity_myconcern">
     <include layout="@layout/base_toolbar"/>
     <fragment
         android:id="@+id/my_concern_fragment"

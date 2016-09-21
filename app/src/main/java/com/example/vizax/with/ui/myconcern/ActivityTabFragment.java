@@ -32,7 +32,7 @@ import static android.R.attr.visible;
  * Created by apple1 on 2016/9/13.
  */
 public class ActivityTabFragment extends Fragment implements InvitationContact.View {
-    private  MyActivityAdapter mMyActivityAdapter;
+
     private InvitationPresenter mInvitationListPresenter;
     @BindView(R.id.activity_tab_fragment_recyclerview)
     RecyclerView mRecyclerView;

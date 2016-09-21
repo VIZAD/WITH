@@ -17,7 +17,8 @@
             android:id="@+id/recyVi"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical">
+            android:scrollbars="vertical"
+            android:background="@color/backColor">
 
         </android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>

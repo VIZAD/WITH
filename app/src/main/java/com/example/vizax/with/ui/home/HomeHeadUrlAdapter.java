@@ -19,7 +19,7 @@ public class HomeHeadUrlAdapter extends BaseMultiItemQuickAdapter<HomeInvitation
     public HomeHeadUrlAdapter(Context context,List<HomeInvitationBean.DataBean.MembersBean> data) {
         super(data);
         this.context=context;
-        addItemType(1, R.layout.item_invitation_user_img);
+        addItemType(1, R.layout.invitation_user_avatar_item);
     }
 
     @Override

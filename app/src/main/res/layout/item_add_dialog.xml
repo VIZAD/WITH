@@ -3,60 +3,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
     android:layout_height="500dp"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    >
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:scrollbars="none">
     <LinearLayout
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:orientation="vertical">
+        android:orientation="vertical"
+
+        >
 
         <TextView
             android:id="@+id/mission_add_focus_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="17dp"
-            android:text="新建任务："
+            android:text="新建任务"
             android:textSize="20sp"
             />
 
         <LinearLayout
             android:layout_marginLeft="25dp"
-            android:layout_marginTop="0dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="任务标题："
-                android:textSize="15sp"/>
-            <EditText
-                android:id="@+id/mission_title"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                />
+                android:textSize="15sp">
+
+                <EditText
+                    android:hint="任务标题"
+                    android:id="@+id/mission_title"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    />
+            </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="10dp">
-            <TextView
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="25dp">
+            <android.support.design.widget.TextInputLayout
 
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="任务详情："
-                android:textSize="15sp"/>
+                android:textSize="15sp">
             <EditText
+                android:hint="任务详情"
                 android:id="@+id/mission_content"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
         </LinearLayout>
+
     </LinearLayout>
+    </ScrollView>
             <!-- 定义HorizontalScrollView，为里面的组件添加水平滚动条 -->
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/insist_ic_bg_rcyVi"
@@ -71,42 +82,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="0dp"
-        android:layout_gravity="center">
+        >
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="horizontal"
-            android:gravity="center|center_horizontal">
+            android:gravity="center"
+            >
             <Button
                 android:id="@+id/addItem_cancel_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#00000000"
+                android:background="#ffffff"
                 android:textSize="15dp"
-                android:text="取消"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center|center_horizontal">
-
+                android:text="取消"
+                android:gravity="center" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="horizontal"
-            android:gravity="center|center_horizontal"
+            android:gravity="center"
             >
             <Button
                 android:id="@+id/addItem_cfm_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#00000000"
+                android:background="#ffffff"
                 android:textSize="15dp"
+                android:gravity="center"
                 android:text="确定" />
         </LinearLayout>
 

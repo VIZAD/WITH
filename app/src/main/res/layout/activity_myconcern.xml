@@ -4,10 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.invitationList.InvitationDetailsActivity">
-　　　
-        <TextView
-            android:text="加载"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    tools:context=".ui.myconcern.MyConcernActivity">
+    <fragment
+        android:id="@+id/my_concern_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.example.vizax.with.ui.myconcern.MyConcernFragment"
+        />
+
+
+
 </LinearLayout>

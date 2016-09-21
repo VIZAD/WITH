@@ -82,42 +82,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="0dp"
-        android:layout_gravity="center">
+        >
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="horizontal"
-            android:gravity="center|center_horizontal">
+            android:gravity="center"
+            >
             <Button
                 android:id="@+id/addItem_cancel_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#00000000"
+                android:background="#ffffff"
                 android:textSize="15dp"
-                android:text="取消"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center|center_horizontal">
-
+                android:text="取消"
+                android:gravity="center" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="horizontal"
-            android:gravity="center|center_horizontal"
+            android:gravity="center"
             >
             <Button
                 android:id="@+id/addItem_cfm_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#00000000"
+                android:background="#ffffff"
                 android:textSize="15dp"
+                android:gravity="center"
                 android:text="确定" />
         </LinearLayout>
 

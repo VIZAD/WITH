@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import com.example.vizax.with.base.BasePresenter;
 import com.example.vizax.with.base.BaseView;
 import com.example.vizax.with.bean.InvitationBaseBean;
+import com.example.vizax.with.bean.InvitationBean;
 
 /**
  * Created by Young on 2016/9/18.
@@ -22,15 +23,19 @@ public interface InvitationContact {
 
         //获取数据失败事件
         void loadDataFailure();
+
+        //item点击事件
+        void OpenDetail(int position, InvitationBaseBean invitationBean);
+        void stopRefresh();
     }
     interface InvitationlModel{
         void getData(String typeId, String userId,InvitationCallBack invitationCallBack);
-        void addData(String finalItemId,String count,InvitationBaseBean invitationBaseBean);
+        InvitationBaseBean addData(String finalItemId, String count, InvitationBaseBean invitationBaseBean, InvitationModel.StopRefreshing stopRefreshing);
     }
     interface InvitationPresenter extends BasePresenter<View>{
         void getDataAndSetAdapter(Context context, RecyclerView recyclerView, int visible, String typeId, String userId);
         void onPositive(int position);
-        void setAdapter(Context context, RecyclerView recyclerView, int visible);
+        void setAdapter(Context context, RecyclerView recyclerView,InvitationBaseBean invitationBaseBean, int visible);
         void pullLoadMore();
     }
     interface InvitationCallBack {

@@ -17,6 +17,7 @@ public class InvitationModel implements InvitationContact.InvitationlModel {
     private InvitationRecyclerViewAdapter mAdapter;
     private InvitationBaseBean  mData;
     private InvitationContact.InvitationCallBack invitationCallBack;
+    private StopRefreshing stopRefreshing;
     @Override
     public void getData(String typeId, String userId, InvitationContact.InvitationCallBack after) {
         this.invitationCallBack = after;
@@ -63,7 +64,8 @@ public class InvitationModel implements InvitationContact.InvitationlModel {
     }
 
     @Override
-    public void addData(String finalItemId, String count,InvitationBaseBean invitationBaseBean) {
+    public InvitationBaseBean addData(String finalItemId, String count,InvitationBaseBean invitationBaseBean,StopRefreshing stopRefreshing) {
+        this.stopRefreshing = stopRefreshing;
         mData = invitationBaseBean;
         OkHttpUtils.post()
                 .url(APIConstant.getApi(APIConstant.INVITATION_GETINVITATIONS))
@@ -71,6 +73,12 @@ public class InvitationModel implements InvitationContact.InvitationlModel {
                 .addParams("limit",count)
                 .build()
                 .execute(new StringCallback() {
+                    @Override
+                    public void onAfter(int id) {
+                        super.onAfter(id);
+                        stopRefreshing.stopRefreshing();
+                    }
+
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         System.out.println("erro!!!");
@@ -90,14 +98,13 @@ public class InvitationModel implements InvitationContact.InvitationlModel {
                             e.printStackTrace();
                             System.out.println("");
                         }
+                        System.out.println("更新前的数据="+mData.getData().size());
                         for(int i = 0;i<baseBean.getData().size();i++){
                             mData.getData().add(baseBean.getData().get(i));
                         }
-                        System.out.println("更新后的数据="+mData.getData().toString());
+                        System.out.println("更新后的数据="+mData.getData().size());
                         if (baseBean.getCode().equals("200")){
                             System.out.println("success!!!");
-                            result = baseBean;
-                            System.out.println("result="+result.getData().get(0).toString());
                         }
                         else{
                             result = null;
@@ -105,7 +112,11 @@ public class InvitationModel implements InvitationContact.InvitationlModel {
                         }
                     }
                 });
+        return mData;
 
+    }
+    interface StopRefreshing{
+        void stopRefreshing();
     }
 
 

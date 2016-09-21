@@ -3,10 +3,12 @@ package com.example.vizax.with.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 /**
  * Created by Young on 2016/9/16.
  */
-public class MembersBean implements Parcelable {
+public class MembersBean extends MultiItemEntity implements Parcelable {
 
     public static final Parcelable.Creator<MembersBean> CREATOR = new Creator<MembersBean>() {
         @Override

@@ -7,7 +7,7 @@
     tools:context=".ui.invitationList.InvitationDetailsActivity">
 　　　
         <TextView
-            android:text="hgaha"
+            android:text="加载"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 </LinearLayout>

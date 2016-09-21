@@ -3,13 +3,35 @@ package com.example.vizax.with.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Young on 2016/9/16.
  */
-public class InvitationBean implements Parcelable{
+public class InvitationBean extends MultiItemEntity implements Parcelable{
+    public static final int HOME_HEAD=1;
+    public static final int HOME_OTHER=2;
+
+    private transient int itemType;
+
+//    public InvitationBean(int itemType, String content) {
+//        this.itemType = itemType;
+//    }
+
+//    public InvitationBean(int itemType) {
+//        this.itemType = itemType;
+//    }
+
+    public void setItemType(int itemType){
+        this.itemType=itemType;
+    }
+    @Override
+    public int getItemType() {
+        return itemType;
+    }
     public static final Parcelable.Creator<InvitationBean> CREATOR = new Creator<InvitationBean>() {
 
         @Override
@@ -249,7 +271,34 @@ public class InvitationBean implements Parcelable{
         dest.writeInt(isJoin ? 1:0 );
         dest.writeString(invitationTime);
         dest.writeString(publishTime);
-      //  dest.writeList(members);
+       // dest.writeList(members);
 
+    }
+
+    @Override
+    public String toString() {
+        return "InvitationBean{" +
+                "msg='" + msg + '\'' +
+                ", code='" + code + '\'' +
+                ", originatorHeadUrl='" + originatorHeadUrl + '\'' +
+                ", menbersUrl='" + menbersUrl + '\'' +
+                ", invitationTime='" + invitationTime + '\'' +
+                ", publishTime='" + publishTime + '\'' +
+                ", originatorNickname='" + originatorNickname + '\'' +
+                ", originatorPhone='" + originatorPhone + '\'' +
+                ", iconUrl='" + iconUrl + '\'' +
+                ", originatorId='" + originatorId + '\'' +
+                ", invitaionId='" + invitaionId + '\'' +
+                ", currentNumber='" + currentNumber + '\'' +
+                ", sexRequire='" + sexRequire + '\'' +
+                ", content='" + content + '\'' +
+                ", title='" + title + '\'' +
+                ", originatorSex='" + originatorSex + '\'' +
+                ", totalNumber='" + totalNumber + '\'' +
+                ", place='" + place + '\'' +
+                ", originatorrealName='" + originatorrealName + '\'' +
+                ", isJoin=" + isJoin +
+                ", members=" + members +
+                '}';
     }
 }

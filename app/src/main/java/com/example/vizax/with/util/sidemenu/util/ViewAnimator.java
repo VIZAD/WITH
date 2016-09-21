@@ -10,6 +10,8 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.LinearLayoutCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
@@ -70,85 +72,76 @@ public class ViewAnimator<T extends Resourceble> {
     }
 
 
-    public void showMenuContent() {
+    public void showMenuContent(int heights ,int length) {
         setViewsClickable(false);
         viewList.clear();
         double size = list.size();
         mOnLongClick = 0;
         for (int i = 0; i < size; i++) {
             View viewMenu = activity.getLayoutInflater().inflate(R.layout.menu_list_item, null);
+            if(i==size-1) {
+                viewMenu.setLayoutParams(new LinearLayoutCompat.LayoutParams(heights, heights+length));
+            } else {
+                viewMenu.setLayoutParams(new LinearLayoutCompat.LayoutParams(heights, heights));
+            }
             final int finalI = i;
-            viewMenu.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int[] location = {0, 0};
-                    v.getLocationOnScreen(location);
-                    //System.out.println("图片Resources = "+((DraweeView) viewMenu.findViewById(R.id.menu_item_image)).getResources()+" close = "+R.drawable.icn_close);
-                    if(list.get(finalI).getImageRes()!= R.drawable.icn_close&&list.get(finalI).getImageRes()!= R.drawable.icn_add) {
-                        switchItem(list.get(finalI), location[1] + v.getHeight() / 2);
-                        mClicked = finalI;
-                        System.out.println("click item");
-                    }
-                    else if (list.get(finalI).getImageRes()== R.drawable.icn_add) {
-                        AddIcon(activity,viewMenu,finalI);
-                        System.out.println("click plus");
-                    }
-                    else {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                        builder.setMessage("确认删除吗？");
-                        builder.setTitle("提示");
-                        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                SharedPreferences.Editor editor = sp.edit();
-                                editor.remove("Item"+finalI);
-                                editor.commit();
-                                ((DraweeView) viewMenu.findViewById(R.id.menu_item_image)).setImageResource(R.drawable.icn_add);
-                                SlideMenuItem add = new SlideMenuItem(list.get(finalI).getName(), R.drawable.icn_add);
-                                mList.remove(finalI);
-                                mList.add(finalI, (SlideMenuItem) add);
-                                list.set(finalI,(T)add);
-                                dialog.dismiss();
-                                mPresenter = new InsistPresenter();
-                                mPresenter.deleteTask(String.valueOf(finalI));
+            viewMenu.setOnClickListener(v -> {
+                int[] location = {0, 0};
+                v.getLocationOnScreen(location);
+                //System.out.println("图片Resources = "+((DraweeView) viewMenu.findViewById(R.id.menu_item_image)).getResources()+" close = "+R.drawable.icn_close);
+                if(list.get(finalI).getImageRes()!= R.drawable.icn_close&&list.get(finalI).getImageRes()!= R.drawable.icn_add) {
+                    switchItem(list.get(finalI), location[1] + v.getHeight() / 2);
+                    mClicked = finalI;
+                    System.out.println("click item");
+                }
+                else if (list.get(finalI).getImageRes()== R.drawable.icn_add) {
+                    AddIcon(activity,viewMenu,finalI);
+                    System.out.println("click plus");
+                }
+                else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                    builder.setMessage("确认删除吗？");
+                    builder.setTitle("提示");
+                    builder.setPositiveButton("确认", (dialog, which) -> {
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.remove("Item"+finalI);
+                        editor.commit();
+                        ((DraweeView) viewMenu.findViewById(R.id.menu_item_image)).setImageResource(R.drawable.icn_add);
+                        SlideMenuItem add = new SlideMenuItem(list.get(finalI).getName(), R.drawable.icn_add);
+                        mList.remove(finalI);
+                        mList.add(finalI, (SlideMenuItem) add);
+                        list.set(finalI,(T)add);
+                        dialog.dismiss();
+                        mPresenter = new InsistPresenter();
+                        mPresenter.deleteTask(String.valueOf(finalI));
 
-                            }
-                        });
-                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                        builder.create().show();
-                    }
+                    });
+                    builder.setNegativeButton("取消", (dialog, which) -> dialog.dismiss());
+                    builder.create().show();
                 }
             });
             //长按事件
-            viewMenu.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    int[] location = {0, 0};
-                    v.getLocationOnScreen(location);
-                    //switchItem(list.get(finalI), location[1] + v.getHeight() / 2);
-                    if(list.get(finalI).getImageRes()!= R.drawable.icn_close) {
-                        //((DraweeView) v.findViewById(R.id.menu_item_image)).setImageResource(R.drawable.icn_close);
-                        SlideMenuItem close = new SlideMenuItem(list.get(finalI).getName(), R.drawable.icn_close);
-                        list.set(finalI, (T) close);
-                        mOnLongClick = 1;
-                    }
-                    else {
-                        //((DraweeView) v.findViewById(R.id.menu_item_image)).setImageResource(R.drawable.icn_close);
-                        SlideMenuItem close = new SlideMenuItem(list.get(finalI).getName(),mList.get(finalI).getImageRes());
-                        list.set(finalI, (T) close);
-                        mOnLongClick = 0;
-
-                    }
-                    System.out.println("long click");
-                    playFlipAnimation((DraweeView) v.findViewById(R.id.menu_item_image),finalI);
-
-                    return true;
+            viewMenu.setOnLongClickListener(v -> {
+                int[] location = {0, 0};
+                v.getLocationOnScreen(location);
+                //switchItem(list.get(finalI), location[1] + v.getHeight() / 2);
+                if(list.get(finalI).getImageRes()!= R.drawable.icn_close) {
+                    //((DraweeView) v.findViewById(R.id.menu_item_image)).setImageResource(R.drawable.icn_close);
+                    SlideMenuItem close = new SlideMenuItem(list.get(finalI).getName(), R.drawable.icn_close);
+                    list.set(finalI, (T) close);
+                    mOnLongClick = 1;
                 }
+                else {
+                    //((DraweeView) v.findViewById(R.id.menu_item_image)).setImageResource(R.drawable.icn_close);
+                    SlideMenuItem close = new SlideMenuItem(list.get(finalI).getName(),mList.get(finalI).getImageRes());
+                    list.set(finalI, (T) close);
+                    mOnLongClick = 0;
+
+                }
+                System.out.println("long click");
+                playFlipAnimation((DraweeView) v.findViewById(R.id.menu_item_image),finalI);
+
+                return true;
             });
 
             if (mClicked==finalI) {

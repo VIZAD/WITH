@@ -8,5 +8,5 @@
     android:bottomLeftRadius="0dp"
     android:topLeftRadius="0dp"
     android:topRightRadius="0dp"/> 
-    <size android:height="80dp" android:width="80dp"></size>
+    <size android:height="@dimen/sliding_menu_width" android:width="@dimen/sliding_menu_width"></size>
 </shape>

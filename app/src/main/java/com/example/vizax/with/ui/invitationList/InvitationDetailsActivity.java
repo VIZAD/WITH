@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.R;
@@ -191,9 +192,11 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
      */
     @Override
     public void changeBtnSrc() {
-
+        //InvitationPresenter.mInvitationBaseBean.getData().get(position).setJoin( InvitationPresenter.mInvitationBaseBean.getData().get(position).isJoin() ? (false):(true));
         itemInvitationJoinBtn.setImageResource(((mInvitationBeanList.get(index).isJoin()) ? R.drawable.join_selected:R.drawable.join_unselected));
-       setResultData();
+       // mInvitationBeanList.get(index).setJoin(mInvitationBeanList.get(index).isJoin()?false:true);
+        Toast.makeText(this,"-----"+mInvitationBeanList.get(index).isJoin(),Toast.LENGTH_SHORT).show();
+        setResultData();
     }
 
     private void setResultData() {

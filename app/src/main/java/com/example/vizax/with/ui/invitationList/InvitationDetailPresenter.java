@@ -61,7 +61,7 @@ public class InvitationDetailPresenter implements InvitationDetailContact.Presen
                     public void setSrc() {
                         mInvitationBean .setJoin(mInvitationBean.isJoin() ? (false):(true));
 
-                        InvitationPresenter.mInvitationBaseBean.getData().get(position).setJoin( InvitationPresenter.mInvitationBaseBean.getData().get(position).isJoin() ? (false):(true));
+
                         mInvitationDetailView.changeBtnSrc();
                     }
                 });

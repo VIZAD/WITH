@@ -1,19 +1,19 @@
 [
     {
-        "merged": "E:\\MyWITH\\superSwipeRefreshLayoutModule\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_screen_simple_overlay_action_mode.xml",
-        "source": "E:\\MyWITH\\superSwipeRefreshLayoutModule\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.1.1\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
-    },
-    {
         "merged": "E:\\MyWITH\\superSwipeRefreshLayoutModule\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\item_recycler_child.xml",
         "source": "E:\\MyWITH\\superSwipeRefreshLayoutModule\\build\\intermediates\\bundles\\debug\\res\\layout\\item_recycler_child.xml"
     },
     {
-        "merged": "E:\\MyWITH\\superSwipeRefreshLayoutModule\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\activity_listview.xml",
-        "source": "E:\\MyWITH\\superSwipeRefreshLayoutModule\\build\\intermediates\\bundles\\debug\\res\\layout\\activity_listview.xml"
+        "merged": "E:\\MyWITH\\superSwipeRefreshLayoutModule\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_screen_simple_overlay_action_mode.xml",
+        "source": "E:\\MyWITH\\superSwipeRefreshLayoutModule\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.1.1\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
     },
     {
         "merged": "E:\\MyWITH\\superSwipeRefreshLayoutModule\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_media.xml",
         "source": "E:\\MyWITH\\superSwipeRefreshLayoutModule\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.1.1\\res\\layout\\notification_template_media.xml"
+    },
+    {
+        "merged": "E:\\MyWITH\\superSwipeRefreshLayoutModule\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\activity_listview.xml",
+        "source": "E:\\MyWITH\\superSwipeRefreshLayoutModule\\build\\intermediates\\bundles\\debug\\res\\layout\\activity_listview.xml"
     },
     {
         "merged": "E:\\MyWITH\\superSwipeRefreshLayoutModule\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\select_dialog_item_material.xml",

@@ -26,7 +26,7 @@
 
         <activity android:name=".ui.invitationList.InvitationActivity">
         </activity>
-        <activity android:name=".ui.home.HomeActivity">
+        <activity android:name=".ui.myconcern.MyConcernActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -34,6 +34,7 @@
         </activity>
         <activity android:name=".ui.invitationList.InvitationDetailsActivity"
                    android:theme="@style/AppTheme"/>
+        <activity android:name=".ui.home.HomeActivity"></activity>
     </application>
     <supports-screens
         android:smallScreens="true"

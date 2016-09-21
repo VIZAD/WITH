@@ -25,6 +25,7 @@ public class UserTabItemAdapter extends BaseQuickAdapter<MyConcern.DataBean> {
 
         private Context context;
         private int i = 0;
+        private int changed = 0;
 
         public UserTabItemAdapter( Context context ,List<MyConcern.DataBean> data) {
             super(R.layout.user_tab_item, data);
@@ -33,13 +34,14 @@ public class UserTabItemAdapter extends BaseQuickAdapter<MyConcern.DataBean> {
 
         @Override
         protected void convert(BaseViewHolder holder, MyConcern.DataBean data) {
+            System.out.println("convert");
             ImageView imageView = holder.getView(R.id.head_imgvi);
             Picasso.with(context)
-                    .load(Uri.parse(data.getHeadUrl()))
+                    .load(data.getHeadUrl())
                     .into(imageView);
             holder.setText(R.id.name_label_txtvi,data.getName())
                     .setText(R.id.description_hint_txtvi,"hint")
-                    .setText(R.id.concern_btn,data.isIsConcerned()==true?"已关注":"未关注");
+                    .setText(R.id.concern_btn,data.isIsConcerned()==true?"取关":"关注");
 
             holder.getView(R.id.name_label_txtvi);
             holder.getView(R.id.description_hint_txtvi);
@@ -48,9 +50,14 @@ public class UserTabItemAdapter extends BaseQuickAdapter<MyConcern.DataBean> {
             holder.setOnClickListener(R.id.head_imgvi, new OnItemChildClickListener())
                     .setOnClickListener(R.id.name_label_txtvi, new OnItemChildClickListener())
                     .setOnClickListener(R.id.concern_btn,new OnItemChildClickListener());
-            i++;
 
         }
+
+        public void TextChange(int position) {
+
+            notifyItemChanged(position);
+        }
+
     }
 //    private Context context;
 //    private List<Data> mDatas;

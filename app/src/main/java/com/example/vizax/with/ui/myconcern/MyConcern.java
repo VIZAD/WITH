@@ -48,6 +48,15 @@ public class MyConcern {
         this.data = data;
     }
 
+    @Override
+    public String toString() {
+        return "MyConcern{" +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                '}';
+    }
+
     public static class DataBean {
         private int concernedUserId;
         private boolean isConcerned;

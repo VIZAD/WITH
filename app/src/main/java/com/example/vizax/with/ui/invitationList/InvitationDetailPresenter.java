@@ -1,5 +1,6 @@
 package com.example.vizax.with.ui.invitationList;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -59,6 +60,7 @@ public class InvitationDetailPresenter implements InvitationDetailContact.Presen
                     @Override
                     public void setSrc() {
                         mInvitationBean .setJoin(mInvitationBean.isJoin() ? (false):(true));
+
                         InvitationPresenter.mInvitationBaseBean.getData().get(position).setJoin( InvitationPresenter.mInvitationBaseBean.getData().get(position).isJoin() ? (false):(true));
                         mInvitationDetailView.changeBtnSrc();
                     }

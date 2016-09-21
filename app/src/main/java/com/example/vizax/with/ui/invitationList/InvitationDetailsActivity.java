@@ -13,6 +13,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.R;
 import com.example.vizax.with.adapter.InvitationDetailsRecyclerViewAdapter;
 import com.example.vizax.with.adapter.UserImgListecyclerViewAdapter;
+import com.example.vizax.with.bean.HomeInvitationBean;
 import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.bean.MembersBean;
 import com.example.vizax.with.customView.BaseToolBar;
@@ -74,12 +75,13 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
     private RecyclerView mUserImgRecyclerView;
     private String mKeyTrackingMode;
     private SwipeBackLayout mSwipeBackLayout;
-    public InvitationBean mInvitationBeen;
+   // public InvitationBean mInvitationBeen;
     public  ArrayList<InvitationBean> mInvitationBeanList;
     public  ArrayList<MembersBean> mMemberBean;
     private InvitationDetailContact.Presenter mPresenter;
     private MaterialDialog mMaterialDialog;
     private int index;
+    private HomeInvitationBean mHomeInvitationBean;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,21 +113,22 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
         mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
 
         initView();
+        setResultData();
     }
 
     private void initView() {
 
-        itemInvitationOriginatorName.setText(mInvitationBeen.getOriginatorrealName());
-        itemInvitationInvitationTime.setText(mInvitationBeen.getInvitationTime());
-        itemInvitationPublishTime.setText(mInvitationBeen.getPublishTime());
-        itemInvitationContents.setText(mInvitationBeen.getContent());
-        itemInvitationPlace.setText(mInvitationBeen.getPlace());
-        itemInvitationSexRequire.setText(mInvitationBeen.getSexRequire());
-        itemInvitationNumber.setText(mInvitationBeen.getCurrentNumber() + "/" + mInvitationBeen.getTotalNumber());
-        itemInvitationSexRequire.setText(mInvitationBeen.getSexRequire());
+        itemInvitationOriginatorName.setText(mInvitationBeanList.get(index).getOriginatorrealName());
+        itemInvitationInvitationTime.setText(mInvitationBeanList.get(index).getInvitationTime());
+        itemInvitationPublishTime.setText(mInvitationBeanList.get(index).getPublishTime());
+        itemInvitationContents.setText(mInvitationBeanList.get(index).getContent());
+        itemInvitationPlace.setText(mInvitationBeanList.get(index).getPlace());
+        itemInvitationSexRequire.setText(mInvitationBeanList.get(index).getSexRequire());
+        itemInvitationNumber.setText(mInvitationBeanList.get(index).getCurrentNumber() + "/" + mInvitationBeanList.get(index).getTotalNumber());
+        itemInvitationSexRequire.setText(mInvitationBeanList.get(index).getSexRequire());
 
 
-        if (mInvitationBeen.isJoin()) {
+        if (mInvitationBeanList.get(index).isJoin()) {
             itemInvitationJoinBtn.setImageResource(R.drawable.join_selected);
             //System.out.println("true!");
         }
@@ -153,7 +156,6 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
         if (it != null) {
             mInvitationBeanList = it.getParcelableArrayListExtra("invitationlist");
             index = it.getIntExtra("index",0);
-            mInvitationBeen = it.getParcelableExtra("users");
             mMemberBean = it.getParcelableArrayListExtra("members");
         }
     }
@@ -191,6 +193,19 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
     public void changeBtnSrc() {
 
         itemInvitationJoinBtn.setImageResource(((mInvitationBeanList.get(index).isJoin()) ? R.drawable.join_selected:R.drawable.join_unselected));
+       setResultData();
+    }
+
+    private void setResultData() {
+
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        System.out.println("!!!!!!!!!"+mInvitationBeanList.get(index).isJoin());
+        bundle.putBoolean("join", mInvitationBeanList.get(index).isJoin());
+        bundle.putInt("index",index);
+        bundle.putParcelable("member",mMemberBean.get(0));
+        intent.putExtras(bundle);
+        setResult(1, intent);
     }
 
 

@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.R;
 import com.example.vizax.with.bean.InvitationBaseBean;
+import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.ui.invitationList.InvitationContact;
 import com.example.vizax.with.ui.invitationList.InvitationDetailContact;
 import com.example.vizax.with.ui.invitationList.InvitationDetailsActivity;
@@ -38,12 +40,19 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
     UserImgListecyclerViewAdapter mAdapter;
     int visible = View.GONE;
     private InvitationBaseBean mData;
+
     private  InvitationContact.InvitationCallBack mInvitationCallBack;
+    private ClickListerner clickListerner;
 
     public InvitationRecyclerViewAdapter(Context context, InvitationBaseBean mData,int visible) {
         this.context = context;
         this.mData = mData;
         this.visible = visible;
+    }
+
+    public void setOnItemClickListener(ClickListerner clickListerner){
+
+        this.clickListerner = clickListerner;
     }
 
     //回调接口
@@ -126,18 +135,10 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
         holder.itemInvitationRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(context, InvitationDetailsActivity.class);
-                Bundle lBundle = new Bundle();
-                Bundle memBundle = new Bundle();
-                Bundle invitationBaseBeanBundle = new Bundle();
-                memBundle.putParcelableArrayList("members",mData.getData().get(position).getMembers());
-                lBundle.putParcelable("users",mData.getData().get(position));
-                invitationBaseBeanBundle.putParcelableArrayList("invitationlist", mData.getData());
-                invitationBaseBeanBundle.putInt("index",position);
-                it.putExtras(lBundle);
-                it.putExtras(memBundle);
-                it.putExtras(invitationBaseBeanBundle);
-                context.startActivity(it);
+                if(clickListerner != null)
+                clickListerner.onItemClick(position,mData);
+                else
+                    System.out.println("null!!!!!!!!!!!");
             }
         });
 
@@ -203,6 +204,9 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
             linearLayout = (LinearLayout) itemView.findViewById(R.id.item_invitation_card);
             expend = (ImageView) itemView.findViewById(R.id.item_invitation_expend);
         }
+    }
+    public interface ClickListerner{
+        void onItemClick(int position,InvitationBaseBean invitationBaseBean);
     }
 
 }

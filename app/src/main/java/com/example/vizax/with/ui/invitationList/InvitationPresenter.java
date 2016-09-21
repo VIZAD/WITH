@@ -33,6 +33,13 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
            public void setAdapter(InvitationBaseBean lInvitationBaseBean) {
                mInvitationBaseBean = lInvitationBaseBean;
                mAdapter = new InvitationRecyclerViewAdapter(context, mInvitationBaseBean,visible);
+
+               mAdapter.setOnItemClickListener(new InvitationRecyclerViewAdapter.ClickListerner() {
+                   @Override
+                   public void onItemClick(int position,InvitationBaseBean invitationBaseBean) {
+                       mInvitationActivity.OpenDetail(position,invitationBaseBean);
+                   }
+               });
                mAdapter.setCallBack(new InvitationContact.InvitationCallBack() {
                    @Override
                    public void setAdapter(InvitationBaseBean invitationBaseBean) {
@@ -88,9 +95,15 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     }
 
 
-    public void setAdapter(Context context, RecyclerView recyclerView, int visible) {
+    public void setAdapter(Context context, RecyclerView recyclerView, InvitationBaseBean invitationBaseBean, int visible) {
         System.out.println("跟新");
         mAdapter = new InvitationRecyclerViewAdapter(context, mInvitationBaseBean,visible);
+        mAdapter.setOnItemClickListener(new InvitationRecyclerViewAdapter.ClickListerner() {
+            @Override
+            public void onItemClick(int position,InvitationBaseBean invitationBaseBean) {
+                mInvitationActivity.OpenDetail(position,invitationBaseBean);
+            }
+        });
         mAdapter.setCallBack(new InvitationContact.InvitationCallBack() {
             @Override
             public void setAdapter(InvitationBaseBean invitationBaseBean) {
@@ -114,6 +127,12 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     public void pullLoadMore() {
         int lLastIndex = mInvitationBaseBean.getData().size() - 1;
         finalItemId = mInvitationBaseBean.getData().get(lLastIndex).getInvitaionId();
-        mInvitationModel.addData(finalItemId,"10",mInvitationBaseBean);
+        mInvitationBaseBean = mInvitationModel.addData(finalItemId, "10", mInvitationBaseBean, new InvitationModel.StopRefreshing() {
+            @Override
+            public void stopRefreshing() {
+                mInvitationActivity.stopRefresh();
+            }
+        });
+        mAdapter.notifyDataSetChanged();
     }
 }

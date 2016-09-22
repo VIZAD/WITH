@@ -24,7 +24,9 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<InvitationBean> {
     public HomeAdapter(Context context, List<InvitationBean> data) {
         super(data);
         this.context=context;
+        //类别加载的界面
         addItemType(InvitationBean.HOME_HEAD, R.layout.home_head_item);
+        //邀约加载的界面
         addItemType(InvitationBean.HOME_OTHER, R.layout.invitation_item);
     }
 
@@ -64,7 +66,7 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<InvitationBean> {
                 }
 
                 baseViewHolder.setOnClickListener(R.id.item_invitation_originator_imagVi,new OnItemChildClickListener());
-                baseViewHolder.setOnClickListener(R.id.item_invitation_contents,new OnItemChildClickListener());
+                baseViewHolder.setOnClickListener(R.id.item_invitation_root,new OnItemChildClickListener());
                 baseViewHolder.setOnClickListener(R.id.item_invitation_join_btn,new OnItemChildClickListener());
                 break;
         }

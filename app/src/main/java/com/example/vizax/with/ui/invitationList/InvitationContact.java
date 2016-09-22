@@ -35,8 +35,8 @@ public interface InvitationContact {
         void getData(String typeId, String userId,String token, StringCallback stringCallback);
         void addData(String finalItemId, String count,String token,StringCallback stringCallback);
     }
-    interface InvitationPresenter extends BasePresenter<InvitationActivity>{
-        void getDataAndSetAdapter(Context context, RecyclerView recyclerView, int visible, String typeId, String userId);
+    interface InvitationPresenter extends BasePresenter<View>{
+        void getDataAndSetAdapter(Context context, RecyclerView recyclerView,String token, int visible, String typeId, String userId);
         void onPositive(int position);
         void setAdapter(Context context, RecyclerView recyclerView,InvitationBaseBean invitationBaseBean, int visible);
         void pullLoadMore(Context context, RecyclerView recyclerView, int visible, String typeId, String userId);

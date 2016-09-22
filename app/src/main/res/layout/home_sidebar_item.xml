@@ -4,8 +4,12 @@
     android:layout_height="match_parent"
     android:background="#f7f7f2"
     android:orientation="vertical"
+    android:clickable="true"
+    android:focusable="true"
     android:layout_gravity="start">
     <LinearLayout
+        android:id="@+id/my_info_lLayout"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="#52cf69"
@@ -27,18 +31,36 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/my_changepassword_txtVi"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="27dp"
         android:layout_marginTop="35dp"
         android:gravity="center_vertical"
         android:drawablePadding="27dp"
-        android:drawableLeft="@drawable/myinvitation"
-        android:text="@string/my_participation_label"
+        android:drawableLeft="@drawable/passwordchange"
+        android:text="@string/modify_password_hint"
         android:textColor="#a2000000"
         android:textSize="15sp"/>
 
     <TextView
+        android:id="@+id/my_invitation_txtVi"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="32dp"
+        android:gravity="center_vertical"
+        android:drawablePadding="27dp"
+        android:drawableLeft="@drawable/myinvitation"
+        android:text="@string/my_invitation_label"
+        android:textColor="#a2000000"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:id="@+id/my_participation_txtVi"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="27dp"
@@ -51,6 +73,8 @@
         android:textSize="15sp"/>
 
     <TextView
+        android:id="@+id/my_insist_txtVi"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="27dp"
@@ -63,7 +87,8 @@
         android:textSize="15sp"/>
 
     <TextView
-        android:id="@+id/item_myattention"
+        android:id="@+id/my_news_txtVi"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="27dp"
@@ -76,6 +101,8 @@
         android:textSize="15sp"/>
 
     <TextView
+        android:id="@+id/my_concern_txtVi"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="27dp"
@@ -88,6 +115,8 @@
         android:textSize="15sp"/>
 
     <TextView
+        android:id="@+id/my_setting_txtVi"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="27dp"
@@ -100,11 +129,14 @@
         android:textSize="15sp"/>
 
     <View
+        android:clickable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"/>
 
     <TextView
+        android:id="@+id/my_update_txtVi"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="27dp"

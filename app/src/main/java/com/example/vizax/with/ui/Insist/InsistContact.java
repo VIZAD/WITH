@@ -21,21 +21,22 @@ public interface InsistContact {
     }
 
     interface InsistModle{
-        void createTaskPost(String title,String content,int iconIndex, StringCallback stringCallback);
+        void createTaskPost(String title,String content,String iconIndex, StringCallback stringCallback);
         void getTaskPost(StringCallback stringCallback);
         void  TaskMessagesPost(String date,String taskId,StringCallback stringCallback);
         void  JourPunchPost(String taskId,StringCallback stringCallback);
         void deleteTaskPost(String taskId,StringCallback stringCallback);
+        void JourEditPost(String taskId,String date,String remark,StringCallback stringCallback);
     }
 
 
     //Presenter操作接口，自己定义一个Presenter实现该接口
     interface Presenter extends BasePresenter<InsistContact.View> {
-        void  createTask(String title,String content,int iconIndex);
+        void  createTask(String title,String content,String iconIndex);
         void  getTask();
         void TaskMessages(String date,String taskId);
         void JourPunch(String taskId);
-        void JourEdit();
+        void JourEdit(String taskId,String date,String remark);
         void deleteTask(String taskId);
     }
 }

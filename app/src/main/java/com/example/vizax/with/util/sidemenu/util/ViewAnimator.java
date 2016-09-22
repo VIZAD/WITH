@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
+import android.widget.EditText;
+
 import com.example.vizax.with.ui.Insist.ContentFragment;
 import com.example.vizax.with.ui.Insist.InsistPresenter;
 import com.example.vizax.with.ui.Insist.dialog.AddItemDialog;
@@ -113,7 +115,7 @@ public class ViewAnimator<T extends Resourceble> {
                         list.set(finalI,(T)add);
                         dialog.dismiss();
                         mPresenter = new InsistPresenter();
-                        mPresenter.deleteTask(String.valueOf(finalI));
+                        mPresenter.deleteTask(String.valueOf(sp.getInt("TaskId"+finalI,0)));
 
                     });
                     builder.setNegativeButton("取消", (dialog, which) -> dialog.dismiss());
@@ -125,13 +127,13 @@ public class ViewAnimator<T extends Resourceble> {
                 int[] location = {0, 0};
                 v.getLocationOnScreen(location);
                 //switchItem(list.get(finalI), location[1] + v.getHeight() / 2);
-                if(list.get(finalI).getImageRes()!= R.drawable.icn_close) {
+                if(list.get(finalI).getImageRes()!= R.drawable.icn_close && list.get(finalI).getImageRes()!= R.drawable.icn_add) {
                     //((DraweeView) v.findViewById(R.id.menu_item_image)).setImageResource(R.drawable.icn_close);
                     SlideMenuItem close = new SlideMenuItem(list.get(finalI).getName(), R.drawable.icn_close);
                     list.set(finalI, (T) close);
                     mOnLongClick = 1;
                 }
-                else {
+                else if(list.get(finalI).getImageRes()!= R.drawable.icn_add){
                     //((DraweeView) v.findViewById(R.id.menu_item_image)).setImageResource(R.drawable.icn_close);
                     SlideMenuItem close = new SlideMenuItem(list.get(finalI).getName(),mList.get(finalI).getImageRes());
                     list.set(finalI, (T) close);
@@ -327,7 +329,9 @@ public class ViewAnimator<T extends Resourceble> {
                 list.set(finalI,(T)add);
                 confirmDialog.dismiss();
                 mPresenter = new InsistPresenter();
-                mPresenter.createTask(confirmDialog.title,confirmDialog.content,finalI);
+                EditText title = (EditText) confirmDialog.findViewById(R.id.mission_title);
+                EditText content = (EditText) confirmDialog.findViewById(R.id.mission_content);
+                mPresenter.createTask(title.getText().toString(),content.getText().toString(), String.valueOf(finalI));
                 return 0;
             }
 

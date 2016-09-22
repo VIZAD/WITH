@@ -12,7 +12,10 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -59,8 +62,12 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     private InsistPresenter mPresenter;
     private String INSIST = "签到";
     private InsistColor mInsistColor;
+    private String selectedDate;
+    private String selectedCase = "1";
+    private String TaskId = null;
     private ToDayDecorator toDayDecorator = new ToDayDecorator();
     private static final DateFormat FORMATTER = SimpleDateFormat.getDateInstance();
+    private Misson mMisson;
     private SharedPreferences sp;
 
     @BindView(R.id.calendarView)
@@ -76,7 +83,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     TextView mTxtVi_center_txt;
 
     @BindView(R.id.foot_text_id)
-    TextView mTxtVi_foot_txt;
+    EditText mTxtVi_foot_txt;
 
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
@@ -97,6 +104,8 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     @BindView(R.id.foot_bg_ll)
     LinearLayout mLinearLayout_foot;
 
+    @BindView(R.id.insist_edit_btn)
+    Button insist_edit_btn;
 
 
     @Override
@@ -106,7 +115,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
 
     @Override
     protected boolean isApplyStatusBarTranslucency() {
-        return false;
+        return true;
     }
 
     @Override
@@ -136,8 +145,12 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         setActionBar();
         createMenuList();
         mPresenter.getTask();
+        mTxtVi_title.setFocusable(true);
+        mTxtVi_title.setFocusableInTouchMode(true);
+        //初始化界面
+        initContentView();
         //暂时使用假数据
-        mPresenter.TaskMessages("2016-10-1 9:20:21","1");
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         AnimationUtil.showCircularReveal(mView,2,1000);
 //        DisplayMetrics metric = new DisplayMetrics();
 //        getWindowManager().getDefaultDisplay().getMetrics(metric);
@@ -150,7 +163,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
 
     @Override
     protected boolean isApplyStatusBarColor() {
-        return false;
+        return true;
     }
 
     private void createMenuList() {
@@ -260,6 +273,9 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         mTxtVi_title.setTextColor(color_md);
         mTxtVi_center_txt.setTextColor(color_md);
         //mTxtVi_foot_txt.setTextColor(color_md);
+        mTxtVi_title.setText(mMisson.getData().getCurrTasks().get(Integer.parseInt(selectedCase)-1).getTitle().toString());
+        mTxtVi_center_txt.setText(mMisson.getData().getCurrTasks().get(Integer.parseInt(selectedCase)-1).getContent().toString());
+
         reset.run();
 
         return contentFragment;
@@ -272,14 +288,24 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         switch (slideMenuItem.getName()) {
             case ContentFragment.CLOSE:
                 //// TODO: 2016/09/16
+                selectedCase = "1";
+                TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(0).getTaskId());
                 return replaceFragment(screenShotable, position,mInsistColor.COLOR1_CALENDER,mInsistColor.COLOR1_MISSION,mInsistColor.COLOR1_MOOD);
             case ContentFragment.BUILDING:
+                selectedCase = "2";
+                TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(1).getTaskId());
                 return replaceFragment(screenShotable, position,mInsistColor.COLOR2_CALENDER,mInsistColor.COLOR2_MISSION,mInsistColor.COLOR2_MOOD);
             case ContentFragment.BOOK:
+                selectedCase = "3";
+                TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(2).getTaskId());
                 return replaceFragment(screenShotable, position,mInsistColor.COLOR3_CALENDER,mInsistColor.COLOR3_MISSION,mInsistColor.COLOR3_MOOD);
             case ContentFragment.PAINT:
+                selectedCase = "4";
+                TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(3).getTaskId());
                 return replaceFragment(screenShotable, position,mInsistColor.COLOR4_CALENDER,mInsistColor.COLOR4_MISSION,mInsistColor.COLOR4_MOOD);
             case ContentFragment.CASE:
+                selectedCase = "5";
+                TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(4).getTaskId());
                 return replaceFragment(screenShotable, position,mInsistColor.COLOR5_CALENDER,mInsistColor.COLOR5_MISSION,mInsistColor.COLOR5_MOOD);
             default:
                 return replaceFragment(screenShotable, position,mInsistColor.COLOR1_CALENDER,mInsistColor.COLOR1_MISSION,mInsistColor.COLOR1_MOOD);
@@ -307,17 +333,31 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     @Override
     public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
         toDayDecorator.setDate(date.getDate());
-        if(mRemark_txt.size()>date.getDay()) {
-            // TODO: 2016/09/16  
+        String year = String.valueOf(date.getYear());
+        String month = String.valueOf(date.getMonth()+1);
+        if(date.getMonth()<9) {
+            month = "0"+month;
         }
-        //mTxtVi_foot_txt.setText(mRemark_txt.get(date.getDay()));
+        String day = String.valueOf(date.getDay());
+        if(date.getDay()<9) {
+            day = "0"+day;
+        }
+        selectedDate = year+"-"+month+"-"+day;
+        System.out.println("date = "+year+"-"+month+"-"+day);
+        mTxtVi_foot_txt.setText(mRemark_txt.get(date.getDay()-1));
+
+
     }
     @Override
     public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
         System.out.println(date.getDate());
-        String cl = date.getYear()+"-"+(date.getMonth()+1);
-        System.out.println("cl = "+cl);
-        mPresenter.TaskMessages(cl,"1");
+        CalendarDay today = CalendarDay.today();
+        String year = String.valueOf(today.getYear());
+        String month = String.valueOf(today.getMonth()+1);
+        if(today.getMonth()<9) {
+            month = "0"+month;
+        }
+        mPresenter.TaskMessages(year+"-"+month,TaskId);
     }
 
     public void tick(){
@@ -328,7 +368,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         System.out.println("onclick");
         toDayDecorator = new ToDayDecorator();
         runnable.run();
-        mPresenter.JourPunch("1");
+        mPresenter.JourPunch(TaskId);
     }
 
     public int getHeights() {
@@ -348,8 +388,13 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         DateSelect(this);
     }
 
+    @OnClick(R.id.insist_edit_btn)
+    void postEditMsg() {
+        mPresenter.JourEdit(TaskId,selectedDate,mTxtVi_foot_txt.getText().toString());
+    }
+
     public void DateSelect(final Activity activity) {
-        final DateDialog confirmDialog = new DateDialog(activity, "确定要退出吗?", "确认", "取消");
+        final DateDialog confirmDialog = new DateDialog(activity, "确定吗?", "确认", "取消");
         confirmDialog.show();
         confirmDialog.setClicklistener(new DateDialog.ClickListenerInterface() {
             @Override
@@ -394,19 +439,35 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         }
         for (int j = 0; j<misson.getData().getCurrTasks().size(); j++) {
             switch (misson.getData().getCurrTasks().get(j).getTask_icon_type()) {
-                case 1:editor.putInt("Item" + j, R.drawable.icn_1);
+                case 0:editor.putInt("Item" + j, R.drawable.icn_1);
+                    editor.putInt("TaskId" + j, misson.getData().getCurrTasks().get(j).getTaskId());
                     break;
-                case 2:editor.putInt("Item" + j, R.drawable.icn_2);
+                case 1:editor.putInt("Item" + j, R.drawable.icn_2);
+                    editor.putInt("TaskId" + j,  misson.getData().getCurrTasks().get(j).getTaskId());
                     break;
-                case 3:editor.putInt("Item" + j, R.drawable.icn_3);
+                case 2:editor.putInt("Item" + j, R.drawable.icn_3);
+                    editor.putInt("TaskId" + j,  misson.getData().getCurrTasks().get(j).getTaskId());
                     break;
-                case 4:editor.putInt("Item" + j, R.drawable.icn_4);
+                case 3:editor.putInt("Item" + j, R.drawable.icn_4);
+                    editor.putInt("TaskId" + j,  misson.getData().getCurrTasks().get(j).getTaskId());
                     break;
-                case 5:editor.putInt("Item" + j, R.drawable.icn_5);
+                case 4:editor.putInt("Item" + j, R.drawable.icn_5);
+                    editor.putInt("TaskId" + j,  misson.getData().getCurrTasks().get(j).getTaskId());
                     break;
             }
+            System.out.println("misson icon = "+misson.getData().getCurrTasks().get(j).getTask_icon_type());
         }
         editor.commit();
+        CalendarDay today = CalendarDay.today();
+        String year = String.valueOf(today.getYear());
+        String month = String.valueOf(today.getMonth()+1);
+        if(today.getMonth()<9) {
+            month = "0"+month;
+        }
+        mPresenter.TaskMessages(year+"-"+month, String.valueOf(misson.getData().getCurrTasks().get(0).getTaskId()));
+        mMisson = misson;
+        TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(0).getTaskId());
+        System.out.println("month ="+year+"-"+month);
     }
 
     protected  void setDays (TaskMsg taskMsg){
@@ -430,6 +491,10 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
                 if(DayNum_remark < taskMsg.getData().getCalendar().size() - 1) {
                     DayNum_remark++;
                 }
+            }
+            else {
+                mRemark_txt.add("没有设定");
+                System.out.println("没有设定的日期为"+i);
             }
             calendar.add(Calendar.DATE, 1);
         }

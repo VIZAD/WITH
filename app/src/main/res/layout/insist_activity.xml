@@ -123,7 +123,7 @@
                     android:orientation="vertical"
                     android:weightSum="5">
 
-                    <TextView
+                    <EditText
                         android:layout_marginTop="10dp"
                         android:id="@+id/foot_text_id"
                         android:layout_width="match_parent"
@@ -144,7 +144,7 @@
                         android:layout_weight="3"
                         android:text="编辑"
                         android:textColor="@color/white"
-                        android:id="@+id/button"
+                        android:id="@+id/insist_edit_btn"
                         android:background="@color/colorPrimary"/>
 
 

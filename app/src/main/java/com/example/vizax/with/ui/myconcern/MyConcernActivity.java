@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.example.vizax.with.R;
+import com.example.vizax.with.base.BaseActivity;
 import com.example.vizax.with.customView.BaseToolBar;
 import com.example.vizax.with.util.AnimationUtil;
 
@@ -15,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.codetail.widget.RevealLinearLayout;
 
-public class MyConcernActivity extends AppCompatActivity {
+public class MyConcernActivity extends BaseActivity {
 
         @BindView(R.id.toolbar)
         BaseToolBar mToolBar;
@@ -23,16 +24,29 @@ public class MyConcernActivity extends AppCompatActivity {
         View fragment;
 
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_myconcern);
-            ButterKnife.bind(this);
-            mToolBar.setCenterText("我的关注");
-            mToolBar.setLeftIcon(R.drawable.ic_keyboard_arrow_left);
-            AnimationUtil.showCircularReveal(fragment,2,2000);
+    @Override
+    protected int initContentView() {
+        return R.layout.activity_myconcern;
+    }
 
-        }
+    @Override
+    protected boolean isApplyStatusBarTranslucency() {
+        return true;
+    }
+
+    @Override
+    public void initUiAndListener() {
+        ButterKnife.bind(this);
+        mToolBar.setCenterText("我的关注");
+        mToolBar.setLeftIcon(R.drawable.ic_keyboard_arrow_left);
+        AnimationUtil.showCircularReveal(fragment,2,2000);
+
+    }
+
+    @Override
+    protected boolean isApplyStatusBarColor() {
+        return true;
+    }
 
 }
 

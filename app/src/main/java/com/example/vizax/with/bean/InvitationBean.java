@@ -37,6 +37,7 @@ public class InvitationBean extends MultiItemEntity implements Parcelable{
         @Override
         public InvitationBean createFromParcel(Parcel source) {
             InvitationBean invitationBean = new InvitationBean();
+            invitationBean.setOriginatorId(source.readString());
             invitationBean.setOriginatorrealName(source.readString());
             invitationBean.setOriginatorNickname(source.readString());
             invitationBean.setPlace(source.readString());
@@ -49,7 +50,7 @@ public class InvitationBean extends MultiItemEntity implements Parcelable{
             invitationBean.setJoin((source.readInt() == 1 )? true:false);
             invitationBean.setInvitationTime(source.readString());
             invitationBean.setPublishTime(source.readString());
-            //invitationBean.setMembers(source.readArrayList(MembersBean.class.getClassLoader()));
+//            invitationBean.setMembers(source.readArrayList(MembersBean.class.getClassLoader()));
             return invitationBean;
         }
 
@@ -259,6 +260,7 @@ public class InvitationBean extends MultiItemEntity implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(originatorId);
         dest.writeString(originatorrealName);
         dest.writeString(originatorNickname);
         dest.writeString(place);

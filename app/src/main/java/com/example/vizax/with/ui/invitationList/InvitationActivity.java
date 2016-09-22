@@ -2,7 +2,6 @@ package com.example.vizax.with.ui.invitationList;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -15,16 +14,13 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.R;
 import com.example.vizax.with.adapter.InvitationRecyclerViewAdapter;
 import com.example.vizax.with.bean.InvitationBaseBean;
-import com.example.vizax.with.bean.InvitationBean;
-import com.example.vizax.with.bean.MembersBean;
+import com.example.vizax.with.bean.UserInforBean;
 import com.example.vizax.with.customView.BaseToolBar;
+import com.example.vizax.with.ui.userInformation.UserInformationActivity;
 import com.example.vizax.with.util.SnackbarUtils;
 import com.example.vizax.with.util.swipeback.ArrayUtil;
 
 import net.mobctrl.views.SuperSwipeRefreshLayout;
-
-import java.sql.SQLOutput;
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,6 +43,7 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
     private int mMainClass;
     private SuperSwipeRefreshLayout refreshLayout;
     private MaterialDialog mEdit,mJoinDialog;
+    public String token = "1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +118,7 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
         invitationRefresh.setOnPushLoadMoreListener(new SuperSwipeRefreshLayout.OnPushLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                mInvitationListPresenter.pullLoadMore();
+                mInvitationListPresenter.pullLoadMore(InvitationActivity.this, mRecyclerView, visible, null, null);
 
 
             }
@@ -216,14 +213,22 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
     }
 
     @Override
+    public void OpenUserInfor(int position, UserInforBean userInforBean) {
+        Intent it = new Intent(this, UserInformationActivity.class);
+        Bundle lBundle = new Bundle();
+        lBundle.putParcelable("userInforBean", new UserInforBean().getData());
+        it.putExtras(lBundle);
+        startActivity(it);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         boolean join = data.getBooleanExtra("join",false);
         int index = data.getIntExtra("index",0);
-        MembersBean mem = data.getParcelableExtra("member");
-        InvitationBaseBean invitationBaseBean = new InvitationBaseBean();
-        InvitationPresenter.mInvitationBaseBean.getData().get(index).setJoin(join);
-        mInvitationListPresenter.setAdapter(this, mRecyclerView,invitationBaseBean,visible);
+        mInvitationListPresenter.baseBean.getData().get(index).setJoin(join);
+        mInvitationListPresenter.setNotifyChange();
+       // mInvitationListPresenter.setAdapter(this, mRecyclerView, mInvitationListPresenter.baseBean,visible);
     }
 
 

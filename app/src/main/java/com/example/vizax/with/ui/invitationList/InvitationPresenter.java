@@ -8,17 +8,26 @@ import android.support.v7.widget.RecyclerView;
 
 import com.example.vizax.with.adapter.InvitationRecyclerViewAdapter;
 import com.example.vizax.with.bean.InvitationBaseBean;
+import com.example.vizax.with.bean.UserInforBean;
+import com.example.vizax.with.ui.userInformation.UserInformationModuel;
+import com.example.vizax.with.util.GsonUtil;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import okhttp3.Call;
 
 /**
  * Created by Young on 2016/9/16.
  */
 public class InvitationPresenter implements InvitationContact.InvitationPresenter {
-    private InvitationContact.View mInvitationActivity;
+    private InvitationActivity mInvitationActivity;
     private InvitationContact.InvitationlModel mInvitationModel;
-    private InvitationRecyclerViewAdapter mAdapter;
+    private UserInformationModuel mUserinforModuel;
+    public InvitationRecyclerViewAdapter mAdapter;
     public static InvitationBaseBean mInvitationBaseBean;
     private String type = "";
     private String finalItemId;
+    private UserInforBean mUserInforBean;
+    public InvitationBaseBean baseBean;
 
     /**
      * 设置recyclerView的adapter
@@ -28,50 +37,40 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
      */
     @Override
     public void getDataAndSetAdapter(Context context, RecyclerView recyclerView, int visible, String typeId, String userId){
-       mInvitationModel.getData(typeId, userId, new InvitationContact.InvitationCallBack() {
-           @Override
-           public void setAdapter(InvitationBaseBean lInvitationBaseBean) {
-               mInvitationBaseBean = lInvitationBaseBean;
-               mAdapter = new InvitationRecyclerViewAdapter(context, mInvitationBaseBean,visible);
+        mInvitationModel.getData(typeId, userId, mInvitationActivity.token,new StringCallback() {
+            @Override
+            public void onAfter(int id) {
+                super.onAfter(id);
+                setAdapter(context,recyclerView,baseBean,visible);
+            }
+            @Override
+            public void onError(Call call, Exception e, int id) {
 
-               mAdapter.setOnItemClickListener(new InvitationRecyclerViewAdapter.ClickListerner() {
-                   @Override
-                   public void onItemClick(int position,InvitationBaseBean invitationBaseBean) {
-                       mInvitationActivity.OpenDetail(position,invitationBaseBean);
-                   }
-               });
-               mAdapter.setCallBack(new InvitationContact.InvitationCallBack() {
-                   @Override
-                   public void setAdapter(InvitationBaseBean invitationBaseBean) {
+            }
 
-                   }
+            @Override
+            public void onResponse(String response, int id) {
 
-                   @Override
-                   public void press(@Nullable String contents, int position, String type) {
-                       InvitationPresenter.this.type = type;
-                       if(contents == null)
-                        mInvitationActivity.showDialog(true,null,position);
-                       else
-                           mInvitationActivity.showDialog(false,contents,position);
-                   }
-               });
-               recyclerView.setLayoutManager(new LinearLayoutManager(context));
-               recyclerView.setAdapter(mAdapter);
-           }
-
-           @Override
-           public void press(@Nullable String contents, int position, String type) {
-
-           }
+                baseBean = GsonUtil.toString(response,InvitationBaseBean.class);
+                System.out.println("---"+ response);
+                if (baseBean.getCode().equals("200")){
+                    System.out.println("success!!!");
+                    System.out.println("result="+baseBean.getData().get(0).getMembers().get(0).getUserId());
+                }
+                else{
+                    System.out.println("null!!!");
+                }
 
 
-       });
+            }
+        });
 
     }
     @Override
-    public void attachView(@NonNull InvitationContact.View View) {
+    public void attachView(@NonNull InvitationActivity View) {
         mInvitationActivity = View;
         mInvitationModel = new InvitationModel();
+        mUserinforModuel = new UserInformationModuel();
     }
 
     @Override
@@ -81,27 +80,43 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
 
     @Override
     public void onPositive(int position) {
-       new  InvitationDetailModel().join(mInvitationBaseBean.getData().get(position), type, new InvitationDetailContact.ChangeBtn() {
+        new  InvitationDetailModel().join(baseBean.getData().get(position), type, new StringCallback() {
+
+            //TODO 临时处理 待删除方法
             @Override
-            public void setSrc() {
-
-                //holder.itemInvitationJoinBtn.setImageResource(R.drawable.join_unselected);
-                mInvitationBaseBean.getData().get(position).setJoin( mInvitationBaseBean.getData().get(position).isJoin()?false:true);
-                System.out.println("!!!!!!"+ mInvitationBaseBean.getData().get(position).isJoin());
+            public void onAfter(int id) {
+                super.onAfter(id);
+                baseBean.getData().get(position).setJoin( baseBean.getData().get(position).isJoin()?false:true);
                 mAdapter.notifyItemChanged(position);
+            }
 
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                baseBean.getData().get(position).setJoin( baseBean.getData().get(position).isJoin()?false:true);
+                mAdapter.notifyItemChanged(position);
             }
         });
     }
 
 
     public void setAdapter(Context context, RecyclerView recyclerView, InvitationBaseBean invitationBaseBean, int visible) {
-        System.out.println("跟新");
-        mAdapter = new InvitationRecyclerViewAdapter(context, mInvitationBaseBean,visible);
+        mAdapter = new InvitationRecyclerViewAdapter(context, invitationBaseBean,visible);
+        mAdapter.notifyDataSetChanged();
         mAdapter.setOnItemClickListener(new InvitationRecyclerViewAdapter.ClickListerner() {
             @Override
             public void onItemClick(int position,InvitationBaseBean invitationBaseBean) {
                 mInvitationActivity.OpenDetail(position,invitationBaseBean);
+            }
+
+            @Override
+            public void onAvatarOnclik(int position, InvitationBaseBean invitationBaseBean) {
+                UserInforBean lUserInforBean = getUserInfor(invitationBaseBean.getData().get(position).getMembers().get(0).getUserId());
+                mInvitationActivity.OpenUserInfor(position,lUserInforBean);
             }
         });
         mAdapter.setCallBack(new InvitationContact.InvitationCallBack() {
@@ -124,15 +139,50 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     }
 
     @Override
-    public void pullLoadMore() {
-        int lLastIndex = mInvitationBaseBean.getData().size() - 1;
-        finalItemId = mInvitationBaseBean.getData().get(lLastIndex).getInvitaionId();
-        mInvitationBaseBean = mInvitationModel.addData(finalItemId, "10", mInvitationBaseBean, new InvitationModel.StopRefreshing() {
+    public void pullLoadMore(Context context, RecyclerView recyclerView, int visible, String typeId, String userId) {
+        int lLastIndex = baseBean.getData().size() - 1;
+        finalItemId = baseBean.getData().get(lLastIndex).getInvitaionId();
+        mInvitationModel.addData("17", "10",mInvitationActivity.token, new StringCallback() {
             @Override
-            public void stopRefreshing() {
+            public void onAfter(int id) {
+                super.onAfter(id);
                 mInvitationActivity.stopRefresh();
+                mAdapter.notifyDataSetChanged();
+                //setAdapter(context,recyclerView,baseBean,visible);
+
+            }
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                InvitationBaseBean  loadBean = GsonUtil.toString(response, InvitationBaseBean.class);
+                System.out.println("更新前的数据="+response);
+                for(int i = 0;i<loadBean.getData().size();i++){
+                    baseBean.getData().add(loadBean.getData().get(i));
+                }
+                System.out.println("更新后的数据="+baseBean.getData().size());
+                if (loadBean.getCode().equals("200")){
+                    System.out.println("success!!!");
+                }
+                else{
+                    System.out.println("null!!!");
+                }
             }
         });
+
+    }
+
+    @Override
+    public UserInforBean getUserInfor(String id) {
+        mUserInforBean =  mUserinforModuel.getUserInformation(id);
+        return mUserInforBean;
+    }
+
+    @Override
+    public void setNotifyChange() {
         mAdapter.notifyDataSetChanged();
     }
 }

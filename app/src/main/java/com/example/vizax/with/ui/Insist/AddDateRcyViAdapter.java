@@ -39,7 +39,7 @@ public class AddDateRcyViAdapter extends BaseQuickAdapter<String> {
             if(s.equals(url)) {
                 baseViewHolder.setBackgroundRes(R.id.pic, R.drawable.buttonshape_down);
                 SharedPreferences.Editor editor = sp.edit();
-                editor.putInt("Item" + finalI, Integer.parseInt((Uri.parse(s).toString())));
+                editor.putInt("ItemCache", Integer.parseInt((Uri.parse(s).toString())));
                 editor.commit();
                 System.out.println("draw = "+(Uri.parse(s).toString()));
             }

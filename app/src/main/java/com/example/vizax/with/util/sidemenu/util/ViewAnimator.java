@@ -332,6 +332,9 @@ public class ViewAnimator<T extends Resourceble> {
                 EditText title = (EditText) confirmDialog.findViewById(R.id.mission_title);
                 EditText content = (EditText) confirmDialog.findViewById(R.id.mission_content);
                 mPresenter.createTask(title.getText().toString(),content.getText().toString(), String.valueOf(finalI));
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putInt("Item"+finalI,sp.getInt("ItemCache",R.drawable.icn_add));
+                editor.commit();
                 return 0;
             }
 

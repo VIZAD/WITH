@@ -102,16 +102,17 @@ public class InsistPresenter implements InsistContact.Presenter {
             public void onResponse(String response, int id) {
                         /*Gson解析已经封装，下次把User改成自己对应的Bean即可
                           默认状态码200为成功*/
-
                 TaskMsg = GsonUtil.toString(response,TaskMsg.class);
                         if (TaskMsg.getCode().equals("200")) {
                             System.out.println("number:");
-                            for (int i = 0;i<TaskMsg.getData().getCalendar().size();i++) {
-                                System.out.println("content = " + TaskMsg.getData().getCalendar().get(i).getRemark());
-                            }
 
-                            Log.i("content size = ", String.valueOf(TaskMsg.getData().getCalendar().size()));
-                            InsistView.setClData(TaskMsg);
+                            System.out.println("size = "+TaskMsg.getData().getCalendar());
+                            if(TaskMsg.getData().getCalendar()!=null) {
+                                for (int i = 0;i<TaskMsg.getData().getCalendar().size();i++) {
+                                    System.out.println("content = " + TaskMsg.getData().getCalendar().get(i).getRemark());
+                                }
+                                InsistView.setClData(TaskMsg);
+                            }
                         }
                         else {
                         }

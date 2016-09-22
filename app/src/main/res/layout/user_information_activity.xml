@@ -6,76 +6,97 @@
     android:orientation="vertical"
     tools:context="com.example.vizax.with.ui.userInformation.UserInformationActivity">
 <include layout="@layout/custom_toolbar"/>
-    <LinearLayout
-        android:id="@+id/user_infor_root"
-        android:orientation="vertical"
-        android:gravity="center"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="34dp"
-        android:layout_marginRight="34dp">
-        <com.sunny.thousand.selectavatar.AvatarImageView
-            android:id="@+id/user_infor_avatar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="23dp"
-            android:layout_marginBottom="23dp"
-            android:src="@drawable/user_avatar_3"/>
-        <android.support.design.widget.TextInputLayout
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/user_infor_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
-            <EditText
-                android:id="@+id/user_infor_name_txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="姓名"
-                android:text="吕鹏"/>
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
+            android:layout_gravity="center_horizontal|top"/>
+        <com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader
+            android:id="@+id/user_infor_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
-            <EditText
-                android:id="@+id/user_infor_num_txt"
+            android:layout_gravity="center_horizontal|top">
+            <LinearLayout
+                android:id="@+id/user_infor_root"
+                android:orientation="vertical"
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="学号"
-                android:text="201324133112"/>
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
-            <EditText
-                android:id="@+id/user_infor_phonenum_txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="手机号码"
-                android:text="18318742015"/>
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/user_infor_QQ_txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="QQ"
-                android:text="766503352"/>
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginLeft="34dp"
+                android:layout_marginRight="34dp">
+                <com.sunny.thousand.selectavatar.AvatarImageView
+                    android:id="@+id/user_infor_avatar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="23dp"
+                    android:layout_marginBottom="23dp"
+                    android:src="@drawable/user_avatar_3"/>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
+                    <EditText
+                        android:id="@+id/user_infor_name_txt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="姓名"
+                        android:focusable="false"
+                        android:text="姓名"/>
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
+                    <EditText
+                        android:id="@+id/user_infor_num_txt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="学号"
+                        android:focusable="false"
+                        android:text="201324133116"/>
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
+                    <EditText
+                        android:id="@+id/user_infor_phonenum_txt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="手机号码"
+                        android:focusable="false"
+                        android:text="183187420111"/>
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/user_infor_QQ_txt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="QQ"
+                        android:focusable="false"
+                        android:text="766503352"/>
+                </android.support.design.widget.TextInputLayout>
 
-        <Button
-            android:id="@+id/user_infor_follow"
-            android:layout_marginTop="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-             android:background="@drawable/user_infor_follow_selector"
-            android:textColor="@color/white"
-            android:text="@string/concern_btn"/>
+                <Button
+                    android:id="@+id/user_infor_follow"
+                    android:layout_marginTop="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/my_follow_unfollow_btn"
+                    android:textColor="@color/white"
+                    android:text="@string/concern_btn"/>
 
 
-    </LinearLayout>
+            </LinearLayout>
+        </com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader>
+
+    </FrameLayout>
+
 
 
 </LinearLayout>

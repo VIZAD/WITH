@@ -140,7 +140,7 @@ public class HomeActivity extends BaseActivity implements HomeContact.View {
             }
         });
 
-        //
+        //上拉加载
         recyVi.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -314,4 +314,5 @@ public class HomeActivity extends BaseActivity implements HomeContact.View {
         }
     }
 
+    //haha
 }

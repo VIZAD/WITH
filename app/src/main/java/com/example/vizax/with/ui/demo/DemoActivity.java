@@ -31,6 +31,7 @@ import butterknife.OnClick;
 
 public class DemoActivity extends BaseActivity implements DemoContact.View {
 
+    //yaochenggonga
     @BindView(R.id.toolbar)
     BaseToolBar toolbar;
     @BindView(R.id.appBarLayout)

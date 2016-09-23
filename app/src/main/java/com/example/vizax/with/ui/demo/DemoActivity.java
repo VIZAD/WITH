@@ -50,7 +50,7 @@ public class DemoActivity extends BaseActivity implements DemoContact.View {
     LinearLayout root;
     private DemoPresenter mPresenter;
     private MaterialDialog mDialog;
-
+//heeifhsf
     @Override
     protected int initContentView() {
         //直接传入当前的布局文件

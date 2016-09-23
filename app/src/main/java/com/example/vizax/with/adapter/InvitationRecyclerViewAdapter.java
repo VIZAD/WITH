@@ -130,7 +130,15 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
 
             }
         });
-
+        holder.itemInvitationOriginatorImagVi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(clickListerner != null)
+                clickListerner.onAvatarOnclik(position,mData);
+                else
+                    System.out.println("null!!!!!!!!!!!");
+            }
+        });
 
         holder.itemInvitationRoot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,6 +215,7 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
     }
     public interface ClickListerner{
         void onItemClick(int position,InvitationBaseBean invitationBaseBean);
+        void onAvatarOnclik(int position,InvitationBaseBean invitationBaseBean);
     }
 
 }

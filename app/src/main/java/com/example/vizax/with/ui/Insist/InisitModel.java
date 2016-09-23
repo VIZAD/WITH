@@ -15,10 +15,10 @@ import okhttp3.Call;
 public class InisitModel implements InsistContact.InsistModle {
 
     @Override
-    public void createTaskPost(String title, String content, int iconIndex, StringCallback stringCallback) {
+    public void createTaskPost(String title, String content, String iconIndex, StringCallback stringCallback) {
         OkHttpUtils.post()
                 .url(APIConstant.getApi(APIConstant.KEEP_CREATETASK))
-                .addParams("token","111")
+                .addParams("token","1")
                 .addParams("title",title)
                 .addParams("content",content)
                 .addParams("iconIndex", String.valueOf(iconIndex))
@@ -31,7 +31,7 @@ public class InisitModel implements InsistContact.InsistModle {
     public void getTaskPost(StringCallback stringCallback) {
         OkHttpUtils.post()
                 .url(APIConstant.getApi(APIConstant.KEEP_GETTASKS))
-                .addParams("token","111")
+                .addParams("token","1")
                 .build()
                 .execute(stringCallback);
     }
@@ -40,8 +40,8 @@ public class InisitModel implements InsistContact.InsistModle {
     public void TaskMessagesPost(String date, String taskId, StringCallback stringCallback) {
         OkHttpUtils.post()
                 .url(APIConstant.getApi(APIConstant.KEEP_GETTASKMESSAGE))
-                .addParams("token","111")
-                .addParams("date",date+"-1 9:20:21")
+                .addParams("token","1")
+                .addParams("date",date)
                 .addParams("taskId",taskId)
                 .build()
                 .execute(stringCallback);
@@ -51,7 +51,7 @@ public class InisitModel implements InsistContact.InsistModle {
     public void JourPunchPost(String taskId, StringCallback stringCallback) {
         OkHttpUtils.post()
                 .url(APIConstant.getApi(APIConstant.KEEP_SIGNIN))
-                .addParams("token","111")
+                .addParams("token","1")
                 .addParams("taskId",taskId)
                 .build()
                 .execute(stringCallback);
@@ -60,11 +60,24 @@ public class InisitModel implements InsistContact.InsistModle {
     @Override
     public void deleteTaskPost(String taskId, StringCallback stringCallback) {
         OkHttpUtils.post()
-                .url(APIConstant.getApi(APIConstant.KEEP_SIGNIN))
-                .addParams("token","111")
+                .url(APIConstant.getApi(APIConstant.KEEP_DELETEASKMESSAGE))
+                .addParams("token","1")
                 .addParams("taskId",taskId)
                 .build()
                 .execute(stringCallback);
+    }
+
+    @Override
+    public void JourEditPost(String taskId, String date, String remark,StringCallback stringCallback) {
+        OkHttpUtils.post()
+                .url(APIConstant.getApi(APIConstant.KEEP_EDITTASKMESSAGE))
+                .addParams("token","1")
+                .addParams("taskId",taskId)
+                .addParams("date",date)
+                .addParams("remark",remark)
+                .build()
+                .execute(stringCallback);
+
     }
 }
 

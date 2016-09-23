@@ -13,106 +13,29 @@ import okhttp3.Call;
  * Created by Young on 2016/9/16.
  */
 public class InvitationModel implements InvitationContact.InvitationlModel {
-    InvitationBaseBean result;
     private InvitationRecyclerViewAdapter mAdapter;
     private InvitationBaseBean  mData;
-    private InvitationContact.InvitationCallBack invitationCallBack;
-    private StopRefreshing stopRefreshing;
     @Override
-    public void getData(String typeId, String userId, InvitationContact.InvitationCallBack after) {
-        this.invitationCallBack = after;
+    public void getData(String typeId, String userId, String token,StringCallback stringCallback) {
         OkHttpUtils.post()
                 .url(APIConstant.getApi(APIConstant.INVITATION_GETINVITATIONS))
+                .addParams("token",token)
+                .addParams("limit","10")
+                .addParams("lastInvitationId","0")
                 .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onAfter(int id) {
-                        super.onAfter(id);
-                        invitationCallBack.setAdapter(result);
-                    }
-
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        System.out.println("erro!!!");
-                        e.printStackTrace();
-                       result = null;
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                       InvitationBaseBean baseBean = null;
-                        response = "{\"data\":[{\"title\":\"\\u72fc\\u4eba\\u6740\",\"invitaionId\":1,\"currentNumber\":2,\"originatorNickname\":\"\\u963f\\u9053\\u514b\",\"iconUrl\":\"icon\\/icon1.png\",\"invitationTime\":\"2016-9-8 19:33\",\"originatorHeadUrl\":\"image\\/head.png\",\"place\":\"\\u4e2d\\u5df4\",\"content\":\"\\u6211\\u4eec\\u5c06\\u8fce\\u6765\\u672c\\u5b66\\u671f\\u4e00\\u573a\\u72fc\\u4eba\\u6740\\u6bd4\\u8d5b\",\"totalNumber\":16,\"publishTime\":\"2016-9-8 19:33\",\"members\":[{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"}],\"sexRequire\":\"\\u53ea\\u8981\\u5973\\u751f\",\"isJoin\":true},{\"title\":\"\\u72fc\\u4eba\\u6740\",\"invitaionId\":1,\"currentNumber\":2,\"originatorNickname\":\"\\u963f\\u9053\\u514b\",\"iconUrl\":\"icon\\/icon1.png\",\"invitationTime\":\"2016-9-8 19:33\",\"originatorHeadUrl\":\"image\\/head.png\",\"place\":\"\\u4e2d\\u5df4\",\"content\":\"\\u6211\\u4eec\\u5c06\\u8fce\\u6765\\u672c\\u5b66\\u671f\\u4e00\\u573a\\u72fc\\u4eba\\u6740\\u6bd4\\u8d5b\",\"totalNumber\":16,\"publishTime\":\"2016-9-8 19:33\",\"members\":[{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"}],\"sexRequire\":\"\\u53ea\\u8981\\u5973\\u751f\",\"isJoin\":true},{\"title\":\"\\u72fc\\u4eba\\u6740\",\"invitaionId\":1,\"currentNumber\":2,\"originatorNickname\":\"\\u963f\\u9053\\u514b\",\"iconUrl\":\"icon\\/icon1.png\",\"invitationTime\":\"2016-9-8 19:33\",\"originatorHeadUrl\":\"image\\/head.png\",\"place\":\"\\u4e2d\\u5df4\",\"content\":\"\\u6211\\u4eec\\u5c06\\u8fce\\u6765\\u672c\\u5b66\\u671f\\u4e00\\u573a\\u72fc\\u4eba\\u6740\\u6bd4\\u8d5b\",\"totalNumber\":16,\"publishTime\":\"2016-9-8 19:33\",\"members\":[{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"}],\"sexRequire\":\"\\u53ea\\u8981\\u5973\\u751f\",\"isJoin\":true},{\"title\":\"\\u72fc\\u4eba\\u6740\",\"invitaionId\":1,\"currentNumber\":2,\"originatorNickname\":\"\\u963f\\u9053\\u514b\",\"iconUrl\":\"icon\\/icon1.png\",\"invitationTime\":\"2016-9-8 19:33\",\"originatorHeadUrl\":\"image\\/head.png\",\"place\":\"\\u4e2d\\u5df4\",\"content\":\"\\u6211\\u4eec\\u5c06\\u8fce\\u6765\\u672c\\u5b66\\u671f\\u4e00\\u573a\\u72fc\\u4eba\\u6740\\u6bd4\\u8d5b\",\"totalNumber\":16,\"publishTime\":\"2016-9-8 19:33\",\"members\":[{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"}],\"sexRequire\":\"\\u53ea\\u8981\\u5973\\u751f\",\"isJoin\":true},{\"title\":\"\\u72fc\\u4eba\\u6740\",\"invitaionId\":1,\"currentNumber\":2,\"originatorNickname\":\"\\u963f\\u9053\\u514b\",\"iconUrl\":\"icon\\/icon1.png\",\"invitationTime\":\"2016-9-8 19:33\",\"originatorHeadUrl\":\"image\\/head.png\",\"place\":\"\\u4e2d\\u5df4\",\"content\":\"\\u6211\\u4eec\\u5c06\\u8fce\\u6765\\u672c\\u5b66\\u671f\\u4e00\\u573a\\u72fc\\u4eba\\u6740\\u6bd4\\u8d5b\",\"totalNumber\":16,\"publishTime\":\"2016-9-8 19:33\",\"members\":[{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"}],\"sexRequire\":\"\\u53ea\\u8981\\u5973\\u751f\",\"isJoin\":true}],\"msg\":\"\\u4fe1\\u606f\",\"code\":200}";
-                        try {
-                            baseBean = GsonUtil.toString(response, InvitationBaseBean.class);
-                        }catch (Exception e){
-                            e.printStackTrace();
-                            System.out.println("");
-                        }
-                        System.out.println("---"+ response);
-                        if (baseBean.getCode().equals("200")){
-                            System.out.println("success!!!");
-                            result = baseBean;
-                            System.out.println("result="+result.getData().get(0).toString());
-                        }
-                        else{
-                            result = null;
-                            System.out.println("null!!!");
-                        }
-                    }
-                });
+                .execute(stringCallback);
 
     }
 
     @Override
-    public InvitationBaseBean addData(String finalItemId, String count,InvitationBaseBean invitationBaseBean,StopRefreshing stopRefreshing) {
-        this.stopRefreshing = stopRefreshing;
-        mData = invitationBaseBean;
+    public void addData(String finalItemId, String count,String token,StringCallback stringCallback) {
         OkHttpUtils.post()
                 .url(APIConstant.getApi(APIConstant.INVITATION_GETINVITATIONS))
                 .addParams("lastInvitationId",finalItemId)
+                .addParams("token",token)
                 .addParams("limit",count)
                 .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onAfter(int id) {
-                        super.onAfter(id);
-                        stopRefreshing.stopRefreshing();
-                    }
-
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        System.out.println("erro!!!");
-                        e.printStackTrace();
-                        result = null;
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                        InvitationBaseBean baseBean = null;
-
-                        //response = "{\"data\":[{\"title\":\"\\u72fc\\u4eba\\u6740\",\"invitaionId\":1,\"currentNumber\":2,\"originatorNickname\":\"\\u963f\\u9053\\u514b\",\"iconUrl\":\"icon\\/icon1.png\",\"invitationTime\":\"2016-9-8 19:33\",\"originatorHeadUrl\":\"image\\/head.png\",\"place\":\"\\u4e2d\\u5df4\",\"content\":\"\\u6211\\u4eec\\u5c06\\u8fce\\u6765\\u672c\\u5b66\\u671f\\u4e00\\u573a\\u72fc\\u4eba\\u6740\\u6bd4\\u8d5b\",\"totalNumber\":16,\"publishTime\":\"2016-9-8 19:33\",\"members\":[{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"}],\"sexRequire\":\"\\u53ea\\u8981\\u5973\\u751f\",\"isJoin\":true},{\"title\":\"\\u72fc\\u4eba\\u6740\",\"invitaionId\":1,\"currentNumber\":2,\"originatorNickname\":\"\\u963f\\u9053\\u514b\",\"iconUrl\":\"icon\\/icon1.png\",\"invitationTime\":\"2016-9-8 19:33\",\"originatorHeadUrl\":\"image\\/head.png\",\"place\":\"\\u4e2d\\u5df4\",\"content\":\"\\u6211\\u4eec\\u5c06\\u8fce\\u6765\\u672c\\u5b66\\u671f\\u4e00\\u573a\\u72fc\\u4eba\\u6740\\u6bd4\\u8d5b\",\"totalNumber\":16,\"publishTime\":\"2016-9-8 19:33\",\"members\":[{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"}],\"sexRequire\":\"\\u53ea\\u8981\\u5973\\u751f\",\"isJoin\":true},{\"title\":\"\\u72fc\\u4eba\\u6740\",\"invitaionId\":1,\"currentNumber\":2,\"originatorNickname\":\"\\u963f\\u9053\\u514b\",\"iconUrl\":\"icon\\/icon1.png\",\"invitationTime\":\"2016-9-8 19:33\",\"originatorHeadUrl\":\"image\\/head.png\",\"place\":\"\\u4e2d\\u5df4\",\"content\":\"\\u6211\\u4eec\\u5c06\\u8fce\\u6765\\u672c\\u5b66\\u671f\\u4e00\\u573a\\u72fc\\u4eba\\u6740\\u6bd4\\u8d5b\",\"totalNumber\":16,\"publishTime\":\"2016-9-8 19:33\",\"members\":[{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"}],\"sexRequire\":\"\\u53ea\\u8981\\u5973\\u751f\",\"isJoin\":true},{\"title\":\"\\u72fc\\u4eba\\u6740\",\"invitaionId\":1,\"currentNumber\":2,\"originatorNickname\":\"\\u963f\\u9053\\u514b\",\"iconUrl\":\"icon\\/icon1.png\",\"invitationTime\":\"2016-9-8 19:33\",\"originatorHeadUrl\":\"image\\/head.png\",\"place\":\"\\u4e2d\\u5df4\",\"content\":\"\\u6211\\u4eec\\u5c06\\u8fce\\u6765\\u672c\\u5b66\\u671f\\u4e00\\u573a\\u72fc\\u4eba\\u6740\\u6bd4\\u8d5b\",\"totalNumber\":16,\"publishTime\":\"2016-9-8 19:33\",\"members\":[{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"}],\"sexRequire\":\"\\u53ea\\u8981\\u5973\\u751f\",\"isJoin\":true},{\"title\":\"\\u72fc\\u4eba\\u6740\",\"invitaionId\":1,\"currentNumber\":2,\"originatorNickname\":\"\\u963f\\u9053\\u514b\",\"iconUrl\":\"icon\\/icon1.png\",\"invitationTime\":\"2016-9-8 19:33\",\"originatorHeadUrl\":\"image\\/head.png\",\"place\":\"\\u4e2d\\u5df4\",\"content\":\"\\u6211\\u4eec\\u5c06\\u8fce\\u6765\\u672c\\u5b66\\u671f\\u4e00\\u573a\\u72fc\\u4eba\\u6740\\u6bd4\\u8d5b\",\"totalNumber\":16,\"publishTime\":\"2016-9-8 19:33\",\"members\":[{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"},{\"headUrl\":\"image\\/head.png\",\"realName\":\"\\u6f58\\u5927\\u7237\",\"phone\":1562261234,\"sex\":\"\\u7537\",\"userId\":\"1\"}],\"sexRequire\":\"\\u53ea\\u8981\\u5973\\u751f\",\"isJoin\":true}],\"msg\":\"\\u4fe1\\u606f\",\"code\":200}";
-                        try {
-                            baseBean = GsonUtil.toString(response, InvitationBaseBean.class);
-
-                        }catch (Exception e){
-                            e.printStackTrace();
-                            System.out.println("");
-                        }
-                        System.out.println("更新前的数据="+mData.getData().size());
-                        for(int i = 0;i<baseBean.getData().size();i++){
-                            mData.getData().add(baseBean.getData().get(i));
-                        }
-                        System.out.println("更新后的数据="+mData.getData().size());
-                        if (baseBean.getCode().equals("200")){
-                            System.out.println("success!!!");
-                        }
-                        else{
-                            result = null;
-                            System.out.println("null!!!");
-                        }
-                    }
-                });
-        return mData;
+                .execute(stringCallback);
 
     }
     interface StopRefreshing{

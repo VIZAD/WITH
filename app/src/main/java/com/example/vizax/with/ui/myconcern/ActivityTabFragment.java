@@ -14,10 +14,12 @@ import android.view.ViewGroup;
 import com.example.vizax.with.R;
 import com.example.vizax.with.bean.InvitationBaseBean;
 import com.example.vizax.with.bean.MembersBean;
+import com.example.vizax.with.bean.UserInforBean;
 import com.example.vizax.with.ui.invitationList.InvitationActivity;
 import com.example.vizax.with.ui.invitationList.InvitationContact;
 import com.example.vizax.with.ui.invitationList.InvitationDetailsActivity;
 import com.example.vizax.with.ui.invitationList.InvitationPresenter;
+import com.example.vizax.with.ui.userInformation.UserInformationActivity;
 import com.example.vizax.with.util.AnimationUtil;
 
 import net.mobctrl.views.SuperSwipeRefreshLayout;
@@ -33,7 +35,7 @@ import static android.R.attr.visible;
  * Created by apple1 on 2016/9/13.
  */
 public class ActivityTabFragment extends Fragment implements InvitationContact.View {
-
+    private String token = "1";
     private InvitationPresenter mInvitationListPresenter;
     @BindView(R.id.activity_tab_fragment_recyclerview)
     RecyclerView mRecyclerView;
@@ -48,7 +50,7 @@ public class ActivityTabFragment extends Fragment implements InvitationContact.V
         mInvitationListPresenter = new InvitationPresenter();
         mInvitationListPresenter.attachView(this);
         //初始化recyclerView
-        mInvitationListPresenter.getDataAndSetAdapter(getContext(), mRecyclerView, visible, null, "-1");
+        mInvitationListPresenter.getDataAndSetAdapter(getContext(), mRecyclerView, token,visible, null, "-1");
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -92,6 +94,15 @@ public class ActivityTabFragment extends Fragment implements InvitationContact.V
     }
 
     @Override
+    public void OpenUserInfor(int position, UserInforBean userInforBean) {
+        Intent it = new Intent(getContext(), UserInformationActivity.class);
+        Bundle lBundle = new Bundle();
+        lBundle.putParcelable("userInforBean", new UserInforBean().getData());
+        it.putExtras(lBundle);
+        startActivity(it);
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         boolean join = data.getBooleanExtra("join",false);
@@ -113,7 +124,7 @@ public class ActivityTabFragment extends Fragment implements InvitationContact.V
         concern_refresh.setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
             @Override
             public void onRefresh() {
-                mInvitationListPresenter.getDataAndSetAdapter(getActivity().getApplicationContext(), mRecyclerView, visible, null, "-1");
+                mInvitationListPresenter.getDataAndSetAdapter(getActivity().getApplicationContext(), mRecyclerView,token, visible, null, "-1");
                 concern_refresh.setRefreshing(false);
             }
 
@@ -130,7 +141,7 @@ public class ActivityTabFragment extends Fragment implements InvitationContact.V
         concern_refresh.setOnPushLoadMoreListener(new SuperSwipeRefreshLayout.OnPushLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                mInvitationListPresenter.pullLoadMore();
+                mInvitationListPresenter.pullLoadMore(getActivity().getApplicationContext(), mRecyclerView, visible, null, null);
 
 
             }

@@ -123,28 +123,28 @@
                     android:orientation="vertical"
                     android:weightSum="5">
 
-                    <TextView
+
+                    <EditText
                         android:layout_marginTop="10dp"
                         android:id="@+id/foot_text_id"
-                        android:layout_width="match_parent"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
                         android:textColor="@color/wheat"
-                        android:text="每日备注：一天不早起，我浑身难受"
+                        android:text="每日备注"
                         android:inputType="text"
                         android:textSize="13sp"
                         android:gravity="center"
-
+                        android:background="@null"
                         />
-
                     <Button
                         android:layout_marginTop="10dp"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
-                        android:text="编辑"
+                        android:text="保存"
                         android:textColor="@color/white"
-                        android:id="@+id/button"
+                        android:id="@+id/insist_edit_btn"
                         android:background="@color/colorPrimary"/>
 
 

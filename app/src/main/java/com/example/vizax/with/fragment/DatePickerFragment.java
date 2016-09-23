@@ -1,4 +1,4 @@
-package com.example.vizax.with.ui.invitation;
+package com.example.vizax.with.fragment;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TextView;
+
+
+import com.example.vizax.with.EventBus.DateEventMessage;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -44,7 +47,9 @@ public class DatePickerFragment extends DialogFragment implements
     public void onDateSet(DatePicker view, int year, int month, int day) {
         Log.d("OnDateSet", "select year:"+year+";month:"+month+";day:"+day);
         String date = year+"年"+String.valueOf(month+1)+"月"+day+"日";
+        String date1=year+"-"+String.valueOf(month+1)+"-"+day;
         mDateEventMessage.setDate(date);
+        mDateEventMessage.setDate1(date1);
         EventBus.getDefault().post(mDateEventMessage);//把选择的日期广播出来
 
     }

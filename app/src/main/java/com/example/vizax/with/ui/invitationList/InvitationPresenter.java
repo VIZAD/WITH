@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import com.example.vizax.with.adapter.InvitationRecyclerViewAdapter;
 import com.example.vizax.with.bean.InvitationBaseBean;
 import com.example.vizax.with.bean.UserInforBean;
-import com.example.vizax.with.ui.userInformation.UserInformationContact;
 import com.example.vizax.with.ui.userInformation.UserInformationModuel;
 import com.example.vizax.with.util.GsonUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -20,7 +19,7 @@ import okhttp3.Call;
  * Created by Young on 2016/9/16.
  */
 public class InvitationPresenter implements InvitationContact.InvitationPresenter {
-    private InvitationContact.View mInvitationActivity;
+    private InvitationActivity mInvitationActivity;
     private InvitationContact.InvitationlModel mInvitationModel;
     private UserInformationModuel mUserinforModuel;
     public InvitationRecyclerViewAdapter mAdapter;
@@ -29,7 +28,6 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     private String finalItemId;
     private UserInforBean mUserInforBean;
     public InvitationBaseBean baseBean;
-    private String token;
 
     /**
      * 设置recyclerView的adapter
@@ -38,9 +36,8 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
      * @param visible 时间右边的操作按钮是否显示
      */
     @Override
-    public void getDataAndSetAdapter(Context context, RecyclerView recyclerView,String token,int visible, String typeId, String userId){
-        this.token = token;
-        mInvitationModel.getData(typeId, userId,token,new StringCallback() {
+    public void getDataAndSetAdapter(Context context, RecyclerView recyclerView, int visible, String typeId, String userId){
+        mInvitationModel.getData(typeId, userId, mInvitationActivity.token,new StringCallback() {
             @Override
             public void onAfter(int id) {
                 super.onAfter(id);
@@ -70,12 +67,11 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
 
     }
     @Override
-    public void attachView(@NonNull InvitationContact.View View) {
+    public void attachView(@NonNull InvitationActivity View) {
         mInvitationActivity = View;
         mInvitationModel = new InvitationModel();
         mUserinforModuel = new UserInformationModuel();
     }
-
 
     @Override
     public void detachView() {
@@ -146,7 +142,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     public void pullLoadMore(Context context, RecyclerView recyclerView, int visible, String typeId, String userId) {
         int lLastIndex = baseBean.getData().size() - 1;
         finalItemId = baseBean.getData().get(lLastIndex).getInvitaionId();
-        mInvitationModel.addData("17", "10",token, new StringCallback() {
+        mInvitationModel.addData("17", "10",mInvitationActivity.token, new StringCallback() {
             @Override
             public void onAfter(int id) {
                 super.onAfter(id);

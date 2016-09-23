@@ -13,18 +13,20 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.R;
 import com.example.vizax.with.adapter.InvitationRecyclerViewAdapter;
+import com.example.vizax.with.bean.InvitationBaseBean;
+import com.example.vizax.with.bean.UserInforBean;
 import com.example.vizax.with.customView.BaseToolBar;
+import com.example.vizax.with.ui.userInformation.UserInformationActivity;
 import com.example.vizax.with.util.SnackbarUtils;
+import com.example.vizax.with.util.swipeback.ArrayUtil;
 
 import net.mobctrl.views.SuperSwipeRefreshLayout;
-
-import java.sql.SQLOutput;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class InvitationActivity extends AppCompatActivity implements InvitationContact.View {
-    private static final String MY_INVITATION = "my";
+    private static final String MY_INVITATION = "我发起的";
     @BindView(R.id.baseToolBar)
     BaseToolBar mBaseToolBar;
     @BindView(R.id.activity_my_focus_recyclerview)
@@ -35,21 +37,19 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
     SuperSwipeRefreshLayout invitationRefresh;
     private InvitationRecyclerViewAdapter mAdapter;
     private String type;
-    private String centerTxt;
     private Intent it;
     private int visible;
     private InvitationPresenter mInvitationListPresenter;
     private int mMainClass;
     private SuperSwipeRefreshLayout refreshLayout;
     private MaterialDialog mEdit,mJoinDialog;
-    private boolean haveOnCreate = true;     //标记是否onCreate() ,程序执行onCreate后标记true，程序执行onResume()后标记false,当程序返回该界面时刷新界面setadapter
+    public String token = "1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.invitation_activity);
         ButterKnife.bind(this);
-        haveOnCreate = true;
         mInvitationListPresenter = new InvitationPresenter();
         mInvitationListPresenter.attachView(this);
         //初始化dialog
@@ -93,7 +93,10 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
                 .build();
 
     }
-
+    public void stopRefresh(){
+        invitationRefresh.setLoadMore(false);
+        invitationRefresh.setRefreshing(false);
+    }
     private void initSuperSwipeRefresh() {
         invitationRefresh.setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
             @Override
@@ -115,8 +118,9 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
         invitationRefresh.setOnPushLoadMoreListener(new SuperSwipeRefreshLayout.OnPushLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                mInvitationListPresenter.pullLoadMore();
-                invitationRefresh.setLoadMore(false);
+                mInvitationListPresenter.pullLoadMore(InvitationActivity.this, mRecyclerView, visible, null, null);
+
+
             }
 
             @Override
@@ -134,25 +138,23 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
     private void setType() {
         it = getIntent();
         type = it.getStringExtra("type");
-        mMainClass = it.getIntExtra("mainClass", 0);
+        mMainClass = ArrayUtil.getArray(type == null?"足球":type);
         if (type != null) {
             if (type.equals(MY_INVITATION)) {
-                centerTxt = "我发起的";
                 visible = View.VISIBLE;
             } else {
-                centerTxt = type;
                 visible = View.GONE;
             }
         } else {
-            centerTxt = "我发起的";
-            visible = View.VISIBLE;
+            type = "足球";
+            visible = View.GONE;
         }
 
     }
 
     private void initToolbar() {
-        mBaseToolBar.setCenterText(centerTxt);
-        if (visible == View.VISIBLE) {
+        mBaseToolBar.setCenterText(type);
+        if (visible == View.GONE) {
             showRightIcon();
         }
     }
@@ -163,7 +165,6 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
         mBaseToolBar.setRightViewOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMainClass = R.array.sports;
                 new MaterialDialog.Builder(InvitationActivity.this)
                         .items(mMainClass)
                         .itemsCallback(new MaterialDialog.ListCallback() {
@@ -195,15 +196,40 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        System.out.println("---resume---");
-        if(!haveOnCreate) {
-            System.out.println("更新");
-            mInvitationListPresenter.setAdapter(this, mRecyclerView,visible);
-        }else {
-            System.out.println("不更新");
-        }
-        haveOnCreate = false;
+    public void OpenDetail(int position, InvitationBaseBean mData) {
+        Intent it = new Intent(this, InvitationDetailsActivity.class);
+        Bundle lBundle = new Bundle();
+        Bundle memBundle = new Bundle();
+        Bundle invitationBaseBeanBundle = new Bundle();
+        memBundle.putParcelableArrayList("members",mData.getData().get(position).getMembers());
+       // lBundle.putParcelable("users",mData.getData().get(position));
+        invitationBaseBeanBundle.putParcelableArrayList("invitationlist", mData.getData());
+        invitationBaseBeanBundle.putInt("index",position);
+        //it.putExtras(lBundle);
+        it.putExtras(memBundle);
+        it.putExtras(invitationBaseBeanBundle);
+        startActivityForResult(it,1);
+
     }
+
+    @Override
+    public void OpenUserInfor(int position, UserInforBean userInforBean) {
+        Intent it = new Intent(this, UserInformationActivity.class);
+        Bundle lBundle = new Bundle();
+        lBundle.putParcelable("userInforBean", new UserInforBean().getData());
+        it.putExtras(lBundle);
+        startActivity(it);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        boolean join = data.getBooleanExtra("join",false);
+        int index = data.getIntExtra("index",0);
+        mInvitationListPresenter.baseBean.getData().get(index).setJoin(join);
+        mInvitationListPresenter.setNotifyChange();
+       // mInvitationListPresenter.setAdapter(this, mRecyclerView, mInvitationListPresenter.baseBean,visible);
+    }
+
+
 }

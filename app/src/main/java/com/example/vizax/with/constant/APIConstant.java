@@ -18,9 +18,10 @@ public class APIConstant {
     //---------------------------------------------------------坚持模块---------------------------------------------------------------------
     public static final String KEEP_GETTASKS         = "keep/getTasks";//获取任务列表(正在进行的任务和过去的任务)
     public static final String KEEP_CREATETASK       = "keep/createTask";//新建任务
-    public static final String KEEP_GETTASKMESSAGE   = "keep/getTaskMessage";//获取某任务指定某月份下的所有相关信息
+    public static final String KEEP_GETTASKMESSAGE   = "keep/getTaskMessages";//获取某任务指定某月份下的所有相关信息
     public static final String KEEP_SIGNIN           = "keep/signIn ";//打卡签到
     public static final String KEEP_EDITTASKMESSAGE  = "keep/editTaskMessage";//打卡编辑
+    public static final String KEEP_DELETEASKMESSAGE  = "keep/deleteTask";
 
     //---------------------------------------------------------个人用户模块---------------------------------------------------------------------
     public static final String USER_LOGIN                     = "user/login";//登录

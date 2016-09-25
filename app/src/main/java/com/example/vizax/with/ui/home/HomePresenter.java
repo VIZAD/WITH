@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.ViewDragHelper;
-import android.support.v7.widget.MenuItemHoverListener;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Toast;

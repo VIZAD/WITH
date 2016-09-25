@@ -57,7 +57,7 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
         //设置邀约列表的类型
         setType();
         //初始化recyclerView
-        mInvitationListPresenter.getDataAndSetAdapter(this, mRecyclerView, visible, null, null);
+        mInvitationListPresenter.getDataAndSetAdapter(this, mRecyclerView,token, visible, null, null);
         //初始化toolbar
         initToolbar();
         //初始化superSwipeRefreshLayout
@@ -101,7 +101,7 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
         invitationRefresh.setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
             @Override
             public void onRefresh() {
-                mInvitationListPresenter.getDataAndSetAdapter(InvitationActivity.this, mRecyclerView, visible, null, null);
+                mInvitationListPresenter.getDataAndSetAdapter(InvitationActivity.this, mRecyclerView, token,visible, null, null);
                 invitationRefresh.setRefreshing(false);
             }
 

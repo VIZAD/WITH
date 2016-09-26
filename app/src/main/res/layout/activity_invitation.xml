@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        tools:context=".ui.invitation.InvitationActivity">
+
+        <com.example.vizax.with.customView.BaseToolBar
+            app:centerText="@string/my_activity_title"
+            app:titleTextColor="#ffffff"
+            app:leftIcon="@drawable/ic_arrow_back_black_36dp"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:id="@+id/launch_toolbar"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+        </com.example.vizax.with.customView.BaseToolBar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/launch_invitation_textsize"
+                android:textColor="@color/my_black_text"
+                android:text="@string/activity_type_label" />
+            <Spinner
+                android:id="@+id/launch_selectActivity_spinner"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/launch_invitation_textsize"
+                android:textColor="@color/my_black_text"
+                android:text="@string/activity_title_label"/>
+
+            <EditText
+                android:hint="无兄弟，不篮球！"
+                android:id="@+id/launch_invitationTitle_edtTxt"
+                android:singleLine="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/launch_invitation_textsize"
+                android:textAlignment="center"
+                android:background="@null"
+                android:gravity="right"
+                android:completionThreshold="1"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="13dp"
+                android:background="@color/activity_bg"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/launch_invitation_textsize"
+                android:textColor="@color/my_black_text"
+                android:text="@string/description_label"/>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="10dp">
+
+            <EditText
+                android:id="@+id/launch_description_ediTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="@dimen/launch_invitation_textsize"
+                android:hint="@string/description_hint"
+                android:inputType="textMultiLine"
+                android:minLines="3"
+                android:maxLines="3"
+                android:gravity="top"
+                android:scrollbars="vertical"
+                android:background="@null"/>
+        </android.support.v7.widget.CardView>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="13dp"
+                android:background="@color/activity_bg"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/launch_invitation_textsize"
+                android:textColor="@color/my_black_text"
+                android:text="@string/sex_requirements_label"/>
+
+            <RadioGroup
+                android:id="@+id/launch_sex_requirements_rdoGrp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/launch_man_rdoBtn"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/launch_invitation_textsize"
+                    android:text="@string/man_label"/>
+                <RadioButton
+                    android:id="@+id/launch_woman_rdoBtn"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/launch_invitation_textsize"
+                    android:text="@string/woman_label"/>
+                <RadioButton
+                    android:id="@+id/launch_unlimited_rdoBtn"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/launch_invitation_textsize"
+                    android:text="@string/unlimited_label"/>
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="13dp"
+                android:background="@color/activity_bg"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/launch_invitation_textsize"
+                android:textColor="@color/my_black_text"
+                android:text="@string/activity_time_label"/>
+            <TextView
+                android:id="@+id/launch_date_Txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2016年10月01日"
+                android:textSize="@dimen/launch_invitation_textsize"
+                android:textColor="@color/my_black_text"/>
+
+            <TextView
+                android:id="@+id/launch_time_Txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:text="18:50"
+                android:textSize="@dimen/launch_invitation_textsize"
+                android:textColor="@color/my_black_text"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/launch_invitation_textsize"
+                android:textColor="@color/my_black_text"
+                android:text="@string/active_site_label"/>
+            <EditText
+                android:id="@+id/launch_site_edtTxt"
+                android:singleLine="true"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="请输入活动地点"
+                android:background="@null"
+                android:textSize="@dimen/launch_invitation_textsize"
+                android:textColor="@color/my_black_text"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="13dp"
+                android:background="@color/activity_bg"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/launch_invitation_textsize"
+                android:textColor="@color/my_black_text"
+                android:text="@string/upper_limit_label"/>
+
+
+
+            <ImageButton
+                android:id="@+id/launch_remove_imgBtn"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_remove"
+                android:background="@drawable/shape"/>
+
+            <EditText
+                android:gravity="center"
+                android:inputType="number"
+                android:id="@+id/launch_upper"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:text="6"
+                android:maxLength="2"
+                android:textSize="@dimen/launch_invitation_textsize"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="人"
+                android:textSize="@dimen/launch_invitation_textsize"/>
+
+            <ImageButton
+                android:id="@+id/launch_add_imgBtn"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add"
+                android:background="@drawable/shape"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/launch_invitation_textsize"
+                android:textColor="@color/my_black_text"
+                android:text="@string/hide_Information_label"/>
+            <Switch
+                android:id="@+id/launch_hide_information_swt"
+                android:layout_marginLeft="110dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="13dp"
+                android:background="@color/activity_bg"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/launch_ensureBtn"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="15dp"
+                android:textSize="@dimen/launch_invitation_textsize"
+                android:textColor="@color/normal_btn_text"
+                android:text="@string/launch_activities_btn"
+                android:background="@drawable/luanch_invitation_submit_shape"/>
+            <Button
+                android:id="@+id/launch_cancelBtn"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="15dp"
+                android:textSize="@dimen/launch_invitation_textsize"
+                android:textColor="@color/normal_btn_text"
+                android:text="@string/cancel_return_btn"
+                android:background="@drawable/luanch_invitation_cancel_shape"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

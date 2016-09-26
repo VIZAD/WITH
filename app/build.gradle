@@ -129,6 +129,7 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'com.cm.retrofit2:converter-file:1.0.1'
 
     //Gson
     compile 'com.google.code.gson:gson:2.6.2'

@@ -89,7 +89,10 @@ public abstract class FileCallback implements Callback<ResponseBody>{
             listener.onSuccess(file);
             unSubscribe();
             return file;
-        }finally {
+        }catch (Exception e){
+            listener.onFailure(e);
+            return null;
+        } finally{
             is.close();
             fos.close();
         }
@@ -99,11 +102,13 @@ public abstract class FileCallback implements Callback<ResponseBody>{
         this.listener = listener;
     }
 
-    private interface onDownLoadListener{
+    interface onDownLoadListener{
 
         void onSuccess(File file);
 
         void onLoading(long progress,long total);
+
+        void onFailure(Exception e);
     }
 
     /**

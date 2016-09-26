@@ -4,7 +4,7 @@ apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    buildToolsVersion "24.0.2"
     defaultConfig {
         applicationId "com.example.vizax.with"
         minSdkVersion 15
@@ -14,16 +14,90 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    /*android {
+        productFlavors {
+            kuan {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "kuan"]
+            }
+            xiaomi {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
+            }
+            qh360 {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "qh360"]
+            }
+            baidu {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
+            }
+            wandoujia {
+                manifestPlaceholders = [UMENG_CHANNEL_VALUE: "wandoujia"]
+            }
+        }
+    }*/
+    android {
+        productFlavors {
+            kuan {}
+/*            xiaomi {}
+            qh360 {}
+            baidu {}
+            wandoujia {}
+            yingyongbao {}*/
+        }
+
+        productFlavors.all {
+            flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+        }
+    }
+
+    signingConfigs {
+        debugConfig {
+            storeFile file('../with.jks') //签名文件路径
+            storePassword "with123456"
+            keyAlias "with"
+            keyPassword "with123456"  //签名密码
+        }
+        release {
+            storeFile file('../with.jks') //签名文件路径
+            storePassword "with123456"
+            keyAlias "with"
+            keyPassword "with123456"  //签名密码
+        }
+    }
+
+    /*signingConfigs代码块一定要写在buildTypes前面，否则会报下面这种错：
+    Could not find property 'debugConfig' on SigningConfig container.
+    签名密码写在gradle中不安全，故最好在打包上线的时候将相关代码注释掉。*/
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        // 输出apk名称为ruijie_v1.0_wandoujia.apk
+                        def fileName = "ruijie_v${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
+        }
+    }
+
+    /*  左下角打开Terminal，输入命令行
+        如果我们想打包wandoujia渠道的release版本，执行如下命令就好了：
+        gradlew assembleWandoujiaRelease
+        如果我们想打包wandoujia渠道的debug版本，执行如下命令就好了：
+        gradlew assembleWandoujiaDebug
+        如果我们只打wandoujia渠道版本，则：
+        gradlew assembleWandoujia
+        此命令会生成wandoujia渠道的Release和Debug版本
+        同理我想打全部Release版本：
+        gradlew assembleRelease*/
 }
 
 repositories {
@@ -40,6 +114,7 @@ dependencies {
     compile 'com.android.support:support-v13:24.2.0'
     compile 'com.android.support:design:24.2.0'
     compile 'com.android.support:cardview-v7:24.2.0'
+    compile 'com.android.support:recyclerview-v7:24.2.0'
     testCompile 'junit:junit:4.12'
 
     //注解库，省去findId
@@ -49,6 +124,11 @@ dependencies {
     //rxjava
     compile 'io.reactivex:rxjava:1.1.0'
     compile 'io.reactivex:rxandroid:1.1.0'
+
+    //retrofit2
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
 
     //Gson
     compile 'com.google.code.gson:gson:2.6.2'
@@ -104,5 +184,7 @@ dependencies {
     //Material Design 控件库
     compile 'com.github.rey5137:material:1.2.4'
     compile 'com.bartoszlipinski.recyclerviewheader:library:1.2.0'
-    compile 'com.android.support:recyclerview-v7:24.2.0'
+    //UMENG
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    compile project(':PushSDK')
 }

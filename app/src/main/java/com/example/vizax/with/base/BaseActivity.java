@@ -15,6 +15,8 @@ import android.view.WindowManager;
 import com.example.vizax.with.util.AppManager;
 import com.example.vizax.with.util.ResourceUtil;
 import com.example.vizax.with.util.StatusBarUtil;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 
 /**
  * Created by prj on 2016/9/13.
@@ -29,6 +31,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         setTranslucentStatus(isApplyStatusBarTranslucency());
         setStatusBarColor(isApplyStatusBarColor());
         initUiAndListener();
+        //统计应用启动数据,此方法与统计分析sdk中统计日活的方法无关！请务必调用此方法！
+        PushAgent.getInstance(this).onAppStart();
         AppManager.getAppManager().addActivity(this);
     }
 
@@ -91,6 +95,18 @@ public abstract class BaseActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     @Override protected void onDestroy() {

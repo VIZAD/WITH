@@ -23,11 +23,11 @@ import okhttp3.Call;
 /**
  * Created by maozhilin on 16/9/19.
  */
-public class InitInvitationPresenter implements luanch_InvitationContact.Presenter{
+public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Presenter{
 
-    private InvitationModel model;
+    private LuanchInvitationModel model;
     private static String date1;
-    luanch_InvitationContact.View view;
+    LuanchInvitationContact.View view;
 
     public static String setDate(){
         Calendar c ;
@@ -217,7 +217,7 @@ public class InitInvitationPresenter implements luanch_InvitationContact.Present
         }
         if(i==0)
         {
-            model=new InvitationModel();
+            model=new LuanchInvitationModel();
             model.commit("1", invitationtype, titletext, descriptiontext, sex, date, site, Upper, hidenBoolean, new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
@@ -239,7 +239,7 @@ public class InitInvitationPresenter implements luanch_InvitationContact.Present
     }
 
     @Override
-    public void attachView(@NonNull luanch_InvitationContact.View view) {
+    public void attachView(@NonNull LuanchInvitationContact.View view) {
         this.view=view;
     }
 

@@ -10,7 +10,7 @@ import com.example.vizax.with.fragment.TimePickerFragment;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 
-public interface luanch_InvitationContact {
+public interface LuanchInvitationContact {
 
     interface View extends BaseView{
         String[] getResources1();
@@ -26,7 +26,6 @@ public interface luanch_InvitationContact {
         void setUpperError();
         void onDestroy();
     }
-
     interface Modle{
         void commit(String token,String type, String titletext,String descriptiontext,String sex,String datetime,String site,String upper,Boolean hidenBoolean,StringCallback stringCallback);
     }

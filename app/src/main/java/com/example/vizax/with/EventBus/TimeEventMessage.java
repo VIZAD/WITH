@@ -1,4 +1,4 @@
-package com.example.vizax.with.ui.invitation;
+package com.example.vizax.with.EventBus;
 
 /**
  * Created by maozhilin on 16/9/18.

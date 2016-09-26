@@ -1,6 +1,7 @@
 package com.example.vizax.with.ui.invitation;
 
 import android.os.Bundle;
+
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,9 +17,14 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.vizax.with.EventBus.DateEventMessage;
+import com.example.vizax.with.EventBus.TimeEventMessage;
 import com.example.vizax.with.R;
 import com.example.vizax.with.customView.BaseToolBar;
+import com.example.vizax.with.fragment.DatePickerFragment;
+import com.example.vizax.with.fragment.TimePickerFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -29,7 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class InvitationActivity extends AppCompatActivity {
+public class InvitationActivity extends AppCompatActivity implements luanch_InvitationContact.View{
 
     @BindView(R.id.launch_toolbar)
     BaseToolBar launchToolbar;
@@ -65,31 +71,30 @@ public class InvitationActivity extends AppCompatActivity {
     Button launchCancelBtn;
 
     private Spinner spinner;
-    private String date;
-    private String invitation_date;
     private List<String> subclass_list;
     private List<String> title_list;
     private ArrayAdapter<String> arr_adapter;
     private ListPopupWindow mListPop;
     private String subclass;
-    private InitInvitation init;
-    private RadioButton checked_RdoBtn;
     private String sex;
+    private String invitation_date;
+    private InitInvitationPresenter init;
     private Boolean hidenBoolean;
-
+    private RadioButton check_RdoBtn;
+    private Switch hidenswitch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitation);
         EventBus.getDefault().register(this);//注册
         ButterKnife.bind(this);
-        init = new InitInvitation();
-
+        init = new InitInvitationPresenter();
+        init.attachView(this);
         launchDateTxt.setText(init.setDate());
         launchTimeTxt.setText(init.setTime());
         initSpinner(init);
         launchUnlimitedRdoBtn.setChecked(true);
-
+        sex=launchUnlimitedRdoBtn.getText().toString();
         launchHideInformationSwt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -103,29 +108,86 @@ public class InvitationActivity extends AppCompatActivity {
         });
 
 
-
+        launchSexRequirementsRdoGrp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                check_RdoBtn= (RadioButton) findViewById(launchSexRequirementsRdoGrp.getCheckedRadioButtonId());
+                sex=check_RdoBtn.getText().toString();
+            }
+        });
+    }
+    @Override
+    public void setluanchInvitationTitleEdtTxt(String text){
+        launchInvitationTitleEdtTxt.setText(text);
     }
 
-    private void listpopupwindow(InitInvitation init,String subclass) {
+    @Override
+    public void setDescriptionError() {
+        launchDescriptionEdiTxt.setError("内容描述不能为空!");
+    }
+
+    @Override
+    public void setSiteError() {
+        launchSiteEdtTxt.setError("活动地点不能为空!");
+    }
+
+    @Override
+    public void setUpperError() {
+        launchUpper.setError("活动人数不能为空！");
+    }
+
+    @Override
+    public String[] getResources1() {
+        String[]  items= getResources().getStringArray(R.array.sports);
+        return items;
+    }
+
+    @Override
+    public void showTitleListpopupwindow() {
+        mListPop.show();
+    }
+
+    @Override
+    public void setUpper(String text) {
+        launchUpper.setText(text);
+    }
+
+    @Override
+    public void showDatePicker(DatePickerFragment datePicker) {
+        datePicker.show(getFragmentManager(),"datePicker");
+    }
+    @Override
+    public void dissTitleListpopupwindow(){
+        mListPop.dismiss();
+    }
+
+
+    @Override
+    public void showTimePicker(TimePickerFragment timePicker) {
+        timePicker.show(getFragmentManager(), "timePicker");
+    }
+
+    @Override
+    public void showCommitError(String text) {
+        Toast.makeText(this,text,Toast.LENGTH_LONG).show();
+    }
+
+    private void listpopupwindow(InitInvitationPresenter init, String subclass) {
         title_list = init.setTitle(subclass);
         mListPop = new ListPopupWindow(this);
-        mListPop.setAdapter(new ArrayAdapter(this,android.R.layout.simple_list_item_1,R.array.incitation));
         mListPop.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1,title_list));
         mListPop.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
         mListPop.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
         mListPop.setAnchorView(launchInvitationTitleEdtTxt);//设置ListPopupWindow的锚点，即关联PopupWindow的显示位置和这个锚点
         mListPop.setModal(true);//设置是否是模式
         mListPop.setOnItemClickListener((parent, view, position, id) -> {
-            launchInvitationTitleEdtTxt.setText(title_list.get(position));
-            mListPop.dismiss();
+            init.listpopupwindowItemOnclick(title_list.get(position));
         });
-        launchInvitationTitleEdtTxt.setOnClickListener(v -> mListPop.show());
+        launchInvitationTitleEdtTxt.setOnClickListener(v -> {
+            init.showTitleListpopupwindow();
+        });
     }
-
-
-
-
-    public void initSpinner(InitInvitation init){
+    public void initSpinner(InitInvitationPresenter init){
         spinner = (Spinner) findViewById(R.id.launch_selectActivity_spinner);
         subclass_list= init.setspinner();
         //适配器
@@ -135,7 +197,6 @@ public class InvitationActivity extends AppCompatActivity {
         //加载适配器
         spinner.setAdapter(arr_adapter);
         spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
-
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 subclass = subclass_list.get(position);
@@ -151,7 +212,7 @@ public class InvitationActivity extends AppCompatActivity {
     @Subscribe
     public void onEvent(DateEventMessage mDateEventMessage){//接收DateEventMessage类的广播信息
         launchDateTxt.setText(mDateEventMessage.getDate());
-        invitation_date = mDateEventMessage.getInvitation_date();
+        invitation_date=mDateEventMessage.getDate1();
     }
     @Subscribe
     public void onEvent(TimeEventMessage mTimeEventMessage){//接收TimeEventMessage类的广播信息
@@ -161,56 +222,35 @@ public class InvitationActivity extends AppCompatActivity {
     @OnClick({R.id.launch_toolbar, R.id.launch_invitationTitle_edtTxt, R.id.launch_description_ediTxt, R.id.launch_man_rdoBtn, R.id.launch_woman_rdoBtn, R.id.launch_unlimited_rdoBtn, R.id.launch_sex_requirements_rdoGrp, R.id.launch_date_Txt, R.id.launch_time_Txt, R.id.launch_site_edtTxt, R.id.launch_remove_imgBtn, R.id.launch_upper, R.id.launch_add_imgBtn, R.id.launch_hide_information_swt, R.id.launch_ensureBtn, R.id.launch_cancelBtn})
     public void onClick(View view) {
         switch (view.getId()) {
-
-            //选择活动的日期
             case R.id.launch_date_Txt:
-                DatePickerFragment datePicker = new DatePickerFragment(launchDateTxt);
-                datePicker.show(getFragmentManager(),"datePicker");
+                init.showDatePicker(launchDateTxt);
                 break;
-
-            //选择活动的时间
             case R.id.launch_time_Txt:
-                TimePickerFragment  timePicker = new TimePickerFragment(launchTimeTxt);
-                timePicker.show(getFragmentManager(), "timePicker");
+                init.showTimePicker(launchTimeTxt);
                 break;
-
-            //人数上限－1
             case R.id.launch_remove_imgBtn:
-                if(launchUpper.getText().toString().equals("1")||launchUpper.getText().toString().equals("")||launchUpper.getText().toString().equals("0")||launchUpper.getText().toString().equals("00")) {
-                    launchUpper.setText("99");
-                }else if(Integer.parseInt(launchUpper.getText().toString())>1&&launchUpper.getText().toString()!=""){
-                    launchUpper.setText(String.valueOf(Integer.parseInt(launchUpper.getText().toString())-1));
-                }
+                init.removeUpper(launchUpper);
                 break;
-
-            //人数上限＋1
             case R.id.launch_add_imgBtn:
-                if(launchUpper.getText().toString().equals("99")||launchUpper.getText().toString().equals("")) {
-                    launchUpper.setText("1");
-                }else if(Integer.parseInt(launchUpper.getText().toString())<99){
-                    launchUpper.setText(String.valueOf(Integer.parseInt(launchUpper.getText().toString())+1));
-                }
+                init.addUpper(launchUpper);
                 break;
-
-            //确定发起活动
             case R.id.launch_ensureBtn:
-                if(launchInvitationTitleEdtTxt.getText().toString().equals(""))
-                launchInvitationTitleEdtTxt.setText(title_list.get(0));
-                if(launchDescriptionEdiTxt.getText().toString().equals("")){
-                launchDescriptionEdiTxt.setError("内容描述不能为空!");
-                }
-                if(launchSiteEdtTxt.getText().toString().equals("")){
-                launchSiteEdtTxt.setError("活动地点不能为空!");
-                }
-                if(launchUpper.getText().toString().equals("")){
-                launchUpper.setError("活动人数不能为空！");
-                }
-
-                checked_RdoBtn= (RadioButton) findViewById(launchSexRequirementsRdoGrp.getCheckedRadioButtonId());
-                sex = checked_RdoBtn.getText().toString();
-                break;
-            case R.id.launch_cancelBtn:
+                init.luanchInvitation(subclass,launchInvitationTitleEdtTxt.getText().toString(),launchDescriptionEdiTxt.getText().toString(),
+                        sex,invitation_date,launchTimeTxt.getText().toString(),launchSiteEdtTxt.getText().toString(),launchUpper.getText().toString(),
+                        hidenBoolean,title_list.get(0));
+                /*lauchInvitationBean = new LauchInvitationBean();
+                lauchInvitationBean.setPlace(launchSiteEdtTxt.getText().toString());
+                lauchInvitationBean.setTitle(launchInvitationTitleEdtTxt.getText().toString());
+                lauchInvitationBean.setContent(launchDescriptionEdiTxt.getText().toString());
+                lauchInvitationBean.setHiden(hidenBoolean);*/
                 break;
         }
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        init.detachView();
     }
 }

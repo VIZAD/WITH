@@ -1,4 +1,4 @@
-package com.example.vizax.with.ui.invitation;
+package com.example.vizax.with.fragment;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import com.example.vizax.with.EventBus.TimeEventMessage;
 
 import org.greenrobot.eventbus.EventBus;
 

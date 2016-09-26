@@ -1,6 +1,7 @@
 package com.example.vizax.with.util.filedownload;
 
 import android.database.Observable;
+import android.graphics.Canvas;
 
 import java.io.File;
 
@@ -14,9 +15,9 @@ import retrofit2.http.Url;
  * Created by prj on 2016/9/26.
  */
 
-public interface ApiService {
+interface ApiService {
 
     @Streaming
-    @GET
-    Observable<File> downloadWithDynamicUrl(@Url String downloadUrl);
+    @GET("")
+    Call<ResponseBody> downloadWithDynamicUrl();
 }

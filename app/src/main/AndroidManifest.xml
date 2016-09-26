@@ -38,6 +38,7 @@
                    android:theme="@style/AppTheme"/>
         <activity android:name=".ui.home.HomeActivity"/>
         <activity android:name=".ui.userInformation.UserInformationActivity"/>
+        <service android:name=".util.filedownload.DownLoadService"/>
 
         <!--友盟推送和多渠道打包-->
         <meta-data android:name="UMENG_APPKEY" android:value="57e7497e67e58ec83a000f50" />

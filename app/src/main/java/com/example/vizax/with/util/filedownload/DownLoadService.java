@@ -9,8 +9,11 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
+import com.cm.retrofit2.converter.file.body.ProgressResponseListener;
 import com.example.vizax.with.R;
+import com.example.vizax.with.util.RxBus;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.FileCallBack;
 import com.zhy.http.okhttp.request.RequestCall;
@@ -18,6 +21,9 @@ import com.zhy.http.okhttp.request.RequestCall;
 import java.io.File;
 
 import okhttp3.Call;
+import okhttp3.ResponseBody;
+import retrofit2.Retrofit;
+import rx.subscriptions.CompositeSubscription;
 
 
 /**
@@ -26,24 +32,22 @@ import okhttp3.Call;
 
 public class DownLoadService extends Service {
 
-    private String destFileDir = Environment.getExternalStorageDirectory()
+    public static String destFileDir = Environment.getExternalStorageDirectory()
             .getAbsolutePath()+ File.separator+"M_DEFAULT_DIR";
     /**
      * 目标文件存储的文件名
      */
-    private String destFileName = "with.apk";
+    public static String destFileName = "with.apk";
     private Context mContext;
     private int preProgress = 0;
     private int NOTIFY_ID = 1000;
     private NotificationCompat.Builder mBuilder;
     private NotificationManager mNotificationManager;
-    private ApiService apiService;
+    private Retrofit.Builder retrofit;
     private String apkUrl;
 
-    public DownLoadService(String destFileDir,String destFileName,String apkUrl){
-        this.destFileDir = destFileDir;
-        this.destFileName = destFileName;
-        this.apkUrl = apkUrl;
+    public DownLoadService(){
+        apkUrl = "http://112.124.9.133:8080/parking-app-admin-1.0/android/manager/adminVersion/";
     }
 
     @Override
@@ -57,54 +61,56 @@ public class DownLoadService extends Service {
         initNotification();
 
         OkHttpUtils.get()
-                .url(apkUrl)
+                .url("http://117.169.71.165/imtt.dd.qq.com/16891/580B22B6281E704CAB3079BC8210A88D.apk?mkey=57e9226712336c2a&f=8a5d&c=0&fsname=com.supertreasure_1.2_3.apk&csr=4d5s&p=.apk\n")
                 .build()
-                .execute(new FileCallBack(destFileDir, destFileName) {
+                .execute(new FileCallBack(destFileDir,destFileName) {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        call.cancel();
-                        cancelNotification();
+
                     }
 
                     @Override
                     public void onResponse(File response, int id) {
-
+                        Log.w("haha","finish");
                     }
 
                     @Override
                     public void inProgress(float progress, long total, int id) {
                         super.inProgress(progress, total, id);
-                        if (progress==total){
-                            cancelNotification();
-                            installApk(new File(destFileName));
-                        }else {
-                            updateNotification((long)(progress * 100 / total));
-                        }
+                        Log.w("haha",progress+"!!!!"+total);
                     }
                 });
+        /*if (retrofit==null){
+            retrofit = new Retrofit.Builder();
+        }
+        retrofit.baseUrl("http://117.169.71.165/imtt.dd.qq.com/16891/580B22B6281E704CAB3079BC8210A88D.apk?mkey=57e9226712336c2a&f=8a5d&c=0&fsname=com.supertreasure_1.2_3.apk&csr=4d5s&p=.apk\n")
+                .client(OkHttpUtils.getInstance().getOkHttpClient())
+                .build()
+                .create(ApiService.class)
+                .downloadWithDynamicUrl()
+                .enqueue(new FileCallback(destFileDir,destFileName) {
+                             @Override
+                             public void onSuccess(File file) {
+                                 cancelNotification();
+                                 installApk(file);
+                             }
 
-        /*apiService = DownLoadRetrofitClient.createResponseService(
-                ApiService.class, new FileCallback.onDownLoadListener() {
-                    @Override
-                    public void onSuccess(File file) {
-                        cancelNotification();
-                        installApk(file);
-                    }
+                             @Override
+                             public void onLoading(long progress, long total) {
+                                 updateNotification(progress * 100 / total);
+                             }
 
-                    @Override
-                    public void onLoading(long progress, long total) {
-                        updateNotification(progress * 100 / total);
-                    }
+                             @Override
+                             public void onFailure(retrofit2.Call<ResponseBody> call, Throwable t) {
+                                 cancelNotification();
+                             }
+                         });*/
+        /*apiService = DownLoadRetrofitClient.createResponseService(ApiService.class,
+                "http://112.124.9.133:8080/parking-app-admin-1.0/android/manager/adminVersion/",
+                (bytesRead, contentLength, done) -> updateNotification(bytesRead*100/contentLength));*/
 
-                    @Override
-                    public void onFailure(Exception e) {
-                        cancelNotification();
-                    }
-                });
-
-        apiService.downloadWithDynamicUrl(apkUrl)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())*/
+      /*  apiService.downloadWithDynamicUrl()
+                */
     }
 
     private void installApk(File file) {

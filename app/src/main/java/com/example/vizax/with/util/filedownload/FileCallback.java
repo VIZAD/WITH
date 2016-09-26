@@ -36,15 +36,9 @@ public abstract class FileCallback implements Callback<ResponseBody>{
      */
     private String destFileName;
 
-    /**
-     * 下载监听
-     */
-    private onDownLoadListener listener;
-
-    public FileCallback(String destFileDir,String destFileName,onDownLoadListener listener){
+    public FileCallback(String destFileDir,String destFileName){
         this.destFileDir = destFileDir;
         this.destFileName = destFileName;
-        this.listener = listener;
         subscribeLoadProgress();
     }
 
@@ -55,7 +49,7 @@ public abstract class FileCallback implements Callback<ResponseBody>{
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(fileBean -> {
-                listener.onLoading(fileBean.getProgress(),fileBean.getTotal());
+                onLoading(fileBean.getProgress(),fileBean.getTotal());
             }));
     }
 
@@ -86,30 +80,24 @@ public abstract class FileCallback implements Callback<ResponseBody>{
             while ((len = is.read(buf))!=-1){
                 fos.write(buf,0,len);
             }
-            listener.onSuccess(file);
+            onSuccess(file);
             unSubscribe();
             return file;
-        }catch (Exception e){
-            listener.onFailure(e);
-            return null;
-        } finally{
+        }finally{
             is.close();
             fos.close();
         }
     }
 
-    public void setListener(onDownLoadListener listener) {
-        this.listener = listener;
-    }
+    /**
+     * 成功后回调
+     */
+    public abstract void onSuccess(File file);
 
-    interface onDownLoadListener{
-
-        void onSuccess(File file);
-
-        void onLoading(long progress,long total);
-
-        void onFailure(Exception e);
-    }
+    /**
+     * 下载过程回调
+     */
+    public abstract void onLoading(long progress, long total);
 
     /**
      * 取消订阅，防止内存泄漏

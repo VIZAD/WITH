@@ -54,7 +54,7 @@ public class TimePickerFragment extends DialogFragment implements
         }else{
             Hour = String.valueOf(hour);
         }
-        time = Hour+"："+Minute;
+        time = Hour+":"+Minute;
         mTimeEventMessage.setTime(time);
         EventBus.getDefault().post(mTimeEventMessage);
     }

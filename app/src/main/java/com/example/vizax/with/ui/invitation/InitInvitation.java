@@ -1,7 +1,16 @@
 package com.example.vizax.with.ui.invitation;
 
+import android.content.res.Resources;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.vizax.with.R;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,8 +31,22 @@ public class InitInvitation {
         day = c.get(Calendar.DAY_OF_MONTH);
         String date = year+"年"+String.valueOf(month+1)+"月"+day+"日";
         return date;
-
     }
+    public static String setToday(){
+        Calendar c ;
+        int year ;
+        int month ;
+        int day ;
+        c = Calendar.getInstance();
+        year = c.get(Calendar.YEAR);
+        month = c.get(Calendar.MONTH);
+        day = c.get(Calendar.DAY_OF_MONTH);
+        String today = year+"-"+String.valueOf(month+1)+"-"+day;
+        return today;
+    }
+
+
+
     public static List<String> setspinner()
     {
         List<String> data_list= new ArrayList<String>();
@@ -62,7 +85,7 @@ public class InitInvitation {
         }else{
             Hour = String.valueOf(hour);
         }
-        time = Hour+"："+Minute;
+        time = Hour+":"+Minute;
         return time;
 
     }
@@ -86,6 +109,38 @@ public class InitInvitation {
         }
 
         return title_list;
+    }
+
+    public static int isRightDate(String invitation_date, TextView launchTimeTxt){
+        String date;
+        if(invitation_date==null) {
+            date = setToday() + " " + launchTimeTxt.getText().toString();
+        }
+        else {
+            date = invitation_date+" " + launchTimeTxt.getText().toString();
+        }
+        Calendar calendar=Calendar.getInstance();
+        Date datetime1=calendar.getTime();
+        System.out.println("aaaaaaaaaaaaaaaaaa"+date);
+        SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        try {
+            Date datetime=sim.parse(date);
+            System.out.println("aaaaaaaa"+datetime+"    bbbbbbbbbbbb"+datetime1);
+            int i = datetime.compareTo(datetime1);
+            System.out.println("gggggggggggggg"+i);
+            if(i>0)
+            {
+                System.out.println("ffffffffffffffffffff");
+            }
+            else
+            {
+                Toast.makeText(c,"活动开始时间错误！可能是昨天",Toast.LENGTH_LONG).show();
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return i;
     }
 
 }

@@ -90,7 +90,7 @@ public class DownLoadService extends Service {
         Intent install = new Intent(Intent.ACTION_VIEW);
         install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         install.setDataAndType(uri, "application/vnd.android.package-archive");
-        // 执行意图进行安装
+        // 打开apk进行安装
         mContext.startActivity(install);
     }
 

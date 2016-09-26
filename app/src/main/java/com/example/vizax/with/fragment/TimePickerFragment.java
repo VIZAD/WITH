@@ -8,7 +8,6 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-
 import com.example.vizax.with.EventBus.TimeEventMessage;
 
 import org.greenrobot.eventbus.EventBus;

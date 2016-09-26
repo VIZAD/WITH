@@ -5,7 +5,6 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.vizax.with.R;
 import com.example.vizax.with.bean.BaseBean;
 import com.example.vizax.with.fragment.DatePickerFragment;
 import com.example.vizax.with.fragment.TimePickerFragment;

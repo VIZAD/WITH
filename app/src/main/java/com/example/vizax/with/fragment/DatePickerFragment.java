@@ -4,11 +4,8 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
-
-import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TextView;
-
 
 import com.example.vizax.with.EventBus.DateEventMessage;
 
@@ -45,13 +42,11 @@ public class DatePickerFragment extends DialogFragment implements
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        Log.d("OnDateSet", "select year:"+year+";month:"+month+";day:"+day);
         String date = year+"年"+String.valueOf(month+1)+"月"+day+"日";
-        String date1=year+"-"+String.valueOf(month+1)+"-"+day;
+        String invitation_date = year+"-"+String.valueOf(month+1)+"-"+day;
         mDateEventMessage.setDate(date);
-        mDateEventMessage.setDate1(date1);
+        mDateEventMessage.setInvitation_date(invitation_date);
         EventBus.getDefault().post(mDateEventMessage);//把选择的日期广播出来
-
     }
 
 }

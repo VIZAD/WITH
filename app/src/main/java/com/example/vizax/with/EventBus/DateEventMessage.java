@@ -6,7 +6,6 @@ package com.example.vizax.with.EventBus;
 public class DateEventMessage {
     String date;
     String date1;
-
     public String getDate1() {
         return date1;
     }
@@ -14,7 +13,6 @@ public class DateEventMessage {
     public void setDate1(String date1) {
         this.date1 = date1;
     }
-
     public void setDate(String date){
         this.date = date;
     }

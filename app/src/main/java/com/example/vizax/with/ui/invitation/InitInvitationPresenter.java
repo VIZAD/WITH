@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.vizax.with.R;
 import com.example.vizax.with.bean.BaseBean;
 import com.example.vizax.with.fragment.DatePickerFragment;
 import com.example.vizax.with.fragment.TimePickerFragment;
@@ -69,7 +70,7 @@ public class InitInvitationPresenter implements luanch_InvitationContact.Present
         data_list.add("游泳");
         data_list.add("户外");
         data_list.add("溜冰");
-
+        data_list.add("其他运动");
         return data_list;
     }
     public static String setTime(){
@@ -159,6 +160,23 @@ public class InitInvitationPresenter implements luanch_InvitationContact.Present
     @Override
     public void luanchInvitation(String type, String titletext, String descriptiontext, String sex, String invitation_date, String timetext, String site, String Upper, Boolean hidenBoolean,String title0) {
         String date;
+        String invitationtype="";
+        String[] str=new String[]{"篮球","排球","桌球","足球","乒乓球","羽毛球","网球","跑步","健身","游泳","户外","溜冰","其他运动","英雄联盟","守望先锋"
+                ,"三国杀","Dota2","王者荣耀","CF","斗地主","DNF","其他网游","象棋","围棋","五子棋","斗地主","德州扑克","21点","三国杀","狼人杀","UNO"
+                ,"其他线下游戏","自习","英语口语","英语四六级","晨读","看书","考研","BEC","其他学习","电影","吃饭","唱K","露营","散步","演唱会","其他约会"};
+        for(int j=0;j<str.length;j++)
+        {
+            if(type==str[j])
+            {
+                invitationtype=(j+7)+"";
+            }
+        }
+        if(sex.equals("男")){
+            sex="0";
+        }else if(sex.equals("女")) {
+            sex="1";
+        }else
+            sex="2";
         int i=0;
         if(hidenBoolean==null)
         {hidenBoolean=false;}
@@ -201,8 +219,7 @@ public class InitInvitationPresenter implements luanch_InvitationContact.Present
         if(i==0)
         {
             model=new InvitationModel();
-            System.out.println(type+"  "+titletext+"  "+descriptiontext+"  "+sex+"  "+date+"  "+site+"  "+Upper+"  "+hidenBoolean);
-            model.commit("1", "7", titletext, descriptiontext, "1", date, site, Upper, hidenBoolean, new StringCallback() {
+            model.commit("1", invitationtype, titletext, descriptiontext, sex, date, site, Upper, hidenBoolean, new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
                     view.showCommitError("aaaaaaaa发起活动失败");
@@ -213,7 +230,7 @@ public class InitInvitationPresenter implements luanch_InvitationContact.Present
                     BaseBean<String> baseBean = GsonUtil.toString(response,BaseBean.class);
                     if (baseBean.getCode().equals("200")) {
                         view.showCommitError("发起活动成功");
-
+                        view.onDestroy();
                     }
                     else
                         view.showCommitError("bbbbbbbbb发起活动失败");

@@ -117,9 +117,6 @@ public class InvitationActivity extends AppCompatActivity implements luanch_Invi
                 sex=check_RdoBtn.getText().toString();
             }
         });
-
-
-
     }
     @Override
     public void setluanchInvitationTitleEdtTxt(String text){
@@ -139,6 +136,12 @@ public class InvitationActivity extends AppCompatActivity implements luanch_Invi
     @Override
     public void setUpperError() {
         launchUpper.setError("活动人数不能为空！");
+    }
+
+    @Override
+    public String[] getResources1() {
+        String[]  items= getResources().getStringArray(R.array.sports);
+        return items;
     }
 
     @Override
@@ -237,7 +240,6 @@ public class InvitationActivity extends AppCompatActivity implements luanch_Invi
                 init.luanchInvitation(subclass,launchInvitationTitleEdtTxt.getText().toString(),launchDescriptionEdiTxt.getText().toString(),
                         sex,invitation_date,launchTimeTxt.getText().toString(),launchSiteEdtTxt.getText().toString(),launchUpper.getText().toString(),
                         hidenBoolean,title_list.get(0));
-
                 /*lauchInvitationBean = new LauchInvitationBean();
                 lauchInvitationBean.setPlace(launchSiteEdtTxt.getText().toString());
                 lauchInvitationBean.setTitle(launchInvitationTitleEdtTxt.getText().toString());
@@ -249,7 +251,7 @@ public class InvitationActivity extends AppCompatActivity implements luanch_Invi
 
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         init.detachView();
     }

@@ -13,6 +13,7 @@ import com.zhy.http.okhttp.callback.StringCallback;
 public interface luanch_InvitationContact {
 
     interface View extends BaseView{
+        String[] getResources1();
         void showTitleListpopupwindow();
         void setUpper(String text);
         void showDatePicker(DatePickerFragment datePicker);
@@ -23,6 +24,7 @@ public interface luanch_InvitationContact {
         void setDescriptionError();
         void setSiteError();
         void setUpperError();
+        void onDestroy();
     }
 
     interface Modle{

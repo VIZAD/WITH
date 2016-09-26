@@ -3,6 +3,7 @@ package com.example.vizax.with.ui.home;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.ViewDragHelper;
@@ -18,6 +19,9 @@ import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.ui.invitationList.InvitationActivity;
 import com.example.vizax.with.util.GsonUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -35,6 +39,8 @@ public class HomePresenter implements HomeContact.Presenter{
     private InvitationBaseBean mHomeInvitationBean;
     public ArrayList<InvitationBean> mhomeBeanlists;
     private int lastId;
+    public static final String IS_JOIN="是否退出活动";
+    public static final String NOT_JOIN="是否参加活动";
 
     public HomePresenter(HomeActivity homeActivity){
         this.mHomeView=homeActivity;
@@ -211,8 +217,11 @@ public class HomePresenter implements HomeContact.Presenter{
 
     //邀约点击参加
     public void setHomeItemJoinClick(int i){
-        mhomeBeanlists.get(i).setJoin(mhomeBeanlists.get(i).isJoin()?false:true);
-        mHomeView.changeJoin();
+        if (mhomeBeanlists.get(i).isJoin()){
+            mHomeView.showDialog(IS_JOIN,Integer.parseInt(mhomeBeanlists.get(i).getInvitaionId()),2);
+        }else{
+            mHomeView.showDialog(NOT_JOIN,i,0);
+        }
         //mHomeView.showHomeToast("第"+i+"个："+mhomeBeanlists.get(i).getCurrentNumber()+"");
     }
 
@@ -220,6 +229,39 @@ public class HomePresenter implements HomeContact.Presenter{
     @Override
     public void setHomeHeadClick(BaseQuickAdapter baseQuickAdapter, View view, int i){
         mHomeView.openHeadDetail(view.getTag()+"");
+    }
+
+    public void onPositive(@Nullable String token, int position, int type){
+        mHimeModel.loadJoinInvitation(token, position, type, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                //mHomeView.showHomeToast("加入退出");
+                String code = "";
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    code=jsonObject.getString("code");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if (code.equals("200")){
+                    if (type==0){
+                        mHomeView.showHomeToast("加入成功！");
+                        mhomeBeanlists.get(position).setJoin(mhomeBeanlists.get(position).isJoin()?false:true);
+                        mHomeView.changeJoin();
+                    }else if(type==2){
+                        mHomeView.showHomeToast("退出成功！");
+                    }
+                }else if(code.equals("401")){
+                    mHomeView.showHomeToast("请登录！");
+                }
+
+            }
+        });
     }
 
 }

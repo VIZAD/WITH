@@ -229,7 +229,7 @@ public class InitInvitationPresenter implements luanch_InvitationContact.Present
                     BaseBean<String> baseBean = GsonUtil.toString(response,BaseBean.class);
                     if (baseBean.getCode().equals("200")) {
                         view.showCommitError("发起活动成功");
-                        view.onDestroy();
+                        //view.onDestroy();
                     }
                     else
                         view.showCommitError("bbbbbbbbb发起活动失败");

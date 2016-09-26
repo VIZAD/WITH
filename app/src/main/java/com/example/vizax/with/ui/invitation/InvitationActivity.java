@@ -22,7 +22,6 @@ import android.widget.Toast;
 import com.example.vizax.with.EventBus.DateEventMessage;
 import com.example.vizax.with.EventBus.TimeEventMessage;
 import com.example.vizax.with.R;
-import com.example.vizax.with.bean.LauchInvitationBean;
 import com.example.vizax.with.customView.BaseToolBar;
 import com.example.vizax.with.fragment.DatePickerFragment;
 import com.example.vizax.with.fragment.TimePickerFragment;
@@ -70,7 +69,6 @@ public class InvitationActivity extends AppCompatActivity implements luanch_Invi
     Button launchEnsureBtn;
     @BindView(R.id.launch_cancelBtn)
     Button launchCancelBtn;
-    private LauchInvitationBean lauchInvitationBean;
 
     private Spinner spinner;
     private List<String> subclass_list;

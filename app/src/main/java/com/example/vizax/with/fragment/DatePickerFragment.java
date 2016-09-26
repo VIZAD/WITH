@@ -45,7 +45,7 @@ public class DatePickerFragment extends DialogFragment implements
         String date = year+"年"+String.valueOf(month+1)+"月"+day+"日";
         String invitation_date = year+"-"+String.valueOf(month+1)+"-"+day;
         mDateEventMessage.setDate(date);
-        mDateEventMessage.setInvitation_date(invitation_date);
+        mDateEventMessage.setDate1(invitation_date);
         EventBus.getDefault().post(mDateEventMessage);//把选择的日期广播出来
     }
 

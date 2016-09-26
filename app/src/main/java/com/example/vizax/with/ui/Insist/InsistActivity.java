@@ -230,7 +230,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         mToolBar.setRightViewOnClickListener(view -> tick());
 
     }
-
+    //背景的动画效果
     private ScreenShotable replaceFragment(ScreenShotable screenShotable, int topPosition , int color_cl,int color_mi,int color_md) {
         //判断颜色不一致则替换
         //this.res = this.res == R.drawable.blue_bg ? R.drawable.white_bg : R.drawable.blue_bg;
@@ -269,7 +269,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
 
         return contentFragment;
     }
-
+    //当抽屉的选择发生改变
     @Override
     public ScreenShotable onSwitch(Resourceble slideMenuItem, ScreenShotable screenShotable, int position) {
         switch (slideMenuItem.getName()) {
@@ -312,12 +312,12 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         //drawerLayout.closeDrawers();
 
     }
-
+    //
     @Override
     public void addViewToContainer(View view) {
         mLinearLayout.addView(view);
     }
-
+    //当日期发生改变的方法
     @Override
     public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
         toDayDecorator.setDate(date.getDate());
@@ -337,6 +337,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
 
 
     }
+    //当月份发生改变的方法
     @Override
     public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
         System.out.println(date.getDate());
@@ -349,7 +350,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         System.out.println("Task Id = "+TaskId);
         mPresenter.TaskMessages(year+"-"+month,TaskId);
     }
-
+    //签到的方法
     public void tick(){
         //this.ripple = this.ripple== R.drawable.ripple_bg ? R.drawable.rippled_bg:R.drawable.ripple_bg;
         //this.INSIST = this.INSIST.equals("签到")?"已签到":"签到";
@@ -360,7 +361,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         runnable.run();
         mPresenter.JourPunch(TaskId);
     }
-
+    //获取屏幕中间抽屉需要的高度
     public int getHeights() {
         Log.i("ToorBarW",mToolBar.getHeight()+"");
         Log.i("LinearLayoutW",mLinearLayout_foot.getHeight()+"");
@@ -372,7 +373,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
 
         return heights;
     }
-
+    //弹出年月选择的模态窗
     public void DateSelect(final Activity activity) {
         final DateDialog confirmDialog = new DateDialog(activity, "确定吗?", "确认", "取消");
         confirmDialog.show();
@@ -406,7 +407,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         //mTxtVi_foot_txt.setText(taskMsg.getData().getTask().getTeskContent());
         setDays(taskMsg);
     }
-
+    //把从接口接收到的数据放到页面上
     @Override
     public void setData(Misson misson) {
         mTxtVi_title.setText(misson.getData().getCurrTasks().get(0).getTitle().toString());
@@ -450,7 +451,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         mSelectedMonth = year+"-"+month;
         System.out.println("set data");
     }
-
+    //根据接口数据设置日历界面
     protected  void setDays (TaskMsg taskMsg){
         mRemark_txt = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
@@ -489,17 +490,18 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         mMaterialCalendarView.addDecorator(new EventDecorator(Color.RED, dates));
         mMaterialCalendarView.addDecorator(new EventDocDecorator(Color.RED, dates_remark));
     }
-
+    //选择年月
     @OnClick(R.id.set_date_btn)
     void onTileSizeClicked() {
         DateSelect(this);
     }
-
+    //保存按钮的方法
     @OnClick(R.id.insist_edit_btn)
     void postEditMsg() {
         mPresenter.JourEdit(TaskId,mSelectedDate,mTxtVi_foot_txt.getText().toString());
     }
 
+    //签到打勾的实现
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
@@ -512,7 +514,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
 
         }
     };
-
+    //重置日历页面
     Runnable reset = new Runnable() {
         @Override
         public void run() {

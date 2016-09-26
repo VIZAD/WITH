@@ -8,7 +8,7 @@ import com.zhy.http.okhttp.callback.StringCallback;
  * Created by hasee on 2016/9/22.
  */
 
-public class InvitationModel implements luanch_InvitationContact.Modle{
+public class LuanchInvitationModel implements LuanchInvitationContact.Modle{
     @Override
     public void commit(String token, String type, String titletext, String descriptiontext, String sex, String datetime, String site, String upper, Boolean hidenBoolean, StringCallback stringCallback) {
         System.out.println(token+"  "+type+"  "+titletext+"  "+descriptiontext+"  "+sex+"  "+datetime+"  "+site+"  "+upper+"  "+hidenBoolean);

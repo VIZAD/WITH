@@ -35,7 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class InvitationActivity extends AppCompatActivity implements luanch_InvitationContact.View{
+public class LuanchInvitationActivity extends AppCompatActivity implements LuanchInvitationContact.View{
 
     @BindView(R.id.launch_toolbar)
     BaseToolBar launchToolbar;
@@ -78,7 +78,7 @@ public class InvitationActivity extends AppCompatActivity implements luanch_Invi
     private String subclass;
     private String sex;
     private String invitation_date;
-    private InitInvitationPresenter init;
+    private LuanchInitInvitationPresenter init;
     private Boolean hidenBoolean;
     private RadioButton check_RdoBtn;
     private Switch hidenswitch;
@@ -88,7 +88,7 @@ public class InvitationActivity extends AppCompatActivity implements luanch_Invi
         setContentView(R.layout.activity_invitation);
         EventBus.getDefault().register(this);//注册
         ButterKnife.bind(this);
-        init = new InitInvitationPresenter();
+        init = new LuanchInitInvitationPresenter();
         init.attachView(this);
         launchDateTxt.setText(init.setDate());
         launchTimeTxt.setText(init.setTime());
@@ -106,8 +106,6 @@ public class InvitationActivity extends AppCompatActivity implements luanch_Invi
                     hidenBoolean=false;
             }
         });
-
-
         launchSexRequirementsRdoGrp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -160,19 +158,16 @@ public class InvitationActivity extends AppCompatActivity implements luanch_Invi
     public void dissTitleListpopupwindow(){
         mListPop.dismiss();
     }
-
-
     @Override
     public void showTimePicker(TimePickerFragment timePicker) {
         timePicker.show(getFragmentManager(), "timePicker");
     }
-
     @Override
     public void showCommitError(String text) {
         Toast.makeText(this,text,Toast.LENGTH_LONG).show();
     }
 
-    private void listpopupwindow(InitInvitationPresenter init, String subclass) {
+    private void listpopupwindow(LuanchInitInvitationPresenter init, String subclass) {
         title_list = init.setTitle(subclass);
         mListPop = new ListPopupWindow(this);
         mListPop.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1,title_list));
@@ -187,7 +182,7 @@ public class InvitationActivity extends AppCompatActivity implements luanch_Invi
             init.showTitleListpopupwindow();
         });
     }
-    public void initSpinner(InitInvitationPresenter init){
+    public void initSpinner(LuanchInitInvitationPresenter init){
         spinner = (Spinner) findViewById(R.id.launch_selectActivity_spinner);
         subclass_list= init.setspinner();
         //适配器
@@ -238,16 +233,9 @@ public class InvitationActivity extends AppCompatActivity implements luanch_Invi
                 init.luanchInvitation(subclass,launchInvitationTitleEdtTxt.getText().toString(),launchDescriptionEdiTxt.getText().toString(),
                         sex,invitation_date,launchTimeTxt.getText().toString(),launchSiteEdtTxt.getText().toString(),launchUpper.getText().toString(),
                         hidenBoolean,title_list.get(0));
-                /*lauchInvitationBean = new LauchInvitationBean();
-                lauchInvitationBean.setPlace(launchSiteEdtTxt.getText().toString());
-                lauchInvitationBean.setTitle(launchInvitationTitleEdtTxt.getText().toString());
-                lauchInvitationBean.setContent(launchDescriptionEdiTxt.getText().toString());
-                lauchInvitationBean.setHiden(hidenBoolean);*/
                 break;
         }
     }
-
-
     @Override
     public void onDestroy() {
         super.onDestroy();

@@ -3,18 +3,41 @@ package com.example.vizax.with.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Young on 2016/9/16.
  */
-public class InvitationBean implements Parcelable{
+public class InvitationBean extends MultiItemEntity implements Parcelable{
+    public static final int HOME_HEAD=1;
+    public static final int HOME_OTHER=2;
+
+    private transient int itemType;
+
+//    public InvitationBean(int itemType, String content) {
+//        this.itemType = itemType;
+//    }
+
+//    public InvitationBean(int itemType) {
+//        this.itemType = itemType;
+//    }
+
+    public void setItemType(int itemType){
+        this.itemType=itemType;
+    }
+    @Override
+    public int getItemType() {
+        return itemType;
+    }
     public static final Parcelable.Creator<InvitationBean> CREATOR = new Creator<InvitationBean>() {
 
         @Override
         public InvitationBean createFromParcel(Parcel source) {
             InvitationBean invitationBean = new InvitationBean();
+            invitationBean.setOriginatorId(source.readString());
             invitationBean.setOriginatorrealName(source.readString());
             invitationBean.setOriginatorNickname(source.readString());
             invitationBean.setPlace(source.readString());
@@ -27,7 +50,7 @@ public class InvitationBean implements Parcelable{
             invitationBean.setJoin((source.readInt() == 1 )? true:false);
             invitationBean.setInvitationTime(source.readString());
             invitationBean.setPublishTime(source.readString());
-            //invitationBean.setMembers(source.readArrayList(MembersBean.class.getClassLoader()));
+//            invitationBean.setMembers(source.readArrayList(MembersBean.class.getClassLoader()));
             return invitationBean;
         }
 
@@ -237,6 +260,7 @@ public class InvitationBean implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(originatorId);
         dest.writeString(originatorrealName);
         dest.writeString(originatorNickname);
         dest.writeString(place);

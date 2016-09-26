@@ -31,6 +31,7 @@ import butterknife.OnClick;
 
 public class DemoActivity extends BaseActivity implements DemoContact.View {
 
+    //yaochenggonga
     @BindView(R.id.toolbar)
     BaseToolBar toolbar;
     @BindView(R.id.appBarLayout)
@@ -49,7 +50,7 @@ public class DemoActivity extends BaseActivity implements DemoContact.View {
     LinearLayout root;
     private DemoPresenter mPresenter;
     private MaterialDialog mDialog;
-
+//heeifhsf
     @Override
     protected int initContentView() {
         //直接传入当前的布局文件

@@ -3,10 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/WITH.iml" filepath="$PROJECT_DIR$/WITH.iml" />
-      <module fileurl="file://$PROJECT_DIR$/WITH.iml" filepath="$PROJECT_DIR$/WITH.iml" />
-      <module fileurl="file://$PROJECT_DIR$/WITHTRUE.iml" filepath="$PROJECT_DIR$/WITHTRUE.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/MyWITH.iml" filepath="$PROJECT_DIR$/MyWITH.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/superSwipeRefreshLayoutModule/superSwipeRefreshLayoutModule.iml" filepath="$PROJECT_DIR$/superSwipeRefreshLayoutModule/superSwipeRefreshLayoutModule.iml" />
     </modules>

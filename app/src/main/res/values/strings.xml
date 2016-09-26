@@ -12,11 +12,39 @@
         <item>游泳</item>
         <item>骑行</item>
     </string-array>
-    <string-array name="incitation">
+    <string-array name="study">
+        <item>自习</item>
+        <item>图书馆</item>
+        <item>英语口语</item>
+        <item>英语四六级</item>
+        <item>BEC</item>
+        <item>考研</item>
+    </string-array>
+    <string-array name="brpg">
+        <item>三国杀</item>
+        <item>狼人杀</item>
+        <item>UNO</item>
+        <item>围棋</item>
+        <item>象棋</item>
+        <item>五子棋</item>
+        <item>德州扑克</item>
+        <item>21点</item>
+    </string-array>
+    <string-array name="onlineGame">
+        <item>英雄联盟</item>
+        <item>DOTA2</item>
+        <item>守望先锋</item>
+        <item>CF</item>
+        <item>地下城与勇士</item>
+        <item>mc</item>
+        <item>王者荣耀</item>
+    </string-array>
+    <string-array name="date">
         <item>吃饭</item>
-        <item>ktv</item>
-        <item>看电影</item>
+        <item>唱K</item>
+        <item>电影</item>
         <item>散步</item>
+        <item>演唱会</item>
     </string-array>
     <!--登录页面-->
     <string name="login_tab">登录</string>
@@ -51,8 +79,8 @@
     <string name="onlinegame_label">网游</string>
     <string name="party_label">聚会</string>
     <string name="other_label">其他</string>
-    <string name="my_sponsor_label">我发起的活动</string>
-    <string name="my_partake_label">我参与的活动</string>
+    <string name="my_invitation_label">我发起的活动</string>
+    <string name="my_participation_label">我参与的活动</string>
     <string name="my_insist_label">我的坚持</string>
     <string name="my_news_label">我的信息</string>
     <string name="my_concern_label">我的关注</string>

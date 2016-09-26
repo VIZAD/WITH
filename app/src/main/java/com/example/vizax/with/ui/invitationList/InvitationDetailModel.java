@@ -22,33 +22,17 @@ public class InvitationDetailModel implements InvitationDetailContact.Invitation
      * 参与邀约的http请求
      * @param mInvitationBeen
      * @param type
-     * @param changeBtn
      */
     @Override
-    public void join(InvitationBean mInvitationBeen, String type, InvitationDetailContact.ChangeBtn changeBtn) {
+    public void join(InvitationBean mInvitationBeen, String type, StringCallback stringCallback) {
+        System.out.println("id="+mInvitationBeen.getInvitaionId()+type);
         OkHttpUtils.post()
                 .url(APIConstant.getApi(APIConstant.INVITAION_PARTICIPATEINVITATION))
                 .addParams("invitationId",mInvitationBeen.getInvitaionId())
+                .addParams("token","1")
                 .addParams("type",type)
                 .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onAfter(int id) {
-                        mChangeBtn = changeBtn;
-                        mChangeBtn.setSrc();
-                    }
-
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        System.out.println("erro!!!");
-
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                        System.out.println("success!!!");
-                    }
-                });
+                .execute(stringCallback);
     }
 
 

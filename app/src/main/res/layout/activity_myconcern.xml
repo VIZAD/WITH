@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<io.codetail.widget.RevealLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.myconcern.MyConcernActivity"
+    android:id="@+id/activity_myconcern">
+    <include layout="@layout/base_toolbar"/>
+    <fragment
+        android:id="@+id/my_concern_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.example.vizax.with.ui.myconcern.MyConcernFragment"
+        tools:layout="@layout/my_concern_fragment" />
+
+
+
+</io.codetail.widget.RevealLinearLayout>

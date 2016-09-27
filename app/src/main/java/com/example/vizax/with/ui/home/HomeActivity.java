@@ -2,6 +2,8 @@ package com.example.vizax.with.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,16 +14,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.vizax.with.R;
 import com.example.vizax.with.base.BaseActivity;
 import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.bean.MembersBean;
+import com.example.vizax.with.bean.UserInforBean;
 import com.example.vizax.with.customView.BaseToolBar;
 import com.example.vizax.with.ui.Insist.InsistActivity;
 import com.example.vizax.with.ui.invitationList.InvitationActivity;
 import com.example.vizax.with.ui.invitationList.InvitationDetailsActivity;
 import com.example.vizax.with.ui.myconcern.MyConcernActivity;
+import com.example.vizax.with.ui.userInformation.UserInformationActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,8 +69,7 @@ public class HomeActivity extends BaseActivity implements HomeContact.View {
     TextView myUpdateTxtVi;
     @BindView(R.id.my_changepassword_txtVi)
     TextView myChangepasswordTxtVi;
-
-
+    private MaterialDialog mJoinDialog;
     private HomePresenter mhomePresenter;
     private LinearLayoutManager mManager;
     private HomeAdapter mHomeAdapter;
@@ -314,5 +319,33 @@ public class HomeActivity extends BaseActivity implements HomeContact.View {
         }
     }
 
-    //haha
+    private void initDialog(@Nullable String contents, int position,int type) {
+        mJoinDialog = new MaterialDialog.Builder(this)
+                .content(contents)
+                .positiveText("是")
+                .negativeText("否")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        mhomePresenter.onPositive("zxw",position,type);
+
+                    }
+                })
+                .build();
+    }
+
+    @Override
+    public void showDialog(@Nullable String contents, int position,int type) {
+        initDialog(contents,position,type);
+        mJoinDialog.show();
+    }
+
+    @Override
+    public void OpenUserInfor(int position, UserInforBean userInforBean) {
+        Intent it = new Intent(this, UserInformationActivity.class);
+        Bundle lBundle = new Bundle();
+        lBundle.putParcelable("userInforBean", new UserInforBean().getData());
+        it.putExtras(lBundle);
+        startActivity(it);
+    }
 }

@@ -2,20 +2,25 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.vizax.with">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-sdk android:minSdkVersion="15" />
+
+    <!--UMENG-PERMISSION-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--UMENG-PERMISSION-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/umeng_push_notification_default_large_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.changpsw.ChangePswActivity"
+        <activity android:name=".ui.demo.DemoActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,26 +28,24 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.Insist.InsistActivity">
-
+        <activity android:name=".ui.invitation.InvitationActivity">
         </activity>
 
-        <activity android:name=".ui.invitationList.InvitationActivity">
-        </activity>
-        <activity android:name=".ui.myconcern.MyConcernActivity">
-
-        </activity>
+        <activity android:name=".ui.insist.InsistActivity"/>
+        <activity android:name=".ui.invitationList.InvitationActivity"/>
+        <activity android:name=".ui.myconcern.MyConcernActivity"/>
         <activity android:name=".ui.invitationList.InvitationDetailsActivity"
                    android:theme="@style/AppTheme"/>
-        <activity android:name=".ui.home.HomeActivity">
+        <activity android:name=".ui.home.HomeActivity"/>
+        <activity android:name=".ui.userInformation.UserInformationActivity"/>
+        <service android:name=".util.filedownload.DownLoadService"/>
 
-        </activity>
-        <activity android:name=".ui.invitationList.InvitationDetailsActivity"
-                   android:theme="@style/AppTheme"/>
-        <activity android:name=".ui.userInformation.UserInformationActivity">
-
-        </activity>
+        <!--友盟推送和多渠道打包-->
+        <meta-data android:name="UMENG_APPKEY" android:value="57e7497e67e58ec83a000f50" />
+        <meta-data android:name="UMENG_CHANNEL" android:value="${UMENG_CHANNEL_VALUE}" />
+        <meta-data android:name="UMENG_MESSAGE_SECRET" android:value="cada5ffbf76e4cb9341c0b80ea7ff8d9"/>
     </application>
+
     <supports-screens
         android:smallScreens="true"
         android:normalScreens="true"

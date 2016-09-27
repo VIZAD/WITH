@@ -18,6 +18,7 @@ import com.example.vizax.with.ui.Insist.InsistActivity;
 import com.example.vizax.with.util.AnimationUtil;
 import com.example.vizax.with.util.SnackbarUtils;
 import com.example.vizax.with.util.TextUtil;
+import com.example.vizax.with.util.filedownload.UpdateManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -120,7 +121,8 @@ public class DemoActivity extends BaseActivity implements DemoContact.View {
 
     @OnClick(R.id.demo_commit_btn)
     public void onClick() {
-        mPresenter.login(TextUtil.getText(demoUsernameEdtTxt),TextUtil.getText(demoPasswordEdtTxt));
+        new UpdateManager(this).checkUpdate();
+        //mPresenter.login(TextUtil.getText(demoUsernameEdtTxt),TextUtil.getText(demoPasswordEdtTxt));
     }
 
     @OnClick(R.id.calendarView_enter)

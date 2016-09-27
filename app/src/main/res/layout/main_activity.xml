@@ -1,17 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.codetail.widget.RevealLinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_main"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.main.MainActivity">
+    android:background="@color/colorPrimary"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/img"
-        android:background="@drawable/demo"
+    <RelativeLayout
+        android:id="@+id/top_rLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</io.codetail.widget.RevealLinearLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/with_txtVi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/discri_txtVi"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:text="@string/str01"
+            android:textColor="#ffffff"
+            android:textSize="72sp" />
+
+        <TextView
+            android:id="@+id/discri_txtVi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/with_txtVi"
+            android:layout_marginLeft="60dp"
+            android:text="@string/str02"
+            android:textColor="@color/textPrimaryColor"
+            android:textSize="23sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="325dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/textColorToolbar"
+        android:orientation="vertical">
+
+
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/main_tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/shadow_bg"
+                app:tabIndicatorColor="#000"
+                app:tabIndicatorHeight="4dp"
+                app:tabSelectedTextColor="@color/white"
+                app:tabTextColor="@color/white"></android.support.design.widget.TabLayout>
+
+        <!--<include layout="@layout/reg_fragment"/>-->
+        <android.support.v4.view.ViewPager
+            android:id="@+id/main_viewPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></android.support.v4.view.ViewPager>
+
+    </LinearLayout>
+</RelativeLayout>

@@ -4,7 +4,8 @@
     <color name="colorPrimary">#11cd6e</color><!--主题色-->
     <color name="colorPrimaryDark">#11cd6e</color><!--状态栏颜色00bb9c-->
     <color name="colorAccent">#11cd6e</color><!--默认控件颜色-->
-
+    <color name="textColorToolbar">#ffffff</color><!--toolbar白色text-->
+    <color name="textPrimaryColor">#5f5f5f</color><!--界面默认黑灰text-->
     <color name="toolbar_bg">#11cd6e</color><!--toolbar背景色-->
     <color name="toolbar_text">#ffffff</color><!--toolbar白色text-->
     <color name="activity_bg">#d8d8d8</color><!--背景颜色-->

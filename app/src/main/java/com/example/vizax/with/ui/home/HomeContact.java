@@ -1,5 +1,6 @@
 package com.example.vizax.with.ui.home;
 
+import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
@@ -9,6 +10,7 @@ import com.example.vizax.with.base.BasePresenter;
 import com.example.vizax.with.base.BaseView;
 import com.example.vizax.with.bean.HomeInvitationBean;
 import com.example.vizax.with.bean.InvitationBean;
+import com.example.vizax.with.bean.UserInforBean;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.util.ArrayList;
@@ -26,10 +28,13 @@ public interface HomeContact {
         public void openHeadDetail(String string);
         public void openOtherDetail(ArrayList<InvitationBean> mhomeBeanlists, int i);
         public void changeJoin();
+        public void showDialog(@Nullable String contents, int position, int type);
+        public void OpenUserInfor(int position, UserInforBean userInforBean);
     }
 
     interface Modle{
         public void loadHomeData(String token,int typeId,int userId,int lastInvitationId,int limit,StringCallback stringCallback);
+        public void loadJoinInvitation(String token,int invitaionId,int type,StringCallback stringCallback);
     }
 
     interface Presenter extends BasePresenter<View> {

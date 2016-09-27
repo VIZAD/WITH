@@ -18,4 +18,16 @@ public class HomeModel implements HomeContact.Modle {
                 .build()
                 .execute(stringCallback);
     }
+
+    @Override
+    public void loadJoinInvitation(String token, int invitaionId, int type, StringCallback stringCallback) {
+        OkHttpUtils.post()
+                .url(APIConstant.getApi(APIConstant.INVITAION_PARTICIPATEINVITATION))
+                .addParams("token",token)
+                .addParams("invitaionId",invitaionId+"")
+                .addParams("type",type+"")
+                .build()
+                .execute(stringCallback);
+    }
+
 }

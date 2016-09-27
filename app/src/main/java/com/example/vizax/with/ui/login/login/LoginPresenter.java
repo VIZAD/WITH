@@ -55,19 +55,8 @@ public class LoginPresenter implements LoginContact.Presenter {
                 */
                 //baseBean对象，保存token
                 if (lUserBean.getCode() == 200) {
-                    mLoginView.loginSuccess(response);
                     UserBean.DataBean data = lUserBean.getData();
-                    User.phone = data.getPhone();
-                    User.sex = data.getSex();
-                    User.unReadedNumber = data.getUnReadedNumber();
-                    User.token = data.getToken();
-                    User.nickName = data.getNickName();
-                    User.userUrl = data.getUserUrl();
-                    User.userId = data.getUserId();
-                    User.classX = data.getClassX();
-                    User.studentID = data.getStudentID();
-                    User.realName = data.getRealName();
-                    User.qq = data.getQq();
+                    mLoginView.loginSuccess(lUserBean.getMsg(),data);
                 } else
                     mLoginView.loginFailure(lUserBean.getMsg());
                 mLoginView.dimissLoading();

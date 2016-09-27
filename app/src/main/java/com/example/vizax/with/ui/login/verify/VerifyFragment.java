@@ -210,7 +210,7 @@ public class VerifyFragment extends Fragment implements VerifyContact.View {
     @Override
     public void verifyFailure(String Error) {
         //验证失败
-        Toast.makeText(mActivity, "error:" + Error, Toast.LENGTH_SHORT).show();
+        Toast.makeText(mActivity,  Error, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -309,12 +309,17 @@ public class VerifyFragment extends Fragment implements VerifyContact.View {
 
     @Override
     public void RegSuccess(String Msg) {
-        Toast.makeText(mActivity, "注册成功" + Msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(mActivity,"注册成功"+  Msg, Toast.LENGTH_SHORT).show();
+        mainActivity.showLoign();
+        mRegUsernumEdtTxt.setText("");
+        mRegVerifynumEdtTxt.setText("");
+        mPswRegEdtTxt.setText("");
+        mRegConpswEdtTxt.setText("");
     }
 
     @Override
     public void RegFailure(String Error) {
-        Toast.makeText(mActivity, "注册失败" + Error, Toast.LENGTH_SHORT).show();
+        Toast.makeText(mActivity,  Error, Toast.LENGTH_SHORT).show();
     }
 
     @Override

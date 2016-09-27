@@ -3,8 +3,10 @@ package com.example.vizax.with.ui.login.login;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,6 +25,8 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.R;
 import com.example.vizax.with.ui.demo.DemoPresenter;
 import com.example.vizax.with.ui.demo.DemoSwipBackActivity;
+import com.example.vizax.with.ui.login.User;
+import com.example.vizax.with.ui.login.bean.UserBean;
 import com.example.vizax.with.util.MaxLengthWatcher;
 import com.example.vizax.with.util.TextUtil;
 
@@ -57,6 +61,8 @@ public class LoginFragment extends Fragment implements LoginContact.View {
     private LoginPresenter mPresenter;
     private MaterialDialog mDialog;
     private String mUsernum_str, mPsw_str;
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
 
     @Nullable
     @Override
@@ -71,6 +77,9 @@ public class LoginFragment extends Fragment implements LoginContact.View {
 
     private void initView() {
         mActivity = getActivity();
+        mSharedPreferences = mActivity.getSharedPreferences("User", Context.MODE_PRIVATE);
+        mEditor = mSharedPreferences.edit();
+
         mUsernum_edtTxt.addTextChangedListener(new MaxLengthWatcher(11, mUsernum_edtTxt));
         mPsw_edtTxt.addTextChangedListener(new MaxLengthWatcher(20, mPsw_edtTxt));
         mDialog = new MaterialDialog.Builder(mActivity)
@@ -132,10 +141,24 @@ public class LoginFragment extends Fragment implements LoginContact.View {
     }
 
     @Override
-    public void loginSuccess(String Msg) {
+    public void loginSuccess(String Msg,UserBean.DataBean data) {
         //返回Msg数据
-        Toast.makeText(mActivity, "登录成功", Toast.LENGTH_SHORT).show();
+        Toast.makeText(mActivity, Msg, Toast.LENGTH_SHORT).show();
         //登录成功操作
+        mEditor.putString("phone",data.getPhone());
+        mEditor.putInt("sex",data.getSex());
+        mEditor.putInt("unReadedNumber",data.getUnReadedNumber());
+        mEditor.putString("token",data.getToken());
+        mEditor.putString("nickName",data.getNickName());
+        mEditor.putString("userUrl",data.getUserUrl());
+        mEditor.putInt("userId",data.getUserId());
+        mEditor.putString("classX",data.getClassX());
+        mEditor.putString("studentID",data.getStudentID());
+        mEditor.putString("realName",data.getStudentID());
+        mEditor.putString("qq",data.getQq());
+        mActivity.finish();
+
+
     }
 
     @Override

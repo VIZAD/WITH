@@ -53,14 +53,15 @@ public class VerifyPresenter implements VerifyContact.Presenter {
 
             @Override
             public void onResponse(String response, int id) {
+                mVerifyView.verifyFailure(response);
                 VerifyBean lVerifyBean = GsonUtil.toString(response, VerifyBean.class);
                 /*
                 Gson lGson = new Gson();
                 java.lang.reflect.Type type = new TypeToken<UserBean>() {}.getType();
                 lGson.fromJson(response, type);
                 */
-                if (lVerifyBean.getCode() == 404)
-                    mVerifyView.verifySuccess("验证成功");
+                if (lVerifyBean.getCode() == 200)
+                    mVerifyView.verifySuccess(lVerifyBean.getMsg());
                 else if (lVerifyBean.getCode() == 410) {
                     VerifyBean.DataBean data = lVerifyBean.getData();
                     if (data != null)
@@ -90,19 +91,9 @@ public class VerifyPresenter implements VerifyContact.Presenter {
             public void onResponse(String response, int id) {
                 RegBean lRegBean = GsonUtil.toString(response, RegBean.class);
                 if (lRegBean.getCode() == 200)
-                    mVerifyView.RegSuccess(response);
-                else if(lRegBean.getCode() == 423){
-                    //手机格式错误
+                    mVerifyView.RegSuccess(lRegBean.getMsg());
+                else{
                     mVerifyView.RegFailure(lRegBean.getMsg());
-                } else if(lRegBean.getCode() == 426){
-                    //验证码错误
-                    mVerifyView.RegFailure(lRegBean.getMsg());
-                }else {
-                    //已存在
-                    mVerifyView.RegFailure(lRegBean.getMsg());
-                    RegBean.DataBean rd = lRegBean.getData();
-                    if (rd != null)
-                        mVerifyView.RegFailure(rd.getPhone());
                 }
                 mVerifyView.dimissRegLoading();
             }

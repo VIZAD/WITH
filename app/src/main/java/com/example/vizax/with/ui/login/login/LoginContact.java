@@ -2,6 +2,7 @@ package com.example.vizax.with.ui.login.login;
 
 import com.example.vizax.with.base.BasePresenter;
 import com.example.vizax.with.base.BaseView;
+import com.example.vizax.with.ui.login.bean.UserBean;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 /**
@@ -18,7 +19,7 @@ public interface LoginContact {
 
         void dimissLoading();
 
-        void loginSuccess(String Msg);
+        void loginSuccess(String Msg,UserBean.DataBean data);
 
         void loginFailure(String Error);
     }

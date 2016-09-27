@@ -114,12 +114,31 @@ public class Misson implements Parcelable {
                     '}';
         }
 
-        public static class currTasks  {
+        public static class currTasks implements Parcelable  {
 
             private String content;
             private int taskId;
             private String title;
             private int task_icon_type;
+
+            protected currTasks(Parcel in) {
+                content = in.readString();
+                taskId = in.readInt();
+                title = in.readString();
+                task_icon_type = in.readInt();
+            }
+
+            public static final Creator<currTasks> CREATOR = new Creator<currTasks>() {
+                @Override
+                public currTasks createFromParcel(Parcel in) {
+                    return new currTasks(in);
+                }
+
+                @Override
+                public currTasks[] newArray(int size) {
+                    return new currTasks[size];
+                }
+            };
 
             public String getContent() {
                 return content;
@@ -151,6 +170,19 @@ public class Misson implements Parcelable {
 
             public void setTask_icon_type(int task_icon_type) {
                 this.task_icon_type = task_icon_type;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(content);
+                dest.writeInt(taskId);
+                dest.writeString(title);
+                dest.writeInt(task_icon_type);
             }
         }
 
@@ -158,12 +190,31 @@ public class Misson implements Parcelable {
          * Created by VIZAX on 2016/09/16.
          */
 
-        public static class preTasks  {
+        public static class preTasks implements Parcelable {
 
             private String content;
             private int taskId;
             private String title;
             private int task_icon_type;
+
+            protected preTasks(Parcel in) {
+                content = in.readString();
+                taskId = in.readInt();
+                title = in.readString();
+                task_icon_type = in.readInt();
+            }
+
+            public static final Creator<preTasks> CREATOR = new Creator<preTasks>() {
+                @Override
+                public preTasks createFromParcel(Parcel in) {
+                    return new preTasks(in);
+                }
+
+                @Override
+                public preTasks[] newArray(int size) {
+                    return new preTasks[size];
+                }
+            };
 
             public String getContent() {
                 return content;
@@ -195,6 +246,19 @@ public class Misson implements Parcelable {
 
             public void setTask_icon_type(int task_icon_type) {
                 this.task_icon_type = task_icon_type;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(content);
+                dest.writeInt(taskId);
+                dest.writeString(title);
+                dest.writeInt(task_icon_type);
             }
         }
 

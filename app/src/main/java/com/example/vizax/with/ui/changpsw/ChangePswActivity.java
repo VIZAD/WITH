@@ -122,7 +122,7 @@ public class ChangePswActivity extends BaseActivity implements  ChangePswContact
         changepswNewpasswordEdtTxt.setError("密码不一致");
         changepswSurenewpasswordEdtTxt.setError("密码不一致");
     }
-
+//匹配长度
     private  static  boolean match(String regex,String str){
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(str);

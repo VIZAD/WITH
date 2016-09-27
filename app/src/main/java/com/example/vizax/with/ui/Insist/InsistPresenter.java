@@ -1,9 +1,11 @@
 package com.example.vizax.with.ui.Insist;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.vizax.with.bean.BaseBean;
 import com.example.vizax.with.bean.Misson;
@@ -46,6 +48,7 @@ public class InsistPresenter implements InsistContact.Presenter {
         Model.createTaskPost(title,content,iconIndex,new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
+                Toast.makeText((Context) InsistView,"无法连接网络",Toast.LENGTH_LONG).show();
                     e.printStackTrace();
             }
             @Override
@@ -68,6 +71,7 @@ public class InsistPresenter implements InsistContact.Presenter {
         Model.getTaskPost( new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
+                Toast.makeText((Context) InsistView,"无法连接网络",Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
 
@@ -81,8 +85,10 @@ public class InsistPresenter implements InsistContact.Presenter {
 //                        }
 //                        else {
 //                        }
-                System.out.println("code = "+misson.getData().getCurrTasks().size());
-                InsistView.setData(misson);
+                if(misson.getCode().equals("200")) {
+                    System.out.println("code = "+misson.getData().getCurrTasks().size());
+                    InsistView.setData(misson);
+                }
             }
         });
 
@@ -95,6 +101,7 @@ public class InsistPresenter implements InsistContact.Presenter {
         Model.TaskMessagesPost(date,taskId,new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
+                Toast.makeText((Context) InsistView,"无法连接网络",Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
 
@@ -109,6 +116,7 @@ public class InsistPresenter implements InsistContact.Presenter {
                             System.out.println("size = "+TaskMsg.getData().getCalendar());
                             if(TaskMsg.getData().getCalendar()!=null) {
                                 for (int i = 0;i<TaskMsg.getData().getCalendar().size();i++) {
+                                    System.out.println("day = " + TaskMsg.getData().getCalendar().get(i).getDay());
                                     System.out.println("content = " + TaskMsg.getData().getCalendar().get(i).getRemark());
                                 }
                                 InsistView.setClData(TaskMsg);
@@ -131,6 +139,7 @@ public class InsistPresenter implements InsistContact.Presenter {
         Model.JourPunchPost(taskId,new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
+                Toast.makeText((Context) InsistView,"无法连接网络",Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
 
@@ -160,6 +169,7 @@ public class InsistPresenter implements InsistContact.Presenter {
          Model.JourEditPost(taskId,date,remark,new StringCallback() {
              @Override
              public void onError(Call call, Exception e, int id) {
+                 Toast.makeText((Context) InsistView,"无法连接网络",Toast.LENGTH_LONG).show();
                  e.printStackTrace();
              }
 
@@ -173,7 +183,7 @@ public class InsistPresenter implements InsistContact.Presenter {
 //                            //System.out.println("number:"+baseBean.getData().getTaskNumber());
 //                        }
 //                        else {
-//                        }
+//                       }
                  System.out.println("编辑成功:"+TaskMsg.getMsg());
 
 
@@ -190,6 +200,7 @@ public class InsistPresenter implements InsistContact.Presenter {
     Model.deleteTaskPost(taskId,  new StringCallback() {
         @Override
         public void onError(Call call, Exception e, int id) {
+            Toast.makeText((Context) InsistView,"无法连接网络",Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
 

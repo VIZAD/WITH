@@ -53,7 +53,6 @@ public class VerifyPresenter implements VerifyContact.Presenter {
 
             @Override
             public void onResponse(String response, int id) {
-                mVerifyView.verifyFailure(response);
                 VerifyBean lVerifyBean = GsonUtil.toString(response, VerifyBean.class);
                 /*
                 Gson lGson = new Gson();

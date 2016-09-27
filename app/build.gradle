@@ -2,9 +2,28 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'android-apt'
 
+def keystoreFilepath = ''
+def keystorePSW = ''
+def keystoreAlias = ''
+def keystoreAliasPSW = ''
+// default keystore file, PLZ config file path in local.properties
+def keyfile = file('s.keystore.temp')
+
+Properties properties = new Properties()
+// local.properties file in the root director
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+keystoreFilepath = properties.getProperty("keystore.path")
+
+if (keystoreFilepath) {
+    keystorePSW = properties.getProperty("keystore.password")
+    keystoreAlias = properties.getProperty("keystore.alias")
+    keystoreAliasPSW = properties.getProperty("keystore.alias_password")
+    keyfile = file(keystoreFilepath)
+}
+
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.3'
+    compileSdkVersion 24
+    buildToolsVersion "24.0.2"
     defaultConfig {
         applicationId "com.example.vizax.with"
         minSdkVersion 15
@@ -18,6 +37,17 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    // 这个是解决lint报错的代码
+    lintOptions {
+        abortOnError false
+    }
+
+    /*dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+        //关闭预编译
+        preDexLibraries = false
+    }*/
     /*android {
         productFlavors {
             kuan {
@@ -53,28 +83,62 @@ android {
     }
 
     signingConfigs {
-        debugConfig {
+        debug {
+            storeFile keyfile
+            storePassword keystorePSW
+            keyAlias keystoreAlias
+            keyPassword keystoreAliasPSW
+            println("====== signingConfigs.debug ======")
+        }
+        myConfig {
+            storeFile keyfile
+            storePassword keystorePSW
+            keyAlias keystoreAlias
+            keyPassword keystoreAliasPSW
+            println("====== signingConfigs.release ======")
+        }
+        /*release {
             storeFile file('../with.jks') //签名文件路径
             storePassword "with123456"
             keyAlias "with"
             keyPassword "with123456"  //签名密码
-        }
-        release {
-            storeFile file('../with.jks') //签名文件路径
-            storePassword "with123456"
-            keyAlias "with"
-            keyPassword "with123456"  //签名密码
-        }
+        }*/
+    }
+
+    //打包忽略掉第三方jar相同的文件
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
     }
 
     /*signingConfigs代码块一定要写在buildTypes前面，否则会报下面这种错：
     Could not find property 'debugConfig' on SigningConfig container.
     签名密码写在gradle中不安全，故最好在打包上线的时候将相关代码注释掉。*/
     buildTypes {
+        debug {
+            println("====== buildTypes.debug ======")
+            signingConfig signingConfigs.debug
+        }
         release {
+            //是否混淆
             minifyEnabled false
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+            if (keyfile.exists()) {
+                println("WITH -> buildTypes -> release: using jks key")
+                signingConfig signingConfigs.myConfig
+            }else {
+                println("WITH -> buildTypes -> release: using default key")
+            }
+            signingConfig signingConfigs.myConfig
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
                     def outputFile = output.outputFile
@@ -102,20 +166,13 @@ android {
 
 repositories {
     jcenter()
-    flatDir {
-        dirs 'libs'
-    }
 }
 
-
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    //短信
-    compile name: 'SMSSDK-2.1.1', ext: 'aar'
-    compile name: 'SMSSDKGUI-2.1.1', ext: 'aar'
     compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.android.support:support-v4:24.2.0'
     compile 'com.android.support:support-v13:24.2.0'
@@ -163,6 +220,8 @@ dependencies {
     compile 'com.github.ozodrukh:CircularReveal:1.0.4'
     //滑动返回
     compile 'me.imid.swipebacklayout.lib:library:1.0.0'
+
+
     //PhotoView
     compile 'com.github.chrisbanes:PhotoView:1.3.0'
     //superSwipeRefreshLayout recyclerView刷新库

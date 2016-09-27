@@ -3,6 +3,14 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
+
+    <string name="label">性别</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="str01">WITH</string>
+    <string name="str02">You will never walk alone</string>
+    <string name="str03">创建账号，表示你同意服务条款和隐私条款</string>
+
     <string-array name="sports">
         <item>篮球</item>
         <item>足球+</item>

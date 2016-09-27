@@ -19,10 +19,10 @@ import io.codetail.widget.RevealLinearLayout;
  */
 public class DemoSwipBackActivity extends BaseActivity {
 
-    @BindView(R.id.img)
-    ImageView img;
-    @BindView(R.id.activity_main)
-    RevealLinearLayout activityMain;
+//    @BindView(R.id.img)
+//    ImageView img;
+//    @BindView(R.id.activity_main)
+//    RevealLinearLayout activityMain;
 
     @Override
     protected int initContentView() {
@@ -48,10 +48,10 @@ public class DemoSwipBackActivity extends BaseActivity {
          * @param MultipleRadius 半径倍数
          * @param Duration 动画时间
          */
-        AnimationUtil.showCircularReveal(img,
-                ScreenUtil.getScreenWidth(this)/2,
-                ScreenUtil.getScreenHeight(this)/2,
-                2,1000);
+//        AnimationUtil.showCircularReveal(img,
+//                ScreenUtil.getScreenWidth(this)/2,
+//                ScreenUtil.getScreenHeight(this)/2,
+//                2,1000);
         /**
          * 不带x，y坐标，默认从左上角开启动画效果
          * @param view 展开动画的view.注意：view需为RevealLinearLayout或者RevealFrameLayout的直接子类

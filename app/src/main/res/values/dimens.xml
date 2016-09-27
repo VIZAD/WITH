@@ -3,6 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="sliding_menu_width">91.2dp</dimen>
+    <dimen name="tabLayoutTextSize">16sp</dimen>
 
 
 

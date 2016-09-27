@@ -17,6 +17,9 @@ import com.example.vizax.with.util.AnimationUtil;
 import com.example.vizax.with.util.SnackbarUtils;
 import com.example.vizax.with.util.TextUtil;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -120,20 +123,35 @@ public class ChangePswActivity extends BaseActivity implements  ChangePswContact
         changepswSurenewpasswordEdtTxt.setError("密码不一致");
     }
 
+    private  static  boolean match(String regex,String str){
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(str);
+        return  matcher.matches();
+    }
+    private static  boolean passwordLong(String str){
+        String regex = "^\\d{2,18}$";
+        return  match(regex,str);
+    }
+
 
     @OnClick(R.id.changepsw_changepsw_btn)
     public void Onclik(){
-      if(TextUtil.getText(changepswOldpasswordEdtTxt).equals("")){
+        if(TextUtil.getText(changepswOldpasswordEdtTxt).equals("")){
             changepswOldpasswordEdtTxt.setError("不能为空");
         }
-      else if(TextUtil.getText(changepswNewpasswordEdtTxt).equals(TextUtil.getText(changepswSurenewpasswordEdtTxt))){
-          mPresenter.changepsw(TextUtil.getText(changepswOldpasswordEdtTxt), TextUtil.getText(changepswNewpasswordEdtTxt));
+        else if(!passwordLong(TextUtil.getText(changepswNewpasswordEdtTxt))){
+
+            changepswNewpasswordEdtTxt.setError("密码长度2-16位");
+        }
+        else if(TextUtil.getText(changepswNewpasswordEdtTxt).equals(TextUtil.getText(changepswSurenewpasswordEdtTxt))){
+            mPresenter.changepsw(TextUtil.getText(changepswOldpasswordEdtTxt), TextUtil.getText(changepswNewpasswordEdtTxt));
         }
         else {
-          passwordsetError();
+            passwordsetError();
         }
 
     }
+
 
     ;
 

@@ -85,8 +85,8 @@ public class InsistPresenter implements InsistContact.Presenter {
 //                        }
 //                        else {
 //                        }
-                System.out.println("code = "+misson.getData().getCurrTasks().size());
                 if(misson.getCode().equals("200")) {
+                    System.out.println("code = "+misson.getData().getCurrTasks().size());
                     InsistView.setData(misson);
                 }
             }

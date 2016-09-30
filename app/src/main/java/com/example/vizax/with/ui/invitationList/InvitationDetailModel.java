@@ -13,9 +13,12 @@ import okhttp3.Call;
 public class InvitationDetailModel implements InvitationDetailContact.InvitationDetailModel{
     public InvitationDetailContact.ChangeBtn mChangeBtn;
 
+
+
+
     @Override
-    public String getData(InvitationDetailContact.View view) {
-        return null;
+    public String getData(String token, String typeId, String userId, String lastInvitatioonId, String limit) {
+      return null;
     }
 
     /**
@@ -28,8 +31,8 @@ public class InvitationDetailModel implements InvitationDetailContact.Invitation
         System.out.println("id="+mInvitationBeen.getInvitaionId()+type);
         OkHttpUtils.post()
                 .url(APIConstant.getApi(APIConstant.INVITAION_PARTICIPATEINVITATION))
-                .addParams("invitationId",mInvitationBeen.getInvitaionId())
-                .addParams("token","1")
+                .addParams("invitaionId",mInvitationBeen.getInvitaionId())
+                .addParams("token","2")
                 .addParams("type",type)
                 .build()
                 .execute(stringCallback);

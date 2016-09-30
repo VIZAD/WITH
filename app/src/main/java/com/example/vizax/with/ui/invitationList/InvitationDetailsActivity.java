@@ -88,10 +88,10 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.invitation_detail_activity);
         ButterKnife.bind(this);
-        mPresenter = new InvitationDetailPresenter();
-        mPresenter.attachView(this);
         //获取list界面传过来的活动参与人信息
         getData();
+        mPresenter = new InvitationDetailPresenter(mMemberBean);
+        mPresenter.attachView(this);
         //设置点击的item的index
         mPresenter.setPosition(index);
         //参与人头像list
@@ -195,18 +195,22 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
         //InvitationPresenter.mInvitationBaseBean.getData().get(position).setJoin( InvitationPresenter.mInvitationBaseBean.getData().get(position).isJoin() ? (false):(true));
         itemInvitationJoinBtn.setImageResource(((mInvitationBeanList.get(index).isJoin()) ? R.drawable.join_selected:R.drawable.join_unselected));
        // mInvitationBeanList.get(index).setJoin(mInvitationBeanList.get(index).isJoin()?false:true);
-        Toast.makeText(this,"-----"+mInvitationBeanList.get(index).isJoin(),Toast.LENGTH_SHORT).show();
         setResultData();
+    }
+
+    @Override
+    public void resetAdater() {
+        mAdapter.notifyDataSetChanged();
+        mUserImgAdapter.notifyDataSetChanged();
     }
 
     private void setResultData() {
 
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
-        System.out.println("!!!!!!!!!"+mInvitationBeanList.get(index).isJoin());
         bundle.putBoolean("join", mInvitationBeanList.get(index).isJoin());
         bundle.putInt("index",index);
-        bundle.putParcelable("member",mMemberBean.get(0));
+        bundle.putParcelableArrayList("members",mMemberBean);
         intent.putExtras(bundle);
         setResult(1, intent);
     }

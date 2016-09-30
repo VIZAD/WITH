@@ -4,8 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.vizax.with.ui.MainActivity">
+    android:layout_height="wrap_content">
 
     <com.example.vizax.with.customView.BaseToolBar
         app:centerText="哈哈"

@@ -9,16 +9,6 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/user_infor_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|top"/>
-        <com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader
-            android:id="@+id/user_infor_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|top">
             <LinearLayout
                 android:id="@+id/user_infor_root"
                 android:orientation="vertical"
@@ -93,7 +83,6 @@
 
 
             </LinearLayout>
-        </com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader>
 
     </FrameLayout>
 

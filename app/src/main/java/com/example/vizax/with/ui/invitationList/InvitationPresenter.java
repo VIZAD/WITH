@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.example.vizax.with.adapter.InvitationRecyclerViewAdapter;
 import com.example.vizax.with.bean.InvitationBaseBean;
+import com.example.vizax.with.bean.MembersBean;
 import com.example.vizax.with.bean.UserInforBean;
 import com.example.vizax.with.ui.userInformation.UserInformationContact;
 import com.example.vizax.with.ui.userInformation.UserInformationModuel;
@@ -39,13 +40,10 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
      */
     @Override
     public void getDataAndSetAdapter(Context context, RecyclerView recyclerView,String token,int visible, String typeId, String userId){
+
         this.token = token;
         mInvitationModel.getData(typeId, userId,token,new StringCallback() {
-            @Override
-            public void onAfter(int id) {
-                super.onAfter(id);
-                setAdapter(context,recyclerView,baseBean,visible);
-            }
+
             @Override
             public void onError(Call call, Exception e, int id) {
 
@@ -55,10 +53,9 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
             public void onResponse(String response, int id) {
 
                 baseBean = GsonUtil.toString(response,InvitationBaseBean.class);
-                System.out.println("---"+ response);
+
                 if (baseBean.getCode().equals("200")){
-                    System.out.println("success!!!");
-                    System.out.println("result="+baseBean.getData().get(0).getMembers().get(0).getUserId());
+                    setAdapter(context,recyclerView,baseBean,visible);
                 }
                 else{
                     System.out.println("null!!!");
@@ -86,14 +83,6 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     public void onPositive(int position) {
         new  InvitationDetailModel().join(baseBean.getData().get(position), type, new StringCallback() {
 
-            //TODO 临时处理 待删除方法
-            @Override
-            public void onAfter(int id) {
-                super.onAfter(id);
-                baseBean.getData().get(position).setJoin( baseBean.getData().get(position).isJoin()?false:true);
-                mAdapter.notifyItemChanged(position);
-            }
-
             @Override
             public void onError(Call call, Exception e, int id) {
 
@@ -102,11 +91,33 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
             @Override
             public void onResponse(String response, int id) {
                 baseBean.getData().get(position).setJoin( baseBean.getData().get(position).isJoin()?false:true);
+                if( baseBean.getData().get(position).isJoin()){
+                    membersAdd(position);
+                }else {
+                    membersReduce(position);
+                }
                 mAdapter.notifyItemChanged(position);
             }
         });
     }
 
+    private void membersAdd(int position) {
+        //TODO 后面用登录的静态类User
+        MembersBean newMember = new MembersBean();
+        newMember.setUserId("2");
+        newMember.setRealName("潘大爷");
+        newMember.setPhone("1831876465");
+        baseBean.getData().get(position).getMembers().add(newMember);
+    }
+    private void membersReduce(int position) {
+        for(int i = 1;i <  baseBean.getData().get(position).getMembers().size();i++){
+            //TODO 后面用登录的静态类User.UserID
+            if (baseBean.getData().get(position).getMembers().get(i).getUserId().equals("2")){
+                baseBean.getData().get(position).getMembers().remove(i);
+                break;
+            }
+        }
+    }
 
     public void setAdapter(Context context, RecyclerView recyclerView, InvitationBaseBean invitationBaseBean, int visible) {
         mAdapter = new InvitationRecyclerViewAdapter(context, invitationBaseBean,visible);
@@ -119,6 +130,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
 
             @Override
             public void onAvatarOnclik(int position, InvitationBaseBean invitationBaseBean) {
+
                 UserInforBean lUserInforBean = getUserInfor(invitationBaseBean.getData().get(position).getMembers().get(0).getUserId());
                 mInvitationActivity.OpenUserInfor(position,lUserInforBean);
             }

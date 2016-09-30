@@ -20,6 +20,7 @@ import com.example.vizax.with.ui.userInformation.UserInformationActivity;
 import com.example.vizax.with.util.SnackbarUtils;
 import com.example.vizax.with.util.swipeback.ArrayUtil;
 
+
 import net.mobctrl.views.SuperSwipeRefreshLayout;
 
 import butterknife.BindView;
@@ -43,7 +44,7 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
     private int mMainClass;
     private SuperSwipeRefreshLayout refreshLayout;
     private MaterialDialog mEdit,mJoinDialog;
-    public String token = "1";
+    public String token = "2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
         //初始化toolbar
         initToolbar();
         //初始化superSwipeRefreshLayout
-        initSuperSwipeRefresh();
+       initSuperSwipeRefresh();
     }
 
     //初始化dialog
@@ -226,6 +227,7 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
         super.onActivityResult(requestCode, resultCode, data);
         boolean join = data.getBooleanExtra("join",false);
         int index = data.getIntExtra("index",0);
+        mInvitationListPresenter.baseBean.getData().get(index).setMembers(data.getParcelableArrayListExtra("members"));
         mInvitationListPresenter.baseBean.getData().get(index).setJoin(join);
         mInvitationListPresenter.setNotifyChange();
        // mInvitationListPresenter.setAdapter(this, mRecyclerView, mInvitationListPresenter.baseBean,visible);

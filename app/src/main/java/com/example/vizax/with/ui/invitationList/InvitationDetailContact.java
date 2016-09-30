@@ -15,9 +15,10 @@ public interface InvitationDetailContact {
         void showDialog(String contents);
         void changeBtnSrc();
 
+        void resetAdater();
     }
     interface InvitationDetailModel{
-        String getData(View view);
+        String getData(String token,String typeId,String userId,String lastInvitatioonId,String limit);
         void join(InvitationBean mInvitationBeen, String type, StringCallback stringCallback);
     }
     interface Presenter extends BasePresenter<View>{

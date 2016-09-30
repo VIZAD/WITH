@@ -36,10 +36,6 @@ public class UserInformationActivity extends BaseActivity implements UserInforma
     @BindView(R.id.user_infor_QQ_txt)
     EditText userInforQQTxt;
     Button follow;
-    @BindView(R.id.user_infor_recyclerview)
-    RecyclerView userInforRecyclerview;
-    @BindView(R.id.user_infor_header)
-    RecyclerViewHeader userInforHeader;
     private String avatarId;
     private boolean ifMy = true;    //如果为true显示我的信息，如果为false
     private UserInformationPresenter mUserInforPresenter;

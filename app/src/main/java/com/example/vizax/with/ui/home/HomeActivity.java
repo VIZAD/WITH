@@ -348,4 +348,5 @@ public class HomeActivity extends BaseActivity implements HomeContact.View {
         it.putExtras(lBundle);
         startActivity(it);
     }
+    //hahaha
 }

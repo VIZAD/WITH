@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout
+    android:id="@+id/verify_lLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    >
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+
+        <EditText
+            android:id="@+id/usernum_edtTxt"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:drawableLeft="@drawable/num_ic"
+            android:hint="学号"
+            android:inputType="number"
+            android:drawablePadding="10dp"
+            android:layout_marginBottom="2dp"
+            android:singleLine="true"
+            android:textSize="20sp" />
+
+        <include
+            layout="@layout/line"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignLeft="@+id/usernum_edtTxt"
+            android:layout_alignRight="@+id/usernum_edtTxt"
+            android:layout_below="@+id/usernum_edtTxt" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+
+        <EditText
+            android:id="@+id/username_edtTxt"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:drawableLeft="@drawable/name_ic"
+            android:hint="姓名"
+            android:drawablePadding="10dp"
+            android:layout_marginBottom="2dp"
+            android:singleLine="true"
+            android:textSize="20sp" />
+
+        <include
+            layout="@layout/line"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignLeft="@+id/username_edtTxt"
+            android:layout_alignRight="@+id/username_edtTxt"
+            android:layout_below="@+id/username_edtTxt" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/sex_ic"/>
+
+        <TextView
+            android:id="@+id/sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="false"
+            android:text="@string/label"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:id="@+id/sex_rdoGrp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/male_rdoBtn"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="@string/male"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/female_rdoBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="@string/female"
+                android:textSize="20sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/verify_btn"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="25dp"
+        android:background="#11cd6e"
+        android:text="验证"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+</LinearLayout>
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/reg_fragment"
+        android:visibility="gone"
+        />
+</RelativeLayout>

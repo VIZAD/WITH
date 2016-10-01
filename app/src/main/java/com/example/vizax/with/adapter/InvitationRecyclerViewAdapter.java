@@ -14,6 +14,7 @@ import com.example.vizax.with.R;
 import com.example.vizax.with.bean.InvitationBaseBean;
 import com.example.vizax.with.ui.invitationList.InvitationContact;
 import com.example.vizax.with.util.StringUtil;
+import com.example.vizax.with.util.TimeUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,7 +78,7 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
         String contents = StringUtil.cutContents(mData.getData().get(position).getContent(),57);
         holder.itemInvitationContents.setText(contents);
         holder.itemInvitationInvitationTime.setText(mData.getData().get(position).getInvitationTime());
-        holder.itemInvitationPublishTime.setText(mData.getData().get(position).getPublishTime());
+        holder.itemInvitationPublishTime.setText(TimeUtil.getTime(mData.getData().get(position).getPublishTime()));
         holder.itemInvitationPlace.setText(mData.getData().get(position).getPlace());
         holder.itemInvitationSexRequire.setText(mData.getData().get(position).getSexRequire());
         holder.itemInvitationNumber.setText(mData.getData().get(position).getCurrentNumber()+"/"+mData.getData().get(position).getTotalNumber());
@@ -110,7 +111,7 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
                         contents1 = "是否参加该活动?";
                     }
                     mInvitationCallBack.press(contents1,position,type);
-                    setMemberNum.setNum(position);
+                    //setMemberNum.setNum(position);
                 }
 
 

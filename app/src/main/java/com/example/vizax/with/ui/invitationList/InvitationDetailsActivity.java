@@ -18,6 +18,7 @@ import com.example.vizax.with.bean.HomeInvitationBean;
 import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.bean.MembersBean;
 import com.example.vizax.with.customView.BaseToolBar;
+import com.example.vizax.with.util.TimeUtil;
 
 import java.util.ArrayList;
 
@@ -121,7 +122,7 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
 
         itemInvitationOriginatorName.setText(mInvitationBeanList.get(index).getOriginatorrealName());
         itemInvitationInvitationTime.setText(mInvitationBeanList.get(index).getInvitationTime());
-        itemInvitationPublishTime.setText(mInvitationBeanList.get(index).getPublishTime());
+        itemInvitationPublishTime.setText(TimeUtil.getTime(mInvitationBeanList.get(index).getPublishTime()));
         itemInvitationContents.setText(mInvitationBeanList.get(index).getContent());
         itemInvitationPlace.setText(mInvitationBeanList.get(index).getPlace());
         itemInvitationSexRequire.setText(mInvitationBeanList.get(index).getSexRequire());

@@ -70,6 +70,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     public void attachView(@NonNull InvitationContact.View View) {
         mInvitationActivity = View;
         mInvitationModel = new InvitationModel();
+        mUserinforModuel = new UserInformationModuel();
     }
 
 
@@ -181,8 +182,8 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
 
             @Override
             public void onResponse(String response, int id) {
-                InvitationBaseBean  loadBean = GsonUtil.toString(response, InvitationBaseBean.class);
                 System.out.println("更新前的数据="+response);
+                InvitationBaseBean  loadBean = GsonUtil.toString(response, InvitationBaseBean.class);
                 for(int i = 0;i<loadBean.getData().size();i++){
                     baseBean.getData().add(loadBean.getData().get(i));
                 }

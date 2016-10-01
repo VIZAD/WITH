@@ -182,7 +182,11 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
                         .itemsCallback(new MaterialDialog.ListCallback() {
                             @Override
                             public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                mBaseToolBar.setCenterText(text);
+                                switch (which){
+                                    case 0:
 
+                                }
                             }
                         })
                         .show();

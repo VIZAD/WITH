@@ -19,10 +19,12 @@ public interface MyConcernContact {
 
         void setNewData(List<MyConcern.DataBean> mDatas);
         void addData(List<MyConcern.DataBean> mDatas);
+        void startLoginActivity();
+
     }
     //Presenter操作接口，自己定义一个Presenter实现该接口
     interface Presenter extends BasePresenter<MyConcernContact.View> {
-        void IsCocern(Context context);
+        void IsCocern();
         void onRefresh();
         void onloadMore(int lastConcernedUserId);
     }

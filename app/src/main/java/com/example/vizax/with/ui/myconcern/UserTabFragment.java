@@ -1,6 +1,7 @@
 package com.example.vizax.with.ui.myconcern;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.vizax.with.R;
 import com.example.vizax.with.bean.Test;
 import com.example.vizax.with.constant.APIConstant;
+import com.example.vizax.with.ui.login.MainActivity;
 import com.example.vizax.with.util.GsonUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -66,7 +68,7 @@ public class UserTabFragment extends Fragment implements MyConcernContact.View {
     }
     protected void initData() {
         mDatas = new ArrayList<MyConcern.DataBean>();
-        myConcernPresenter = new MyConcernPresenter();
+        myConcernPresenter = new MyConcernPresenter(getContext());
         myConcernPresenter.attachView(this);
         initSuperSwipeRefresh();
         initRecycleView();
@@ -93,11 +95,11 @@ public class UserTabFragment extends Fragment implements MyConcernContact.View {
                                                                          if(concern_btn.getText().equals("取关")) {
                                                                              concern_btn.setText("关注");
                                                                              concern_btn.setBackgroundResource(R.color.lightgray_text_def);
-                                                                             myConcernPresenter.IsCocern(getContext());
+                                                                             myConcernPresenter.IsCocern();
                                                                          } else {
                                                                              concern_btn.setText("取关");
                                                                              concern_btn.setBackgroundResource(R.color.colorPrimary);
-                                                                             myConcernPresenter.IsCocern(getContext());
+                                                                             myConcernPresenter.IsCocern();
                                                                          }
                                                                          break;
                                                                  }
@@ -128,6 +130,11 @@ public class UserTabFragment extends Fragment implements MyConcernContact.View {
     public void addData(List<MyConcern.DataBean> mDatas) {
         mAdapter.addData(mDatas);
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void startLoginActivity() {
+        getActivity().startActivity(new Intent(getContext(), MainActivity.class));
     }
 
     private void initSuperSwipeRefresh() {

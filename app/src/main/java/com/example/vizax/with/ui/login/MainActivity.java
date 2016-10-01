@@ -1,5 +1,6 @@
 package com.example.vizax.with.ui.login;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.vizax.with.R;
 import com.example.vizax.with.base.BaseActivity;
+import com.example.vizax.with.ui.home.HomeActivity;
 import com.example.vizax.with.ui.login.login.LoginFragment;
 import com.example.vizax.with.ui.login.verify.VerifyFragment;
 
@@ -21,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements MainContact.View{
 
 
     @BindView(R.id.main_tabLayout)
@@ -30,7 +32,7 @@ public class MainActivity extends BaseActivity {
     ViewPager mViewPager;
     LinearLayout lReg_lLayout;
     LinearLayout lVerify_lLayout;
-
+    MainPresenter mPresenter ;
 
     @Override
     protected int initContentView() {
@@ -39,8 +41,14 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initUiAndListener() {
+        mPresenter = new MainPresenter(getApplicationContext());
+        if (!mPresenter.isFirstLogin()&&mPresenter.isHadLogin()){//不是第一次，并且已经登录,直接进入主页
+            startActivity();
+            finish();
+        }
 
         ButterKnife.bind(this);
+        mPresenter.attachView(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -102,7 +110,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            if (lVerify_lLayout.getVisibility() == View.GONE) {
+            if (lVerify_lLayout!=null&&lVerify_lLayout.getVisibility() == View.GONE) {
                 mRegUsernumEdtTxt.setText("");
                 mRegVerifynumEdtTxt.setText("");
                 mPswRegEdtTxt.setText("");
@@ -115,5 +123,16 @@ public class MainActivity extends BaseActivity {
             }
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void startActivity() {
+        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //mPresenter.de
     }
 }

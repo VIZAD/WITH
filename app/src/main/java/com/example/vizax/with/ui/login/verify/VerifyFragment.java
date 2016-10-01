@@ -90,6 +90,8 @@ public class VerifyFragment extends Fragment implements VerifyContact.View {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.verify_fragment, container, false);
         ButterKnife.bind(this, mView);
+        //回调接口
+
         initView();
         return mView;
     }
@@ -111,6 +113,7 @@ public class VerifyFragment extends Fragment implements VerifyContact.View {
         mRegConpswEdtTxt.addTextChangedListener(new MaxLengthWatcher(20, mRegUsernumEdtTxt));
 
         mActivity = (AppCompatActivity) getActivity();
+        SMSSDK.initSDK(mActivity, "1711fda5318b2", "9b07d5a826f77429d7bdeefd79fa9786");
         mainActivity = (MainActivity) mActivity;
         verifyLLayout.setVisibility(View.VISIBLE);
         regLLayout.setVisibility(View.GONE);
@@ -291,8 +294,7 @@ public class VerifyFragment extends Fragment implements VerifyContact.View {
                     Toast.makeText(mActivity, "有错", Toast.LENGTH_SHORT).show();
             }
         };
-        //回调接口
-        SMSSDK.initSDK(mActivity, "1711fda5318b2", "9b07d5a826f77429d7bdeefd79fa9786");
+
         mRegUsernum_str = TextUtil.getText(mRegUsernumEdtTxt);
         mVerifyPresenter.msgRegister(handler, mRegUsernum_str);
     }

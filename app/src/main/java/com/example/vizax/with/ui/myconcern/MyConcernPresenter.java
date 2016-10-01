@@ -6,7 +6,10 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.vizax.with.constant.APIConstant;
+import com.example.vizax.with.constant.FieldConstant;
+import com.example.vizax.with.ui.login.MainActivity;
 import com.example.vizax.with.util.GsonUtil;
+import com.example.vizax.with.util.SharedUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -21,12 +24,18 @@ import static com.example.vizax.with.constant.APIConstant.INVITATION_GETCONCERNE
 
 public class MyConcernPresenter implements MyConcernContact.Presenter  {
     private  MyConcernContact.View concernedUserFragmentView;
+    private Context context;
+
+    public MyConcernPresenter(Context context) {
+        this.context = context;
+    }
+
     @Override
-    public void IsCocern(Context context) {
+    public void IsCocern() {
 
         OkHttpUtils.post()
                 .url(APIConstant.getApi(INVITATION_CONCERNUSER))
-                .addParams("token","token")
+                .addParams("token", SharedUtil.getString(context,"token"))
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -47,7 +56,7 @@ public class MyConcernPresenter implements MyConcernContact.Presenter  {
     public void onRefresh() {
         OkHttpUtils.post()
                 .url(APIConstant.getApi(INVITATION_GETCONCERNEDUSERS))
-                .addParams("token","2")
+                .addParams("token",SharedUtil.getString(context, FieldConstant.token))
                 .addParams("concernedUserId","0")//最后一个id，刷新的话，则为0
                 .addParams("limit","20")
                 .build()
@@ -63,6 +72,10 @@ public class MyConcernPresenter implements MyConcernContact.Presenter  {
                         MyConcern myConcern = GsonUtil.toListString(response,MyConcern.class);
                         if (myConcern.getCode() != 200){
                             concernedUserFragmentView.showErrorToast(myConcern.getMsg());
+                            if (myConcern.getCode() == 499){
+                                SharedUtil.putBoolean(context,FieldConstant.ishadlogin,false);
+                               concernedUserFragmentView.startLoginActivity();//登录
+                            }
                             return;
                         }
                         Log.i("myresponse bean",myConcern.toString());
@@ -78,7 +91,7 @@ public class MyConcernPresenter implements MyConcernContact.Presenter  {
 
         OkHttpUtils.post()
                 .url(APIConstant.getApi(INVITATION_GETCONCERNEDUSERS))
-                .addParams("token","2")
+                .addParams("token",SharedUtil.getString(context,FieldConstant.token))
                 .addParams("concernedUserId",lastConcernedUserId+"")//最后一个id，刷新的话，则为0
                 .addParams("limit","20")
                 .build()

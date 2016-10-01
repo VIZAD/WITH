@@ -23,14 +23,17 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.R;
+import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.ui.demo.DemoPresenter;
 import com.example.vizax.with.ui.demo.DemoSwipBackActivity;
 import com.example.vizax.with.ui.home.HomeActivity;
 import com.example.vizax.with.ui.login.User;
 import com.example.vizax.with.ui.login.bean.UserBean;
 import com.example.vizax.with.util.MaxLengthWatcher;
+import com.example.vizax.with.util.SharedUtil;
 import com.example.vizax.with.util.TextUtil;
 
+import java.lang.reflect.Field;
 import java.util.regex.Matcher;
 
 import butterknife.BindView;
@@ -68,10 +71,11 @@ public class LoginFragment extends Fragment implements LoginContact.View {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.login_fragment, container, false);
-
         ButterKnife.bind(this, mView);
+        mUsernum_edtTxt.setText(SharedUtil.getString(getContext(),FieldConstant.phone));
+        mPsw_edtTxt.setText(SharedUtil.getString(getContext(),FieldConstant.password));
+        mPresenter = new LoginPresenter(getContext());
         initView();
-        mPresenter = new LoginPresenter();
         mPresenter.attachView(this);
         return mView;
     }
@@ -144,19 +148,22 @@ public class LoginFragment extends Fragment implements LoginContact.View {
         //返回Msg数据
         Toast.makeText(mActivity, Msg, Toast.LENGTH_SHORT).show();
         //登录成功操作
-        mEditor.putString("phone",data.getPhone());
-        mEditor.putInt("sex",data.getSex());
-        mEditor.putInt("unReadedNumber",data.getUnReadedNumber());
-        mEditor.putString("token",data.getToken());
-        mEditor.putString("nickName",data.getNickName());
-        mEditor.putString("userUrl",data.getUserUrl());
-        mEditor.putInt("userId",data.getUserId());
-        mEditor.putString("classX",data.getClassX());
-        mEditor.putString("studentID",data.getStudentID());
-        mEditor.putString("realName",data.getStudentID());
-        mEditor.putString("qq",data.getQq());
-        mEditor.commit();
-        //mActivity.finish();
+        SharedUtil.putString(getContext(),FieldConstant.phone,mUsernum_str);
+        SharedUtil.putString(getContext(),FieldConstant.password,mPsw_str);
+        SharedUtil.putInt(getContext(),FieldConstant.sex,data.getSex());
+        SharedUtil.putInt(getContext(),FieldConstant.unReadedNumber,data.getUnReadedNumber());
+        SharedUtil.putString(getContext(),FieldConstant.token,data.getToken());
+        SharedUtil.putString(getContext(),FieldConstant.nickName,data.getNickName());
+        SharedUtil.putString(getContext(),FieldConstant.userUrl,data.getUserUrl());
+        SharedUtil.putInt(getContext(),FieldConstant.userId,data.getUserId());
+        SharedUtil.putString(getContext(),FieldConstant.classX,data.getClassX());
+        SharedUtil.putString(getContext(),FieldConstant.studentID,data.getStudentID());
+        SharedUtil.putString(getContext(),FieldConstant.realName,data.getStudentID());
+        SharedUtil.putString(getContext(),FieldConstant.qq,data.getQq());
+
+        SharedUtil.putBoolean(getContext(),FieldConstant.ishadlogin,true);
+        SharedUtil.putBoolean(getContext(),FieldConstant.isfirstlogin,false);
+        //getActivity().finish();
 
     }
 

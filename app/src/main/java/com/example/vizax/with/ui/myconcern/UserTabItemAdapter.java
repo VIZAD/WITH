@@ -41,7 +41,7 @@ public class UserTabItemAdapter extends BaseQuickAdapter<MyConcern.DataBean> {
                     .into(imageView);
             holder.setText(R.id.name_label_txtvi,data.getName())
                     .setText(R.id.description_hint_txtvi,"hint")
-                    .setText(R.id.concern_btn,data.isIsConcerned()==true?"取关":"关注");
+                    .setText(R.id.concern_btn,data.isConcerned()==true?"取关":"关注");
 
             holder.getView(R.id.name_label_txtvi);
             holder.getView(R.id.description_hint_txtvi);

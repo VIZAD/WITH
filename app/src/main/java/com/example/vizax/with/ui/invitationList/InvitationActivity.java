@@ -101,6 +101,8 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
                 .build();
 
     }
+    @Override
+    public void stopRefresh(){
     //打开我的活动编辑页面
     @Override
     public void openEdit() {

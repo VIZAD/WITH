@@ -26,9 +26,9 @@ public class MyConcernFragment extends Fragment {
     private List<Fragment> mFragments;                                //定义要装fragment的列表
     private List<String> list_title;                                     //tab名称列表
 
-    private ActivityTabFragment event;              //热门推荐fragment
-    private UserTabFragment user;            //热门收藏fragment
-                                      //今日热榜fragment
+    private ActivityTabFragment event;
+    private UserTabFragment user;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

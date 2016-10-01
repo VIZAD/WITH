@@ -1,5 +1,6 @@
 package com.example.vizax.with.ui.login.login;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.example.vizax.with.bean.BaseBean;
@@ -34,10 +35,7 @@ public class LoginPresenter implements LoginContact.Presenter {
 
     @Override
     public void login(String username, String password) {
-
         mLoginView.showLoading();
-
-
         mLoginModel.login(username, password, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -57,6 +55,7 @@ public class LoginPresenter implements LoginContact.Presenter {
                 if (lUserBean.getCode() == 200) {
                     UserBean.DataBean data = lUserBean.getData();
                     mLoginView.loginSuccess(lUserBean.getMsg(),data);
+                    mLoginView.startActivity();
                 } else
                     mLoginView.loginFailure(lUserBean.getMsg());
                 mLoginView.dimissLoading();
@@ -68,7 +67,6 @@ public class LoginPresenter implements LoginContact.Presenter {
     public void attachView(@NonNull LoginContact.View View) {
         mLoginView = View;
     }
-
 
     @Override
     public void detachView() {

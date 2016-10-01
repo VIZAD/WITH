@@ -25,6 +25,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.R;
 import com.example.vizax.with.ui.demo.DemoPresenter;
 import com.example.vizax.with.ui.demo.DemoSwipBackActivity;
+import com.example.vizax.with.ui.home.HomeActivity;
 import com.example.vizax.with.ui.login.User;
 import com.example.vizax.with.ui.login.bean.UserBean;
 import com.example.vizax.with.util.MaxLengthWatcher;
@@ -53,7 +54,6 @@ public class LoginFragment extends Fragment implements LoginContact.View {
     @BindView(R.id.recLayout)
     LinearLayout recLayout;
 
-
     private View mView;
     private Activity mActivity;
     private ProgressDialog mProgressDialog;
@@ -68,6 +68,7 @@ public class LoginFragment extends Fragment implements LoginContact.View {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.login_fragment, container, false);
+
         ButterKnife.bind(this, mView);
         initView();
         mPresenter = new LoginPresenter();
@@ -101,12 +102,10 @@ public class LoginFragment extends Fragment implements LoginContact.View {
         }
     }
 
-
     /**
      * 登录
      */
     private void login() {
-
         mUsernum_str = TextUtil.getText(mUsernum_edtTxt);
         mPsw_str = TextUtil.getText(mPsw_edtTxt);
         Matcher m = TextUtil.compileExChar(mUsernum_str);
@@ -158,13 +157,17 @@ public class LoginFragment extends Fragment implements LoginContact.View {
         mEditor.putString("qq",data.getQq());
         //mActivity.finish();
 
-
     }
 
     @Override
     public void loginFailure(String Error) {
         //登录失败
         Toast.makeText(mActivity, Error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void startActivity() {
+        getActivity().startActivity(new Intent(getContext(), HomeActivity.class));
     }
 
     @Override

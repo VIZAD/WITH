@@ -1,11 +1,7 @@
 package com.example.vizax.with.ui.invitationList;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.example.vizax.with.R;
 import com.example.vizax.with.bean.BaseBean;
 import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.bean.MembersBean;
@@ -100,10 +96,12 @@ public class InvitationDetailPresenter implements InvitationDetailContact.Presen
             //TODO 后面用登录的静态类User.UserID
             if (membersBean.get(i).getUserId().equals("2")){
                 membersBean.remove(i);
+                mInvitationDetailView.removeMember(i);
                 break;
             }
         }
-        mInvitationDetailView.resetAdater();
+
+
     }
     private void joinInitation() {
         //TODO 后面用登录的静态类User
@@ -113,7 +111,8 @@ public class InvitationDetailPresenter implements InvitationDetailContact.Presen
         newMember.setRealName("潘大爷");
         newMember.setPhone("1831876465");
         membersBean.add(newMember);
-        mInvitationDetailView.resetAdater();
+        mInvitationDetailView.addMember(membersBean.size());
+
     }
     @Override
     public void setPosition(int position) {

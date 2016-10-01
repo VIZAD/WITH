@@ -1,33 +1,19 @@
 package com.example.vizax.with.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.R;
 import com.example.vizax.with.bean.InvitationBaseBean;
-import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.ui.invitationList.InvitationContact;
-import com.example.vizax.with.ui.invitationList.InvitationDetailContact;
-import com.example.vizax.with.ui.invitationList.InvitationDetailsActivity;
-import com.example.vizax.with.ui.invitationList.InvitationDetailModel;
 import com.example.vizax.with.util.StringUtil;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +30,7 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
 
     private  InvitationContact.InvitationCallBack mInvitationCallBack;
     private ClickListerner clickListerner;
+    private SetMemberNum setMemberNum;
 
     public InvitationRecyclerViewAdapter(Context context, InvitationBaseBean mData,int visible) {
         this.context = context;
@@ -54,6 +41,10 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
     public void setOnItemClickListener(ClickListerner clickListerner){
 
         this.clickListerner = clickListerner;
+    }
+
+    public void setMembersNum(SetMemberNum setNum){
+        setMemberNum = setNum;
     }
 
     //回调接口
@@ -119,6 +110,7 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
                         contents1 = "是否参加该活动?";
                     }
                     mInvitationCallBack.press(contents1,position,type);
+                    setMemberNum.setNum(position);
                 }
 
 
@@ -209,5 +201,7 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
         void onItemClick(int position,InvitationBaseBean invitationBaseBean);
         void onAvatarOnclik(int position,InvitationBaseBean invitationBaseBean);
     }
-
+    public interface SetMemberNum {
+        void setNum(int position);
+    }
 }

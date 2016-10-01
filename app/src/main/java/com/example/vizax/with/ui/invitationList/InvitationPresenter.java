@@ -94,6 +94,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
                 System.out.println("msg="+join.getMsg());
                 if (join.getCode().equals("200")) {
                     baseBean.getData().get(position).setJoin(baseBean.getData().get(position).isJoin() ? false : true);
+
                     if (baseBean.getData().get(position).isJoin()) {
                         membersAdd(position);
                     } else {
@@ -113,6 +114,8 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
         newMember.setRealName("潘大爷");
         newMember.setPhone("1831876465");
         baseBean.getData().get(position).getMembers().add(newMember);
+        int num = Integer.parseInt(baseBean.getData().get(position).getCurrentNumber()) + 1;
+        baseBean.getData().get(position).setCurrentNumber(String.valueOf(num));
     }
     private void membersReduce(int position) {
         for(int i = 1;i <  baseBean.getData().get(position).getMembers().size();i++){
@@ -122,11 +125,12 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
                 break;
             }
         }
+        int num = Integer.parseInt(baseBean.getData().get(position).getCurrentNumber()) - 1;
+        baseBean.getData().get(position).setCurrentNumber(String.valueOf(num));
     }
 
     public void setAdapter(Context context, RecyclerView recyclerView, InvitationBaseBean invitationBaseBean, int visible) {
         mAdapter = new InvitationRecyclerViewAdapter(context, invitationBaseBean,visible);
-        mAdapter.notifyDataSetChanged();
         mAdapter.setOnItemClickListener(new InvitationRecyclerViewAdapter.ClickListerner() {
             @Override
             public void onItemClick(int position,InvitationBaseBean invitationBaseBean) {

@@ -203,9 +203,15 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
     }
 
     @Override
-    public void resetAdater() {
-        mAdapter.notifyDataSetChanged();
-        mUserImgAdapter.notifyDataSetChanged();
+    public void removeMember(int position) {
+        mAdapter.notifyItemRemoved(position);
+        mUserImgAdapter.notifyItemRemoved(position);
+    }
+
+    @Override
+    public void addMember(int position) {
+        mAdapter.notifyItemChanged(position);
+        mUserImgAdapter.notifyItemChanged(position);
     }
 
     @Override
@@ -216,6 +222,21 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
     @Override
     public void dismissDialog() {
         mJoin.dismiss();
+    }
+
+    //已参与人数加一
+    @Override
+    public void addNum() {
+        int num = Integer.parseInt(mInvitationBeanList.get(index).getCurrentNumber()) + 1;
+        itemInvitationNumber.setText(num + "/" + mInvitationBeanList.get(index).getTotalNumber());
+
+    }
+
+    //已参与人数减一
+    @Override
+    public void reduceNum() {
+        int num = Integer.parseInt(mInvitationBeanList.get(index).getCurrentNumber()) - 1;
+        itemInvitationNumber.setText(num + "/" + mInvitationBeanList.get(index).getTotalNumber());
     }
 
     private void setResultData() {

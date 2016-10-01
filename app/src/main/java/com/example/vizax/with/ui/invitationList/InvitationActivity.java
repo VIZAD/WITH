@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -101,8 +102,7 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
                 .build();
 
     }
-    @Override
-    public void stopRefresh(){
+
     //打开我的活动编辑页面
     @Override
     public void openEdit() {
@@ -114,7 +114,7 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
         startActivity(it);
 
     }
-
+    @Override
     public void stopRefresh() {
         invitationRefresh.setLoadMore(false);
         invitationRefresh.setRefreshing(false);
@@ -286,7 +286,6 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
     @OnClick(R.id.invitation_fab)
     public void onClick() {
         openLaunch();
-        Toast.makeText(InvitationActivity.this,"dianji",Toast.LENGTH_SHORT).show();
     }
     //发起活动
     @Override

@@ -1,13 +1,16 @@
 package com.example.vizax.with.ui.userInformation;
 
 import android.os.Handler;
+import android.util.Log;
 
 import com.example.vizax.with.bean.BaseEmptyBean;
 import com.example.vizax.with.bean.FollowBean;
 import com.example.vizax.with.bean.Test;
 import com.example.vizax.with.bean.UserInforBean;
 import com.example.vizax.with.constant.APIConstant;
+import com.example.vizax.with.util.FilesUtil;
 import com.example.vizax.with.util.GsonUtil;
+import com.example.vizax.with.util.UUIDUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -83,31 +86,18 @@ public class UserInformationModuel implements UserInformationContact.Moduel {
     }
 
     @Override
-    public void setUserAvatar(String avatarId, String url) {
+    public void setUserAvatar(String url,StringCallback stringCallback) {
+
+        String fileName = UUIDUtil.createUUID()+ "max.jpg";
         File f=new File(url);
         OkHttpUtils.post()
+                .addParams("token","xcL7nUNCXtricViRjXT")
                 .url(APIConstant.getApi(APIConstant.USER_UPLOADHEADPIC ))
-                .addFile("file",avatarId,f)
+                .addFile("file",fileName,f)
                 .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        callback.onFailure(call,(IOException) e);
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                        BaseEmptyBean baseEmptyBean = GsonUtil.toString(response);
-                        if(baseEmptyBean.getCode().equals("200")){
-                            try {
-                                callback.onResponse(null,null);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                });
+                .execute(stringCallback);
     }
+
     public void setCallback(Callback call){
         this.callback = call;
     }

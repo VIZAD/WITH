@@ -101,20 +101,8 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
                 .build();
 
     }
-    @Override
-    public void stopRefresh(){
-    //打开我的活动编辑页面
-    @Override
-    public void openEdit() {
-        InvitationBean invitationBean = mInvitationListPresenter.baseBean.getData().get(position);
-        Intent it = new Intent(this, LuanchInvitationActivity.class);
-        Bundle lBundle = new Bundle();
-        lBundle.putParcelable("invitationBean", invitationBean);
-        it.putExtras(lBundle);
-        startActivity(it);
 
-    }
-
+    @Override
     public void stopRefresh() {
         invitationRefresh.setLoadMore(false);
         invitationRefresh.setRefreshing(false);
@@ -243,6 +231,16 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
     @Override
     public void loadDataFailure() {
         SnackbarUtils.show(mRoot, "获取数据失败，请检查网络", 0, null);
+    }
+
+    @Override
+    public void openEdit() {
+        InvitationBean invitationBean = mInvitationListPresenter.baseBean.getData().get(position);
+        Intent it = new Intent(this, LuanchInvitationActivity.class);
+        Bundle lBundle = new Bundle();
+        lBundle.putParcelable("invitationBean", invitationBean);
+        it.putExtras(lBundle);
+        startActivity(it);
     }
 
     @Override

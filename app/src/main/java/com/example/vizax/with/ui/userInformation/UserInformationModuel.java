@@ -1,8 +1,10 @@
 package com.example.vizax.with.ui.userInformation;
 
+import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 
+import com.example.vizax.with.App;
 import com.example.vizax.with.bean.BaseEmptyBean;
 import com.example.vizax.with.bean.FollowBean;
 import com.example.vizax.with.bean.Test;
@@ -10,6 +12,8 @@ import com.example.vizax.with.bean.UserInforBean;
 import com.example.vizax.with.constant.APIConstant;
 import com.example.vizax.with.util.FilesUtil;
 import com.example.vizax.with.util.GsonUtil;
+import com.example.vizax.with.util.PrjOkHttpUtil;
+import com.example.vizax.with.util.SharedUtil;
 import com.example.vizax.with.util.UUIDUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -29,6 +33,12 @@ public class UserInformationModuel implements UserInformationContact.Moduel {
     private UserInforBean mUserInforBean;
     public Callback callback;
     private  boolean follow;
+    private Context context;
+
+/*    public UserInformationModuel(Context context){
+        this.context = context;
+    }*/
+
     @Override
     public UserInforBean getUserInformation(String userId) {
         System.out.println("11111111111"+userId);
@@ -86,12 +96,11 @@ public class UserInformationModuel implements UserInformationContact.Moduel {
     }
 
     @Override
-    public void setUserAvatar(String url,StringCallback stringCallback) {
+    public void setUserAvatar(Context context,String url, StringCallback stringCallback) {
 
         String fileName = UUIDUtil.createUUID()+ "max.jpg";
         File f=new File(url);
-        OkHttpUtils.post()
-                .addParams("token","xcL7nUNCXtricViRjXT")
+        PrjOkHttpUtil.addToken(context)
                 .url(APIConstant.getApi(APIConstant.USER_UPLOADHEADPIC ))
                 .addFile("file",fileName,f)
                 .build()

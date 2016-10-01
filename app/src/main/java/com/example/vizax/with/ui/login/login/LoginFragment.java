@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
+import com.example.vizax.with.App;
 import com.example.vizax.with.R;
 import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.ui.demo.DemoPresenter;
@@ -148,23 +151,24 @@ public class LoginFragment extends Fragment implements LoginContact.View {
         //返回Msg数据
         Toast.makeText(mActivity, Msg, Toast.LENGTH_SHORT).show();
         //登录成功操作
-        SharedUtil.putString(getContext(),FieldConstant.phone,mUsernum_str);
-        SharedUtil.putString(getContext(),FieldConstant.password,mPsw_str);
-        SharedUtil.putInt(getContext(),FieldConstant.sex,data.getSex());
-        SharedUtil.putInt(getContext(),FieldConstant.unReadedNumber,data.getUnReadedNumber());
-        SharedUtil.putString(getContext(),FieldConstant.token,data.getToken());
-        SharedUtil.putString(getContext(),FieldConstant.nickName,data.getNickName());
-        SharedUtil.putString(getContext(),FieldConstant.userUrl,data.getUserUrl());
-        SharedUtil.putInt(getContext(),FieldConstant.userId,data.getUserId());
-        SharedUtil.putString(getContext(),FieldConstant.classX,data.getClassX());
-        SharedUtil.putString(getContext(),FieldConstant.studentID,data.getStudentID());
-        SharedUtil.putString(getContext(),FieldConstant.realName,data.getStudentID());
-        SharedUtil.putString(getContext(),FieldConstant.qq,data.getQq());
+        SharedUtil.putString(mActivity,FieldConstant.phone,mUsernum_str);
+        SharedUtil.putString(mActivity,FieldConstant.password,mPsw_str);
+        SharedUtil.putInt(mActivity,FieldConstant.sex,data.getSex());
+        SharedUtil.putInt(mActivity,FieldConstant.unReadedNumber,data.getUnReadedNumber());
+        SharedUtil.putString(mActivity,FieldConstant.token,data.getToken());
+        SharedUtil.putString(mActivity,FieldConstant.nickName,data.getNickName());
+        SharedUtil.putString(mActivity,FieldConstant.userUrl,data.getUserUrl());
+        SharedUtil.putInt(mActivity,FieldConstant.userId,data.getUserId());
+        SharedUtil.putString(mActivity,FieldConstant.classX,data.getClassX());
+        SharedUtil.putString(mActivity,FieldConstant.studentID,data.getStudentID());
+        SharedUtil.putString(mActivity,FieldConstant.realName,data.getStudentID());
+        SharedUtil.putString(mActivity,FieldConstant.qq,data.getQq());
 
-        SharedUtil.putBoolean(getContext(),FieldConstant.ishadlogin,true);
-        SharedUtil.putBoolean(getContext(),FieldConstant.isfirstlogin,false);
+        SharedUtil.putBoolean(mActivity,FieldConstant.ishadlogin,true);
+        SharedUtil.putBoolean(mActivity,FieldConstant.isfirstlogin,false);
+        Log.w("haha",data.getToken()+"??");
+        //Log.w("haha",SharedUtil.getString(mActivity, FieldConstant.token)+"!!!");
         //getActivity().finish();
-
     }
 
     @Override

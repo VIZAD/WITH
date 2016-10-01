@@ -27,7 +27,7 @@ import okhttp3.OkHttpClient;
  * Created by prj on 2016/8/15.
  */
 
-public class MyApplication extends Application {
+public class App extends Application {
 
     public static final long ONE_KB = 1024L;
     public static final long ONE_MB = ONE_KB * 1024L;

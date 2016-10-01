@@ -70,7 +70,6 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     public void attachView(@NonNull InvitationContact.View View) {
         mInvitationActivity = View;
         mInvitationModel = new InvitationModel();
-        mUserinforModuel = new UserInformationModuel();
     }
 
 

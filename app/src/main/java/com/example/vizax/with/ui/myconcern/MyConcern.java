@@ -7,6 +7,15 @@ import java.util.List;
  */
 public class MyConcern {
 
+    @Override
+    public String toString() {
+        return "MyConcern{" +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                '}';
+    }
+
     /**
      * data : [{"concernedUserId":2,"isConcerned":true,"name":"吴一鸣","headUrl":"headimg/head.png"}]
      * code : 200
@@ -48,26 +57,35 @@ public class MyConcern {
         this.data = data;
     }
 
-    @Override
-    public String toString() {
-        return "MyConcern{" +
-                "code=" + code +
-                ", msg='" + msg + '\'' +
-                ", data=" + data +
-                '}';
-    }
-
     public static class DataBean {
         private int concernedUserId;
-        private boolean isConcerned;
+        private boolean concerned;
         private String name;
         private String headUrl;
 
-        public DataBean(int concernedUserId, boolean isConcerned, String name, String headUrl) {
+        public DataBean(int concernedUserId, boolean concerned, String name, String headUrl) {
             this.concernedUserId = concernedUserId;
-            this.isConcerned = isConcerned;
+            this.concerned = concerned;
             this.name = name;
             this.headUrl = headUrl;
+        }
+
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "concernedUserId=" + concernedUserId +
+                    ", concerned=" + concerned +
+                    ", name='" + name + '\'' +
+                    ", headUrl='" + headUrl + '\'' +
+                    '}';
+        }
+
+        public boolean isConcerned() {
+            return concerned;
+        }
+
+        public void setConcerned(boolean concerned) {
+            this.concerned = concerned;
         }
 
         public int getConcernedUserId() {
@@ -78,13 +96,7 @@ public class MyConcern {
             this.concernedUserId = concernedUserId;
         }
 
-        public boolean isIsConcerned() {
-            return isConcerned;
-        }
 
-        public void setIsConcerned(boolean isConcerned) {
-            this.isConcerned = isConcerned;
-        }
 
         public String getName() {
             return name;

@@ -46,7 +46,6 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
 
             @Override
             public void onError(Call call, Exception e, int id) {
-
             }
 
             @Override
@@ -165,7 +164,6 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
                 mInvitationActivity.stopRefresh();
                 mAdapter.notifyDataSetChanged();
                 //setAdapter(context,recyclerView,baseBean,visible);
-
             }
             @Override
             public void onError(Call call, Exception e, int id) {

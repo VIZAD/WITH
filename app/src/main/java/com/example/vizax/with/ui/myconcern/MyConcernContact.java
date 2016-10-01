@@ -14,16 +14,16 @@ import java.util.List;
 public interface MyConcernContact {
 
     interface View extends BaseView {
-        void setData(List<MyConcern.DataBean> mDatas);
+        void showErrorToast(String error);
+        void stopRefresh();
 
-
+        void setNewData(List<MyConcern.DataBean> mDatas);
+        void addData(List<MyConcern.DataBean> mDatas);
     }
-
-
     //Presenter操作接口，自己定义一个Presenter实现该接口
     interface Presenter extends BasePresenter<MyConcernContact.View> {
-        void  getMyCocernData(Context context);
         void IsCocern(Context context);
-
+        void onRefresh();
+        void onloadMore(int lastConcernedUserId);
     }
 }

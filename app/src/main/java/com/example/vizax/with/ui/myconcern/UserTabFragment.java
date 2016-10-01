@@ -21,6 +21,8 @@ import com.example.vizax.with.util.GsonUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import net.mobctrl.views.SuperSwipeRefreshLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +45,8 @@ public class UserTabFragment extends Fragment implements MyConcernContact.View {
     public UserTabFragment() {
 
     }
-
+    @BindView(R.id.invitation_refresh)
+    SuperSwipeRefreshLayout invitationRefresh;
     @BindView(R.id.user_tab_fragment_rl)
     RelativeLayout mRelativeLayout;
 
@@ -58,38 +61,20 @@ public class UserTabFragment extends Fragment implements MyConcernContact.View {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
-        mDatas = new ArrayList<MyConcern.DataBean>();
         initData();
-        System.out.println("mdata:="+mDatas);
         return view;
     }
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-        //setContentView(R.layout.activity_main);
-
-
-//        mRecyclerView.setAdapter(mAdapter);
-    }
-
-
     protected void initData() {
-
+        mDatas = new ArrayList<MyConcern.DataBean>();
         myConcernPresenter = new MyConcernPresenter();
         myConcernPresenter.attachView(this);
-        myConcernPresenter.getMyCocernData( getContext());
-
+        initSuperSwipeRefresh();
+        initRecycleView();
+        myConcernPresenter.onRefresh();
     }
 
-    @Override
-    public void setData (List<MyConcern.DataBean> items) {
-        this.mDatas =items;
+    public void initRecycleView () {
         int spacingInPixels= (int) (mRelativeLayout.getHeight()*0.025);
-
         mAdapter = new UserTabItemAdapter(getActivity(), mDatas);
         mRecyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
         mRecyclerView.setAdapter(mAdapter);
@@ -119,6 +104,66 @@ public class UserTabFragment extends Fragment implements MyConcernContact.View {
                                                              }
                                                          }
         );
-
     }
+
+    @Override
+    public void showErrorToast(String error) {
+        Toast.makeText(getActivity(),error,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void stopRefresh(){
+        invitationRefresh.setLoadMore(false);
+        invitationRefresh.setRefreshing(false);
+    }
+
+    @Override
+    public void setNewData(List<MyConcern.DataBean> mDatas) {
+        this.mDatas = mDatas;
+        mAdapter.setNewData(this.mDatas);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void addData(List<MyConcern.DataBean> mDatas) {
+        mAdapter.addData(mDatas);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private void initSuperSwipeRefresh() {
+        invitationRefresh.setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
+            @Override
+            public void onRefresh() {
+                myConcernPresenter.onRefresh();
+                invitationRefresh.setRefreshing(false);
+            }
+
+            @Override
+            public void onPullDistance(int distance) {
+
+            }
+
+            @Override
+            public void onPullEnable(boolean enable) {
+
+            }
+        });
+        invitationRefresh.setOnPushLoadMoreListener(new SuperSwipeRefreshLayout.OnPushLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                myConcernPresenter.onloadMore(20);
+            }
+
+            @Override
+            public void onPushDistance(int distance) {
+
+            }
+
+            @Override
+            public void onPushEnable(boolean enable) {
+
+            }
+        });
+    }
+
 }

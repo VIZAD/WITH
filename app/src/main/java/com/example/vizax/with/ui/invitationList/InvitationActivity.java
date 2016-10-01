@@ -94,6 +94,7 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
                 .build();
 
     }
+    @Override
     public void stopRefresh(){
         invitationRefresh.setLoadMore(false);
         invitationRefresh.setRefreshing(false);
@@ -120,7 +121,6 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
             @Override
             public void onLoadMore() {
                 mInvitationListPresenter.pullLoadMore(InvitationActivity.this, mRecyclerView, visible, null, null);
-
 
             }
 

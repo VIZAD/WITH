@@ -35,31 +35,21 @@
         <activity
             android:name=".ui.demo.DemoActivity"
             android:theme="@style/AppTheme">
-
         </activity>
-
         <activity android:name=".ui.login.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--SMS 页面-->
-        <activity
-            android:name="com.mob.tools.MobUIShell"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
-
-
         <activity android:name=".ui.invitationList.InvitationActivity" />
         <activity android:name=".ui.myconcern.MyConcernActivity" />
+        <activity android:name=".ui.mymessage.MyMessageActivity" />
         <activity
             android:name=".ui.invitationList.InvitationDetailsActivity"
             android:theme="@style/AppTheme" />
-
-
         <activity android:name=".ui.home.HomeActivity" />
+        <activity android:name=".ui.Insist.InsistActivity" />
         <activity android:name=".ui.userInformation.UserInformationActivity" />
         <service android:name=".util.filedownload.DownLoadService"/>
 

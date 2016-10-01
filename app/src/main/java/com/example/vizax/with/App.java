@@ -32,10 +32,12 @@ public class App extends Application {
     public static final long ONE_KB = 1024L;
     public static final long ONE_MB = ONE_KB * 1024L;
     public static final long CACHE_DATA_MAX_SIZE = ONE_MB * 3L;
+    public static Context instance;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         initReservoir();
         initOkHttpClient();
         initUmengPush();

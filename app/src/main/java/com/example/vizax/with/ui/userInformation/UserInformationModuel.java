@@ -1,6 +1,5 @@
 package com.example.vizax.with.ui.userInformation;
 
-import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 
@@ -33,14 +32,10 @@ public class UserInformationModuel implements UserInformationContact.Moduel {
     private UserInforBean mUserInforBean;
     public Callback callback;
     private  boolean follow;
-    private Context context;
-
-/*    public UserInformationModuel(Context context){
-        this.context = context;
-    }*/
 
     @Override
     public UserInforBean getUserInformation(String userId) {
+
         System.out.println("11111111111"+userId);
         //获取用户信息的json数据解析
         OkHttpUtils.post()
@@ -57,7 +52,6 @@ public class UserInformationModuel implements UserInformationContact.Moduel {
                     @Override
                     public void onResponse(String response, int id) {
                          mUserInforBean = GsonUtil.toListString(response,UserInforBean.class);
-
                     }
                 });
         return mUserInforBean;
@@ -96,11 +90,11 @@ public class UserInformationModuel implements UserInformationContact.Moduel {
     }
 
     @Override
-    public void setUserAvatar(Context context,String url, StringCallback stringCallback) {
+    public void setUserAvatar(String url,StringCallback stringCallback) {
 
         String fileName = UUIDUtil.createUUID()+ "max.jpg";
         File f=new File(url);
-        PrjOkHttpUtil.addToken(context)
+        PrjOkHttpUtil.addToken()
                 .url(APIConstant.getApi(APIConstant.USER_UPLOADHEADPIC ))
                 .addFile("file",fileName,f)
                 .build()

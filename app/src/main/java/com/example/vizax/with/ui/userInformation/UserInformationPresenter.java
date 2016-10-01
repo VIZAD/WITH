@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.example.vizax.with.App;
 import com.example.vizax.with.bean.BaseEmptyBean;
 import com.example.vizax.with.bean.InvitationBaseBean;
 import com.example.vizax.with.bean.UserInforBean;
@@ -17,7 +16,6 @@ import com.example.vizax.with.ui.invitationList.InvitationPresenter;
 import com.example.vizax.with.util.FileUtil;
 import com.example.vizax.with.util.FilesUtil;
 import com.example.vizax.with.util.GsonUtil;
-import com.example.vizax.with.util.SharedUtil;
 import com.example.vizax.with.util.UUIDUtil;
 import com.facebook.common.file.FileUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -44,10 +42,10 @@ public class UserInformationPresenter  implements UserInformationContact.Present
             .getAbsolutePath()+ File.separator+"pic";
 
     @Override
-    public void setAvatar(Context context,String url) {
+    public void setAvatar(String url) {
 
         mUserInfoView.showUploadDialog();
-        mUserInfoModuel.setUserAvatar(context,url, new StringCallback() {
+        mUserInfoModuel.setUserAvatar(url, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 mUserInfoView.upLoadFailure();
@@ -58,8 +56,6 @@ public class UserInformationPresenter  implements UserInformationContact.Present
             public void onResponse(String response, int id) {
                 mUserInfoView.upLoadSuccess();
                 mUserInfoView.dimissUploadDialog();
-                BaseEmptyBean baseEmptyBean = GsonUtil.toString(response);
-                Log.w("haha",baseEmptyBean.getMsg());
             }
         });
 

@@ -81,7 +81,7 @@ public class UserInformationActivity extends BaseActivity implements UserInforma
         userInforAvatar.setAfterCropListener(new AvatarImageView.AfterCropListener() {
             @Override
             public void afterCrop(String url) {
-                mUserInforPresenter.setAvatar(context,url);
+                mUserInforPresenter.setAvatar(url);
             }
         });
 

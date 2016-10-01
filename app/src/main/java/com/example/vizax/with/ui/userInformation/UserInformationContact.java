@@ -40,12 +40,12 @@ public interface UserInformationContact {
         //http请求取用户最近活动的数据
         void getRecyclerViewData();
         //上传用户新头像
-        void setUserAvatar(Context context,String url, StringCallback stringCallback);
+        void setUserAvatar(String url, StringCallback stringCallback);
     }
     interface Presenter extends BasePresenter<UserInformationActivity>{
 
         //设置头像
-        void setAvatar(Context context,String url);
+        void setAvatar(String url);
         //关注用户
         boolean follow(String userId);
 

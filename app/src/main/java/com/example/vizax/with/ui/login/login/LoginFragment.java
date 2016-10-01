@@ -155,6 +155,7 @@ public class LoginFragment extends Fragment implements LoginContact.View {
         mEditor.putString("studentID",data.getStudentID());
         mEditor.putString("realName",data.getStudentID());
         mEditor.putString("qq",data.getQq());
+        mEditor.commit();
         //mActivity.finish();
 
     }

@@ -80,7 +80,7 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
     public  ArrayList<InvitationBean> mInvitationBeanList;
     public  ArrayList<MembersBean> mMemberBean;
     private InvitationDetailContact.Presenter mPresenter;
-    private MaterialDialog mMaterialDialog;
+    private MaterialDialog mMaterialDialog,mJoin;
     private int index;
     private HomeInvitationBean mHomeInvitationBean;
     @Override
@@ -128,6 +128,10 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
         itemInvitationNumber.setText(mInvitationBeanList.get(index).getCurrentNumber() + "/" + mInvitationBeanList.get(index).getTotalNumber());
         itemInvitationSexRequire.setText(mInvitationBeanList.get(index).getSexRequire());
 
+        mJoin = new MaterialDialog.Builder(this)
+                .content("正在处理请稍后")
+                .progress(true,0)
+                .build();
 
         if (mInvitationBeanList.get(index).isJoin()) {
             itemInvitationJoinBtn.setImageResource(R.drawable.join_selected);
@@ -202,6 +206,16 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
     public void resetAdater() {
         mAdapter.notifyDataSetChanged();
         mUserImgAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showDialog() {
+        mJoin.show();
+    }
+
+    @Override
+    public void dismissDialog() {
+        mJoin.dismiss();
     }
 
     private void setResultData() {

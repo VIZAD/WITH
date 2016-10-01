@@ -69,12 +69,12 @@ public class InvitationDetailPresenter implements InvitationDetailContact.Presen
      */
     @Override
     public void onPositive(InvitationBean mInvitationBeen) {
-
+        mInvitationDetailView.showDialog();
         mInvitationDetailModel.join(mInvitationBean, type, new StringCallback() {
 
             @Override
             public void onError(Call call, Exception e, int id) {
-                System.out.println("error");
+                mInvitationDetailView.dismissDialog();
             }
             @Override
             public void onResponse(String response, int id) {
@@ -89,8 +89,8 @@ public class InvitationDetailPresenter implements InvitationDetailContact.Presen
                    }
                     mInvitationDetailView.changeBtnSrc();
                 }
+                mInvitationDetailView.dismissDialog();
             }
-
         });
     }
 

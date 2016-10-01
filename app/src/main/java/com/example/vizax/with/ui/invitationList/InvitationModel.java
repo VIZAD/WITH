@@ -19,6 +19,8 @@ public class InvitationModel implements InvitationContact.InvitationlModel {
     public void getData(String typeId, String userId, String token,StringCallback stringCallback) {
         OkHttpUtils.post()
                 .url(APIConstant.getApi(APIConstant.INVITATION_GETINVITATIONS))
+               /* .addParams("typeId",typeId)
+                .addParams("userId",userId)*/
                 .addParams("token",token)
                 .addParams("limit","10")
                 .addParams("lastInvitationId","0")
@@ -31,16 +33,27 @@ public class InvitationModel implements InvitationContact.InvitationlModel {
     public void addData(String finalItemId, String count,String token,StringCallback stringCallback) {
         OkHttpUtils.post()
                 .url(APIConstant.getApi(APIConstant.INVITATION_GETINVITATIONS))
-                .addParams("lastInvitationId",finalItemId)
+                .addParams("lastInvitaionId",finalItemId)
                 .addParams("token",token)
                 .addParams("limit",count)
                 .build()
                 .execute(stringCallback);
 
     }
-    interface StopRefreshing{
-        void stopRefreshing();
+
+    @Override
+    public void deleteData(String token, String invitationId,StringCallback stringCallback) {
+        OkHttpUtils.post()
+                .url(APIConstant.getApi(APIConstant.INVITATION_DELETEINVITATION))
+                .addParams("token",token)
+                .addParams("invitaionId",invitationId)
+                .build()
+                .execute(stringCallback);
     }
+
+    /*interface StopRefreshing{
+        void stopRefreshing();
+    }*/
 
 
 }

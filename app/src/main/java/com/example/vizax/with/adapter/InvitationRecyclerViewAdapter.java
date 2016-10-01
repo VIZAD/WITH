@@ -101,35 +101,27 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
         holder.mRecyclerView.setAdapter(mAdapter);
 
         holder.expend.setVisibility(visible);
-        holder.expend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mInvitationCallBack.press(null,-1,null);
-            }
-        });
+        holder.expend.setOnClickListener(v -> mInvitationCallBack.press(null,position,null));
 
-        holder.itemInvitationJoinBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String  type;
-                String contents = "null";
-                    if(join){
-                        mInvitationCallBack.press("是否退出该活动",position,"2");
+        holder.itemInvitationJoinBtn.setOnClickListener(v -> {
+            String  type;
+            String contents1 = "null";
+                if(join){
+                    mInvitationCallBack.press("是否退出该活动",position,"2");
 
-                    }else {
-                        if(mData.getData().get(position).getCurrentNumber() == mData.getData().get(position).getTotalNumber()) {
-                            type = "1";
-                            contents = "该活动已满人，是否请求发起者特批允许参加？";
-                        }
-                        else {
-                            type = "0";
-                            contents = "是否参加该活动?";
-                        }
-                        mInvitationCallBack.press(contents,position,type);
+                }else {
+                    if(mData.getData().get(position).getCurrentNumber() == mData.getData().get(position).getTotalNumber()) {
+                        type = "0";
+                        contents1 = "该活动已满人，是否请求发起者特批允许参加？";
                     }
+                    else {
+                        type = "1";
+                        contents1 = "是否参加该活动?";
+                    }
+                    mInvitationCallBack.press(contents1,position,type);
+                }
 
 
-            }
         });
         holder.itemInvitationOriginatorImagVi.setOnClickListener(new View.OnClickListener() {
             @Override

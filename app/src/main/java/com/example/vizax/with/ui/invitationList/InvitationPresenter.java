@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.vizax.with.adapter.InvitationRecyclerViewAdapter;
+import com.example.vizax.with.bean.BaseBean;
 import com.example.vizax.with.bean.InvitationBaseBean;
 import com.example.vizax.with.bean.MembersBean;
 import com.example.vizax.with.bean.UserInforBean;
@@ -30,7 +31,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     private String finalItemId;
     private UserInforBean mUserInforBean;
     public InvitationBaseBean baseBean;
-    private String token;
+    private String token ;
 
     /**
      * 设置recyclerView的adapter
@@ -81,22 +82,27 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
 
     @Override
     public void onPositive(int position) {
+        mInvitationActivity.showDiaolog();
         new  InvitationDetailModel().join(baseBean.getData().get(position), type, new StringCallback() {
-
             @Override
             public void onError(Call call, Exception e, int id) {
-
+                mInvitationActivity.dismissDialog();
             }
 
             @Override
             public void onResponse(String response, int id) {
-                baseBean.getData().get(position).setJoin( baseBean.getData().get(position).isJoin()?false:true);
-                if( baseBean.getData().get(position).isJoin()){
-                    membersAdd(position);
-                }else {
-                    membersReduce(position);
+                BaseBean join = GsonUtil.toString(response,BaseBean.class);
+                System.out.println("msg="+join.getMsg());
+                if (join.getCode().equals("200")) {
+                    baseBean.getData().get(position).setJoin(baseBean.getData().get(position).isJoin() ? false : true);
+                    if (baseBean.getData().get(position).isJoin()) {
+                        membersAdd(position);
+                    } else {
+                        membersReduce(position);
+                    }
+                    mAdapter.notifyItemChanged(position);
                 }
-                mAdapter.notifyItemChanged(position);
+                mInvitationActivity.dismissDialog();
             }
         });
     }
@@ -200,5 +206,23 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     @Override
     public void setNotifyChange() {
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void deleteInvitation(int position) {
+        mInvitationActivity.showDiaolog();
+        mInvitationModel.deleteData(token, baseBean.getData().get(position).getInvitaionId(), new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                mInvitationActivity.dismissDialog();
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+              //  baseBean.getData().remove(position);
+                mAdapter.notifyItemRemoved(position);
+                mInvitationActivity.dismissDialog();
+            }
+        });
     }
 }

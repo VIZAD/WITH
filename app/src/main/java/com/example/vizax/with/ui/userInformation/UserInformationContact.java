@@ -7,6 +7,7 @@ import com.example.vizax.with.base.BaseView;
 import com.example.vizax.with.bean.InvitationBaseBean;
 import com.example.vizax.with.bean.UserInforBean;
 import com.example.vizax.with.ui.invitationList.InvitationContact;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import okhttp3.Callback;
 
@@ -24,6 +25,11 @@ public interface UserInformationContact {
         void upLoadSuccess();
         //修改头像失败
         void upLoadFailure();
+
+        void showUploadDialog();
+
+        void dimissUploadDialog();
+
         Context getContext();
 
     }
@@ -34,12 +40,12 @@ public interface UserInformationContact {
         //http请求取用户最近活动的数据
         void getRecyclerViewData();
         //上传用户新头像
-        void setUserAvatar(String id, String url);
+        void setUserAvatar(Context context,String url, StringCallback stringCallback);
     }
     interface Presenter extends BasePresenter<UserInformationActivity>{
 
         //设置头像
-        void setAvatar(String id,String url);
+        void setAvatar(Context context,String url);
         //关注用户
         boolean follow(String userId);
 

@@ -201,17 +201,14 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
         if (type) {
             mEdit = new MaterialDialog.Builder(this)
                     .items("编辑", "删除")
-                    .itemsCallback(new MaterialDialog.ListCallback() {
-                        @Override
-                        public void onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                            switch (which) {
-                                case 0:
-                                    openEdit();
-                                    break;
-                                case 1:
-                                    mInvitationListPresenter.deleteInvitation(position);
-                                    break;
-                            }
+                    .itemsCallback((dialog, itemView, which, text) -> {
+                        switch (which) {
+                            case 0:
+                                openEdit();
+                                break;
+                            case 1:
+                                mInvitationListPresenter.deleteInvitation(position);
+                                break;
                         }
                     }).build();
             mEdit.show();

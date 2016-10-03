@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.vizax.with.App;
 import com.example.vizax.with.R;
 import com.example.vizax.with.base.BaseActivity;
 import com.example.vizax.with.bean.InvitationBean;
@@ -24,6 +25,7 @@ import com.example.vizax.with.bean.MembersBean;
 import com.example.vizax.with.bean.UserInforBean;
 import com.example.vizax.with.customView.BaseToolBar;
 import com.example.vizax.with.ui.Insist.InsistActivity;
+import com.example.vizax.with.ui.changpsw.ChangePswActivity;
 import com.example.vizax.with.ui.invitationList.InvitationActivity;
 import com.example.vizax.with.ui.invitationList.InvitationDetailsActivity;
 import com.example.vizax.with.ui.myconcern.MyConcernActivity;
@@ -290,7 +292,9 @@ public class HomeActivity extends BaseActivity implements HomeContact.View {
                 showHomeToast("我的个人信息");
                 break;
             case R.id.my_changepassword_txtVi:
-                showHomeToast("修改密码");
+                intent = new Intent(App.instance, ChangePswActivity.class);
+                startActivity(intent);
+                //showHomeToast("修改密码");
                 break;
             case R.id.my_invitation_txtVi:
                 intent = new Intent(this, InvitationActivity.class);

@@ -19,8 +19,6 @@ public class ChangePswPresenter implements ChangePswContact.changepswPresent {
         changePswModel = new ChangePswModel();
     }
 
-
-
     @Override
     public void attachView(@NonNull ChangePswContact.View View) {
           changepasswordView = View;
@@ -48,9 +46,8 @@ public class ChangePswPresenter implements ChangePswContact.changepswPresent {
                     System.out.println(baseBean.getMsg());
                     changepasswordView.changepswSuccess("修改成功");
                 }
-
                 else
-                    changepasswordView.changepswFailure("修改失败");
+                    changepasswordView.changepswFailure(baseBean.getMsg());
                 changepasswordView.dimissloading();
             }
         });

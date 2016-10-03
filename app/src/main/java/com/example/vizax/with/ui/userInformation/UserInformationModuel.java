@@ -1,13 +1,19 @@
 package com.example.vizax.with.ui.userInformation;
 
 import android.os.Handler;
+import android.util.Log;
 
+import com.example.vizax.with.App;
 import com.example.vizax.with.bean.BaseEmptyBean;
 import com.example.vizax.with.bean.FollowBean;
 import com.example.vizax.with.bean.Test;
 import com.example.vizax.with.bean.UserInforBean;
 import com.example.vizax.with.constant.APIConstant;
+import com.example.vizax.with.util.FilesUtil;
 import com.example.vizax.with.util.GsonUtil;
+import com.example.vizax.with.util.PrjOkHttpUtil;
+import com.example.vizax.with.util.SharedUtil;
+import com.example.vizax.with.util.UUIDUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -26,8 +32,10 @@ public class UserInformationModuel implements UserInformationContact.Moduel {
     private UserInforBean mUserInforBean;
     public Callback callback;
     private  boolean follow;
+
     @Override
     public UserInforBean getUserInformation(String userId) {
+
         System.out.println("11111111111"+userId);
         //获取用户信息的json数据解析
         OkHttpUtils.post()
@@ -44,7 +52,6 @@ public class UserInformationModuel implements UserInformationContact.Moduel {
                     @Override
                     public void onResponse(String response, int id) {
                          mUserInforBean = GsonUtil.toListString(response,UserInforBean.class);
-
                     }
                 });
         return mUserInforBean;
@@ -83,31 +90,17 @@ public class UserInformationModuel implements UserInformationContact.Moduel {
     }
 
     @Override
-    public void setUserAvatar(String avatarId, String url) {
-        File f=new File(url);
-        OkHttpUtils.post()
-                .url(APIConstant.getApi(APIConstant.USER_UPLOADHEADPIC ))
-                .addFile("file",avatarId,f)
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        callback.onFailure(call,(IOException) e);
-                    }
+    public void setUserAvatar(String url,StringCallback stringCallback) {
 
-                    @Override
-                    public void onResponse(String response, int id) {
-                        BaseEmptyBean baseEmptyBean = GsonUtil.toString(response);
-                        if(baseEmptyBean.getCode().equals("200")){
-                            try {
-                                callback.onResponse(null,null);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                });
+        String fileName = UUIDUtil.createUUID()+ "max.jpg";
+        File f=new File(url);
+        PrjOkHttpUtil.addToken()
+                .url(APIConstant.getApi(APIConstant.USER_UPLOADHEADPIC ))
+                .addFile("file",fileName,f)
+                .build()
+                .execute(stringCallback);
     }
+
     public void setCallback(Callback call){
         this.callback = call;
     }

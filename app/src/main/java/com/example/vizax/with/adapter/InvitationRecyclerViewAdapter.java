@@ -1,33 +1,20 @@
 package com.example.vizax.with.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.R;
 import com.example.vizax.with.bean.InvitationBaseBean;
-import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.ui.invitationList.InvitationContact;
-import com.example.vizax.with.ui.invitationList.InvitationDetailContact;
-import com.example.vizax.with.ui.invitationList.InvitationDetailsActivity;
-import com.example.vizax.with.ui.invitationList.InvitationDetailModel;
 import com.example.vizax.with.util.StringUtil;
-
-import java.util.ArrayList;
+import com.example.vizax.with.util.TimeUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +31,7 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
 
     private  InvitationContact.InvitationCallBack mInvitationCallBack;
     private ClickListerner clickListerner;
+    private SetMemberNum setMemberNum;
 
     public InvitationRecyclerViewAdapter(Context context, InvitationBaseBean mData,int visible) {
         this.context = context;
@@ -54,6 +42,10 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
     public void setOnItemClickListener(ClickListerner clickListerner){
 
         this.clickListerner = clickListerner;
+    }
+
+    public void setMembersNum(SetMemberNum setNum){
+        setMemberNum = setNum;
     }
 
     //回调接口
@@ -86,7 +78,7 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
         String contents = StringUtil.cutContents(mData.getData().get(position).getContent(),57);
         holder.itemInvitationContents.setText(contents);
         holder.itemInvitationInvitationTime.setText(mData.getData().get(position).getInvitationTime());
-        holder.itemInvitationPublishTime.setText(mData.getData().get(position).getPublishTime());
+        holder.itemInvitationPublishTime.setText(TimeUtil.getTime(mData.getData().get(position).getPublishTime()));
         holder.itemInvitationPlace.setText(mData.getData().get(position).getPlace());
         holder.itemInvitationSexRequire.setText(mData.getData().get(position).getSexRequire());
         holder.itemInvitationNumber.setText(mData.getData().get(position).getCurrentNumber()+"/"+mData.getData().get(position).getTotalNumber());
@@ -101,35 +93,28 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
         holder.mRecyclerView.setAdapter(mAdapter);
 
         holder.expend.setVisibility(visible);
-        holder.expend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mInvitationCallBack.press(null,-1,null);
-            }
-        });
+        holder.expend.setOnClickListener(v -> mInvitationCallBack.press(null,position,null));
 
-        holder.itemInvitationJoinBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String  type;
-                String contents = "null";
-                    if(join){
-                        mInvitationCallBack.press("是否退出该活动",position,"2");
+        holder.itemInvitationJoinBtn.setOnClickListener(v -> {
+            String  type;
+            String contents1 = "null";
+                if(join){
+                    mInvitationCallBack.press("是否退出该活动",position,"2");
 
-                    }else {
-                        if(mData.getData().get(position).getCurrentNumber() == mData.getData().get(position).getTotalNumber()) {
-                            type = "1";
-                            contents = "该活动已满人，是否请求发起者特批允许参加？";
-                        }
-                        else {
-                            type = "0";
-                            contents = "是否参加该活动?";
-                        }
-                        mInvitationCallBack.press(contents,position,type);
+                }else {
+                    if(mData.getData().get(position).getCurrentNumber() == mData.getData().get(position).getTotalNumber()) {
+                        type = "0";
+                        contents1 = "该活动已满人，是否请求发起者特批允许参加？";
                     }
+                    else {
+                        type = "1";
+                        contents1 = "是否参加该活动?";
+                    }
+                    mInvitationCallBack.press(contents1,position,type);
+                    //setMemberNum.setNum(position);
+                }
 
 
-            }
         });
         holder.itemInvitationOriginatorImagVi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,5 +202,7 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
         void onItemClick(int position,InvitationBaseBean invitationBaseBean);
         void onAvatarOnclik(int position,InvitationBaseBean invitationBaseBean);
     }
-
+    public interface SetMemberNum {
+        void setNum(int position);
+    }
 }

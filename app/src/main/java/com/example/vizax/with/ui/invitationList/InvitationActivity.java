@@ -4,29 +4,36 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.R;
 import com.example.vizax.with.adapter.InvitationRecyclerViewAdapter;
 import com.example.vizax.with.bean.InvitationBaseBean;
+import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.bean.UserInforBean;
 import com.example.vizax.with.customView.BaseToolBar;
+import com.example.vizax.with.ui.invitation.LuanchInvitationActivity;
 import com.example.vizax.with.ui.userInformation.UserInformationActivity;
 import com.example.vizax.with.util.SnackbarUtils;
-import com.example.vizax.with.util.swipeback.ArrayUtil;
-
+import com.example.vizax.with.util.ArrayUtil;
+import com.example.vizax.with.util.StringUtil;
 
 import net.mobctrl.views.SuperSwipeRefreshLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
-public class InvitationActivity extends AppCompatActivity implements InvitationContact.View {
+public class InvitationActivity extends SwipeBackActivity implements InvitationContact.View {
     private static final String MY_INVITATION = "我发起的";
     @BindView(R.id.baseToolBar)
     BaseToolBar mBaseToolBar;
@@ -36,6 +43,8 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
     LinearLayout mRoot;
     @BindView(R.id.invitation_refresh)
     SuperSwipeRefreshLayout invitationRefresh;
+    @BindView(R.id.invitation_fab)
+    FloatingActionButton fab;
     private InvitationRecyclerViewAdapter mAdapter;
     private String type;
     private Intent it;
@@ -43,8 +52,10 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
     private InvitationPresenter mInvitationListPresenter;
     private int mMainClass;
     private SuperSwipeRefreshLayout refreshLayout;
-    private MaterialDialog mEdit,mJoinDialog;
+    private MaterialDialog mEdit, mJoinDialog, mJoing;
     public String token = "2";
+    private SwipeBackLayout mSwipeBackLayout;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,32 +65,25 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
         mInvitationListPresenter = new InvitationPresenter();
         mInvitationListPresenter.attachView(this);
         //初始化dialog
-        initDialog(null,-1);
+        initDialog(null, -1);
         //设置邀约列表的类型
         setType();
         //初始化recyclerView
-        mInvitationListPresenter.getDataAndSetAdapter(this, mRecyclerView,token, visible, null, null);
+        // token  = User.token;
+        mInvitationListPresenter.getDataAndSetAdapter(this, mRecyclerView, token, visible, null, null);
         //初始化toolbar
         initToolbar();
         //初始化superSwipeRefreshLayout
-       initSuperSwipeRefresh();
+        initSuperSwipeRefresh();
+
+        //设置swipback参数
+        mSwipeBackLayout = getSwipeBackLayout();
+        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
     }
 
     //初始化dialog
     private void initDialog(@Nullable String contents, int position) {
-        mEdit = new MaterialDialog.Builder(this)
-                .items("编辑","删除")
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                        switch (which){
-                            case 0:
-                                break;
-                            case 1:
-                                break;
-                        }
-                    }
-                }).build();
+
         mJoinDialog = new MaterialDialog.Builder(this)
                 .content(contents)
                 .positiveText("是")
@@ -92,18 +96,24 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
                     }
                 })
                 .build();
+        mJoing = new MaterialDialog.Builder(this)
+                .content("正在处理请稍等...")
+                .progress(true, 0)
+                .build();
 
     }
+
     @Override
-    public void stopRefresh(){
+    public void stopRefresh() {
         invitationRefresh.setLoadMore(false);
         invitationRefresh.setRefreshing(false);
     }
+
     private void initSuperSwipeRefresh() {
         invitationRefresh.setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
             @Override
             public void onRefresh() {
-                mInvitationListPresenter.getDataAndSetAdapter(InvitationActivity.this, mRecyclerView, token,visible, null, null);
+                mInvitationListPresenter.getDataAndSetAdapter(InvitationActivity.this, mRecyclerView, token, visible, null, null);
                 invitationRefresh.setRefreshing(false);
             }
 
@@ -122,6 +132,7 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
             public void onLoadMore() {
                 mInvitationListPresenter.pullLoadMore(InvitationActivity.this, mRecyclerView, visible, null, null);
 
+
             }
 
             @Override
@@ -139,7 +150,7 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
     private void setType() {
         it = getIntent();
         type = it.getStringExtra("type");
-        mMainClass = ArrayUtil.getArray(type == null?"足球":type);
+        mMainClass = ArrayUtil.getArray(type == null ? "足球" : type);
         if (type != null) {
             if (type.equals(MY_INVITATION)) {
                 visible = View.VISIBLE;
@@ -171,7 +182,11 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
                         .itemsCallback(new MaterialDialog.ListCallback() {
                             @Override
                             public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                mBaseToolBar.setCenterText(text);
+                                switch (which){
+                                    case 0:
 
+                                }
                             }
                         })
                         .show();
@@ -181,13 +196,40 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
     }
 
     @Override
-    public void showDialog(boolean type,@Nullable String contents, int position) {
-        if (type)
+    public void showDialog(boolean type, @Nullable String contents, int position) {
+        this.position = position;
+        if (type) {
+            mEdit = new MaterialDialog.Builder(this)
+                    .items("编辑", "删除")
+                    .itemsCallback(new MaterialDialog.ListCallback() {
+                        @Override
+                        public void onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                            switch (which) {
+                                case 0:
+                                    openEdit();
+                                    break;
+                                case 1:
+                                    mInvitationListPresenter.deleteInvitation(position);
+                                    break;
+                            }
+                        }
+                    }).build();
             mEdit.show();
+        }
         else {
-            initDialog(contents,position);
+            initDialog(contents, position);
             mJoinDialog.show();
         }
+    }
+
+    @Override
+    public void showDiaolog() {
+        mJoing.show();
+    }
+
+    @Override
+    public void dismissDialog() {
+        mJoing.dismiss();
     }
 
 
@@ -197,19 +239,29 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
     }
 
     @Override
+    public void openEdit() {
+        InvitationBean invitationBean = mInvitationListPresenter.baseBean.getData().get(position);
+        Intent it = new Intent(this, LuanchInvitationActivity.class);
+        Bundle lBundle = new Bundle();
+        lBundle.putParcelable("invitationBean", invitationBean);
+        it.putExtras(lBundle);
+        startActivity(it);
+    }
+
+    @Override
     public void OpenDetail(int position, InvitationBaseBean mData) {
         Intent it = new Intent(this, InvitationDetailsActivity.class);
         Bundle lBundle = new Bundle();
         Bundle memBundle = new Bundle();
         Bundle invitationBaseBeanBundle = new Bundle();
-        memBundle.putParcelableArrayList("members",mData.getData().get(position).getMembers());
-       // lBundle.putParcelable("users",mData.getData().get(position));
+        memBundle.putParcelableArrayList("members", mData.getData().get(position).getMembers());
+        // lBundle.putParcelable("users",mData.getData().get(position));
         invitationBaseBeanBundle.putParcelableArrayList("invitationlist", mData.getData());
-        invitationBaseBeanBundle.putInt("index",position);
+        invitationBaseBeanBundle.putInt("index", position);
         //it.putExtras(lBundle);
         it.putExtras(memBundle);
         it.putExtras(invitationBaseBeanBundle);
-        startActivityForResult(it,1);
+        startActivityForResult(it, 1);
 
     }
 
@@ -225,13 +277,25 @@ public class InvitationActivity extends AppCompatActivity implements InvitationC
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        boolean join = data.getBooleanExtra("join",false);
-        int index = data.getIntExtra("index",0);
+        boolean join = data.getBooleanExtra("join", false);
+        int index = data.getIntExtra("index", 0);
         mInvitationListPresenter.baseBean.getData().get(index).setMembers(data.getParcelableArrayListExtra("members"));
         mInvitationListPresenter.baseBean.getData().get(index).setJoin(join);
         mInvitationListPresenter.setNotifyChange();
-       // mInvitationListPresenter.setAdapter(this, mRecyclerView, mInvitationListPresenter.baseBean,visible);
+        // mInvitationListPresenter.setAdapter(this, mRecyclerView, mInvitationListPresenter.baseBean,visible);
     }
 
 
+    @OnClick(R.id.invitation_fab)
+    public void onClick() {
+        openLaunch();
+        Toast.makeText(InvitationActivity.this,"dianji",Toast.LENGTH_SHORT).show();
+    }
+    //发起活动
+    @Override
+    public void openLaunch() {
+        Intent it = new Intent(this, LuanchInvitationActivity.class);
+        it.putExtra("typeId", StringUtil.invitationIdUtil(type));
+        startActivity(it);
+    }
 }

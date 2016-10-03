@@ -13,8 +13,10 @@ import android.view.ViewGroup;
 
 import com.example.vizax.with.R;
 import com.example.vizax.with.bean.InvitationBaseBean;
+import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.bean.MembersBean;
 import com.example.vizax.with.bean.UserInforBean;
+import com.example.vizax.with.ui.invitation.LuanchInvitationActivity;
 import com.example.vizax.with.ui.invitationList.InvitationActivity;
 import com.example.vizax.with.ui.invitationList.InvitationContact;
 import com.example.vizax.with.ui.invitationList.InvitationDetailsActivity;
@@ -35,7 +37,7 @@ import static android.R.attr.visible;
  * Created by apple1 on 2016/9/13.
  */
 public class ActivityTabFragment extends Fragment implements InvitationContact.View {
-    private String token = "1";
+    private String token = "2";
     private InvitationPresenter mInvitationListPresenter;
     @BindView(R.id.activity_tab_fragment_recyclerview)
     RecyclerView mRecyclerView;
@@ -72,7 +74,26 @@ public class ActivityTabFragment extends Fragment implements InvitationContact.V
     }
 
     @Override
+    public void showDiaolog() {
+
+    }
+
+    @Override
+    public void dismissDialog() {
+
+    }
+
+    @Override
     public void loadDataFailure() {
+
+    }
+
+    @Override
+    public void openEdit() {
+    }
+
+    @Override
+    public void openLaunch() {
 
     }
 

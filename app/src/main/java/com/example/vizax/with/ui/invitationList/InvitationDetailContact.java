@@ -14,8 +14,16 @@ public interface InvitationDetailContact {
     interface View extends BaseView{
         void showDialog(String contents);
         void changeBtnSrc();
+        void removeMember(int position);
+        void addMember(int position);
 
-        void resetAdater();
+        //点击确定参加按钮后
+        void showDialog();
+        void dismissDialog();
+
+        //已参与人加减
+        void addNum();
+        void reduceNum();
     }
     interface InvitationDetailModel{
         String getData(String token,String typeId,String userId,String lastInvitatioonId,String limit);

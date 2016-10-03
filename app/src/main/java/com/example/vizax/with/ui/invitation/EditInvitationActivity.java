@@ -1,7 +1,6 @@
 package com.example.vizax.with.ui.invitation;
 
 import android.os.Bundle;
-
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,10 +34,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LuanchInvitationActivity extends AppCompatActivity implements LuanchInvitationContact.View{
+public class EditInvitationActivity extends AppCompatActivity implements EditInvitationContact.View{
 
     @BindView(R.id.launch_toolbar)
     BaseToolBar launchToolbar;
+    @BindView(R.id.launch_selectActivity_spinner)
+    Spinner launchSelectActivitySpinner;
     @BindView(R.id.launch_invitationTitle_edtTxt)
     EditText launchInvitationTitleEdtTxt;
     @BindView(R.id.launch_description_ediTxt)
@@ -78,23 +79,30 @@ public class LuanchInvitationActivity extends AppCompatActivity implements Luanc
     private String subclass;
     private String sex;
     private String invitation_date;
-    private LuanchInitInvitationPresenter init;
     private Boolean hidenBoolean;
     private RadioButton check_RdoBtn;
     private Switch hidenswitch;
-    private String mClass = "运动";
+    private EditInvitationPresenter Edit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitation);
         EventBus.getDefault().register(this);//注册
         ButterKnife.bind(this);
-        init = new LuanchInitInvitationPresenter(this);
-        init.attachView(this);
-        launchDateTxt.setText(init.setDate());
-        launchTimeTxt.setText(init.setTime());
-        initSpinner(init);
+
+        Edit=new EditInvitationPresenter();
+        Edit.attachView(this);
+        initSpinner();
         launchUnlimitedRdoBtn.setChecked(true);
+        launchEnsureBtn.setText("确认编辑");
+        launchCancelBtn.setText("取消编辑");
+        launchInvitationTitleEdtTxt.setText("标题");
+        launchDescriptionEdiTxt.setText("内容描述");
+        launchDateTxt.setText("日期");
+        launchTimeTxt.setText("时间");
+        launchSiteEdtTxt.setText("地点");
+        launchUpper.setText("10");
+        spinner= (Spinner) findViewById(R.id.launch_selectActivity_spinner);
         sex=launchUnlimitedRdoBtn.getText().toString();
         launchHideInformationSwt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -115,9 +123,42 @@ public class LuanchInvitationActivity extends AppCompatActivity implements Luanc
             }
         });
     }
-    @Override
-    public void setluanchInvitationTitleEdtTxt(String text){
-        launchInvitationTitleEdtTxt.setText(text);
+    private void listpopupwindow( String subclass) {
+
+        title_list = Edit.setTitle(subclass);
+        System.out.println("aaaaaaaaaaaaaaaa"+title_list);
+        mListPop = new ListPopupWindow(this);
+        mListPop.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1,title_list));
+        mListPop.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
+        mListPop.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
+        mListPop.setAnchorView(launchInvitationTitleEdtTxt);//设置ListPopupWindow的锚点，即关联PopupWindow的显示位置和这个锚点
+        mListPop.setModal(true);//设置是否是模式
+        mListPop.setOnItemClickListener((parent, view, position, id) -> {
+            Edit.listpopupwindowItemOnclick(title_list.get(position));
+        });
+        launchInvitationTitleEdtTxt.setOnClickListener(v -> {
+            Edit.showTitleListpopupwindow();
+        });
+    }
+    public void initSpinner(){
+        spinner = (Spinner) findViewById(R.id.launch_selectActivity_spinner);
+        subclass_list= Edit.setspinner();
+        //适配器
+        arr_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subclass_list);
+        //设置样式
+        arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //加载适配器
+        spinner.setAdapter(arr_adapter);
+        spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                subclass =subclass_list.get(position);
+                listpopupwindow(subclass);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
     @Override
@@ -134,11 +175,18 @@ public class LuanchInvitationActivity extends AppCompatActivity implements Luanc
     public void setUpperError() {
         launchUpper.setError("活动人数不能为空！");
     }
+    @Override
+    public void showCommitError(String text) {
+        Toast.makeText(this,text,Toast.LENGTH_LONG).show();
+    }
+    @Override
+    public void showDatePicker(DatePickerFragment datePicker) {
+        datePicker.show(getFragmentManager(),"datePicker");
+    }
 
     @Override
-    public String[] getResources1() {
-        String[]  items= getResources().getStringArray(R.array.sports);
-        return items;
+    public void showTimePicker(TimePickerFragment timePicker) {
+        timePicker.show(getFragmentManager(), "timePicker");
     }
 
     @Override
@@ -152,57 +200,13 @@ public class LuanchInvitationActivity extends AppCompatActivity implements Luanc
     }
 
     @Override
-    public void showDatePicker(DatePickerFragment datePicker) {
-        datePicker.show(getFragmentManager(),"datePicker");
-    }
-    @Override
-    public void dissTitleListpopupwindow(){
+    public void dissTitleListpopupwindow() {
         mListPop.dismiss();
     }
-    @Override
-    public void showTimePicker(TimePickerFragment timePicker) {
-        timePicker.show(getFragmentManager(), "timePicker");
-    }
-    @Override
-    public void showCommitError(String text) {
-        Toast.makeText(this,text,Toast.LENGTH_LONG).show();
-    }
 
-    private void listpopupwindow(LuanchInitInvitationPresenter init,String subclass) {
-        title_list = init.setTitle(mClass,subclass);
-        mListPop = new ListPopupWindow(this);
-        mListPop.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1,title_list));
-        mListPop.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-        mListPop.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
-        mListPop.setAnchorView(launchInvitationTitleEdtTxt);//设置ListPopupWindow的锚点，即关联PopupWindow的显示位置和这个锚点
-        mListPop.setModal(true);//设置是否是模式
-        mListPop.setOnItemClickListener((parent, view, position, id) -> {
-            init.listpopupwindowItemOnclick(title_list.get(position));
-        });
-        launchInvitationTitleEdtTxt.setOnClickListener(v -> {
-            init.showTitleListpopupwindow();
-        });
-    }
-    public void initSpinner(LuanchInitInvitationPresenter init){
-        spinner = (Spinner) findViewById(R.id.launch_selectActivity_spinner);
-        subclass_list= init.setspinner(mClass);
-        //适配器
-        arr_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subclass_list);
-        //设置样式
-        arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //加载适配器
-        spinner.setAdapter(arr_adapter);
-        spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                subclass = subclass_list.get(position);
-                listpopupwindow(init,subclass);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+    @Override
+    public void setluanchInvitationTitleEdtTxt(String text) {
+        launchInvitationTitleEdtTxt.setText(text);
     }
 
     @Subscribe
@@ -219,19 +223,19 @@ public class LuanchInvitationActivity extends AppCompatActivity implements Luanc
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.launch_date_Txt:
-                init.showDatePicker(launchDateTxt);
+                Edit.showDatePicker(launchDateTxt);
                 break;
             case R.id.launch_time_Txt:
-                init.showTimePicker(launchTimeTxt);
+                Edit.showTimePicker(launchTimeTxt);
                 break;
             case R.id.launch_remove_imgBtn:
-                init.removeUpper(launchUpper);
+                Edit.removeUpper(launchUpper);
                 break;
             case R.id.launch_add_imgBtn:
-                init.addUpper(launchUpper);
+                Edit.addUpper(launchUpper);
                 break;
             case R.id.launch_ensureBtn:
-                init.luanchInvitation(subclass,launchInvitationTitleEdtTxt.getText().toString(),launchDescriptionEdiTxt.getText().toString(),
+                Edit.luanchInvitation(subclass,launchInvitationTitleEdtTxt.getText().toString(),launchDescriptionEdiTxt.getText().toString(),
                         sex,invitation_date,launchTimeTxt.getText().toString(),launchSiteEdtTxt.getText().toString(),launchUpper.getText().toString(),
                         hidenBoolean,title_list.get(0));
                 break;
@@ -240,6 +244,6 @@ public class LuanchInvitationActivity extends AppCompatActivity implements Luanc
     @Override
     public void onDestroy() {
         super.onDestroy();
-        init.detachView();
+        Edit.detachView();
     }
 }

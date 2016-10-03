@@ -242,5 +242,10 @@ dependencies {
     compile 'com.bartoszlipinski.recyclerviewheader:library:1.2.0'
     //UMENG
     compile 'com.umeng.analytics:analytics:latest.integration'
+    //侧滑删除
+    compile 'com.yanzhenjie:recyclerview-swipe:1.0.2'
     compile project(':PushSDK')
+
+    //侧滑删除
+    compile 'com.yanzhenjie:recyclerview-swipe:1.0.2'
 }

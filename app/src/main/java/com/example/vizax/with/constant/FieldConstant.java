@@ -21,6 +21,11 @@ public class FieldConstant {
     public static final String realName   = "realName";
     public static final String qq   = "qq";
 
-
+    public static final int MESSAGE_TYPE_APPLY = 0;
+    public static final int MESSAGE_TYPE_ADD = 1;
+    public static final int MESSAGE_TYPE_QUIT = 2;
+    public static final int MESSAGE_TYPE_AGREE = 3;
+    public static final int MESSAGE_TYPE_REJECT = 4;
+    public static final int MESSAGE_TYPE_CANCEL = 5;
 
 }

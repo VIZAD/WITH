@@ -7,10 +7,19 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.vizax.with.bean.BaseBean;
+import com.example.vizax.with.bean.VersionBean;
+import com.example.vizax.with.constant.APIConstant;
 import com.example.vizax.with.util.DeviceUtils;
+import com.example.vizax.with.util.GsonUtil;
 import com.example.vizax.with.util.NetWorkUtil;
+import com.example.vizax.with.util.PrjOkHttpUtil;
 import com.example.vizax.with.util.RxBus;
 import com.example.vizax.with.util.SnackbarUtils;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import okhttp3.Call;
 
 /**
  * Created by prj on 2016/9/26.
@@ -28,29 +37,49 @@ public class UpdateManager {
 
     public void checkUpdate(){
 
-        String version_info = "2.0版本更新";
         int mVersion_code = DeviceUtils.getVersionCode(mContext);// 当前的版本号
-        int nVersion_code = 2;
+        PrjOkHttpUtil.addToken()
+                .url(APIConstant.getApi(APIConstant.USER_VERSIONUPDATE))
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
 
-        if (mVersion_code<nVersion_code){
-            showUpdateDialog(version_info);
-        }
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+
+                        VersionBean versionBean = GsonUtil.toString(response,VersionBean.class);
+                        if (versionBean.getCode()==200){
+                            if (mVersion_code<versionBean.getData().getVersionCode()){
+                                showUpdateDialog(versionBean.getData().getVersionContent(),versionBean.getData().getVersionUrl());
+                            }else {
+                                Toast.makeText(mContext,versionBean.getMsg(),Toast.LENGTH_SHORT).show();
+                            }
+                        }else {
+                            Toast.makeText(mContext,versionBean.getMsg(),Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
     }
 
-    private void showUpdateDialog(String version_info) {
+    private void showUpdateDialog(String version_info,String version_url) {
+
+        String[] item = version_info.split(";");
         mAlertDialog = new MaterialDialog.Builder(mContext)
                 .title("更新提示")
-                .content(version_info)
+                .items((CharSequence[]) item)
                 .positiveText("立即更新")
                 .negativeText("暂不更新")
                 .onPositive((dialog, which) -> {
-                    String url = "http://117.169.71.165/imtt.dd.qq.com/16891/580B22B6281E704CAB3079BC8210A88D.apk?mkey=57e9226712336c2a&f=8a5d&c=0&fsname=com.supertreasure_1.2_3.apk&csr=4d5s&p=.apk\n";
                     if (!NetWorkUtil.isConnected(mContext)){
                         Toast.makeText(mContext,"大侠请打开网络",Toast.LENGTH_SHORT).show();
                     }else if (NetWorkUtil.isWifiConnected(mContext)) {
-                        startService(url);
+                        startService(version_url);
                     }else {
-                        showConfirmDialog(url);
+                        showConfirmDialog(version_url);
                     }
                 })
                 .build();

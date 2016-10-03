@@ -81,7 +81,6 @@ public class LuanchInvitationActivity extends AppCompatActivity implements Luanc
     private LuanchInitInvitationPresenter init;
     private Boolean hidenBoolean;
     private RadioButton check_RdoBtn;
-    private Switch hidenswitch;
     private String mClass = "运动";
     @Override
     protected void onCreate(Bundle savedInstanceState) {

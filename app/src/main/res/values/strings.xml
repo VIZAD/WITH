@@ -66,6 +66,9 @@
         <item>露营</item>
         <item>其他约会</item>
     </string-array>
+    <string-array name="other">
+        <item>其他</item>
+    </string-array>
     <!--登录页面-->
     <string name="login_tab">登录</string>
     <string name="register_tab">注册</string>
@@ -230,6 +233,9 @@
     <string name="cancel_return_btn">取消返回</string>
     <string name="ensure_edit_btn">确认编辑</string>
     <string name="cancel_activity_btn">取消活动</string>
+
+
+
     <string name="basketball_title1_label">无兄弟，不篮球！</string>
     <string name="basketball_title2_label">发起了打篮球活动</string>
     <string name="basketball_title3_label">组队打篮球，求with！</string>

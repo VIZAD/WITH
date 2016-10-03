@@ -155,7 +155,7 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
                     case "溜冰":
                         title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_skating));
                         break;
-                    case "其他":
+                    case "其他运动":
                         title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_other));
                         break;
                 }
@@ -183,7 +183,7 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
                     case "BEC":
                         title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_bec));
                         break;
-                    case "其他":
+                    case "其他学习":
                         title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_other));
                         break;
                 }
@@ -220,8 +220,57 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
                 }
                 break;
             case "网游":
+                switch (String.valueOf(subclass)){
+                    case "英雄联盟":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_wwtk));
+                        break;
+                    case "Dota2":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_werewolfkill));
+                        break;
+                    case "守望先锋":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_uno));
+                        break;
+                    case "CF":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_go));
+                        break;
+                    case "DNF":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_chinesechess));
+                        break;
+                    case "王者荣耀":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_gobang));
+                        break;
+                    case "斗地主":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_texasholdem));
+                        break;
+                    case "其他网游":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_point21));
+                        break;
+                }
                 break;
             case "聚会":
+                switch (String.valueOf(subclass)){
+                    case "吃饭":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_wwtk));
+                        break;
+                    case "唱K":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_werewolfkill));
+                        break;
+                    case "电影":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_uno));
+                        break;
+                    case "散步":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_go));
+                        break;
+                    case "演唱会":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_chinesechess));
+                        break;
+                    case "露营":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_gobang));
+                        break;
+                    case "其他约会":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_texasholdem));
+                        break;
+                }
                 break;
             case "其他":
                 break;

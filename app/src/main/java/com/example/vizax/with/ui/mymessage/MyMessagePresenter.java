@@ -9,6 +9,7 @@ import com.example.vizax.with.bean.BaseEmptyBean;
 import com.example.vizax.with.bean.MyMessageBean;
 import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.util.GsonUtil;
+import com.example.vizax.with.util.ReLoginUtil;
 import com.example.vizax.with.util.SharedUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -72,10 +73,10 @@ public class MyMessagePresenter implements MyMessageContact.Presenter {
                             lastId = dataBean.getInvationId();
                         }
                     }
-
                     mMessageView.loadDatas(mMessageBeenLists,lastId);
                 }else if (mMessageBean.getCode().equals("499")){
                     mMessageView.startLoginActivity();
+                    //ReLoginUtil.relogin();
                 }
             }
         });

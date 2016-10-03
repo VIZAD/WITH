@@ -21,7 +21,7 @@ public class InvitationModel implements InvitationContact.InvitationlModel {
     private InvitationBaseBean  mData;
     @Override
     public void getData(String typeId, String userId,StringCallback stringCallback) {
-        System.out.println("type="+typeId+"userId="+userId);
+        //System.out.println("type="+typeId+"userId="+userId);
 
         PostFormBuilder builder =OkHttpUtils .post()
                 .url(APIConstant.getApi(APIConstant.INVITATION_GETINVITATIONS));

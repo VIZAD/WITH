@@ -46,7 +46,6 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     @Override
     public void getDataAndSetAdapter(Context context, RecyclerView recyclerView,int visible, String typeId, String userId){
 
-        this.token = token;
         mInvitationModel.getData(typeId, userId,new StringCallback() {
 
             @Override

@@ -6,18 +6,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.vizax.with.R;
 import com.example.vizax.with.base.BaseActivity;
-import com.example.vizax.with.ui.home.HomeActivity;
 import com.example.vizax.with.ui.login.login.LoginFragment;
 import com.example.vizax.with.ui.login.verify.VerifyFragment;
+import com.example.vizax.with.ui.myhome.HomeActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

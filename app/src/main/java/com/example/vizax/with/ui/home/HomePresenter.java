@@ -68,9 +68,9 @@ public class HomePresenter implements HomeContact.Presenter{
             public void onResponse(String response, int id) {
 
 
-                //mHomeView.showHomeToast("值："+lastInvitationId);
+                mHomeView.showHomeToast("值："+response);
                     mHomeInvitationBean= GsonUtil.toString(response,InvitationBaseBean.class);
-                    if (mHomeInvitationBean.getCode().equals("200")){
+                    if (mHomeInvitationBean!=null&&mHomeInvitationBean.getCode().equals("200")){
                         //mHomeView.showHomeToast(mHomeInvitationBean.getMsg());
                         if(lastInvitationId==0){
                             //mHomeView.showHomeToast("下拉："+mHomeInvitationBean.getData().size());

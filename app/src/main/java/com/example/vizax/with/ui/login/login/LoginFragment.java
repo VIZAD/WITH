@@ -4,12 +4,10 @@ package com.example.vizax.with.ui.login.login;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -26,16 +24,12 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.App;
 import com.example.vizax.with.R;
 import com.example.vizax.with.constant.FieldConstant;
-import com.example.vizax.with.ui.demo.DemoPresenter;
-import com.example.vizax.with.ui.demo.DemoSwipBackActivity;
-import com.example.vizax.with.ui.home.HomeActivity;
-import com.example.vizax.with.ui.login.User;
 import com.example.vizax.with.ui.login.bean.UserBean;
+import com.example.vizax.with.ui.myhome.HomeActivity;
 import com.example.vizax.with.util.MaxLengthWatcher;
 import com.example.vizax.with.util.SharedUtil;
 import com.example.vizax.with.util.TextUtil;
 
-import java.lang.reflect.Field;
 import java.util.regex.Matcher;
 
 import butterknife.BindView;
@@ -166,7 +160,7 @@ public class LoginFragment extends Fragment implements LoginContact.View {
         SharedUtil.putBoolean(App.instance,FieldConstant.ishadlogin,true);
         SharedUtil.putBoolean(App.instance,FieldConstant.isfirstlogin,false);
         Log.w("haha",SharedUtil.getString(App.instance, FieldConstant.token)+"!!!");
-        //getActivity().finish();
+        getActivity().finish();
     }
 
     @Override

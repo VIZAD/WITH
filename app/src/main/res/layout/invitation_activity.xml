@@ -15,7 +15,7 @@
             android:id="@+id/invitation_refresh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <android.support.v7.widget.RecyclerView
+            <com.example.vizax.with.util.LoadMoreRecyclerView
                 android:id="@+id/activity_my_focus_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>

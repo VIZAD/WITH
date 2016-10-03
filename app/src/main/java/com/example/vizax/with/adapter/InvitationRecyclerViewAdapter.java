@@ -142,7 +142,7 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
 
     @Override
     public int getItemCount() {
-        return mData.getData().size();
+        return mData.getData() == null ? 0:mData.getData().size();
     }
 
 

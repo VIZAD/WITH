@@ -16,6 +16,7 @@ public class TimeUtil {
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//小写的mm表示的是分钟
         try {
             Date date=sdf.parse(time);
+
             long timeLong = nowDate.getTime() - date.getTime();
             System.out.println("时间是"+timeLong);
             if (timeLong<60*1000)
@@ -32,14 +33,15 @@ public class TimeUtil {
                 timeLong = timeLong/1000/ 60 / 60 / 24;
                 return timeLong + "天前";
             }
-            else if (timeLong<60*60*24*1000*7*4){
+            else if (timeLong<60l*60*24*1000*7*54){
                 timeLong = timeLong/1000/ 60 / 60 / 24/7;
                 return timeLong + "周前";
             }
             else {
+                System.out.println("time="+timeLong+">thetime="+60*60*24*1000*7*2);
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
-                return "longlongago";
+                return "一年之前";
             }
         } catch (ParseException e) {
             e.printStackTrace();

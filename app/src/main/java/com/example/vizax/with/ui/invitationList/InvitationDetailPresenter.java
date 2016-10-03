@@ -2,10 +2,13 @@ package com.example.vizax.with.ui.invitationList;
 
 import android.support.annotation.NonNull;
 
+import com.example.vizax.with.App;
 import com.example.vizax.with.bean.BaseBean;
 import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.bean.MembersBean;
+import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.util.GsonUtil;
+import com.example.vizax.with.util.SharedUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.util.ArrayList;
@@ -84,6 +87,8 @@ public class InvitationDetailPresenter implements InvitationDetailContact.Presen
                        joinInitation();
                    }
                     mInvitationDetailView.changeBtnSrc();
+                }else {
+                    mInvitationDetailView.showToast(baseBean.getMsg());
                 }
                 mInvitationDetailView.dismissDialog();
             }
@@ -94,7 +99,7 @@ public class InvitationDetailPresenter implements InvitationDetailContact.Presen
         mInvitationBean.setJoin(false);
         for(int i = 1;i < membersBean.size();i++){
             //TODO 后面用登录的静态类User.UserID
-            if (membersBean.get(i).getUserId().equals("2")){
+            if (membersBean.get(i).getUserId().equals(String.valueOf(SharedUtil.getInt(App.instance, FieldConstant.userId)))){
                 membersBean.remove(i);
                 mInvitationDetailView.removeMember(i);
                 break;
@@ -107,9 +112,9 @@ public class InvitationDetailPresenter implements InvitationDetailContact.Presen
         //TODO 后面用登录的静态类User
         mInvitationBean.setJoin(true);
         MembersBean newMember = new MembersBean();
-        newMember.setUserId("2");
-        newMember.setRealName("潘大爷");
-        newMember.setPhone("1831876465");
+        newMember.setUserId(String.valueOf(SharedUtil.getInt(App.instance, FieldConstant.userId)));
+        newMember.setRealName(SharedUtil.getString(App.instance,FieldConstant.realName));
+        newMember.setPhone(SharedUtil.getString(App.instance,FieldConstant.phone));
         membersBean.add(newMember);
         mInvitationDetailView.addMember(membersBean.size());
 

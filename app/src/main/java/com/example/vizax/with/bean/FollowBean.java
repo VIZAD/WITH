@@ -43,14 +43,16 @@ public class FollowBean {
     }
 
     public static class DataBean {
-        private boolean isConcerned;
-
-        public boolean isIsConcerned() {
-            return isConcerned;
+        public boolean isConcerned() {
+            return concerned;
         }
 
-        public void setIsConcerned(boolean isConcerned) {
-            this.isConcerned = isConcerned;
+        public void setConcerned(boolean concerned) {
+            this.concerned = concerned;
         }
+
+        private boolean concerned;
+
+
     }
 }

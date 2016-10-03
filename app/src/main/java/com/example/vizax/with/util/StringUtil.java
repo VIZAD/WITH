@@ -31,10 +31,10 @@ public class StringUtil {
         String result = "";
         switch (title){
             case  "运动" :
-                result =  "0";
+                result =  "1";
                 break;
             case  "网游" :
-                result =  "1";
+                result =  "2";
                 break;
             case  "桌游" :
                 result =  "3";

@@ -1,6 +1,7 @@
 package com.example.vizax.with.ui.invitationList;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -46,7 +47,7 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
     @BindView(R.id.invitation_fab)
     FloatingActionButton fab;
     private InvitationRecyclerViewAdapter mAdapter;
-    private String type;
+    private String type,typeId;
     private Intent it;
     private int visible;
     private InvitationPresenter mInvitationListPresenter;
@@ -56,6 +57,7 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
     public String token = "2";
     private SwipeBackLayout mSwipeBackLayout;
     private int position;
+    private SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +72,7 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
         setType();
         //初始化recyclerView
         // token  = User.token;
-        mInvitationListPresenter.getDataAndSetAdapter(this, mRecyclerView, token, visible, null, null);
+        mInvitationListPresenter.getDataAndSetAdapter(this, mRecyclerView, visible, typeId, null);
         //初始化toolbar
         initToolbar();
         //初始化superSwipeRefreshLayout
@@ -113,7 +115,7 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
         invitationRefresh.setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
             @Override
             public void onRefresh() {
-                mInvitationListPresenter.getDataAndSetAdapter(InvitationActivity.this, mRecyclerView, token, visible, null, null);
+                mInvitationListPresenter.getDataAndSetAdapter(InvitationActivity.this, mRecyclerView, visible, typeId, null);
                 invitationRefresh.setRefreshing(false);
             }
 
@@ -150,7 +152,7 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
     private void setType() {
         it = getIntent();
         type = it.getStringExtra("type");
-        mMainClass = ArrayUtil.getArray(type == null ? "足球" : type);
+        mMainClass = ArrayUtil.getArray(type);
         if (type != null) {
             if (type.equals(MY_INVITATION)) {
                 visible = View.VISIBLE;
@@ -161,7 +163,7 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
             type = "足球";
             visible = View.GONE;
         }
-
+    typeId = StringUtil.invitationIdUtil(String.valueOf(type));
     }
 
     private void initToolbar() {
@@ -183,10 +185,8 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
                             @Override
                             public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                                 mBaseToolBar.setCenterText(text);
-                                switch (which){
-                                    case 0:
-
-                                }
+                                typeId = StringUtil.invitationIdUtil(String.valueOf(text));
+                                mInvitationListPresenter.getDataAndSetAdapter(InvitationActivity.this, mRecyclerView, visible,typeId,null);
                             }
                         })
                         .show();
@@ -239,6 +239,11 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
     }
 
     @Override
+    public void showToast(String text) {
+        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void openEdit() {
         InvitationBean invitationBean = mInvitationListPresenter.baseBean.getData().get(position);
         Intent it = new Intent(this, LuanchInvitationActivity.class);
@@ -266,10 +271,11 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
     }
 
     @Override
-    public void OpenUserInfor(int position, UserInforBean userInforBean) {
+    public void OpenUserInfor( UserInforBean userInforBean) {
         Intent it = new Intent(this, UserInformationActivity.class);
         Bundle lBundle = new Bundle();
-        lBundle.putParcelable("userInforBean", new UserInforBean().getData());
+        System.out.println("1="+userInforBean.getData().getName()+userInforBean.getData().getPhone());
+        lBundle.putParcelable("userInforBean", userInforBean.getData());
         it.putExtras(lBundle);
         startActivity(it);
     }

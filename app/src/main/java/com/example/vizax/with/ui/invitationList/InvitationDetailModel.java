@@ -1,7 +1,10 @@
 package com.example.vizax.with.ui.invitationList;
 
+import com.example.vizax.with.App;
 import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.constant.APIConstant;
+import com.example.vizax.with.constant.FieldConstant;
+import com.example.vizax.with.util.SharedUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -32,7 +35,7 @@ public class InvitationDetailModel implements InvitationDetailContact.Invitation
         OkHttpUtils.post()
                 .url(APIConstant.getApi(APIConstant.INVITAION_PARTICIPATEINVITATION))
                 .addParams("invitaionId",mInvitationBeen.getInvitaionId())
-                .addParams("token","2")
+                .addParams("token", SharedUtil.getString(App.instance, FieldConstant.token))
                 .addParams("type",type)
                 .build()
                 .execute(stringCallback);

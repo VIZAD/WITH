@@ -29,14 +29,17 @@ public interface UserInformationContact {
         void showUploadDialog();
 
         void dimissUploadDialog();
-
+        //取消关注
+        void disConcerned();
+        //关注
+        void concerned();
         Context getContext();
 
     }
     interface Moduel  {
-        UserInforBean getUserInformation(String userId);
+        void getUserInformation(String userId,String invitationId,StringCallback stringCallback);
         //关注用户
-        boolean follow(String userId);
+        void follow(String userId,StringCallback stringCallback);
         //http请求取用户最近活动的数据
         void getRecyclerViewData();
         //上传用户新头像
@@ -47,7 +50,7 @@ public interface UserInformationContact {
         //设置头像
         void setAvatar(String url);
         //关注用户
-        boolean follow(String userId);
+        void follow(String userId);
 
     }
 }

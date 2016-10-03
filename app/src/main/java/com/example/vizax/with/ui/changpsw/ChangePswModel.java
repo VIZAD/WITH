@@ -1,6 +1,7 @@
 package com.example.vizax.with.ui.changpsw;
 
 import com.example.vizax.with.constant.APIConstant;
+import com.example.vizax.with.util.PrjOkHttpUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -12,9 +13,8 @@ public class ChangePswModel implements ChangePswContact.changepswModel{
 
     @Override
     public void changepsw(String oldpassword, String newpassword, StringCallback stringCallback) {
-        OkHttpUtils.post()
+        PrjOkHttpUtil.addToken()
                 .url(APIConstant.getApi(APIConstant.USER_CHANGPASSWORD ))
-                .addParams("token","1")
                 .addParams("oldPassword",oldpassword)
                 .addParams("newPassword",newpassword)
                 .build()

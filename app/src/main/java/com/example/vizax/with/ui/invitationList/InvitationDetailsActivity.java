@@ -11,13 +11,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.vizax.with.App;
 import com.example.vizax.with.R;
 import com.example.vizax.with.adapter.InvitationDetailsRecyclerViewAdapter;
 import com.example.vizax.with.adapter.UserImgListecyclerViewAdapter;
 import com.example.vizax.with.bean.HomeInvitationBean;
 import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.bean.MembersBean;
+import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.customView.BaseToolBar;
+import com.example.vizax.with.util.SharedUtil;
 import com.example.vizax.with.util.TimeUtil;
 
 import java.util.ArrayList;
@@ -121,13 +124,12 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
     private void initView() {
 
         itemInvitationOriginatorName.setText(mInvitationBeanList.get(index).getOriginatorrealName());
-        itemInvitationInvitationTime.setText(mInvitationBeanList.get(index).getInvitationTime());
+        itemInvitationInvitationTime.setText("活动时间:"+mInvitationBeanList.get(index).getInvitationTime());
         itemInvitationPublishTime.setText(TimeUtil.getTime(mInvitationBeanList.get(index).getPublishTime()));
         itemInvitationContents.setText(mInvitationBeanList.get(index).getContent());
-        itemInvitationPlace.setText(mInvitationBeanList.get(index).getPlace());
-        itemInvitationSexRequire.setText(mInvitationBeanList.get(index).getSexRequire());
+        itemInvitationPlace.setText("活动地点:"+mInvitationBeanList.get(index).getPlace());
         itemInvitationNumber.setText(mInvitationBeanList.get(index).getCurrentNumber() + "/" + mInvitationBeanList.get(index).getTotalNumber());
-        itemInvitationSexRequire.setText(mInvitationBeanList.get(index).getSexRequire());
+        itemInvitationSexRequire.setText("性别要求:"+getSexrequire(mInvitationBeanList.get(index).getSexRequire()));
 
         mJoin = new MaterialDialog.Builder(this)
                 .content("正在处理请稍后")
@@ -154,7 +156,22 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
             }
         });
     }
-
+    //性别转换
+    private String getSexrequire(String sexRequire) {
+        String result = "不限";
+        switch (sexRequire){
+            case "0":
+                result = "男生";
+                break;
+            case "1":
+                result = "女生";
+                break;
+            case "2":
+                result = "不限";
+                break;
+        }
+        return result;
+    }
 
     //获取list界面传过来的活动参与人信息
     public void getData() {
@@ -173,7 +190,10 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
             case R.id.item_invitation_originator_imagVi:
                 break;
             case R.id.item_invitation_join_btn:
+                if(Integer.parseInt(mInvitationBeanList.get(index).getSexRequire()) == 2 || Integer.parseInt(mInvitationBeanList.get(index).getSexRequire()) == SharedUtil.getInt(App.instance, FieldConstant.sex))
                 mPresenter.pressJoin(mInvitationBeanList.get(index));
+                else
+                showToast("你不符合性别要求，无法参加活动！");
                 break;
         }
     }

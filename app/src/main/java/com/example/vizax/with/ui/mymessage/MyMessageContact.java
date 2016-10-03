@@ -16,6 +16,8 @@ public interface MyMessageContact {
         public void loadDatas(List<MyMessageBean.DataBean> mMessageList, int lastId);
 
         void showToast(String msg);
+
+        void startLoginActivity();
     }
 
     interface Modle{

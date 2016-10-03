@@ -74,6 +74,8 @@ public class MyMessagePresenter implements MyMessageContact.Presenter {
                     }
 
                     mMessageView.loadDatas(mMessageBeenLists,lastId);
+                }else if (mMessageBean.getCode().equals("499")){
+                    mMessageView.startLoginActivity();
                 }
             }
         });

@@ -1,5 +1,6 @@
 package com.example.vizax.with.ui.mymessage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,6 +21,7 @@ import com.example.vizax.with.base.BaseActivity;
 import com.example.vizax.with.bean.MyMessageBean;
 import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.customView.BaseToolBar;
+import com.example.vizax.with.ui.login.MainActivity;
 import com.example.vizax.with.ui.myconcern.SpaceItemDecoration;
 import com.example.vizax.with.util.SharedUtil;
 import com.yanzhenjie.recyclerview.swipe.Closeable;
@@ -271,6 +273,12 @@ public class MyMessageActivity extends BaseActivity implements MyMessageContact.
     @Override
     public void showToast(String msg) {
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void startLoginActivity() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
     }
 
     @Override

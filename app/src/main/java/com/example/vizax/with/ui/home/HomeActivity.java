@@ -29,6 +29,7 @@ import com.example.vizax.with.ui.invitationList.InvitationDetailsActivity;
 import com.example.vizax.with.ui.myconcern.MyConcernActivity;
 import com.example.vizax.with.ui.mymessage.MyMessageActivity;
 import com.example.vizax.with.ui.userInformation.UserInformationActivity;
+import com.example.vizax.with.util.filedownload.UpdateManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -318,7 +319,8 @@ public class HomeActivity extends BaseActivity implements HomeContact.View {
                 showHomeToast("设置");
                 break;
             case R.id.my_update_txtVi:
-                showHomeToast("检查更新");
+                //showHomeToast("检查更新");
+                new UpdateManager(this).checkUpdate();
                 break;
         }
     }

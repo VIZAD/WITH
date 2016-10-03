@@ -36,7 +36,7 @@ public class APIConstant {
     public static final String USER_ACCEPTMESSAGE             = "user/acceptMessage";//批准特批
     public static final String USER_GETUSERINFO               = "user/getUserInfo";//获取指定用户的信息
     public static final String USER_CHANGPASSWORD             = "user/changPassword";//密码修改
-
+    public static final String USER_VERSIONUPDATE             = "user/versionUpdate";//版本升级
  //---------------------------------------------------------邀约活动模块---------------------------------------------------------------------
     public static final String HOME_INVITATION_GETINVITATIONS           = "invitation/getInvitations";//获取邀约列表
 

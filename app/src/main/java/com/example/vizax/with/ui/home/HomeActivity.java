@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.vizax.with.App;
 import com.example.vizax.with.R;
 import com.example.vizax.with.base.BaseActivity;
 import com.example.vizax.with.bean.InvitationBean;
@@ -24,10 +25,13 @@ import com.example.vizax.with.bean.MembersBean;
 import com.example.vizax.with.bean.UserInforBean;
 import com.example.vizax.with.customView.BaseToolBar;
 import com.example.vizax.with.ui.Insist.InsistActivity;
+import com.example.vizax.with.ui.changpsw.ChangePswActivity;
 import com.example.vizax.with.ui.invitationList.InvitationActivity;
 import com.example.vizax.with.ui.invitationList.InvitationDetailsActivity;
 import com.example.vizax.with.ui.myconcern.MyConcernActivity;
+import com.example.vizax.with.ui.mymessage.MyMessageActivity;
 import com.example.vizax.with.ui.userInformation.UserInformationActivity;
+import com.example.vizax.with.util.filedownload.UpdateManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -279,6 +283,7 @@ public class HomeActivity extends BaseActivity implements HomeContact.View {
         mHomeAdapter.notifyDataSetChanged();
     }
 
+
     @OnClick({R.id.my_info_lLayout, R.id.my_invitation_txtVi, R.id.my_participation_txtVi, R.id.my_insist_txtVi, R.id.my_news_txtVi, R.id.my_concern_txtVi, R.id.my_setting_txtVi, R.id.my_update_txtVi, R.id.my_changepassword_txtVi} )
     public void onClick(View view) {
         Intent intent;
@@ -287,7 +292,9 @@ public class HomeActivity extends BaseActivity implements HomeContact.View {
                 showHomeToast("我的个人信息");
                 break;
             case R.id.my_changepassword_txtVi:
-                showHomeToast("修改密码");
+                intent = new Intent(App.instance, ChangePswActivity.class);
+                startActivity(intent);
+                //showHomeToast("修改密码");
                 break;
             case R.id.my_invitation_txtVi:
                 intent = new Intent(this, InvitationActivity.class);
@@ -305,6 +312,8 @@ public class HomeActivity extends BaseActivity implements HomeContact.View {
                 break;
             case R.id.my_news_txtVi:
                 showHomeToast("我的信息");
+                intent = new Intent(HomeActivity.this, MyMessageActivity.class);
+                startActivity(intent);
                 break;
             case R.id.my_concern_txtVi:
                 intent = new Intent(HomeActivity.this, MyConcernActivity.class);
@@ -314,7 +323,8 @@ public class HomeActivity extends BaseActivity implements HomeContact.View {
                 showHomeToast("设置");
                 break;
             case R.id.my_update_txtVi:
-                showHomeToast("检查更新");
+                //showHomeToast("检查更新");
+                new UpdateManager(this).checkUpdate();
                 break;
         }
     }

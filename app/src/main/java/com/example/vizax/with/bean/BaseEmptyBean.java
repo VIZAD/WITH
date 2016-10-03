@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class BaseEmptyBean implements Serializable{
 
     private String msg;
-    private String code;
+    private Integer code;
 
     public String getMsg() {
         return msg;
@@ -19,11 +19,30 @@ public class BaseEmptyBean implements Serializable{
         this.msg = msg;
     }
 
-    public String getCode() {
+
+
+    public BaseEmptyBean() {
+
+    }
+
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(Integer code) {
         this.code = code;
+    }
+
+    public BaseEmptyBean(String msg, Integer code) {
+        this.msg = msg;
+        this.code = code;
+    }
+
+    @Override
+    public String toString() {
+        return "BaseEmptyBean{" +
+                "msg='" + msg + '\'' +
+                ", code='" + code + '\'' +
+                '}';
     }
 }

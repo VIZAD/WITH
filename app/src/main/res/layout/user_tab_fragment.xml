@@ -6,7 +6,10 @@
     android:background="#d8d8d8"
     tools:context=".ui.myconcern.MyConcernActivity"
     android:id="@+id/user_tab_fragment_rl">
-
+    <net.mobctrl.views.SuperSwipeRefreshLayout
+        android:id="@+id/invitation_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/user_tab_fragment_recyclerview"
         android:layout_width="match_parent"
@@ -14,4 +17,5 @@
         android:divider="#ffff0000"
         android:dividerHeight="10dp"
         android:text="Hello World!" />
+    </net.mobctrl.views.SuperSwipeRefreshLayout>
 </RelativeLayout>

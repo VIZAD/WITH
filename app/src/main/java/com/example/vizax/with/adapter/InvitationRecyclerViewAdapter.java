@@ -1,32 +1,23 @@
 package com.example.vizax.with.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.vizax.with.App;
 import com.example.vizax.with.R;
 import com.example.vizax.with.bean.InvitationBaseBean;
-import com.example.vizax.with.bean.InvitationBean;
+import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.ui.invitationList.InvitationContact;
-import com.example.vizax.with.ui.invitationList.InvitationDetailContact;
-import com.example.vizax.with.ui.invitationList.InvitationDetailsActivity;
-import com.example.vizax.with.ui.invitationList.InvitationDetailModel;
+import com.example.vizax.with.util.SharedUtil;
 import com.example.vizax.with.util.StringUtil;
-
-import java.util.ArrayList;
+import com.example.vizax.with.util.TimeUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +34,7 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
 
     private  InvitationContact.InvitationCallBack mInvitationCallBack;
     private ClickListerner clickListerner;
+    private SetMemberNum setMemberNum;
 
     public InvitationRecyclerViewAdapter(Context context, InvitationBaseBean mData,int visible) {
         this.context = context;
@@ -53,6 +45,10 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
     public void setOnItemClickListener(ClickListerner clickListerner){
 
         this.clickListerner = clickListerner;
+    }
+
+    public void setMembersNum(SetMemberNum setNum){
+        setMemberNum = setNum;
     }
 
     //回调接口
@@ -70,6 +66,7 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        String sex = getSexrequire(mData.getData().get(position).getSexRequire());
         boolean join = mData.getData().get(position).isJoin();
         if(join) {
             System.out.println("已参加");
@@ -84,10 +81,10 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
       //  mData.getData().get(position).setContent("[肇庆学院航空杯]2015年即将结束，我们将迎来本学期最后一场狼人杀比赛--航空杯狼人杀比赛，希望广大杀友踊跃报名！");//临时数据
         String contents = StringUtil.cutContents(mData.getData().get(position).getContent(),57);
         holder.itemInvitationContents.setText(contents);
-        holder.itemInvitationInvitationTime.setText(mData.getData().get(position).getInvitationTime());
-        holder.itemInvitationPublishTime.setText(mData.getData().get(position).getPublishTime());
-        holder.itemInvitationPlace.setText(mData.getData().get(position).getPlace());
-        holder.itemInvitationSexRequire.setText(mData.getData().get(position).getSexRequire());
+        holder.itemInvitationInvitationTime.setText("活动时间:"+mData.getData().get(position).getInvitationTime());
+        holder.itemInvitationPublishTime.setText(TimeUtil.getTime(mData.getData().get(position).getPublishTime()));
+        holder.itemInvitationPlace.setText("活动地点:"+mData.getData().get(position).getPlace());
+        holder.itemInvitationSexRequire.setText("性别要求:"+sex);
         holder.itemInvitationNumber.setText(mData.getData().get(position).getCurrentNumber()+"/"+mData.getData().get(position).getTotalNumber());
 
         /**
@@ -100,35 +97,31 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
         holder.mRecyclerView.setAdapter(mAdapter);
 
         holder.expend.setVisibility(visible);
-        holder.expend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mInvitationCallBack.press(null,-1,null);
-            }
-        });
+        holder.expend.setOnClickListener(v -> mInvitationCallBack.press(null,position,null));
 
-        holder.itemInvitationJoinBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String  type;
-                String contents = "null";
-                    if(join){
-                        mInvitationCallBack.press("是否退出该活动",position,"2");
+        holder.itemInvitationJoinBtn.setOnClickListener(v -> {
+            String  type;
+            String contents1 = "null";
+            //如果符合性别要求
+            if(Integer.parseInt(mData.getData().get(position).getSexRequire()) == 2 || SharedUtil.getInt(App.instance, FieldConstant.sex) == Integer.parseInt(mData.getData().get(position).getSexRequire())) {
+                if (join) {
+                    mInvitationCallBack.press("是否退出该活动", position, "2");
 
-                    }else {
-                        if(mData.getData().get(position).getCurrentNumber() == mData.getData().get(position).getTotalNumber()) {
-                            type = "1";
-                            contents = "该活动已满人，是否请求发起者特批允许参加？";
-                        }
-                        else {
-                            type = "0";
-                            contents = "是否参加该活动?";
-                        }
-                        mInvitationCallBack.press(contents,position,type);
+                } else {
+                    if (mData.getData().get(position).getCurrentNumber() == mData.getData().get(position).getTotalNumber()) {
+                        type = "0";
+                        contents1 = "该活动已满人，是否请求发起者特批允许参加？";
+                    } else {
+                        type = "1";
+                        contents1 = "是否参加该活动?";
                     }
-
-
+                    mInvitationCallBack.press(contents1, position, type);
+                    //setMemberNum.setNum(position);
+                }
+            }else {
+                //TODO
             }
+
         });
         holder.itemInvitationOriginatorImagVi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,12 +147,27 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
 
     }
 
+    private String getSexrequire(String sexRequire) {
+        String result = "不限";
+        switch (sexRequire){
+            case "0":
+                result = "男生";
+                break;
+            case "1":
+                result = "女生";
+                break;
+            case "2":
+                result = "不限";
+                break;
+        }
+        return result;
+    }
+
     @Override
     public int getItemCount() {
-
-        return mData.getData().size();
-
+        return mData.getData() == null ? 0:mData.getData().size();
     }
+
 
     @OnClick({R.id.item_invitation_originator_imagVi, R.id.item_invitation_join_btn})
     public void onClick(View view) {
@@ -217,5 +225,7 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
         void onItemClick(int position,InvitationBaseBean invitationBaseBean);
         void onAvatarOnclik(int position,InvitationBaseBean invitationBaseBean);
     }
-
+    public interface SetMemberNum {
+        void setNum(int position);
+    }
 }

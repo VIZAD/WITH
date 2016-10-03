@@ -1,4 +1,4 @@
-package com.example.vizax.with.util.swipeback;
+package com.example.vizax.with.util;
 
 import com.example.vizax.with.R;
 import com.example.vizax.with.customView.ReboundScrollView;

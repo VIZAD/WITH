@@ -14,10 +14,22 @@ public interface InvitationDetailContact {
     interface View extends BaseView{
         void showDialog(String contents);
         void changeBtnSrc();
+        void removeMember(int position);
+        void addMember(int position);
 
+        //点击确定参加按钮后
+        void showDialog();
+        void dismissDialog();
+
+        //toast
+        void showToast(String string);
+
+        //已参与人加减
+        void addNum();
+        void reduceNum();
     }
     interface InvitationDetailModel{
-        String getData(View view);
+        String getData(String token,String typeId,String userId,String lastInvitatioonId,String limit);
         void join(InvitationBean mInvitationBeen, String type, StringCallback stringCallback);
     }
     interface Presenter extends BasePresenter<View>{

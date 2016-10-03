@@ -11,11 +11,61 @@
     <string name="str02">You will never walk alone</string>
     <string name="str03">创建账号，表示你同意服务条款和隐私条款</string>
 
-
-
-
-
-
+    <string-array name="sports">
+        <item>篮球</item>
+        <item>足球</item>
+        <item>桌球</item>
+        <item>乒乓球</item>
+        <item>跑步</item>
+        <item>游泳</item>
+        <item>羽毛球</item>
+        <item>网球</item>
+        <item>健身</item>
+        <item>户外</item>
+        <item>溜冰</item>
+        <item>其他运动</item>
+    </string-array>
+    <string-array name="study">
+        <item>自习</item>
+        <item>晨读</item>
+        <item>英语口语</item>
+        <item>英语四六级</item>
+        <item>BEC</item>
+        <item>考研</item>
+        <item>看书</item>
+        <item>其他学习</item>
+    </string-array>
+    <string-array name="brpg">
+        <item>三国杀</item>
+        <item>狼人杀</item>
+        <item>UNO</item>
+        <item>围棋</item>
+        <item>象棋</item>
+        <item>五子棋</item>
+        <item>德州扑克</item>
+        <item>21点</item>
+        <item>斗地主</item>
+        <item>其他桌游</item>
+    </string-array>
+    <string-array name="onlineGame">
+        <item>英雄联盟</item>
+        <item>Dota2</item>
+        <item>守望先锋</item>
+        <item>CF</item>
+        <item>DNF</item>
+        <item>王者荣耀</item>
+        <item>斗地主</item>
+        <item>其他网游</item>
+    </string-array>
+    <string-array name="date">
+        <item>吃饭</item>
+        <item>唱K</item>
+        <item>电影</item>
+        <item>散步</item>
+        <item>演唱会</item>
+        <item>露营</item>
+        <item>其他约会</item>
+    </string-array>
     <!--登录页面-->
     <string name="login_tab">登录</string>
     <string name="register_tab">注册</string>
@@ -134,21 +184,6 @@
     <string name="swimming_label_dialog">游泳</string>
     <string name="outdoors_label_dialog">户外</string>
     <string name="skating_label_dialog">溜冰</string>
-    <string-array name="sports">
-        <item>篮球</item>
-        <item>足球</item>
-        <item>乒乓球</item>
-        <item>羽毛球</item>
-        <item>排球</item>
-        <item>网球</item>
-        <item>桌球</item>
-        <item>跑步</item>
-        <item>健身</item>
-        <item>游泳</item>
-        <item>户外</item>
-        <item>溜冰</item>
-        <item>其他</item>
-    </string-array>
     <string name="lol_label_dialog">英雄联盟</string>
     <string name="overwatch_label_dialog">守望先锋</string>
     <string name="wwtk_label_dialog">三国杀</string>
@@ -157,30 +192,6 @@
     <string name="cf_label_dialog">CF</string>
     <string name="fal_label_dialog">斗地主</string>
     <string name="dnf_label_dialog">地下城与勇士</string>
-    <string-array name="onlineGame">
-        <item>英雄联盟</item>
-        <item>守望先锋</item>
-        <item>CF</item>
-        <item>地下城与勇士</item>
-        <item>DOTA2</item>
-        <item>王者荣耀</item>
-        <item>其他</item>
-    </string-array>
-    <string-array name="brpg">
-        <item>三国杀</item>
-        <item>狼人杀</item>
-        <item>UNO</item>
-        <item>围棋</item>
-        <item>象棋</item>
-        <item>五子棋</item>
-        <item>德州扑克</item>
-        <item>21点</item>
-        <item>其他</item>
-    </string-array>
-    <string-array name="other">
-        <item>其他</item>
-    </string-array>
-
     <string name="chinesechess_label_dialog">象棋</string>
     <string name="go_label_dialog">围棋</string>
     <string name="gobang_label_dialog">五子棋</string>
@@ -195,31 +206,12 @@
     <string name="read_label_dialog">看书</string>
     <string name="pubmed_label_dialog">考研</string>
     <string name="bec_label_dialog">BEC</string>
-    <string-array name="study">
-        <item>自习</item>
-        <item>英语口语</item>
-        <item>英语四六级</item>
-        <item>晨读</item>
-        <item>图书馆</item>
-        <item>考研</item>
-        <item>BEC</item>
-        <item>其他</item>
-    </string-array>
     <string name="film_label_dialog">电影</string>
     <string name="dinner_label_dialog">吃饭</string>
     <string name="karaoke_label_dialog">唱K</string>
     <string name="camping_label_dialog">露营</string>
     <string name="walk_label_dialog">散步</string>
     <string name="concert_label_dialog">演唱会</string>
-    <string-array name="date">
-        <item>吃饭</item>
-        <item>唱K</item>
-        <item>电影</item>
-        <item>散步</item>
-        <item>演唱会</item>
-        <item>露营</item>
-        <item>其他</item>
-    </string-array>
 
 
     <!--发起活动页面-->
@@ -238,7 +230,6 @@
     <string name="cancel_return_btn">取消返回</string>
     <string name="ensure_edit_btn">确认编辑</string>
     <string name="cancel_activity_btn">取消活动</string>
-
     <string name="basketball_title1_label">无兄弟，不篮球！</string>
     <string name="basketball_title2_label">发起了打篮球活动</string>
     <string name="basketball_title3_label">组队打篮球，求with！</string>

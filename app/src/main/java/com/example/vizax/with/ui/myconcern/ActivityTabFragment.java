@@ -10,11 +10,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.vizax.with.R;
 import com.example.vizax.with.bean.InvitationBaseBean;
+import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.bean.MembersBean;
 import com.example.vizax.with.bean.UserInforBean;
+import com.example.vizax.with.ui.invitation.LuanchInvitationActivity;
 import com.example.vizax.with.ui.invitationList.InvitationActivity;
 import com.example.vizax.with.ui.invitationList.InvitationContact;
 import com.example.vizax.with.ui.invitationList.InvitationDetailsActivity;
@@ -35,7 +38,7 @@ import static android.R.attr.visible;
  * Created by apple1 on 2016/9/13.
  */
 public class ActivityTabFragment extends Fragment implements InvitationContact.View {
-    private String token = "1";
+
     private InvitationPresenter mInvitationListPresenter;
     @BindView(R.id.activity_tab_fragment_recyclerview)
     RecyclerView mRecyclerView;
@@ -50,7 +53,7 @@ public class ActivityTabFragment extends Fragment implements InvitationContact.V
         mInvitationListPresenter = new InvitationPresenter();
         mInvitationListPresenter.attachView(this);
         //初始化recyclerView
-        mInvitationListPresenter.getDataAndSetAdapter(getContext(), mRecyclerView, token,visible, null, "-1");
+        mInvitationListPresenter.getDataAndSetAdapter(getContext(), mRecyclerView,visible, null, "-1");
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -72,7 +75,31 @@ public class ActivityTabFragment extends Fragment implements InvitationContact.V
     }
 
     @Override
+    public void showDiaolog() {
+
+    }
+
+    @Override
+    public void dismissDialog() {
+
+    }
+
+    @Override
     public void loadDataFailure() {
+
+    }
+
+    @Override
+    public void showToast(String text) {
+        Toast.makeText(getContext(),text,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void openEdit() {
+    }
+
+    @Override
+    public void openLaunch() {
 
     }
 
@@ -94,7 +121,7 @@ public class ActivityTabFragment extends Fragment implements InvitationContact.V
     }
 
     @Override
-    public void OpenUserInfor(int position, UserInforBean userInforBean) {
+    public void OpenUserInfor(UserInforBean userInforBean) {
         Intent it = new Intent(getContext(), UserInformationActivity.class);
         Bundle lBundle = new Bundle();
         lBundle.putParcelable("userInforBean", new UserInforBean().getData());
@@ -124,7 +151,7 @@ public class ActivityTabFragment extends Fragment implements InvitationContact.V
         concern_refresh.setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
             @Override
             public void onRefresh() {
-                mInvitationListPresenter.getDataAndSetAdapter(getActivity().getApplicationContext(), mRecyclerView,token, visible, null, "-1");
+                mInvitationListPresenter.getDataAndSetAdapter(getActivity().getApplicationContext(), mRecyclerView, visible, null, "-1");
                 concern_refresh.setRefreshing(false);
             }
 

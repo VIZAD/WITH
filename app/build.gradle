@@ -129,8 +129,10 @@ android {
         }
         release {
             //是否混淆
-            minifyEnabled false
+            minifyEnabled true
             zipAlignEnabled true
+            //移除resource下无用资源
+            //shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             if (keyfile.exists()) {
                 println("WITH -> buildTypes -> release: using jks key")
@@ -138,7 +140,7 @@ android {
             }else {
                 println("WITH -> buildTypes -> release: using default key")
             }
-            signingConfig signingConfigs.myConfig
+            //signingConfig signingConfigs.release
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
                     def outputFile = output.outputFile
@@ -166,13 +168,20 @@ android {
 
 repositories {
     jcenter()
+    flatDir {
+        dirs 'libs'
+    }
 }
+
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    //短信
+    compile name: 'SMSSDK-2.1.1', ext: 'aar'
+    compile name: 'SMSSDKGUI-2.1.1', ext: 'aar'
     compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.android.support:support-v4:24.2.0'
     compile 'com.android.support:support-v13:24.2.0'
@@ -220,8 +229,6 @@ dependencies {
     compile 'com.github.ozodrukh:CircularReveal:1.0.4'
     //滑动返回
     compile 'me.imid.swipebacklayout.lib:library:1.0.0'
-
-
     //PhotoView
     compile 'com.github.chrisbanes:PhotoView:1.3.0'
     //superSwipeRefreshLayout recyclerView刷新库
@@ -235,5 +242,10 @@ dependencies {
     compile 'com.bartoszlipinski.recyclerviewheader:library:1.2.0'
     //UMENG
     compile 'com.umeng.analytics:analytics:latest.integration'
+    //侧滑删除
+    compile 'com.yanzhenjie:recyclerview-swipe:1.0.2'
     compile project(':PushSDK')
+
+    //侧滑删除
+    compile 'com.yanzhenjie:recyclerview-swipe:1.0.2'
 }

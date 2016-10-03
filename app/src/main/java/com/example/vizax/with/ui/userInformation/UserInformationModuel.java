@@ -1,13 +1,20 @@
 package com.example.vizax.with.ui.userInformation;
 
 import android.os.Handler;
+import android.util.Log;
 
+import com.example.vizax.with.App;
 import com.example.vizax.with.bean.BaseEmptyBean;
 import com.example.vizax.with.bean.FollowBean;
 import com.example.vizax.with.bean.Test;
 import com.example.vizax.with.bean.UserInforBean;
 import com.example.vizax.with.constant.APIConstant;
+import com.example.vizax.with.constant.FieldConstant;
+import com.example.vizax.with.util.FilesUtil;
 import com.example.vizax.with.util.GsonUtil;
+import com.example.vizax.with.util.PrjOkHttpUtil;
+import com.example.vizax.with.util.SharedUtil;
+import com.example.vizax.with.util.UUIDUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -26,55 +33,30 @@ public class UserInformationModuel implements UserInformationContact.Moduel {
     private UserInforBean mUserInforBean;
     public Callback callback;
     private  boolean follow;
+
     @Override
-    public UserInforBean getUserInformation(String userId) {
-        System.out.println("11111111111"+userId);
+    public void getUserInformation(String userId,String invitationId,StringCallback stringCallback) {
+
         //获取用户信息的json数据解析
         OkHttpUtils.post()
                 .url(APIConstant.getApi(APIConstant.USER_GETUSERINFO ))
-                .addParams("token","1")
+                .addParams("token",SharedUtil.getString(App.instance, FieldConstant.token))
                 .addParams("aimUserId",userId)
+                .addParams("invitationId",invitationId)
                 .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                         mUserInforBean = GsonUtil.toListString(response,UserInforBean.class);
-
-                    }
-                });
-        return mUserInforBean;
+                .execute(stringCallback);
+       // System.out.println(mUserInforBean.getMsg()+mUserInforBean.getData().getStudentId());
     }
 
     @Override
-    public boolean follow(String userId) {
+    public void follow(String userId,StringCallback stringCallback) {
         //查询是否关注该用户
         OkHttpUtils.post()
                 .url(APIConstant.getApi(APIConstant.INVITATION_CONCERNUSER))
-                .addParams("token","1")
+                .addParams("token",SharedUtil.getString(App.instance, FieldConstant.token))
                 .addParams("concernedUserId",userId)
                 .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        follow = false;
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                        FollowBean followBean = GsonUtil.toListString(response,FollowBean.class);
-                        if(followBean.getData().isIsConcerned())
-                            follow = true;
-                        else
-                            follow = false;
-
-                    }
-                });
-        return follow;
+                .execute(stringCallback);
     }
 
     @Override
@@ -83,31 +65,17 @@ public class UserInformationModuel implements UserInformationContact.Moduel {
     }
 
     @Override
-    public void setUserAvatar(String avatarId, String url) {
-        File f=new File(url);
-        OkHttpUtils.post()
-                .url(APIConstant.getApi(APIConstant.USER_UPLOADHEADPIC ))
-                .addFile("file",avatarId,f)
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        callback.onFailure(call,(IOException) e);
-                    }
+    public void setUserAvatar(String url,StringCallback stringCallback) {
 
-                    @Override
-                    public void onResponse(String response, int id) {
-                        BaseEmptyBean baseEmptyBean = GsonUtil.toString(response);
-                        if(baseEmptyBean.getCode().equals("200")){
-                            try {
-                                callback.onResponse(null,null);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                });
+        String fileName = UUIDUtil.createUUID()+ "max.jpg";
+        File f=new File(url);
+        PrjOkHttpUtil.addToken()
+                .url(APIConstant.getApi(APIConstant.USER_UPLOADHEADPIC ))
+                .addFile("file",fileName,f)
+                .build()
+                .execute(stringCallback);
     }
+
     public void setCallback(Callback call){
         this.callback = call;
     }

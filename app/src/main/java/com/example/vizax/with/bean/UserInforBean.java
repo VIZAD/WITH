@@ -60,20 +60,39 @@ public class UserInforBean {
         private String headUrl;
         private String qq;
 
-        protected DataBean(Parcel in) {
-            phone = in.readLong();
-            sex = in.readInt();
-            isConcerned = in.readByte() != 0;
-            studentId = in.readString();
-            name = in.readString();
-            headUrl = in.readString();
-            qq = in.readString();
+        public int getUserId() {
+            return userId;
         }
+
+        public void setUserId(int userId) {
+            this.userId = userId;
+        }
+
+        public boolean isConcerned() {
+            return isConcerned;
+        }
+
+        public void setConcerned(boolean concerned) {
+            isConcerned = concerned;
+        }
+
+        private int userId;
+
+
 
         public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
             @Override
             public DataBean createFromParcel(Parcel in) {
-                return new DataBean(in);
+                DataBean dataBean = new DataBean();
+                dataBean.phone = in.readLong();
+                dataBean.sex = in.readInt();
+                dataBean.isConcerned = in.readByte() != 0;
+                dataBean.studentId = in.readString();
+                dataBean.name = in.readString();
+                dataBean. headUrl = in.readString();
+                dataBean.qq = in.readString();
+                dataBean.userId = in.readInt();
+                return dataBean;
             }
 
             @Override
@@ -145,13 +164,14 @@ public class UserInforBean {
 
         @Override
         public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(String.valueOf(phone));
-            dest.writeString(String.valueOf(sex));
-            dest.writeString(String.valueOf(isConcerned));
+            dest.writeLong(phone);
+            dest.writeInt(sex);
+            dest.writeByte((byte)(isConcerned ?1:0));
             dest.writeString(studentId);
             dest.writeString(name);
             dest.writeString(headUrl);
             dest.writeString(qq);
+            dest.writeInt(userId);
         }
     }
 }

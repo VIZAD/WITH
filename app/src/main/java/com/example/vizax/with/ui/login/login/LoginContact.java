@@ -22,6 +22,8 @@ public interface LoginContact {
         void loginSuccess(String Msg,UserBean.DataBean data);
 
         void loginFailure(String Error);
+
+        void startActivity();
     }
 
     interface Modle{

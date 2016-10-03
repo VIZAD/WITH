@@ -11,13 +11,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.vizax.with.App;
 import com.example.vizax.with.R;
 import com.example.vizax.with.adapter.InvitationDetailsRecyclerViewAdapter;
 import com.example.vizax.with.adapter.UserImgListecyclerViewAdapter;
 import com.example.vizax.with.bean.HomeInvitationBean;
 import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.bean.MembersBean;
+import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.customView.BaseToolBar;
+import com.example.vizax.with.util.SharedUtil;
+import com.example.vizax.with.util.TimeUtil;
 
 import java.util.ArrayList;
 
@@ -80,7 +84,7 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
     public  ArrayList<InvitationBean> mInvitationBeanList;
     public  ArrayList<MembersBean> mMemberBean;
     private InvitationDetailContact.Presenter mPresenter;
-    private MaterialDialog mMaterialDialog;
+    private MaterialDialog mMaterialDialog,mJoin;
     private int index;
     private HomeInvitationBean mHomeInvitationBean;
     @Override
@@ -88,10 +92,10 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.invitation_detail_activity);
         ButterKnife.bind(this);
-        mPresenter = new InvitationDetailPresenter();
-        mPresenter.attachView(this);
         //获取list界面传过来的活动参与人信息
         getData();
+        mPresenter = new InvitationDetailPresenter(mMemberBean);
+        mPresenter.attachView(this);
         //设置点击的item的index
         mPresenter.setPosition(index);
         //参与人头像list
@@ -120,14 +124,17 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
     private void initView() {
 
         itemInvitationOriginatorName.setText(mInvitationBeanList.get(index).getOriginatorrealName());
-        itemInvitationInvitationTime.setText(mInvitationBeanList.get(index).getInvitationTime());
-        itemInvitationPublishTime.setText(mInvitationBeanList.get(index).getPublishTime());
+        itemInvitationInvitationTime.setText("活动时间:"+mInvitationBeanList.get(index).getInvitationTime());
+        itemInvitationPublishTime.setText(TimeUtil.getTime(mInvitationBeanList.get(index).getPublishTime()));
         itemInvitationContents.setText(mInvitationBeanList.get(index).getContent());
-        itemInvitationPlace.setText(mInvitationBeanList.get(index).getPlace());
-        itemInvitationSexRequire.setText(mInvitationBeanList.get(index).getSexRequire());
+        itemInvitationPlace.setText("活动地点:"+mInvitationBeanList.get(index).getPlace());
         itemInvitationNumber.setText(mInvitationBeanList.get(index).getCurrentNumber() + "/" + mInvitationBeanList.get(index).getTotalNumber());
-        itemInvitationSexRequire.setText(mInvitationBeanList.get(index).getSexRequire());
+        itemInvitationSexRequire.setText("性别要求:"+getSexrequire(mInvitationBeanList.get(index).getSexRequire()));
 
+        mJoin = new MaterialDialog.Builder(this)
+                .content("正在处理请稍后")
+                .progress(true,0)
+                .build();
 
         if (mInvitationBeanList.get(index).isJoin()) {
             itemInvitationJoinBtn.setImageResource(R.drawable.join_selected);
@@ -149,7 +156,22 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
             }
         });
     }
-
+    //性别转换
+    private String getSexrequire(String sexRequire) {
+        String result = "不限";
+        switch (sexRequire){
+            case "0":
+                result = "男生";
+                break;
+            case "1":
+                result = "女生";
+                break;
+            case "2":
+                result = "不限";
+                break;
+        }
+        return result;
+    }
 
     //获取list界面传过来的活动参与人信息
     public void getData() {
@@ -168,7 +190,10 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
             case R.id.item_invitation_originator_imagVi:
                 break;
             case R.id.item_invitation_join_btn:
+                if(Integer.parseInt(mInvitationBeanList.get(index).getSexRequire()) == 2 || Integer.parseInt(mInvitationBeanList.get(index).getSexRequire()) == SharedUtil.getInt(App.instance, FieldConstant.sex))
                 mPresenter.pressJoin(mInvitationBeanList.get(index));
+                else
+                showToast("你不符合性别要求，无法参加活动！");
                 break;
         }
     }
@@ -195,18 +220,58 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
         //InvitationPresenter.mInvitationBaseBean.getData().get(position).setJoin( InvitationPresenter.mInvitationBaseBean.getData().get(position).isJoin() ? (false):(true));
         itemInvitationJoinBtn.setImageResource(((mInvitationBeanList.get(index).isJoin()) ? R.drawable.join_selected:R.drawable.join_unselected));
        // mInvitationBeanList.get(index).setJoin(mInvitationBeanList.get(index).isJoin()?false:true);
-        Toast.makeText(this,"-----"+mInvitationBeanList.get(index).isJoin(),Toast.LENGTH_SHORT).show();
         setResultData();
+    }
+
+    @Override
+    public void removeMember(int position) {
+        mAdapter.notifyItemRemoved(position);
+        mUserImgAdapter.notifyItemRemoved(position);
+    }
+
+    @Override
+    public void addMember(int position) {
+        mAdapter.notifyItemChanged(position);
+        mUserImgAdapter.notifyItemChanged(position);
+    }
+
+    @Override
+    public void showDialog() {
+        mJoin.show();
+    }
+
+    @Override
+    public void dismissDialog() {
+        mJoin.dismiss();
+    }
+
+    @Override
+    public void showToast(String string) {
+        Toast.makeText(this, string,Toast.LENGTH_SHORT).show();
+    }
+
+    //已参与人数加一
+    @Override
+    public void addNum() {
+        int num = Integer.parseInt(mInvitationBeanList.get(index).getCurrentNumber()) + 1;
+        itemInvitationNumber.setText(num + "/" + mInvitationBeanList.get(index).getTotalNumber());
+
+    }
+
+    //已参与人数减一
+    @Override
+    public void reduceNum() {
+        int num = Integer.parseInt(mInvitationBeanList.get(index).getCurrentNumber()) - 1;
+        itemInvitationNumber.setText(num + "/" + mInvitationBeanList.get(index).getTotalNumber());
     }
 
     private void setResultData() {
 
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
-        System.out.println("!!!!!!!!!"+mInvitationBeanList.get(index).isJoin());
         bundle.putBoolean("join", mInvitationBeanList.get(index).isJoin());
         bundle.putInt("index",index);
-        bundle.putParcelable("member",mMemberBean.get(0));
+        bundle.putParcelableArrayList("members",mMemberBean);
         intent.putExtras(bundle);
         setResult(1, intent);
     }

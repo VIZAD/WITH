@@ -12,7 +12,7 @@ public class User {
     public static String token;
     public static String nickName;
     public static String userUrl;
-    public static int userId;
+    public static String userId;
     public static String studentID;
     public static String classX;
     public static String realName;

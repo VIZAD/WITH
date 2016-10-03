@@ -9,6 +9,7 @@ import com.example.vizax.with.bean.FollowBean;
 import com.example.vizax.with.bean.Test;
 import com.example.vizax.with.bean.UserInforBean;
 import com.example.vizax.with.constant.APIConstant;
+import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.util.FilesUtil;
 import com.example.vizax.with.util.GsonUtil;
 import com.example.vizax.with.util.PrjOkHttpUtil;
@@ -36,11 +37,10 @@ public class UserInformationModuel implements UserInformationContact.Moduel {
     @Override
     public void getUserInformation(String userId,String invitationId,StringCallback stringCallback) {
 
-        System.out.println(""+userId+"and"+invitationId);
         //获取用户信息的json数据解析
         OkHttpUtils.post()
                 .url(APIConstant.getApi(APIConstant.USER_GETUSERINFO ))
-                .addParams("token","2")
+                .addParams("token",SharedUtil.getString(App.instance, FieldConstant.token))
                 .addParams("aimUserId",userId)
                 .addParams("invitationId",invitationId)
                 .build()
@@ -53,7 +53,7 @@ public class UserInformationModuel implements UserInformationContact.Moduel {
         //查询是否关注该用户
         OkHttpUtils.post()
                 .url(APIConstant.getApi(APIConstant.INVITATION_CONCERNUSER))
-                .addParams("token","2")
+                .addParams("token",SharedUtil.getString(App.instance, FieldConstant.token))
                 .addParams("concernedUserId",userId)
                 .build()
                 .execute(stringCallback);

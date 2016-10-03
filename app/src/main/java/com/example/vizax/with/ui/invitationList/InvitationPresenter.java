@@ -191,12 +191,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
 
             @Override
             public void onResponse(String response, int id) {
-                System.out.println("更新前的数据="+response);
                 InvitationBaseBean  loadBean = GsonUtil.toString(response, InvitationBaseBean.class);
-                for(int i = 0;i<loadBean.getData().size();i++){
-                    baseBean.getData().add(loadBean.getData().get(i));
-                }
-                System.out.println("更新后的数据="+baseBean.getData().size());
                 if (loadBean.getCode().equals("200")){
                     System.out.println("success!!!");
                 }

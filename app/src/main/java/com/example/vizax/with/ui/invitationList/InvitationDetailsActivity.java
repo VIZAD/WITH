@@ -225,6 +225,11 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
         mJoin.dismiss();
     }
 
+    @Override
+    public void showToast(String string) {
+        Toast.makeText(this, string,Toast.LENGTH_SHORT).show();
+    }
+
     //已参与人数加一
     @Override
     public void addNum() {

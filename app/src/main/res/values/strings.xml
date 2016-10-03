@@ -13,20 +13,27 @@
 
     <string-array name="sports">
         <item>篮球</item>
-        <item>足球+</item>
-        <item>羽毛球</item>
+        <item>足球</item>
+        <item>桌球</item>
         <item>乒乓球</item>
         <item>跑步</item>
         <item>游泳</item>
-        <item>骑行</item>
+        <item>羽毛球</item>
+        <item>网球</item>
+        <item>健身</item>
+        <item>户外</item>
+        <item>溜冰</item>
+        <item>其他运动</item>
     </string-array>
     <string-array name="study">
         <item>自习</item>
-        <item>图书馆</item>
+        <item>晨读</item>
         <item>英语口语</item>
         <item>英语四六级</item>
         <item>BEC</item>
         <item>考研</item>
+        <item>看书</item>
+        <item>其他学习</item>
     </string-array>
     <string-array name="brpg">
         <item>三国杀</item>
@@ -37,15 +44,18 @@
         <item>五子棋</item>
         <item>德州扑克</item>
         <item>21点</item>
+        <item>斗地主</item>
+        <item>其他桌游</item>
     </string-array>
     <string-array name="onlineGame">
         <item>英雄联盟</item>
-        <item>DOTA2</item>
+        <item>Dota2</item>
         <item>守望先锋</item>
         <item>CF</item>
-        <item>地下城与勇士</item>
-        <item>mc</item>
+        <item>DNF</item>
         <item>王者荣耀</item>
+        <item>斗地主</item>
+        <item>其他网游</item>
     </string-array>
     <string-array name="date">
         <item>吃饭</item>
@@ -53,6 +63,8 @@
         <item>电影</item>
         <item>散步</item>
         <item>演唱会</item>
+        <item>露营</item>
+        <item>其他约会</item>
     </string-array>
     <!--登录页面-->
     <string name="login_tab">登录</string>

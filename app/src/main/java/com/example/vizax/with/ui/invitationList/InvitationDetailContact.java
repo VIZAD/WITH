@@ -21,6 +21,9 @@ public interface InvitationDetailContact {
         void showDialog();
         void dismissDialog();
 
+        //toast
+        void showToast(String string);
+
         //已参与人加减
         void addNum();
         void reduceNum();

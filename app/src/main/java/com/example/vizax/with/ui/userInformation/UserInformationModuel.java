@@ -34,54 +34,29 @@ public class UserInformationModuel implements UserInformationContact.Moduel {
     private  boolean follow;
 
     @Override
-    public UserInforBean getUserInformation(String userId) {
+    public void getUserInformation(String userId,String invitationId,StringCallback stringCallback) {
 
-        System.out.println("11111111111"+userId);
+        System.out.println(""+userId+"and"+invitationId);
         //获取用户信息的json数据解析
         OkHttpUtils.post()
                 .url(APIConstant.getApi(APIConstant.USER_GETUSERINFO ))
-                .addParams("token","1")
+                .addParams("token","2")
                 .addParams("aimUserId",userId)
+                .addParams("invitationId",invitationId)
                 .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                         mUserInforBean = GsonUtil.toListString(response,UserInforBean.class);
-                    }
-                });
-        return mUserInforBean;
+                .execute(stringCallback);
+       // System.out.println(mUserInforBean.getMsg()+mUserInforBean.getData().getStudentId());
     }
 
     @Override
-    public boolean follow(String userId) {
+    public void follow(String userId,StringCallback stringCallback) {
         //查询是否关注该用户
         OkHttpUtils.post()
                 .url(APIConstant.getApi(APIConstant.INVITATION_CONCERNUSER))
-                .addParams("token","1")
+                .addParams("token","2")
                 .addParams("concernedUserId",userId)
                 .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        follow = false;
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                        FollowBean followBean = GsonUtil.toListString(response,FollowBean.class);
-                        if(followBean.getData().isIsConcerned())
-                            follow = true;
-                        else
-                            follow = false;
-
-                    }
-                });
-        return follow;
+                .execute(stringCallback);
     }
 
     @Override

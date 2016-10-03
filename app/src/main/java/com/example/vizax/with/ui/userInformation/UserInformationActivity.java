@@ -69,11 +69,12 @@ public class UserInformationActivity extends BaseActivity implements UserInforma
         mUserInforPresenter = new UserInformationPresenter();
         mUserInforPresenter.attachView(this);
         follow = (Button) findViewById(R.id.user_infor_follow);
+        follow.setOnClickListener(this);
 
-        //初始化toolbar
-        initToolbar();
         //判断是“我的信息” 还是 “他人信息”
         getTye();
+        //初始化toolbar
+        initToolbar();
         //显示信息
         setInfomation(ifMy);
         //设置头像回调事件
@@ -155,9 +156,11 @@ public class UserInformationActivity extends BaseActivity implements UserInforma
             avatarId = mUserInforBean.getStudentId();
             userInforAvatar.setFile(avatarId, path);
             if(mUserInforBean.isIsConcerned()){
-                userInforAvatar.setBackgroundColor(getResources().getColor(R.color.my_follow_follow_btn));
+                follow.setBackgroundColor(getResources().getColor(R.color.my_follow_follow_btn));
+                follow.setText("取消关注");
             }else {
-                userInforAvatar.setBackgroundColor(getResources().getColor(R.color.my_follow_unfollow_btn));
+                follow.setBackgroundColor(getResources().getColor(R.color.my_follow_unfollow_btn));
+                follow.setText("关注");
             }
         }
     }
@@ -193,6 +196,20 @@ public class UserInformationActivity extends BaseActivity implements UserInforma
     }
 
     @Override
+    public void disConcerned() {
+        follow.setBackgroundColor(getResources().getColor(R.color.my_follow_unfollow_btn));
+        follow.setText("关注");
+        Toast.makeText(UserInformationActivity.this, "取关成功", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void concerned() {
+        follow.setBackgroundColor(getResources().getColor(R.color.my_follow_follow_btn));
+        follow.setText("取消关注");
+        Toast.makeText(UserInformationActivity.this, "关注成功", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public Context getContext() {
         return this;
     }
@@ -200,13 +217,7 @@ public class UserInformationActivity extends BaseActivity implements UserInforma
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.user_infor_follow) {
-            if(mUserInforPresenter.follow(mUserInforBean.getStudentId())){
-                userInforAvatar.setBackgroundColor(getResources().getColor(R.color.my_follow_follow_btn));
-                Toast.makeText(UserInformationActivity.this, "关注成功", Toast.LENGTH_SHORT).show();
-            }else {
-                userInforAvatar.setBackgroundColor(getResources().getColor(R.color.my_follow_unfollow_btn));
-                Toast.makeText(UserInformationActivity.this, "关注失败", Toast.LENGTH_SHORT).show();
-            }
+            mUserInforPresenter.follow(String.valueOf(mUserInforBean.getUserId()));
         }
     }
 }

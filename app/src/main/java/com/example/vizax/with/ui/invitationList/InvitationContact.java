@@ -27,28 +27,29 @@ public interface InvitationContact {
         void dismissDialog();
         //获取数据失败事件
         void loadDataFailure();
+        //toast显示信息
+        void showToast(String string);
 
         //打开我的互动编辑页面
         void  openEdit();
         //打开发起活动界面
         void openLaunch();
-
         //item点击事件
         void OpenDetail(int position, InvitationBaseBean invitationBean);
-        void OpenUserInfor(int position, UserInforBean userInforBean);
+        void OpenUserInfor(UserInforBean userInforBean);
         void stopRefresh();
     }
     interface InvitationlModel{
-        void getData(String typeId, String userId,String token, StringCallback stringCallback);
-        void addData(String finalItemId, String count,String token,StringCallback stringCallback);
-        void deleteData(String token,String invitationId,StringCallback stringCallback);
+        void getData(String typeId, String userId, StringCallback stringCallback);
+        void addData(String finalItemId, String count,StringCallback stringCallback);
+        void deleteData(String invitationId,StringCallback stringCallback);
     }
     interface InvitationPresenter extends BasePresenter<View>{
-        void getDataAndSetAdapter(Context context, RecyclerView recyclerView,String token, int visible, String typeId, String userId);
+        void getDataAndSetAdapter(Context context, RecyclerView recyclerView, int visible, String typeId, String userId);
         void onPositive(int position);
         void setAdapter(Context context, RecyclerView recyclerView,InvitationBaseBean invitationBaseBean, int visible);
         void pullLoadMore(Context context, RecyclerView recyclerView, int visible, String typeId, String userId);
-        UserInforBean getUserInfor(String id);
+        void getUserInfor(String userId,String inviationId);
         void setNotifyChange();
         void deleteInvitation(int position);
 

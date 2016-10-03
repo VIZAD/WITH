@@ -1,19 +1,22 @@
 package com.example.vizax.with.ui.invitationList;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.example.vizax.with.App;
 import com.example.vizax.with.adapter.InvitationRecyclerViewAdapter;
 import com.example.vizax.with.bean.BaseBean;
 import com.example.vizax.with.bean.InvitationBaseBean;
 import com.example.vizax.with.bean.MembersBean;
 import com.example.vizax.with.bean.UserInforBean;
-import com.example.vizax.with.ui.userInformation.UserInformationContact;
+import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.ui.userInformation.UserInformationModuel;
 import com.example.vizax.with.util.GsonUtil;
+import com.example.vizax.with.util.SharedUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import okhttp3.Call;
@@ -33,6 +36,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     public InvitationBaseBean baseBean;
     private String token ;
 
+
     /**
      * 设置recyclerView的adapter
      * @param context
@@ -40,10 +44,10 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
      * @param visible 时间右边的操作按钮是否显示
      */
     @Override
-    public void getDataAndSetAdapter(Context context, RecyclerView recyclerView,String token,int visible, String typeId, String userId){
+    public void getDataAndSetAdapter(Context context, RecyclerView recyclerView,int visible, String typeId, String userId){
 
         this.token = token;
-        mInvitationModel.getData(typeId, userId,token,new StringCallback() {
+        mInvitationModel.getData(typeId, userId,new StringCallback() {
 
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -58,7 +62,8 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
                     setAdapter(context,recyclerView,baseBean,visible);
                 }
                 else{
-                    System.out.println("null!!!");
+                    setAdapter(context,recyclerView,baseBean,visible);
+                    mInvitationActivity.showToast(baseBean.getMsg());
                 }
 
 
@@ -93,14 +98,20 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
                 BaseBean join = GsonUtil.toString(response,BaseBean.class);
                 System.out.println("msg="+join.getMsg());
                 if (join.getCode().equals("200")) {
-                    baseBean.getData().get(position).setJoin(baseBean.getData().get(position).isJoin() ? false : true);
-
-                    if (baseBean.getData().get(position).isJoin()) {
-                        membersAdd(position);
-                    } else {
-                        membersReduce(position);
+                    if(type.equals("1")||type.equals("2")) {
+                        baseBean.getData().get(position).setJoin(baseBean.getData().get(position).isJoin() ? false : true);
+                        if (baseBean.getData().get(position).isJoin()) {
+                            membersAdd(position);
+                        } else {
+                            membersReduce(position);
+                        }
+                        mAdapter.notifyItemChanged(position);
+                    }else {
+                        mInvitationActivity.showToast("已发送特批信息");
                     }
-                    mAdapter.notifyItemChanged(position);
+
+                }else{
+                    mInvitationActivity.showToast(join.getMsg());
                 }
                 mInvitationActivity.dismissDialog();
             }
@@ -108,19 +119,17 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     }
 
     private void membersAdd(int position) {
-        //TODO 后面用登录的静态类User
         MembersBean newMember = new MembersBean();
-        newMember.setUserId("2");
-        newMember.setRealName("潘大爷");
-        newMember.setPhone("1831876465");
+        newMember.setUserId(String.valueOf(SharedUtil.getInt(App.instance,FieldConstant.userId)));
+        newMember.setRealName(SharedUtil.getString(App.instance,FieldConstant.realName));
+        newMember.setPhone(SharedUtil.getString(App.instance,FieldConstant.phone));
         baseBean.getData().get(position).getMembers().add(newMember);
         int num = Integer.parseInt(baseBean.getData().get(position).getCurrentNumber()) + 1;
         baseBean.getData().get(position).setCurrentNumber(String.valueOf(num));
     }
     private void membersReduce(int position) {
         for(int i = 1;i <  baseBean.getData().get(position).getMembers().size();i++){
-            //TODO 后面用登录的静态类User.UserID
-            if (baseBean.getData().get(position).getMembers().get(i).getUserId().equals("2")){
+            if (baseBean.getData().get(position).getMembers().get(i).getUserId().equals(SharedUtil.getString(App.instance,FieldConstant.userId))){
                 baseBean.getData().get(position).getMembers().remove(i);
                 break;
             }
@@ -140,8 +149,8 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
             @Override
             public void onAvatarOnclik(int position, InvitationBaseBean invitationBaseBean) {
 
-                UserInforBean lUserInforBean = getUserInfor(invitationBaseBean.getData().get(position).getMembers().get(0).getUserId());
-                mInvitationActivity.OpenUserInfor(position,lUserInforBean);
+                getUserInfor(invitationBaseBean.getData().get(position).getMembers().get(0).getUserId(),invitationBaseBean.getData().get(position).getInvitaionId());
+
             }
         });
         mAdapter.setCallBack(new InvitationContact.InvitationCallBack() {
@@ -167,7 +176,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     public void pullLoadMore(Context context, RecyclerView recyclerView, int visible, String typeId, String userId) {
         int lLastIndex = baseBean.getData().size() - 1;
         finalItemId = baseBean.getData().get(lLastIndex).getInvitaionId();
-        mInvitationModel.addData("17", "10",token, new StringCallback() {
+        mInvitationModel.addData(finalItemId, "10", new StringCallback() {
             @Override
             public void onAfter(int id) {
                 super.onAfter(id);
@@ -200,9 +209,27 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     }
 
     @Override
-    public UserInforBean getUserInfor(String id) {
-        mUserInforBean =  mUserinforModuel.getUserInformation(id);
-        return mUserInforBean;
+    public void getUserInfor(String id,String invitationId) {
+        mUserinforModuel.getUserInformation(id, invitationId, new StringCallback() {
+            @Override
+                public void onError(Call call, Exception e, int id) {
+                    System.out.println("NULL!!!!");
+                }
+
+                @Override
+                public void onResponse(String response, int id) {
+                    mUserInforBean = GsonUtil.toString(response, UserInforBean.class);
+                    if(mUserInforBean.getCode() == 200){
+                        System.out.println("用户id="+mUserInforBean.getData().getUserId());
+                        mInvitationActivity.OpenUserInfor(mUserInforBean);
+                    }else {
+                        mInvitationActivity.showToast("未参加活动无法查看发起人信息");
+                    }
+
+                }
+            });
+
+
     }
 
     @Override
@@ -213,7 +240,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     @Override
     public void deleteInvitation(int position) {
         mInvitationActivity.showDiaolog();
-        mInvitationModel.deleteData(token, baseBean.getData().get(position).getInvitaionId(), new StringCallback() {
+        mInvitationModel.deleteData(baseBean.getData().get(position).getInvitaionId(), new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 mInvitationActivity.dismissDialog();

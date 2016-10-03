@@ -6,8 +6,11 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.example.vizax.with.R;
 import com.example.vizax.with.bean.BaseEmptyBean;
+import com.example.vizax.with.bean.FollowBean;
 import com.example.vizax.with.bean.InvitationBaseBean;
 import com.example.vizax.with.bean.UserInforBean;
 import com.example.vizax.with.constant.APIConstant;
@@ -36,7 +39,7 @@ public class UserInformationPresenter  implements UserInformationContact.Present
     private UserInformationActivity mUserInfoView;
     private UserInformationModuel mUserInfoModuel;
     private UserInforBean mUserInforBean;
-    private boolean follow;
+    public boolean follow;
 
     public static String destFileDir = Environment.getExternalStorageDirectory()
             .getAbsolutePath()+ File.separator+"pic";
@@ -62,9 +65,36 @@ public class UserInformationPresenter  implements UserInformationContact.Present
     }
 
     @Override
-    public boolean follow(String userId) {
-        follow =  mUserInfoModuel.follow(userId);
-        return follow;
+    public void follow(String userId) {
+        mUserInfoModuel.follow(userId, new StringCallback() {
+            @Override
+            public void onAfter(int id) {
+                super.onAfter(id);
+                if(follow){
+                   mUserInfoView.concerned();
+                }else {
+                   mUserInfoView.disConcerned();
+                }
+            }
+
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                follow = false;
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                FollowBean followBean = GsonUtil.toListString(response,FollowBean.class);
+                if(followBean.getData().isConcerned()) {
+                    follow = true;
+                    System.out.println("true");
+                }
+                else {
+                    follow = false;
+                    System.out.println("false");
+                }
+            }
+        });
     }
 
 

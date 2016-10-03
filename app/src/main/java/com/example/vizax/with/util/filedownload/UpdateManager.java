@@ -9,6 +9,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.bean.BaseBean;
 import com.example.vizax.with.bean.VersionBean;
+import com.example.vizax.with.constant.APIConstant;
 import com.example.vizax.with.util.DeviceUtils;
 import com.example.vizax.with.util.GsonUtil;
 import com.example.vizax.with.util.NetWorkUtil;
@@ -38,6 +39,7 @@ public class UpdateManager {
 
         int mVersion_code = DeviceUtils.getVersionCode(mContext);// 当前的版本号
         PrjOkHttpUtil.addToken()
+                .url(APIConstant.getApi(APIConstant.USER_VERSIONUPDATE))
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -47,15 +49,16 @@ public class UpdateManager {
 
                     @Override
                     public void onResponse(String response, int id) {
-                        BaseBean<VersionBean> baseBean = GsonUtil.toString(response,BaseBean.class);
-                        if (baseBean.getCode().equals("200")){
-                            if (mVersion_code<baseBean.getData().getVersionCode()){
-                                showUpdateDialog(baseBean.getData().getVersionContent(),baseBean.getData().getVersionUrl());
+
+                        VersionBean versionBean = GsonUtil.toString(response,VersionBean.class);
+                        if (versionBean.getCode()==200){
+                            if (mVersion_code<versionBean.getData().getVersionCode()){
+                                showUpdateDialog(versionBean.getData().getVersionContent(),versionBean.getData().getVersionUrl());
                             }else {
-                                Toast.makeText(mContext,"当前已经是最新版本了",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext,versionBean.getMsg(),Toast.LENGTH_SHORT).show();
                             }
                         }else {
-                            Toast.makeText(mContext,baseBean.getMsg(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext,versionBean.getMsg(),Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

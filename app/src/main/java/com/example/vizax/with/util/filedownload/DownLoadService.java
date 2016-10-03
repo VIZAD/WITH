@@ -79,6 +79,7 @@ public class DownLoadService extends Service {
                         super.inProgress(progress, total, id);
                         updateNotification((int)(progress*100));
                         if (progress==1.0){
+                            cancelNotification();
                             installApk(new File(destFileDir+"/"+destFileName));
                         }
                     }

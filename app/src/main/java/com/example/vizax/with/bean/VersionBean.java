@@ -1,63 +1,105 @@
 package com.example.vizax.with.bean;
 
 public class VersionBean {
-    private Integer versionId;
 
-    private Integer versionCode;
 
-    private Double versionName;
+    /**
+     * code : 200
+     * msg : 成功
+     * data : {"versionId":3,"versionCode":5,"versionName":4,"versionContent":"hahaha测试;做下测试而已","versionForceUpdate":0,"versionUrl":"http://117.169.71.165/imtt.dd.qq.com/16891/580B22B6281E704CAB3079BC8210A88D.apk?mkey=57e9226712336c2a&f=8a5d&c=0&fsname=com.supertreasure_1.2_3.apk&csr=4d5s&p=.apk"}
+     */
 
-    private String versionContent;
+    private int code;
+    private String msg;
+    /**
+     * versionId : 3
+     * versionCode : 5
+     * versionName : 4.0
+     * versionContent : hahaha测试;做下测试而已
+     * versionForceUpdate : 0
+     * versionUrl : http://117.169.71.165/imtt.dd.qq.com/16891/580B22B6281E704CAB3079BC8210A88D.apk?mkey=57e9226712336c2a&f=8a5d&c=0&fsname=com.supertreasure_1.2_3.apk&csr=4d5s&p=.apk
+     */
 
-    private Integer versionForceUpdate;
+    private DataBean data;
 
-    private String versionUrl;
-
-    public Integer getVersionId() {
-        return versionId;
+    public int getCode() {
+        return code;
     }
 
-    public void setVersionId(Integer versionId) {
-        this.versionId = versionId;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public Integer getVersionCode() {
-        return versionCode;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setVersionCode(Integer versionCode) {
-        this.versionCode = versionCode;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public Double getVersionName() {
-        return versionName;
+    public DataBean getData() {
+        return data;
     }
 
-    public void setVersionName(Double versionName) {
-        this.versionName = versionName;
+    public void setData(DataBean data) {
+        this.data = data;
     }
 
-    public String getVersionContent() {
-        return versionContent;
-    }
+    public static class DataBean {
+        private int versionId;
+        private int versionCode;
+        private double versionName;
+        private String versionContent;
+        private int versionForceUpdate;
+        private String versionUrl;
 
-    public void setVersionContent(String versionContent) {
-        this.versionContent = versionContent == null ? null : versionContent.trim();
-    }
+        public int getVersionId() {
+            return versionId;
+        }
 
-    public Integer getVersionForceUpdate() {
-        return versionForceUpdate;
-    }
+        public void setVersionId(int versionId) {
+            this.versionId = versionId;
+        }
 
-    public void setVersionForceUpdate(Integer versionForceUpdate) {
-        this.versionForceUpdate = versionForceUpdate;
-    }
+        public int getVersionCode() {
+            return versionCode;
+        }
 
-    public String getVersionUrl() {
-        return versionUrl;
-    }
+        public void setVersionCode(int versionCode) {
+            this.versionCode = versionCode;
+        }
 
-    public void setVersionUrl(String versionUrl) {
-        this.versionUrl = versionUrl == null ? null : versionUrl.trim();
+        public double getVersionName() {
+            return versionName;
+        }
+
+        public void setVersionName(double versionName) {
+            this.versionName = versionName;
+        }
+
+        public String getVersionContent() {
+            return versionContent;
+        }
+
+        public void setVersionContent(String versionContent) {
+            this.versionContent = versionContent;
+        }
+
+        public int getVersionForceUpdate() {
+            return versionForceUpdate;
+        }
+
+        public void setVersionForceUpdate(int versionForceUpdate) {
+            this.versionForceUpdate = versionForceUpdate;
+        }
+
+        public String getVersionUrl() {
+            return versionUrl;
+        }
+
+        public void setVersionUrl(String versionUrl) {
+            this.versionUrl = versionUrl;
+        }
     }
 }

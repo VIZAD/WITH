@@ -319,7 +319,7 @@ public class HomeActivity extends BaseActivity implements HomeContact.View {
                 showHomeToast("设置");
                 break;
             case R.id.my_update_txtVi:
-                showHomeToast("检查更新");
+                //showHomeToast("检查更新");
                 new UpdateManager(this).checkUpdate();
                 break;
         }

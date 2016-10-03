@@ -14,13 +14,26 @@ import java.util.List;
 public interface MyMessageContact {
     interface View extends BaseView{
         public void loadDatas(List<MyMessageBean.DataBean> mMessageList, int lastId);
+
+        void showToast(String msg);
     }
 
     interface Modle{
         public void loadMyMessageData(String token, int lastMessageId, int limit, StringCallback stringCallback);
+
+        void deleteMessage(String token,int messageId, StringCallback stringCallback);
+        void readMessage(String token, int messageId, StringCallback stringCallback);
+
+        void agreeMessage(String token, int messageId,boolean isAccept,int invitationId,int applyUserid, StringCallback stringCallback);
+
     }
 
     interface Presenter extends BasePresenter<View> {
         public void loadMessageData(String token, int lastMessageId, int limit);
+
+        void deleteMessage(MyMessageAdapter mMessageAdapter, int adapterPosition, int messageId);
+        void readMessage(MyMessageAdapter mMessageAdapter, int adapterPosition, int messageId);
+        void rejectMessage(MyMessageAdapter mMessageAdapter, int position, int messageId);
+        void agreeMessage(MyMessageAdapter mMessageAdapter, int position, int messageId);
     }
 }

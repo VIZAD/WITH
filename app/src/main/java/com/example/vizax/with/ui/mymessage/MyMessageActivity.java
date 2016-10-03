@@ -1,6 +1,7 @@
 package com.example.vizax.with.ui.mymessage;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.R;
 import com.example.vizax.with.base.BaseActivity;
@@ -87,8 +89,8 @@ public class MyMessageActivity extends BaseActivity implements MyMessageContact.
         toolbar.setLeftIcon(R.drawable.ic_keyboard_arrow_left);
 
         //新建Presenter
-        mMessagePresenter = new MyMessagePresenter(this);
-
+        mMessagePresenter = new MyMessagePresenter(getApplicationContext());
+        mMessagePresenter.attachView(this);
         //设置RecyclerView
         mManager = new LinearLayoutManager(this);
         mMessageView.setLayoutManager(mManager);
@@ -171,8 +173,7 @@ public class MyMessageActivity extends BaseActivity implements MyMessageContact.
         @Override
         public void onItemClick(Closeable closeable, int adapterPosition, int menuPosition, int direction) {
             if (menuPosition == 0) {
-                mMessageList.remove(adapterPosition);
-                mMessageAdapter.notifyItemRemoved(adapterPosition);
+                mMessagePresenter.deleteMessage(mMessageAdapter,adapterPosition,mMessageList.get(adapterPosition).getMessageId());
             }
         }
     };
@@ -181,16 +182,25 @@ public class MyMessageActivity extends BaseActivity implements MyMessageContact.
     private OnItemClickListener itemClickListener = new OnItemClickListener() {
         @Override
         public void onItemClick(int position) {
+            mMessagePresenter.readMessage(mMessageAdapter,position,mMessageList.get(position).getMessageId());
             //View view = View.inflate(MyMessageActivity.this,R.layout.dialog_my_message,null);
-
-            MaterialDialog.Builder builder = new MaterialDialog.Builder(MyMessageActivity.this)
-                    .customView(view,true)
-                    .positiveText("批准")
-                    .neutralText("取消")
-                    .neutralColorRes(R.color.gray)
-                    .negativeText("删除")
-                    .negativeColorRes(R.color.red);
-            MaterialDialog dialog = builder.build();
+            MaterialDialog dialog = null;
+            MaterialDialog.Builder builder = new MaterialDialog.Builder(MyMessageActivity.this);
+            builder.customView(view,true);
+            builder.neutralText("取消");
+            if (mMessageAdapter.getmDatas().get(position).getMessageType()==FieldConstant.MESSAGE_TYPE_APPLY) {
+                builder.positiveText("批准");
+                builder.neutralColorRes(R.color.gray);
+                builder.negativeText("拒绝");
+                builder.negativeColorRes(R.color.red);
+                builder.onPositive((dialog1, which) -> {
+                    mMessagePresenter.agreeMessage(mMessageAdapter, position, mMessageList.get(position).getMessageId());
+                })
+                 .onNegative((dialog1, which) -> {
+                            mMessagePresenter.rejectMessage(mMessageAdapter, position, mMessageList.get(position).getMessageId());
+                 });
+            }
+            dialog = builder.build();
             dialog.show();
 
             initDatas();
@@ -256,5 +266,16 @@ public class MyMessageActivity extends BaseActivity implements MyMessageContact.
         mMessageAdapter.setmDatas(mMessageList);
         mMessageAdapter.notifyDataSetChanged();
         this.lastId = lastId;
+    }
+
+    @Override
+    public void showToast(String msg) {
+        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mMessagePresenter.detachView();
     }
 }

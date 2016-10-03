@@ -23,6 +23,11 @@ import java.util.List;
 public class MyMessageAdapter extends SwipeMenuAdapter<MyMessageAdapter.DefaultViewHolder> {
 
     private List<MyMessageBean.DataBean> mDatas;
+
+    public List<MyMessageBean.DataBean> getmDatas() {
+        return mDatas;
+    }
+
     private OnItemClickListener mOnItemClickListener;
 
     public MyMessageAdapter(List<MyMessageBean.DataBean> mDatas) {

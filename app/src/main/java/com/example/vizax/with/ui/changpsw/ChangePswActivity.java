@@ -84,13 +84,6 @@ public class ChangePswActivity extends BaseActivity implements  ChangePswContact
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
-    @Override
     public void changepswSuccess(String Msg) {
         SnackbarUtils.show(root, Msg, 0, null);///??????????????????
 

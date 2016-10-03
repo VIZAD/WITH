@@ -78,7 +78,6 @@ public class InvitationDetailPresenter implements InvitationDetailContact.Presen
             @Override
             public void onResponse(String response, int id) {
 
-                System.out.println("resonse="+response);
                 BaseBean baseBean = GsonUtil.toString(response,BaseBean.class);
                 if(baseBean.getCode().equals("200")) {
                    if( mInvitationBean.isJoin()){
@@ -98,7 +97,6 @@ public class InvitationDetailPresenter implements InvitationDetailContact.Presen
     private void quitInvitation() {
         mInvitationBean.setJoin(false);
         for(int i = 1;i < membersBean.size();i++){
-            //TODO 后面用登录的静态类User.UserID
             if (membersBean.get(i).getUserId().equals(String.valueOf(SharedUtil.getInt(App.instance, FieldConstant.userId)))){
                 membersBean.remove(i);
                 mInvitationDetailView.removeMember(i);
@@ -109,7 +107,6 @@ public class InvitationDetailPresenter implements InvitationDetailContact.Presen
 
     }
     private void joinInitation() {
-        //TODO 后面用登录的静态类User
         mInvitationBean.setJoin(true);
         MembersBean newMember = new MembersBean();
         newMember.setUserId(String.valueOf(SharedUtil.getInt(App.instance, FieldConstant.userId)));

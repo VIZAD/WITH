@@ -54,6 +54,7 @@
         </activity>
         <activity android:name=".ui.invitation.LuanchInvitationActivity"/>
         <activity android:name=".ui.myhome.HomeActivity" />
+        <activity android:name=".ui.changpsw.ChangePswActivity" />
         <activity android:name=".ui.Insist.InsistActivity" />
         <activity android:name=".ui.userInformation.UserInformationActivity" />
         <service android:name=".util.filedownload.DownLoadService"/>

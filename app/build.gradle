@@ -244,8 +244,7 @@ dependencies {
     compile 'com.umeng.analytics:analytics:latest.integration'
     //侧滑删除
     compile 'com.yanzhenjie:recyclerview-swipe:1.0.2'
+    //导航页
+    compile 'com.heinrichreimersoftware:material-intro:1.6'
     compile project(':PushSDK')
-
-    //侧滑删除
-    compile 'com.yanzhenjie:recyclerview-swipe:1.0.2'
 }

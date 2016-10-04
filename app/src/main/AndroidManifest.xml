@@ -37,10 +37,6 @@
             android:theme="@style/AppTheme">
         </activity>
         <activity android:name=".ui.login.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ui.invitationList.InvitationActivity" />
         <activity android:name=".ui.myconcern.MyConcernActivity" />
@@ -48,7 +44,6 @@
         <activity
             android:name=".ui.invitationList.InvitationDetailsActivity"
             android:theme="@style/AppTheme" />
-
 
         <activity android:name=".ui.home.HomeActivity" >
         </activity>
@@ -58,6 +53,13 @@
         <activity android:name=".ui.Insist.InsistActivity" />
         <activity android:name=".ui.userInformation.UserInformationActivity" />
         <service android:name=".util.filedownload.DownLoadService"/>
+        <activity android:name=".ui.intro.MainIntoActivity"
+            android:theme="@style/Theme.Intro">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <!--友盟推送和多渠道打包-->
         <meta-data

@@ -18,6 +18,7 @@ import android.view.animation.Animation;
 import android.widget.EditText;
 
 import com.example.vizax.with.ui.Insist.ContentFragment;
+import com.example.vizax.with.ui.Insist.InsistContact;
 import com.example.vizax.with.ui.Insist.InsistPresenter;
 import com.example.vizax.with.ui.Insist.dialog.AddItemDialog;
 import com.example.vizax.with.util.sidemenu.animation.FlipAnimation;
@@ -36,7 +37,6 @@ import java.util.List;
 public class ViewAnimator<T extends Resourceble> {
     private final int ANIMATION_DURATION = 175;
     public static final int CIRCULAR_REVEAL_ANIMATION_DURATION = 500;
-
     private Activity activity;
     private List<T> list;
     private List<SlideMenuItem> mList = new ArrayList<>();
@@ -115,8 +115,8 @@ public class ViewAnimator<T extends Resourceble> {
                         list.set(finalI,(T)add);
                         dialog.dismiss();
                         mPresenter = new InsistPresenter();
+                        mPresenter.attachView((InsistContact.View) activity);
                         mPresenter.deleteTask(String.valueOf(sp.getInt("TaskId"+finalI,0)));
-
                     });
                     builder.setNegativeButton("取消", (dialog, which) -> dialog.dismiss());
                     builder.create().show();
@@ -324,6 +324,7 @@ public class ViewAnimator<T extends Resourceble> {
             @Override
             public int doConfirm() {
                 mPresenter = new InsistPresenter();
+                mPresenter.attachView((InsistContact.View) activity);
                 EditText title = (EditText) confirmDialog.findViewById(R.id.mission_title);
                 EditText content = (EditText) confirmDialog.findViewById(R.id.mission_content);
                 mPresenter.createTask(title.getText().toString(),content.getText().toString(), String.valueOf(finalI));

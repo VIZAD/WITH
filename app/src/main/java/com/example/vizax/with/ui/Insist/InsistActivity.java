@@ -270,7 +270,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             mTxtVi_title.setText(mMisson.getData().getCurrTasks().get(Integer.parseInt(mSelectedCase) - 1).getTitle().toString());
             mTxtVi_center_txt.setText(mMisson.getData().getCurrTasks().get(Integer.parseInt(mSelectedCase) - 1).getContent().toString());
         } else if(mNet==true  && mCreateTask==true) {
-            mPresenter.getTask();
+            //mPresenter.getTask();
         } else {
             ;
         }
@@ -468,13 +468,12 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
                 .build();
         mDialog.show();
     }
-
     //把从接口接收到的数据放到页面上
     @Override
     public void setData(Misson misson) {
         mNet=true;
+        mMisson = misson;
         if(mCreateTask == false) {
-            mMisson = misson;
             mTxtVi_title.setText(misson.getData().getCurrTasks().get(0).getTitle().toString());
             mTxtVi_center_txt.setText(misson.getData().getCurrTasks().get(0).getContent().toString());
             TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(0).getTaskId());
@@ -588,7 +587,6 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         mTxtVi_title.setFocusable(true);
         mTxtVi_title.setFocusableInTouchMode(true);
     }
-
     //签到打勾的实现
     Runnable runnable = new Runnable() {
         @Override

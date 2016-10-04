@@ -108,10 +108,6 @@ public class InsistPresenter implements InsistContact.Presenter {
                         }
                         else {
                         }
-
-
-
-
             }
         });
 
@@ -154,7 +150,6 @@ public class InsistPresenter implements InsistContact.Presenter {
                         /*Gson解析已经封装，下次把User改成自己对应的Bean即可
                           默认状态码200为成功*/
                  TaskMsg = GsonUtil.toString(response,TaskMsg.class);
-
                         if (TaskMsg.getCode().equals("200")) {
                             System.out.println("编辑成功:"+TaskMsg.getMsg());
                             Toast.makeText((Context) InsistView,"已保存",Toast.LENGTH_SHORT).show();
@@ -184,7 +179,6 @@ public class InsistPresenter implements InsistContact.Presenter {
                           默认状态码200为成功*/
             TaskMsg = GsonUtil.toString(response,TaskMsg.class);
                         if (TaskMsg.getCode().equals("200")) {
-                            Toast.makeText((Context) InsistView,"删除成功",Toast.LENGTH_SHORT).show();
                         }
                         else {
                         }
@@ -195,7 +189,6 @@ public class InsistPresenter implements InsistContact.Presenter {
     @Override
     public void attachView(@NonNull InsistContact.View View) {
         InsistView = View;
-
     }
     @Override
     public void detachView() {

@@ -243,8 +243,6 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         //this.color = this.color == color1?color2:color1;
         //
         int finalRadius = Math.max(mView.getWidth(), mView.getHeight());
-
-
         Animator animator = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             animator = ViewAnimationUtils.createCircularReveal(mView, 0, topPosition, 0, finalRadius);
@@ -269,12 +267,12 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         if(mNet==true && mCreateTask==false) {
             mTxtVi_title.setText(mMisson.getData().getCurrTasks().get(Integer.parseInt(mSelectedCase) - 1).getTitle().toString());
             mTxtVi_center_txt.setText(mMisson.getData().getCurrTasks().get(Integer.parseInt(mSelectedCase) - 1).getContent().toString());
+            reset.run();
         } else if(mNet==true  && mCreateTask==true) {
             mPresenter.getTask();
         } else {
-            ;
+            reset.run();
         }
-        reset.run();
         return contentFragment;
     }
     //当抽屉的选择发生改变
@@ -457,7 +455,6 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     public void setTitle_Content(String title,String content) {
         mTxtVi_title.setText(title);
         mTxtVi_center_txt.setText(content);
-        mCreateTask = true;
     }
 
     @Override
@@ -478,6 +475,8 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             mTxtVi_title.setText(misson.getData().getCurrTasks().get(0).getTitle().toString());
             mTxtVi_center_txt.setText(misson.getData().getCurrTasks().get(0).getContent().toString());
             TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(0).getTaskId());
+        } else {
+            TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(mMisson.getData().getCurrTasks().size()-1).getTaskId());
         }
         sp = getSharedPreferences("mySp",Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
@@ -512,12 +511,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         if(today.getMonth()<9) {
             month = "0"+month;
         }
-        if(mCreateTask == false) {
-            mPresenter.TaskMessages(year+"-"+month, String.valueOf(misson.getData().getCurrTasks().get(0).getTaskId()));
-        } else {
-            initData();
-            //reset.run();
-        }
+        mPresenter.TaskMessages(year+"-"+month,TaskId);
         mSelectedMonth = year+"-"+month;
         mViewAnimator = new ViewAnimator(this, mList, contentFragment, mDrawerLayout, this);
         mDrawerLayout.setScrimColor(Color.TRANSPARENT);
@@ -623,10 +617,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
                 mToolBar.setRightIcon(R.drawable.calendar_unselect);
                 mToolBar.setRightViewEnable(true);
             System.out.println("TaskId = "+TaskId);
-            if(mCreateTask == false) {
-                mPresenter.TaskMessages(mSelectedMonth, TaskId);
-            }
-            mCreateTask = false;
+            mPresenter.TaskMessages(mSelectedMonth, TaskId);
         }
     };
     @Override

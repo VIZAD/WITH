@@ -106,6 +106,7 @@ public class ViewAnimator<T extends Resourceble> {
                     builder.setPositiveButton("确认", (dialog, which) -> {
                         SharedPreferences.Editor editor = sp.edit();
                         editor.remove("Item"+finalI);
+                        editor.putInt("Task"+finalI,finalI);
                         editor.commit();
                         ((DraweeView) viewMenu.findViewById(R.id.menu_item_image)).setImageResource(R.drawable.icn_add);
                         SlideMenuItem add = new SlideMenuItem(list.get(finalI).getName(), R.drawable.icn_add);
@@ -326,6 +327,7 @@ public class ViewAnimator<T extends Resourceble> {
                 EditText title = (EditText) confirmDialog.findViewById(R.id.mission_title);
                 EditText content = (EditText) confirmDialog.findViewById(R.id.mission_content);
                 mPresenter.createTask(title.getText().toString(),content.getText().toString(), String.valueOf(finalI));
+                mPresenter.getTask();
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putInt("Item"+finalI,sp.getInt("ItemCache",R.drawable.icn_add));
                 editor.commit();

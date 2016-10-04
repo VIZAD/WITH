@@ -143,6 +143,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         mViewAnimator = new ViewAnimator(this, mList, contentFragment, mDrawerLayout, this);
         mMaterialCalendarView.setOnDateChangedListener(this);
         mMaterialCalendarView.setOnMonthChangedListener(this);
+        mDialog.show();
         mPresenter = new InsistPresenter();
         mPresenter.attachView(this);
         mPresenter.getTask();
@@ -282,23 +283,23 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
                 case ContentFragment.CLOSE:
                     //// TODO: 2016/09/16
                     mSelectedCase = "1";
-                    TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(0).getTaskId());
+                    TaskId = String.valueOf(sp.getInt("TaskId0",0));
                     return replaceFragment(screenShotable, position, mInsistColor.COLOR1_CALENDER, mInsistColor.COLOR1_MISSION, mInsistColor.COLOR1_MOOD);
                 case ContentFragment.BUILDING:
                     mSelectedCase = "2";
-                    TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(1).getTaskId());
+                    TaskId = String.valueOf(sp.getInt("TaskId1",0));
                     return replaceFragment(screenShotable, position, mInsistColor.COLOR2_CALENDER, mInsistColor.COLOR2_MISSION, mInsistColor.COLOR2_MOOD);
                 case ContentFragment.BOOK:
                     mSelectedCase = "3";
-                    TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(2).getTaskId());
+                    TaskId = String.valueOf(sp.getInt("TaskId2",0));
                     return replaceFragment(screenShotable, position, mInsistColor.COLOR3_CALENDER, mInsistColor.COLOR3_MISSION, mInsistColor.COLOR3_MOOD);
                 case ContentFragment.PAINT:
                     mSelectedCase = "4";
-                    TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(3).getTaskId());
+                    TaskId = String.valueOf(sp.getInt("TaskId3",0));
                     return replaceFragment(screenShotable, position, mInsistColor.COLOR4_CALENDER, mInsistColor.COLOR4_MISSION, mInsistColor.COLOR4_MOOD);
                 case ContentFragment.CASE:
                     mSelectedCase = "5";
-                    TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(4).getTaskId());
+                    TaskId = String.valueOf(sp.getInt("TaskId4",0));
                     return replaceFragment(screenShotable, position, mInsistColor.COLOR5_CALENDER, mInsistColor.COLOR5_MISSION, mInsistColor.COLOR5_MOOD);
                 default:
                     return replaceFragment(screenShotable, position, mInsistColor.COLOR1_CALENDER, mInsistColor.COLOR1_MISSION, mInsistColor.COLOR1_MOOD);
@@ -369,7 +370,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             month = "0"+month;
         }
         mSelectedMonth = year+"-"+month;
-        System.out.println("Task Id = "+TaskId);
+        System.out.println("TaskId = "+TaskId);
         mPresenter.TaskMessages(year+"-"+month,TaskId);
     }
     //签到的方法
@@ -429,13 +430,11 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         //mTxtVi_foot_txt.setText(taskMsg.getData().getTask().getTeskContent());
         setDays(taskMsg);
     }
-    //设置备注信息
+    //保存备注信息
     @Override
     public void setFootText(TaskMsg taskMsg,String remarkTxt) {
         mRemark_txt.set(mSelectedDay-1,remarkTxt);
-        mTxtVi_foot_txt.setText(mRemark_txt.get(mSelectedDay-1));
     }
-
     @Override
     public void showLoading() {
         mDialog = new MaterialDialog.Builder(this)

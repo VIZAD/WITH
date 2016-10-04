@@ -61,7 +61,6 @@ public class InsistPresenter implements InsistContact.Presenter {
     }
     @Override
     public void getTask() {
-        InsistView.showLoading();
         Model.getTaskPost( new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {

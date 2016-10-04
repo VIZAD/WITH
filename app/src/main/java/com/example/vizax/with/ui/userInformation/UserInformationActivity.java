@@ -76,7 +76,6 @@ public class UserInformationActivity extends BaseActivity implements UserInforma
         mUserInforPresenter.attachView(this);
         follow = (Button) findViewById(R.id.user_infor_follow);
         follow.setOnClickListener(this);
-
         //判断是“我的信息” 还是 “他人信息”
         getTye();
         //初始化头像
@@ -87,7 +86,6 @@ public class UserInformationActivity extends BaseActivity implements UserInforma
         setInfomation(ifMy);
         //设置头像回调事件
         Log.w("haha",SharedUtil.getString(this, FieldConstant.token)+"!!!");
-
 
         uploadDialog  = new MaterialDialog
                 .Builder(this)
@@ -115,6 +113,12 @@ public class UserInformationActivity extends BaseActivity implements UserInforma
             baseToolBar.setCenterText("我的资料");
         else
             baseToolBar.setCenterText("用户资料");
+        baseToolBar.setLeftViewOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     @Override

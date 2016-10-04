@@ -523,7 +523,12 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
                 new OneDayDecorator()
                 //toDayDecorator
         );
-        mMaterialCalendarView.setSelectedDate(CalendarDay.today());
+        if(mCreateTask == false) {
+            mMaterialCalendarView.setSelectedDate(CalendarDay.today());
+        } else {
+            initData();
+            reset.run();
+        }
         System.out.println("set data");
         mCreateTask = false;
     }

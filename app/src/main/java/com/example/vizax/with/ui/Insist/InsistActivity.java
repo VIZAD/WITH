@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.R;
 
 import com.example.vizax.with.base.BaseActivity;
@@ -72,6 +73,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     private static final DateFormat FORMATTER = SimpleDateFormat.getDateInstance();
     private Misson mMisson;
     private SharedPreferences sp;
+    private MaterialDialog mDialog;
 
     @BindView(R.id.calendarView)
     MaterialCalendarView mMaterialCalendarView;
@@ -123,6 +125,10 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     @Override
     public void initUiAndListener() {
         ButterKnife.bind(this);
+        mDialog = new MaterialDialog.Builder(this)
+                .content("正在获取数据...")
+                .progress(true, 0)
+                .build();
         mInsistColor =  new InsistColor(this);
         mToolBar.setCenterText("坚持");
         mToolBar.setLeftIcon(getResources().getDrawable(R.drawable.back_ic));
@@ -137,6 +143,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         mViewAnimator = new ViewAnimator(this, mList, contentFragment, mDrawerLayout, this);
         mMaterialCalendarView.setOnDateChangedListener(this);
         mMaterialCalendarView.setOnMonthChangedListener(this);
+        mDialog.show();
         mPresenter = new InsistPresenter();
         mPresenter.attachView(this);
         mPresenter.getTask();
@@ -276,23 +283,23 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
                 case ContentFragment.CLOSE:
                     //// TODO: 2016/09/16
                     mSelectedCase = "1";
-                    TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(0).getTaskId());
+                    TaskId = String.valueOf(sp.getInt("TaskId0",0));
                     return replaceFragment(screenShotable, position, mInsistColor.COLOR1_CALENDER, mInsistColor.COLOR1_MISSION, mInsistColor.COLOR1_MOOD);
                 case ContentFragment.BUILDING:
                     mSelectedCase = "2";
-                    TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(1).getTaskId());
+                    TaskId = String.valueOf(sp.getInt("TaskId1",0));
                     return replaceFragment(screenShotable, position, mInsistColor.COLOR2_CALENDER, mInsistColor.COLOR2_MISSION, mInsistColor.COLOR2_MOOD);
                 case ContentFragment.BOOK:
                     mSelectedCase = "3";
-                    TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(2).getTaskId());
+                    TaskId = String.valueOf(sp.getInt("TaskId2",0));
                     return replaceFragment(screenShotable, position, mInsistColor.COLOR3_CALENDER, mInsistColor.COLOR3_MISSION, mInsistColor.COLOR3_MOOD);
                 case ContentFragment.PAINT:
                     mSelectedCase = "4";
-                    TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(3).getTaskId());
+                    TaskId = String.valueOf(sp.getInt("TaskId3",0));
                     return replaceFragment(screenShotable, position, mInsistColor.COLOR4_CALENDER, mInsistColor.COLOR4_MISSION, mInsistColor.COLOR4_MOOD);
                 case ContentFragment.CASE:
                     mSelectedCase = "5";
-                    TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(4).getTaskId());
+                    TaskId = String.valueOf(sp.getInt("TaskId4",0));
                     return replaceFragment(screenShotable, position, mInsistColor.COLOR5_CALENDER, mInsistColor.COLOR5_MISSION, mInsistColor.COLOR5_MOOD);
                 default:
                     return replaceFragment(screenShotable, position, mInsistColor.COLOR1_CALENDER, mInsistColor.COLOR1_MISSION, mInsistColor.COLOR1_MOOD);
@@ -363,7 +370,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             month = "0"+month;
         }
         mSelectedMonth = year+"-"+month;
-        System.out.println("Task Id = "+TaskId);
+        System.out.println("TaskId = "+TaskId);
         mPresenter.TaskMessages(year+"-"+month,TaskId);
     }
     //签到的方法
@@ -423,11 +430,33 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         //mTxtVi_foot_txt.setText(taskMsg.getData().getTask().getTeskContent());
         setDays(taskMsg);
     }
-    //设置备注信息
+    //保存备注信息
     @Override
     public void setFootText(TaskMsg taskMsg,String remarkTxt) {
         mRemark_txt.set(mSelectedDay-1,remarkTxt);
-        mTxtVi_foot_txt.setText(mRemark_txt.get(mSelectedDay-1));
+    }
+    @Override
+    public void showLoading() {
+        mDialog = new MaterialDialog.Builder(this)
+                .content("正在获取数据...")
+                .progress(true, 0)
+                .build();
+        mDialog.show();
+    }
+
+    @Override
+    public void dimissLoading() {
+        mDialog.dismiss();
+    }
+
+    @Override
+    public void disconnected() {
+        mDialog.dismiss();
+        mDialog = new MaterialDialog.Builder(this)
+                .content("无法连接网络")
+                .progressIndeterminateStyle(true)
+                .build();
+        mDialog.show();
     }
 
     //把从接口接收到的数据放到页面上
@@ -527,6 +556,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             day = "0"+day;
         }
         mSelectedDate = year+"-"+month+"-"+day;
+        mSelectedDay = CalendarDay.today().getDay();
         for (int i = 0;i<31;i++) {
             mRemark_txt.add("没有备注");
             System.out.println("添加数据"+i);

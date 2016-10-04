@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,6 +23,7 @@ import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.customView.BaseToolBar;
 import com.example.vizax.with.util.SharedUtil;
 import com.example.vizax.with.util.TimeUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -100,7 +102,7 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
         mPresenter.setPosition(index);
         //参与人头像list
         mUserImgRecyclerView = (RecyclerView) findViewById(R.id.item_invitation_userimglist);
-        mUserImgAdapter = new UserImgListecyclerViewAdapter(mMemberBean);
+        mUserImgAdapter = new UserImgListecyclerViewAdapter(mMemberBean,this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mUserImgRecyclerView.setLayoutManager(linearLayoutManager);
@@ -130,6 +132,14 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
         itemInvitationPlace.setText("活动地点:"+mInvitationBeanList.get(index).getPlace());
         itemInvitationNumber.setText(mInvitationBeanList.get(index).getCurrentNumber() + "/" + mInvitationBeanList.get(index).getTotalNumber());
         itemInvitationSexRequire.setText("性别要求:"+getSexrequire(mInvitationBeanList.get(index).getSexRequire()));
+        Picasso.with(this)
+                .load(mInvitationBeanList.get(index).getIconUrl())
+                .placeholder(R.drawable.langrensha)
+                .into(itemInvitationIcon);
+        Picasso.with(this)
+                .load(mInvitationBeanList.get(index).getOriginatorHeadUrl())
+                .placeholder(R.drawable.user0)
+                .into(itemInvitationImagVi);
 
         mJoin = new MaterialDialog.Builder(this)
                 .content("正在处理请稍后")

@@ -34,7 +34,6 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     private String finalItemId;
     private UserInforBean mUserInforBean;
     public InvitationBaseBean baseBean;
-    private String token ;
 
 
     /**

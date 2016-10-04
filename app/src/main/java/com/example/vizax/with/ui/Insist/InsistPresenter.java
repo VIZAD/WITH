@@ -49,7 +49,7 @@ public class InsistPresenter implements InsistContact.Presenter {
             @Override
             public void onError(Call call, Exception e, int id) {
                 Toast.makeText((Context) InsistView,"无法连接网络",Toast.LENGTH_LONG).show();
-                    e.printStackTrace();
+                e.printStackTrace();
             }
             @Override
             public void onResponse(String response, int id) {
@@ -110,20 +110,20 @@ public class InsistPresenter implements InsistContact.Presenter {
                         /*Gson解析已经封装，下次把User改成自己对应的Bean即可
                           默认状态码200为成功*/
                 TaskMsg = GsonUtil.toString(response,TaskMsg.class);
-                        if (TaskMsg.getCode().equals("200")) {
-                            System.out.println("number:");
+                if (TaskMsg.getCode().equals("200")) {
+                    System.out.println("number:");
 
-                            System.out.println("size = "+TaskMsg.getData().getCalendar());
-                            if(TaskMsg.getData().getCalendar()!=null) {
-                                for (int i = 0;i<TaskMsg.getData().getCalendar().size();i++) {
-                                    System.out.println("day = " + TaskMsg.getData().getCalendar().get(i).getDay());
-                                    System.out.println("content = " + TaskMsg.getData().getCalendar().get(i).getRemark());
-                                }
-                                InsistView.setClData(TaskMsg);
-                            }
+                    System.out.println("size = "+TaskMsg.getData().getCalendar());
+                    if(TaskMsg.getData().getCalendar()!=null) {
+                        for (int i = 0;i<TaskMsg.getData().getCalendar().size();i++) {
+                            System.out.println("day = " + TaskMsg.getData().getCalendar().get(i).getDay());
+                            System.out.println("content = " + TaskMsg.getData().getCalendar().get(i).getRemark());
                         }
-                        else {
-                        }
+                        InsistView.setClData(TaskMsg);
+                    }
+                }
+                else {
+                }
 
 
 
@@ -148,13 +148,14 @@ public class InsistPresenter implements InsistContact.Presenter {
                         /*Gson解析已经封装，下次把User改成自己对应的Bean即可
                           默认状态码200为成功*/
                 TaskMsg = GsonUtil.toString(response,TaskMsg.class);
+                if (TaskMsg.getCode().equals("200")) {
+                    System.out.println("签到:"+TaskMsg.getMsg());
+                    InsistView.tick();
+                }
+                else {
+                    Toast.makeText((Context) InsistView,"没有登陆",Toast.LENGTH_LONG).show();
+                }
 
-//                        if (baseBean.getCode().equals("200")) {
-//                            //System.out.println("number:"+baseBean.getData().getTaskNumber());
-//                        }
-//                        else {
-//                        }
-                System.out.println("签到:"+TaskMsg.getMsg());
 
 
 
@@ -166,30 +167,30 @@ public class InsistPresenter implements InsistContact.Presenter {
 
     @Override
     public void JourEdit(String taskId, String date, String remark) {
-         Model.JourEditPost(taskId,date,remark,new StringCallback() {
-             @Override
-             public void onError(Call call, Exception e, int id) {
-                 Toast.makeText((Context) InsistView,"无法连接网络",Toast.LENGTH_LONG).show();
-                 e.printStackTrace();
-             }
+        Model.JourEditPost(taskId,date,remark,new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                Toast.makeText((Context) InsistView,"无法连接网络",Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
 
-             @Override
-             public void onResponse(String response, int id) {
+            @Override
+            public void onResponse(String response, int id) {
                         /*Gson解析已经封装，下次把User改成自己对应的Bean即可
                           默认状态码200为成功*/
-                 TaskMsg = GsonUtil.toString(response,TaskMsg.class);
+                TaskMsg = GsonUtil.toString(response,TaskMsg.class);
 
 //                        if (baseBean.getCode().equals("200")) {
 //                            //System.out.println("number:"+baseBean.getData().getTaskNumber());
 //                        }
 //                        else {
 //                       }
-                 System.out.println("编辑成功:"+TaskMsg.getMsg());
+                System.out.println("编辑成功:"+TaskMsg.getMsg());
 
 
 
-             }
-         });
+            }
+        });
     }
 
 
@@ -197,30 +198,30 @@ public class InsistPresenter implements InsistContact.Presenter {
     @Override
     public void deleteTask(String taskId) {
 
-    Model.deleteTaskPost(taskId,  new StringCallback() {
-        @Override
-        public void onError(Call call, Exception e, int id) {
-            Toast.makeText((Context) InsistView,"无法连接网络",Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        }
+        Model.deleteTaskPost(taskId,  new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                Toast.makeText((Context) InsistView,"无法连接网络",Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
 
-        @Override
-        public void onResponse(String response, int id) {
+            @Override
+            public void onResponse(String response, int id) {
                         /*Gson解析已经封装，下次把User改成自己对应的Bean即可
                           默认状态码200为成功*/
-            TaskMsg = GsonUtil.toString(response,TaskMsg.class);
+                TaskMsg = GsonUtil.toString(response,TaskMsg.class);
 
 //                        if (baseBean.getCode().equals("200")) {
 //                            //System.out.println("number:"+baseBean.getData().getTaskNumber());
 //                        }
 //                        else {
 //                        }
-            System.out.println("删除:"+TaskMsg.getCode());
+                System.out.println("删除:"+TaskMsg.getCode());
 
 
 
-        }
-    });
+            }
+        });
     }
 
     @Override

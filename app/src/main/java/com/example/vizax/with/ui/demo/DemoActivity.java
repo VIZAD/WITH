@@ -19,6 +19,8 @@ import com.example.vizax.with.util.AnimationUtil;
 import com.example.vizax.with.util.SnackbarUtils;
 import com.example.vizax.with.util.TextUtil;
 import com.example.vizax.with.util.filedownload.UpdateManager;
+import com.squareup.picasso.Picasso;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -85,6 +87,8 @@ public class DemoActivity extends BaseActivity implements DemoContact.View {
         因为，解耦，可以实现依赖注入，不用构造方法。好处还有好多好多。。。*/
         mPresenter = new DemoPresenter();
         mPresenter.attachView(this);
+
+
     }
 
     @Override
@@ -131,4 +135,5 @@ public class DemoActivity extends BaseActivity implements DemoContact.View {
         overridePendingTransition(0, 0);
         startActivity(intent);
     }
+
 }

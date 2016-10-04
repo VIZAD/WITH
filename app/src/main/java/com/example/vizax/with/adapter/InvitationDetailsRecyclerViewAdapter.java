@@ -9,9 +9,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.vizax.with.App;
 import com.example.vizax.with.R;
 import com.example.vizax.with.bean.MembersBean;
+import com.example.vizax.with.constant.FieldConstant;
+import com.example.vizax.with.util.SharedUtil;
 import com.example.vizax.with.util.StringUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -45,6 +49,7 @@ public class InvitationDetailsRecyclerViewAdapter extends RecyclerView.Adapter<I
         if (position == 0) {
             holder.itemApplicantsOrginatorDetail.setVisibility(View.VISIBLE);
             holder.getItemApplicantsUsersDetail.setVisibility(View.VISIBLE);
+
         } else {
             holder.itemApplicantsRelativelayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -56,7 +61,12 @@ public class InvitationDetailsRecyclerViewAdapter extends RecyclerView.Adapter<I
                     return true;
                 }
             });
+
         }
+        Picasso.with(context)
+                .load(mMembersBean.get(position).getHeadUrl())
+                .placeholder(R.drawable.user0)
+                .into(holder.itemApplicantsUserimg);
         holder.itemApplicantsUsername.setText(mMembersBean.get(position).getRealName());
         holder.itemApplicantsUsersex.setText(mMembersBean.get(position).getSex());
        //隐藏参与者手机号码中间4位 以1831****272 显示

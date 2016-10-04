@@ -65,7 +65,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     private String mSelectedDate;
     private String mSelectedMonth;
     private String mSelectedCase = "1";
-    private String TaskId = null;
+    private String TaskId = "-1";
     private Boolean mNet = false;
     private ToDayDecorator toDayDecorator = new ToDayDecorator();
     private static final DateFormat FORMATTER = SimpleDateFormat.getDateInstance();
@@ -133,6 +133,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         createMenuList();
         setActionBar();
         initData();
+        mViewAnimator = new ViewAnimator(this, mList, contentFragment, mDrawerLayout, this);
         mPresenter = new InsistPresenter();
         mPresenter.attachView(this);
         mPresenter.getTask();
@@ -220,7 +221,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             }
         });
         mToolBar.setLeftViewOnClickListener(view -> InsistActivity.this.finish());
-        mToolBar.setRightViewOnClickListener(view -> tick());
+        mToolBar.setRightViewOnClickListener(view -> mPresenter.JourPunch(TaskId));
 
     }
     //背景的动画效果
@@ -351,6 +352,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         mPresenter.TaskMessages(year+"-"+month,TaskId);
     }
     //签到的方法
+    @Override
     public void tick(){
         //this.ripple = this.ripple== R.drawable.ripple_bg ? R.drawable.rippled_bg:R.drawable.ripple_bg;
         //this.INSIST = this.INSIST.equals("签到")?"已签到":"签到";
@@ -359,7 +361,6 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         System.out.println("onclick");
         toDayDecorator = new ToDayDecorator();
         runnable.run();
-        mPresenter.JourPunch(TaskId);
     }
     //获取屏幕中间抽屉需要的高度
     public int getHeights() {
@@ -538,18 +539,18 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     Runnable reset = new Runnable() {
         @Override
         public void run() {
-                CalendarDay calendarDay = CalendarDay.today();
-                mMaterialCalendarView.removeDecorators();
-                mMaterialCalendarView.clearSelection();
-                mMaterialCalendarView.setCurrentDate(calendarDay);
-                mMaterialCalendarView.addDecorators(
-                        //new MySelectorDecorator(this),
-                        new HighlightWeekendsDecorator(),
-                        new OneDayDecorator()
-                        //toDayDecorator
-                );
-                mToolBar.setRightIcon(R.drawable.calendar_unselect);
-                mToolBar.setRightViewEnable(true);
+            CalendarDay calendarDay = CalendarDay.today();
+            mMaterialCalendarView.removeDecorators();
+            mMaterialCalendarView.clearSelection();
+            mMaterialCalendarView.setCurrentDate(calendarDay);
+            mMaterialCalendarView.addDecorators(
+                    //new MySelectorDecorator(this),
+                    new HighlightWeekendsDecorator(),
+                    new OneDayDecorator()
+                    //toDayDecorator
+            );
+            mToolBar.setRightIcon(R.drawable.calendar_unselect);
+            mToolBar.setRightViewEnable(true);
             System.out.println("TaskId = "+TaskId);
             mPresenter.TaskMessages(mSelectedMonth, TaskId);
         }

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.vizax.with.R;
+import com.example.vizax.with.bean.BaseBean;
 import com.example.vizax.with.bean.BaseEmptyBean;
 import com.example.vizax.with.bean.FollowBean;
 import com.example.vizax.with.bean.InvitationBaseBean;
@@ -57,6 +58,7 @@ public class UserInformationPresenter  implements UserInformationContact.Present
 
             @Override
             public void onResponse(String response, int id) {
+                Log.w("haha!!!!",response);
                 mUserInfoView.upLoadSuccess();
                 mUserInfoView.dimissUploadDialog();
             }

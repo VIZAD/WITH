@@ -1,26 +1,29 @@
 package com.example.vizax.with.ui.Insist.decorators;
 
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 
+import com.example.vizax.with.ui.Insist.decorators_util.tickSpan;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
 import java.util.Date;
 
 /**
  * Decorate a day by making the text big and bold
  */
-public class OneDayDecorator implements DayViewDecorator {
+public class OneDayDocDecorator implements DayViewDecorator {
 
     private CalendarDay date;
 
-    public OneDayDecorator() {
-        date = CalendarDay.today();
+    public OneDayDocDecorator(CalendarDay date) {
+        this.date = date;
     }
 
     @Override
@@ -30,8 +33,7 @@ public class OneDayDecorator implements DayViewDecorator {
 
     @Override
     public void decorate(DayViewFacade view) {
-        view.addSpan(new StyleSpan(Typeface.BOLD));
-        view.addSpan(new RelativeSizeSpan(1.4f));
+        view.addSpan(new DotSpan(5, Color.RED));
         System.out.println("done");
     }
 

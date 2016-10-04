@@ -31,6 +31,7 @@ import com.example.vizax.with.ui.Insist.decorators.EventDecorator;
 import com.example.vizax.with.ui.Insist.decorators.EventDocDecorator;
 import com.example.vizax.with.ui.Insist.decorators.HighlightWeekendsDecorator;
 import com.example.vizax.with.ui.Insist.decorators.OneDayDecorator;
+import com.example.vizax.with.ui.Insist.decorators.OneDayDocDecorator;
 import com.example.vizax.with.ui.Insist.decorators.ToDayDecorator;
 import com.example.vizax.with.ui.Insist.dialog.DateDialog;
 import com.example.vizax.with.util.AnimationUtil;
@@ -63,6 +64,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     private InsistPresenter mPresenter;
     private String INSIST = "签到";
     private InsistColor mInsistColor;
+    private CalendarDay mCalendarDay;
     private int mSelectedDay = 0;
     private String mSelectedDate = "2000-01-01";
     private String mSelectedMonth= "2000-01";
@@ -355,6 +357,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         if(date.getDay()<9) {
             day = "0"+day;
         }
+        mCalendarDay = date;
         mSelectedDay = date.getDay();
         mSelectedDate = year+"-"+month+"-"+day;
         mSelectedMonth = year+"-"+month;
@@ -435,6 +438,8 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     @Override
     public void setFootText(TaskMsg taskMsg,String remarkTxt) {
         mRemark_txt.set(mSelectedDay-1,remarkTxt);
+        mMaterialCalendarView.addDecorator(new OneDayDocDecorator(mCalendarDay));
+
     }
     @Override
     public void showLoading() {
@@ -471,7 +476,6 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     public void setData(Misson misson) {
         mNet=true;
         mMisson = misson;
-        initData();
         if(mCreateTask == false) {
             mTxtVi_title.setText(misson.getData().getCurrTasks().get(0).getTitle().toString());
             mTxtVi_center_txt.setText(misson.getData().getCurrTasks().get(0).getContent().toString());
@@ -564,6 +568,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     //初始化数据
     public void initData() {
         mRemark_txt = new ArrayList<>();
+        mCalendarDay = CalendarDay.today();
         String year = String.valueOf(CalendarDay.today().getYear());
         String month = String.valueOf(CalendarDay.today().getMonth()+1);
         if(CalendarDay.today().getMonth()<9) {

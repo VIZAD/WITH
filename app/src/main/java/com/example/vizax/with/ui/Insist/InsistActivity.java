@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.R;
 
 import com.example.vizax.with.base.BaseActivity;
@@ -72,6 +73,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     private static final DateFormat FORMATTER = SimpleDateFormat.getDateInstance();
     private Misson mMisson;
     private SharedPreferences sp;
+    private MaterialDialog mDialog;
 
     @BindView(R.id.calendarView)
     MaterialCalendarView mMaterialCalendarView;
@@ -123,6 +125,10 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     @Override
     public void initUiAndListener() {
         ButterKnife.bind(this);
+        mDialog = new MaterialDialog.Builder(this)
+                .content("正在获取数据...")
+                .progress(true, 0)
+                .build();
         mInsistColor =  new InsistColor(this);
         mToolBar.setCenterText("坚持");
         mToolBar.setLeftIcon(getResources().getDrawable(R.drawable.back_ic));
@@ -430,6 +436,30 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         mTxtVi_foot_txt.setText(mRemark_txt.get(mSelectedDay-1));
     }
 
+    @Override
+    public void showLoading() {
+        mDialog = new MaterialDialog.Builder(this)
+                .content("正在获取数据...")
+                .progress(true, 0)
+                .build();
+        mDialog.show();
+    }
+
+    @Override
+    public void dimissLoading() {
+        mDialog.dismiss();
+    }
+
+    @Override
+    public void disconnected() {
+        mDialog.dismiss();
+        mDialog = new MaterialDialog.Builder(this)
+                .content("无法连接网络")
+                .progressIndeterminateStyle(true)
+                .build();
+        mDialog.show();
+    }
+
     //把从接口接收到的数据放到页面上
     @Override
     public void setData(Misson misson) {
@@ -527,6 +557,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             day = "0"+day;
         }
         mSelectedDate = year+"-"+month+"-"+day;
+        mSelectedDay = CalendarDay.today().getDay();
         for (int i = 0;i<31;i++) {
             mRemark_txt.add("没有备注");
             System.out.println("添加数据"+i);

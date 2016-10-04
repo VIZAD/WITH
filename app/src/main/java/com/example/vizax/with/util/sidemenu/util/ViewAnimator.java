@@ -92,13 +92,12 @@ public class ViewAnimator<T extends Resourceble> {
                 v.getLocationOnScreen(location);
                 //System.out.println("图片Resources = "+((DraweeView) viewMenu.findViewById(R.id.menu_item_image)).getResources()+" close = "+R.drawable.icn_close);
                 if(list.get(finalI).getImageRes()!= R.drawable.icn_close&&list.get(finalI).getImageRes()!= R.drawable.icn_add) {
-                    switchItem(list.get(finalI), location[1] + v.getHeight() / 2);
                     mClicked = finalI;
+                    switchItem(list.get(finalI), location[1] + v.getHeight() / 2);
                     System.out.println("click item");
                 }
                 else if (list.get(finalI).getImageRes()== R.drawable.icn_add) {
-                    AddIcon(activity,viewMenu,finalI);
-                    System.out.println("click plus");
+                    AddIcon(activity,viewMenu,finalI,location[1] + v.getHeight() / 2);
                 }
                 else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -317,7 +316,7 @@ public class ViewAnimator<T extends Resourceble> {
      * 弹出添加任务dialog
      * @param activity
      */
-    public int AddIcon(final Activity activity,View viewMenu,int finalI) {
+    public int AddIcon(final Activity activity,View viewMenu,int finalI,int position) {
         final AddItemDialog confirmDialog = new AddItemDialog(activity,finalI, "添加任务", "确认", "取消");
         confirmDialog.show();
         confirmDialog.setClicklistener(new AddItemDialog.ClickListenerInterface() {
@@ -334,14 +333,18 @@ public class ViewAnimator<T extends Resourceble> {
                 SlideMenuItem add = new SlideMenuItem(list.get(finalI).getName(),sp.getInt("Item"+finalI, R.drawable.icn_add));
                 mList.set(finalI, (SlideMenuItem) add);
                 list.set(finalI,(T)add);
+                System.out.println("confirm this："+finalI+"res = "+sp.getInt("Item"+finalI,R.drawable.icn_add));
                 confirmDialog.dismiss();
-                System.out.println("confirm this"+finalI+"res = "+sp.getInt("Item"+finalI,R.drawable.icn_add));
+                mClicked = finalI;
+                switchItem(list.get(finalI), position);
+                System.out.println("click plus");
                 return 0;
             }
 
             @Override
             public int doCancel() {
                 confirmDialog.dismiss();
+
                 return 0;
             }
         });

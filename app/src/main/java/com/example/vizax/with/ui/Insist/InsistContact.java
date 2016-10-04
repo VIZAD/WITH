@@ -17,6 +17,9 @@ public interface InsistContact {
         void setData(Misson misson);
         void setClData(TaskMsg taskMsg);
         void setFootText(TaskMsg taskMsg,String remarkTxt);
+        void showLoading();
+        void dimissLoading();
+        void disconnected();
 
     }
 

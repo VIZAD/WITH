@@ -471,6 +471,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     public void setData(Misson misson) {
         mNet=true;
         mMisson = misson;
+        initData();
         if(mCreateTask == false) {
             mTxtVi_title.setText(misson.getData().getCurrTasks().get(0).getTitle().toString());
             mTxtVi_center_txt.setText(misson.getData().getCurrTasks().get(0).getContent().toString());
@@ -562,7 +563,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     }
     //初始化数据
     public void initData() {
-        mRemark_txt = new ArrayList<String>();
+        mRemark_txt = new ArrayList<>();
         String year = String.valueOf(CalendarDay.today().getYear());
         String month = String.valueOf(CalendarDay.today().getMonth()+1);
         if(CalendarDay.today().getMonth()<9) {
@@ -622,7 +623,6 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
                 mToolBar.setRightIcon(R.drawable.calendar_unselect);
                 mToolBar.setRightViewEnable(true);
             System.out.println("TaskId = "+TaskId);
-            initData();
             mPresenter.TaskMessages(mSelectedMonth, TaskId);
         }
     };

@@ -32,8 +32,8 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
     private LuanchInvitationModel model;
     private static String date1;
     LuanchInvitationContact.View view;
-    static Context context;
-    Resources resources = context.getResources();
+    private Context context;
+    Resources resources ;
     LuanchInitInvitationPresenter(Context context){
         this.context = context;
 
@@ -64,7 +64,7 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
         date1= year+"-"+String.valueOf(month+1)+"-"+day;
         return date1;
     }*/
-    public static List<String> setspinner(String mClass)
+    public  List<String> setspinner(String mClass)
     {
         List<String> data_list= new ArrayList<String>();
         switch (String.valueOf(mClass)){
@@ -89,7 +89,7 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
         }
         return data_list;
     }
-    public static String setTime(){
+    public  String setTime(){
         Calendar c ;
         c = Calendar.getInstance();
         int hour;
@@ -113,7 +113,7 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
         return time;
 
     }
-    public static List<String> setTitle(String mClass,String subclass){
+    public  List<String> setTitle(String mClass,String subclass){
         List<String> title_list= new ArrayList<String>();
 
         switch (String.valueOf(mClass)){

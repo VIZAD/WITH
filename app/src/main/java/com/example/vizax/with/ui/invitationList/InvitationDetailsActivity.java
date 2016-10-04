@@ -21,6 +21,7 @@ import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.bean.MembersBean;
 import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.customView.BaseToolBar;
+import com.example.vizax.with.util.CircleTransformation;
 import com.example.vizax.with.util.SharedUtil;
 import com.example.vizax.with.util.TimeUtil;
 import com.squareup.picasso.Picasso;
@@ -135,10 +136,12 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
         Picasso.with(this)
                 .load(mInvitationBeanList.get(index).getIconUrl())
                 .placeholder(R.drawable.langrensha)
+                .transform(new CircleTransformation())
                 .into(itemInvitationIcon);
         Picasso.with(this)
                 .load(mInvitationBeanList.get(index).getOriginatorHeadUrl())
                 .placeholder(R.drawable.user0)
+                .transform(new CircleTransformation())
                 .into(itemInvitationImagVi);
 
         mJoin = new MaterialDialog.Builder(this)

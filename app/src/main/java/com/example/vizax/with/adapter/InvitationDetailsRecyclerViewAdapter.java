@@ -13,6 +13,7 @@ import com.example.vizax.with.App;
 import com.example.vizax.with.R;
 import com.example.vizax.with.bean.MembersBean;
 import com.example.vizax.with.constant.FieldConstant;
+import com.example.vizax.with.util.CircleTransformation;
 import com.example.vizax.with.util.SharedUtil;
 import com.example.vizax.with.util.StringUtil;
 import com.squareup.picasso.Picasso;
@@ -66,6 +67,7 @@ public class InvitationDetailsRecyclerViewAdapter extends RecyclerView.Adapter<I
         Picasso.with(context)
                 .load(mMembersBean.get(position).getHeadUrl())
                 .placeholder(R.drawable.user0)
+                .transform(new CircleTransformation())
                 .into(holder.itemApplicantsUserimg);
         holder.itemApplicantsUsername.setText(mMembersBean.get(position).getRealName());
         holder.itemApplicantsUsersex.setText(mMembersBean.get(position).getSex());

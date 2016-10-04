@@ -3,5 +3,5 @@
 
     <item android:drawable="@color/colorPrimary"/>
 
-    <item android:drawable="@drawable/art_canteen_intro1" android:gravity="center"/>
+    <item android:drawable="@drawable/splash_bg" android:gravity="center"/>
 </layer-list>

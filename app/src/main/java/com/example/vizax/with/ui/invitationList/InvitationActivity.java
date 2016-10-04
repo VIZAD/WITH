@@ -234,6 +234,11 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
     }
 
     @Override
+    public void showQuitDialog() {
+
+    }
+
+    @Override
     public void showDiaolog() {
         mJoing.show();
     }

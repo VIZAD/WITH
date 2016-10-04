@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.vizax.with.App;
 import com.example.vizax.with.constant.APIConstant;
 import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.ui.login.MainActivity;
@@ -31,11 +32,12 @@ public class MyConcernPresenter implements MyConcernContact.Presenter  {
     }
 
     @Override
-    public void IsCocern() {
+    public void IsCocern(String userId) {
 
         OkHttpUtils.post()
                 .url(APIConstant.getApi(INVITATION_CONCERNUSER))
-                .addParams("token", SharedUtil.getString(context,"token"))
+                .addParams("token", SharedUtil.getString(App.instance,FieldConstant.token))
+                .addParams("concernedUserId",userId)
                 .build()
                 .execute(new StringCallback() {
                     @Override

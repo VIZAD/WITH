@@ -57,6 +57,23 @@ public class UserBean implements Serializable {
     }
 
     public static class DataBean {
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "phone='" + phone + '\'' +
+                    ", sex=" + sex +
+                    ", unReadedNumber=" + unReadedNumber +
+                    ", token='" + token + '\'' +
+                    ", nickName='" + nickName + '\'' +
+                    ", userUrl='" + userUrl + '\'' +
+                    ", userId=" + userId +
+                    ", studentID='" + studentID + '\'' +
+                    ", classX='" + classX + '\'' +
+                    ", realName='" + realName + '\'' +
+                    ", qq='" + qq + '\'' +
+                    '}';
+        }
+
         private String phone;
         private int sex;
         private int unReadedNumber;

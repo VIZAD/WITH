@@ -4,8 +4,6 @@
     android:layout_height="match_parent"
     android:background="#f7f7f2"
     android:orientation="vertical"
-    android:clickable="true"
-    android:focusable="true"
     android:layout_gravity="start">
     <LinearLayout
         android:id="@+id/my_info_lLayout"

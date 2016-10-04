@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -21,7 +22,10 @@ import com.example.vizax.with.bean.InvitationBaseBean;
 import com.example.vizax.with.bean.UserInforBean;
 import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.customView.BaseToolBar;
+import com.example.vizax.with.util.CircleTransformation;
 import com.example.vizax.with.util.SharedUtil;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 import com.sunny.thousand.selectavatar.AvatarImageView;
 
 import butterknife.BindView;
@@ -33,6 +37,8 @@ public class UserInformationActivity extends BaseActivity implements UserInforma
     BaseToolBar baseToolBar;
     @BindView(R.id.user_infor_avatar)
     AvatarImageView userInforAvatar;
+    @BindView(R.id.user_infor_img)
+    ImageView userInforImg;
     @BindView(R.id.user_infor_name_txt)
     EditText userInforNameTxt;
     @BindView(R.id.user_infor_num_txt)
@@ -70,21 +76,16 @@ public class UserInformationActivity extends BaseActivity implements UserInforma
         mUserInforPresenter.attachView(this);
         follow = (Button) findViewById(R.id.user_infor_follow);
         follow.setOnClickListener(this);
-
         //判断是“我的信息” 还是 “他人信息”
         getTye();
+        //初始化头像
+        initAvatar();
         //初始化toolbar
         initToolbar();
         //显示信息
         setInfomation(ifMy);
         //设置头像回调事件
         Log.w("haha",SharedUtil.getString(this, FieldConstant.token)+"!!!");
-        userInforAvatar.setAfterCropListener(new AvatarImageView.AfterCropListener() {
-            @Override
-            public void afterCrop(String url) {
-                mUserInforPresenter.setAvatar(url);
-            }
-        });
 
         uploadDialog  = new MaterialDialog
                 .Builder(this)
@@ -93,11 +94,31 @@ public class UserInformationActivity extends BaseActivity implements UserInforma
                 .build();
     }
 
+    private void initAvatar() {
+        if(ifMy){
+            userInforImg.setVisibility(View.GONE);
+            userInforAvatar.setAfterCropListener(new AvatarImageView.AfterCropListener() {
+                @Override
+                public void afterCrop(String url) {
+                    mUserInforPresenter.setAvatar(url);
+                }
+            });
+        }else {
+            userInforAvatar.setVisibility(View.GONE);
+        }
+    }
+
     private void initToolbar() {
         if (ifMy)
             baseToolBar.setCenterText("我的资料");
         else
             baseToolBar.setCenterText("用户资料");
+        baseToolBar.setLeftViewOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -126,26 +147,22 @@ public class UserInformationActivity extends BaseActivity implements UserInforma
 
     @Override
     public void setInfomation(boolean ifMy) {
+        RequestCreator requestCreator =  Picasso.with(this)
+                .load(SharedUtil.getString(App.instance,FieldConstant.userUrl))
+                .placeholder(R.drawable.user0)
+                .transform(new CircleTransformation());
         if (ifMy) {
-            /**
-             * 临时数据
-             */
-            sp = getSharedPreferences("loginFile",Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sp.edit();
-            editor.putString("userId","0001");
-            editor.putString("userName","吕鹏");
-            editor.putString("num","201324133112");
-            editor.putString("phoneNum","18318742105");
-            editor.putString("qq",null);
-            editor.commit();
-
-            userInforNameTxt.setText(sp.getString("userName", null));
-            userInforNumTxt.setText(sp.getString("num", null));
-            userInforPhonenumTxt.setText(sp.getString("phoneNum", null));
-            userInforQQTxt.setText(sp.getString("qq", null));
-            avatarId = sp.getString("userId", null);
+            userInforNameTxt.setText(SharedUtil.getString(App.instance,FieldConstant.realName));
+            userInforNumTxt.setText(SharedUtil.getString(App.instance,FieldConstant.studentID));
+            userInforPhonenumTxt.setText(SharedUtil.getString(App.instance,FieldConstant.phone));
+            userInforQQTxt.setText(SharedUtil.getString(App.instance,FieldConstant.qq));
+            avatarId = String.valueOf(SharedUtil.getInt(App.instance,FieldConstant.userId));
             follow.setVisibility(View.GONE);
             userInforAvatar.setFile(avatarId, path);
+              requestCreator .into(userInforAvatar);
+
+
+
 
         } else {
             userInforNameTxt.setText(mUserInforBean.getName());
@@ -153,8 +170,7 @@ public class UserInformationActivity extends BaseActivity implements UserInforma
             userInforPhonenumTxt.setText(String.valueOf(mUserInforBean.getPhone()));
             userInforQQTxt.setText(mUserInforBean.getQq());
             follow.setVisibility(View.VISIBLE);
-            avatarId = mUserInforBean.getStudentId();
-            userInforAvatar.setFile(avatarId, path);
+            requestCreator.into(userInforImg);
             if(mUserInforBean.isIsConcerned()){
                 follow.setBackgroundColor(getResources().getColor(R.color.my_follow_follow_btn));
                 follow.setText("取消关注");

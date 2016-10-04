@@ -131,7 +131,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
                         android:textColor="@color/wheat"
-                        android:text="每日备注"
+                        android:hint="每日备注"
                         android:inputType="text"
                         android:textSize="13sp"
                         android:gravity="center"

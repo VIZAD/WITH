@@ -62,10 +62,11 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     private InsistPresenter mPresenter;
     private String INSIST = "签到";
     private InsistColor mInsistColor;
-    private String mSelectedDate;
-    private String mSelectedMonth;
+    private int mSelectedDay = 0;
+    private String mSelectedDate = "2000-01-01";
+    private String mSelectedMonth= "2000-01";
     private String mSelectedCase = "1";
-    private String TaskId = null;
+    private String TaskId = "-1";
     private Boolean mNet = false;
     private ToDayDecorator toDayDecorator = new ToDayDecorator();
     private static final DateFormat FORMATTER = SimpleDateFormat.getDateInstance();
@@ -133,6 +134,9 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         createMenuList();
         setActionBar();
         initData();
+        mViewAnimator = new ViewAnimator(this, mList, contentFragment, mDrawerLayout, this);
+        mMaterialCalendarView.setOnDateChangedListener(this);
+        mMaterialCalendarView.setOnMonthChangedListener(this);
         mPresenter = new InsistPresenter();
         mPresenter.attachView(this);
         mPresenter.getTask();
@@ -259,9 +263,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             mTxtVi_title.setText(mMisson.getData().getCurrTasks().get(Integer.parseInt(mSelectedCase) - 1).getTitle().toString());
             mTxtVi_center_txt.setText(mMisson.getData().getCurrTasks().get(Integer.parseInt(mSelectedCase) - 1).getContent().toString());
         }
-
         reset.run();
-
         return contentFragment;
     }
     //当抽屉的选择发生改变
@@ -294,10 +296,21 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
                     return replaceFragment(screenShotable, position, mInsistColor.COLOR1_CALENDER, mInsistColor.COLOR1_MISSION, mInsistColor.COLOR1_MOOD);
             }
         } else {
-            return replaceFragment(screenShotable, position, mInsistColor.COLOR1_CALENDER, mInsistColor.COLOR1_MISSION, mInsistColor.COLOR1_MOOD);
+            switch (slideMenuItem.getName()) {
+                case ContentFragment.CLOSE:
+                    return replaceFragment(screenShotable, position, mInsistColor.COLOR1_CALENDER, mInsistColor.COLOR1_MISSION, mInsistColor.COLOR1_MOOD);
+                case ContentFragment.BUILDING:
+                    return replaceFragment(screenShotable, position, mInsistColor.COLOR2_CALENDER, mInsistColor.COLOR2_MISSION, mInsistColor.COLOR2_MOOD);
+                case ContentFragment.BOOK:
+                    return replaceFragment(screenShotable, position, mInsistColor.COLOR3_CALENDER, mInsistColor.COLOR3_MISSION, mInsistColor.COLOR3_MOOD);
+                case ContentFragment.PAINT:
+                    return replaceFragment(screenShotable, position, mInsistColor.COLOR4_CALENDER, mInsistColor.COLOR4_MISSION, mInsistColor.COLOR4_MOOD);
+                case ContentFragment.CASE:
+                    return replaceFragment(screenShotable, position, mInsistColor.COLOR5_CALENDER, mInsistColor.COLOR5_MISSION, mInsistColor.COLOR5_MOOD);
+                default:
+                    return replaceFragment(screenShotable, position, mInsistColor.COLOR1_CALENDER, mInsistColor.COLOR1_MISSION, mInsistColor.COLOR1_MOOD);
+            }
         }
-
-
     }
 
     @Override
@@ -330,12 +343,11 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         if(date.getDay()<9) {
             day = "0"+day;
         }
+        mSelectedDay = date.getDay();
         mSelectedDate = year+"-"+month+"-"+day;
         mSelectedMonth = year+"-"+month;
         System.out.println("date = "+year+"-"+month+"-"+day);
         mTxtVi_foot_txt.setText(mRemark_txt.get(date.getDay()-1));
-
-
     }
     //当月份发生改变的方法
     @Override
@@ -407,6 +419,13 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         //mTxtVi_foot_txt.setText(taskMsg.getData().getTask().getTeskContent());
         setDays(taskMsg);
     }
+    //设置备注信息
+    @Override
+    public void setFootText(TaskMsg taskMsg,String remarkTxt) {
+        mRemark_txt.set(mSelectedDay-1,remarkTxt);
+        mTxtVi_foot_txt.setText(mRemark_txt.get(mSelectedDay-1));
+    }
+
     //把从接口接收到的数据放到页面上
     @Override
     public void setData(Misson misson) {
@@ -453,8 +472,6 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         mViewAnimator = new ViewAnimator(this, mList, contentFragment, mDrawerLayout, this);
         mDrawerLayout.setScrimColor(Color.TRANSPARENT);
         mLinearLayout.setOnClickListener(v -> mDrawerLayout.closeDrawers());
-        mMaterialCalendarView.setOnDateChangedListener(this);
-        mMaterialCalendarView.setOnMonthChangedListener(this);
         mMaterialCalendarView.addDecorators(
                 //new MySelectorDecorator(this),
                 new HighlightWeekendsDecorator(),
@@ -470,7 +487,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         calendar.set(CalendarDay.today().getYear(),CalendarDay.today().getMonth(),1);
         ArrayList<CalendarDay> dates = new ArrayList<>();
         ArrayList<CalendarDay> dates_remark = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 31; i++) {
             mRemark_txt.add("");
             for (int j = 0; j<taskMsg.getData().getCalendar().size();j++) {
                 CalendarDay day = CalendarDay.from(calendar);
@@ -506,8 +523,9 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             day = "0"+day;
         }
         mSelectedDate = year+"-"+month+"-"+day;
-        for (int i = 0;i<30;i++) {
-            mRemark_txt.add("没有数据");
+        for (int i = 0;i<31;i++) {
+            mRemark_txt.add("没有备注");
+            System.out.println("添加数据"+i);
         }
     }
     //选择年月按钮的点击事件
@@ -519,6 +537,8 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     @OnClick(R.id.insist_edit_btn)
     void postEditMsg() {
         mPresenter.JourEdit(TaskId,mSelectedDate,mTxtVi_foot_txt.getText().toString());
+        mTxtVi_title.setFocusable(true);
+        mTxtVi_title.setFocusableInTouchMode(true);
     }
 
     //签到打勾的实现

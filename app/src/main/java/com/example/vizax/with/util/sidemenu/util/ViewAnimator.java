@@ -323,11 +323,6 @@ public class ViewAnimator<T extends Resourceble> {
         confirmDialog.setClicklistener(new AddItemDialog.ClickListenerInterface() {
             @Override
             public int doConfirm() {
-                ((DraweeView) viewMenu.findViewById(R.id.menu_item_image)).setImageResource(sp.getInt("Item"+finalI, R.drawable.icn_add));
-                SlideMenuItem add = new SlideMenuItem(list.get(finalI).getName(),sp.getInt("Item"+finalI, R.drawable.icn_add));
-                mList.set(finalI, (SlideMenuItem) add);
-                list.set(finalI,(T)add);
-                confirmDialog.dismiss();
                 mPresenter = new InsistPresenter();
                 EditText title = (EditText) confirmDialog.findViewById(R.id.mission_title);
                 EditText content = (EditText) confirmDialog.findViewById(R.id.mission_content);
@@ -335,6 +330,12 @@ public class ViewAnimator<T extends Resourceble> {
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putInt("Item"+finalI,sp.getInt("ItemCache",R.drawable.icn_add));
                 editor.commit();
+                ((DraweeView) viewMenu.findViewById(R.id.menu_item_image)).setImageResource(sp.getInt("Item"+finalI, R.drawable.icn_add));
+                SlideMenuItem add = new SlideMenuItem(list.get(finalI).getName(),sp.getInt("Item"+finalI, R.drawable.icn_add));
+                mList.set(finalI, (SlideMenuItem) add);
+                list.set(finalI,(T)add);
+                confirmDialog.dismiss();
+                System.out.println("confirm this"+finalI+"res = "+sp.getInt("Item"+finalI,R.drawable.icn_add));
                 return 0;
             }
 

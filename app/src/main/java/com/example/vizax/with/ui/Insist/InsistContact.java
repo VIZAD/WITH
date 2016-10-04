@@ -16,7 +16,7 @@ public interface InsistContact {
     interface View extends BaseView {
         void setData(Misson misson);
         void setClData(TaskMsg taskMsg);
-
+        void setFootText(TaskMsg taskMsg,String remarkTxt);
 
     }
 

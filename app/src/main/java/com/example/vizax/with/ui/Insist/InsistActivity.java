@@ -270,7 +270,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             mTxtVi_title.setText(mMisson.getData().getCurrTasks().get(Integer.parseInt(mSelectedCase) - 1).getTitle().toString());
             mTxtVi_center_txt.setText(mMisson.getData().getCurrTasks().get(Integer.parseInt(mSelectedCase) - 1).getContent().toString());
         } else if(mNet==true  && mCreateTask==true) {
-            //mPresenter.getTask();
+            mPresenter.getTask();
         } else {
             ;
         }
@@ -279,7 +279,8 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     }
     //当抽屉的选择发生改变
     @Override
-    public ScreenShotable onSwitch(Resourceble slideMenuItem, ScreenShotable screenShotable, int position) {
+    public ScreenShotable onSwitch(Resourceble slideMenuItem, ScreenShotable screenShotable, int position ,boolean mCreateTask) {
+        this.mCreateTask = mCreateTask;
         if(mNet == true) {
             switch (slideMenuItem.getName()) {
                 case ContentFragment.CLOSE:

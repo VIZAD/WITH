@@ -93,7 +93,7 @@ public class ViewAnimator<T extends Resourceble> {
                 //System.out.println("图片Resources = "+((DraweeView) viewMenu.findViewById(R.id.menu_item_image)).getResources()+" close = "+R.drawable.icn_close);
                 if(list.get(finalI).getImageRes()!= R.drawable.icn_close&&list.get(finalI).getImageRes()!= R.drawable.icn_add) {
                     mClicked = finalI;
-                    switchItem(list.get(finalI), location[1] + v.getHeight() / 2);
+                    switchItem(list.get(finalI), location[1] + v.getHeight() / 2,false);
                     System.out.println("click item");
                 }
                 else if (list.get(finalI).getImageRes()== R.drawable.icn_add) {
@@ -307,8 +307,8 @@ public class ViewAnimator<T extends Resourceble> {
     }
 
     //判断
-    private void switchItem(Resourceble slideMenuItem, int topPosition) {
-        this.screenShotable = animatorListener.onSwitch(slideMenuItem, screenShotable, topPosition);
+    private void switchItem(Resourceble slideMenuItem, int topPosition, boolean mCreateTask) {
+        this.screenShotable = animatorListener.onSwitch(slideMenuItem, screenShotable, topPosition,mCreateTask);
         hideMenuContent();
 
     }
@@ -338,7 +338,7 @@ public class ViewAnimator<T extends Resourceble> {
                 System.out.println("confirm this："+finalI+"res = "+sp.getInt("Item"+finalI,R.drawable.icn_add));
                 confirmDialog.dismiss();
                 mClicked = finalI;
-                switchItem(list.get(finalI), position);
+                switchItem(list.get(finalI), position,true);
                 System.out.println("click plus");
                 return 0;
             }
@@ -355,7 +355,7 @@ public class ViewAnimator<T extends Resourceble> {
 
     public interface ViewAnimatorListener {
 
-        public ScreenShotable onSwitch(Resourceble slideMenuItem, ScreenShotable screenShotable, int position);
+        public ScreenShotable onSwitch(Resourceble slideMenuItem, ScreenShotable screenShotable, int position ,boolean mCreateTask);
 
         public void disableHomeButton();
 

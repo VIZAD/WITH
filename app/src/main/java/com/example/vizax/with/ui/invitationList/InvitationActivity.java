@@ -24,6 +24,7 @@ import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.customView.BaseToolBar;
 import com.example.vizax.with.ui.invitation.LuanchInvitationActivity;
 import com.example.vizax.with.ui.userInformation.UserInformationActivity;
+import com.example.vizax.with.util.LoadMoreRecyclerView;
 import com.example.vizax.with.util.SharedUtil;
 import com.example.vizax.with.util.SnackbarUtils;
 import com.example.vizax.with.util.ArrayUtil;

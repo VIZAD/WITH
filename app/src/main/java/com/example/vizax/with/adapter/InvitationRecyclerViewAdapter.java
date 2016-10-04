@@ -15,6 +15,7 @@ import com.example.vizax.with.R;
 import com.example.vizax.with.bean.InvitationBaseBean;
 import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.ui.invitationList.InvitationContact;
+import com.example.vizax.with.util.CircleTransformation;
 import com.example.vizax.with.util.SharedUtil;
 import com.example.vizax.with.util.StringUtil;
 import com.example.vizax.with.util.TimeUtil;
@@ -91,10 +92,12 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
         Picasso.with(context)
                 .load(mData.getData().get(position).getOriginatorHeadUrl())
                 .placeholder(R.drawable.user0)
+                .transform(new CircleTransformation())
                 .into(holder.itemInvitationOriginatorImagVi);
         Picasso.with(context)
                 .load(mData.getData().get(position).getIconUrl())
                 .placeholder(R.drawable.langrensha)
+                .transform(new CircleTransformation())
                 .into(holder.itemInvitationIcon);
         /**
          * 参与人头像横向recyclerView

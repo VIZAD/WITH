@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.ImageView;
@@ -36,6 +35,7 @@ import com.example.vizax.with.ui.myconcern.MyConcernActivity;
 import com.example.vizax.with.ui.mymessage.MyMessageActivity;
 import com.example.vizax.with.ui.userInformation.UserInformationActivity;
 import com.example.vizax.with.util.AppManager;
+import com.example.vizax.with.util.CircleTransformation;
 import com.example.vizax.with.util.LoadMoreRecyclerView;
 import com.example.vizax.with.util.SharedUtil;
 import com.example.vizax.with.util.SnackbarUtils;
@@ -61,17 +61,22 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
     LinearLayout mRoot;
     @BindView(R.id.invitation_refresh)
     SuperSwipeRefreshLayout invitationRefresh;
-    @BindView(R.id.invitation_fab)
-    FloatingActionButton fab;
+
     @BindView(R.id.drawerlayout_id)
     DrawerLayout mDrawerLayout;
+    @BindView(R.id.my_info_user_avatar)
+    ImageView myInfoUserAvatar;
+    @BindView(R.id.my_info_user_name)
+    TextView myInfoUserName;
+    @BindView(R.id.my_info_lLayout)
+    LinearLayout myInfoLLayout;
     private InvitationRecyclerViewAdapter mAdapter;
     private String type, typeId = null;
     private int visible;
     private InvitationPresenter mInvitationListPresenter;
     private int mMainClass;
     //private SuperSwipeRefreshLayout refreshLayout;
-    private MaterialDialog mEdit, mJoinDialog, mJoing,quitDialog;
+    private MaterialDialog mEdit, mJoinDialog, mJoing, quitDialog;
     public String token = "2";
     // private SwipeBackLayout mSwipeBackLayout;
     private int position;
@@ -97,10 +102,11 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
         linearLayout_head = (LinearLayout) getLayoutInflater().inflate(R.layout.home_head_item, null);
         headViewHolder = new HeadViewHolder(linearLayout_head);
         slideBarViewHolder = new SlideBarViewHolder(mSideBar);
-
         mRecyclerView.addHeaderView(linearLayout_head);
         mInvitationListPresenter = new InvitationPresenter();
         mInvitationListPresenter.attachView(this);
+       //初始化头像 和 姓名
+        initAvatarAndName();
         //初始化dialog
         initDialog(null, -1);
         //设置邀约列表的类型
@@ -140,6 +146,20 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
         //mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
     }
 
+    /**
+     * 初始化头像 和 姓名
+     */
+    private void initAvatarAndName() {
+        if(SharedUtil.getBoolean(App.instance,FieldConstant.ishadlogin,false)) {
+            myInfoUserName.setText(SharedUtil.getString(App.instance, FieldConstant.realName));
+            Picasso.with(this)
+                    .load(SharedUtil.getString(App.instance,FieldConstant.userUrl))
+                    .placeholder(R.drawable.user0)
+                    .transform(new CircleTransformation())
+                    .into(myInfoUserAvatar);
+        }
+    }
+
     @Override
     protected boolean isApplyStatusBarColor() {
         return true;
@@ -173,7 +193,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         mInvitationListPresenter.quit();
-                        Intent intent = new Intent(App.instance,MainActivity.class);
+                        Intent intent = new Intent(App.instance, MainActivity.class);
 
                         AppManager.getAppManager().finishAllActivity();
                         startActivity(intent);
@@ -285,9 +305,10 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
             mJoinDialog.show();
         }
     }
+
     @Override
     public void showQuitDialog() {
-       quitDialog .show();
+        quitDialog.show();
 
     }
 
@@ -361,12 +382,6 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
     }
 
 
-    @OnClick(R.id.invitation_fab)
-    public void onClick() {
-        openLaunch();
-        Toast.makeText(HomeActivity.this, "dianji", Toast.LENGTH_SHORT).show();
-    }
-
     //发起活动
     @Override
     public void openLaunch() {
@@ -384,7 +399,18 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
         startActivity(intent);
     }
 
-     class HeadViewHolder {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @OnClick(R.id.my_info_lLayout)
+    public void onClick() {
+    }
+
+    class HeadViewHolder {
 
         @BindView(R.id.iv_sport1)
         ImageView ivSport1;
@@ -468,7 +494,8 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
         SlideBarViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
-        @OnClick({R.id.my_info_lLayout, R.id.my_invitation_txtVi, R.id.my_participation_txtVi, R.id.my_insist_txtVi, R.id.my_news_txtVi, R.id.my_concern_txtVi, R.id.my_setting_txtVi, R.id.my_update_txtVi, R.id.my_changepassword_txtVi,R.id.my_quit_txtVi} )
+
+        @OnClick({R.id.my_info_lLayout, R.id.my_invitation_txtVi, R.id.my_participation_txtVi, R.id.my_insist_txtVi, R.id.my_news_txtVi, R.id.my_concern_txtVi, R.id.my_setting_txtVi, R.id.my_update_txtVi, R.id.my_changepassword_txtVi, R.id.my_quit_txtVi})
         public void onClick(View view) {
             Intent intent;
             switch (view.getId()) {

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.vizax.with.ui.myhome.HomeActivity">
     <include layout="@layout/home_sidebar"/>
-
+<!--
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeLayout"
         android:layout_width="match_parent"
@@ -20,5 +20,5 @@
             android:background="@color/backColor">
 
         </android.support.v7.widget.RecyclerView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>-->
 </RelativeLayout>

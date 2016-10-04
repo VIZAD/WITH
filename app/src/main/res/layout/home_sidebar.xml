@@ -6,38 +6,27 @@
     android:layout_height="match_parent">
 
     <!--主布局-->
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/invitation_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <include layout="@layout/base_toolbar"/>
         <net.mobctrl.views.SuperSwipeRefreshLayout
             android:id="@+id/invitation_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize"
             android:scrollbars="vertical">
-            <LinearLayout
-                android:id="@+id/invitation_root"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+
 
                     <com.example.vizax.with.util.LoadMoreRecyclerView
                         android:id="@+id/activity_my_focus_recyclerview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
 
-            </LinearLayout>
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/invitation_fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/fab_margin"
-                android:src="@drawable/launch" />
         </net.mobctrl.views.SuperSwipeRefreshLayout>
-    </RelativeLayout>
+    </LinearLayout>
 
     <!--侧滑菜单-->
     <LinearLayout

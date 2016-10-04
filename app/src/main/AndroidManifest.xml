@@ -24,6 +24,14 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.UPDATE_APP_OPS_STATS" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true" />
 
     <application
         android:name=".App"
@@ -52,14 +60,18 @@
         <activity android:name=".ui.changpsw.ChangePswActivity" />
         <activity android:name=".ui.Insist.InsistActivity" />
         <activity android:name=".ui.userInformation.UserInformationActivity" />
-        <service android:name=".util.filedownload.DownLoadService"/>
         <activity android:name=".ui.intro.MainIntoActivity"
             android:theme="@style/Theme.Intro">
+        </activity>
+        <activity android:name=".ui.splash.SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".util.filedownload.DownLoadService"/>
 
         <!--友盟推送和多渠道打包-->
         <meta-data
@@ -72,11 +84,4 @@
             android:name="UMENG_MESSAGE_SECRET"
             android:value="cada5ffbf76e4cb9341c0b80ea7ff8d9" />
     </application>
-
-    <supports-screens
-        android:anyDensity="true"
-        android:largeScreens="true"
-        android:normalScreens="true"
-        android:resizeable="true"
-        android:smallScreens="true" />
 </manifest>

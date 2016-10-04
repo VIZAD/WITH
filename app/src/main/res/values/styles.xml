@@ -34,6 +34,10 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+
     <!--通用工具栏-->
     <declare-styleable name="BaseToolBar">
         <!--左侧文字-->

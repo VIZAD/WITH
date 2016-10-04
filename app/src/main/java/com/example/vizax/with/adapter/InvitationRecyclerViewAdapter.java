@@ -107,8 +107,12 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.mRecyclerView.setLayoutManager(linearLayoutManager);
         holder.mRecyclerView.setAdapter(mAdapter);
+        if(mData.getData().get(position).getMembers().get(0).getUserId().equals(String.valueOf(SharedUtil.getInt(App.instance,FieldConstant.userId)))) {
+            holder.expend.setVisibility(View.VISIBLE);
+        }else {
+            holder.expend.setVisibility(View.GONE);
+        }
 
-        holder.expend.setVisibility(visible);
         holder.expend.setOnClickListener(v -> mInvitationCallBack.press(null,position,null));
 
         holder.itemInvitationJoinBtn.setOnClickListener(v -> {

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TextInputLayout;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -70,6 +71,12 @@ public class ChangePswActivity extends BaseActivity implements  ChangePswContact
 
         toolbar.setCenterText("个人资料");
         toolbar.setLeftIcon(getResources().getDrawable(R.drawable.ic_keyboard_arrow_left));
+        toolbar.setLeftViewOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         AnimationUtil.showCircularReveal(root,2,2000);
 
         /*Presenter和视图进行绑定

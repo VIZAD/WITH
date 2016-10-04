@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -178,7 +179,7 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
             type = "足球";
             visible = View.GONE;
         }
-    typeId = StringUtil.invitationIdUtil(String.valueOf(type));
+        typeId = StringUtil.invitationIdUtil(String.valueOf(type));
     }
 
     private void initToolbar() {
@@ -186,6 +187,12 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
         if (visible == View.GONE) {
             showRightIcon();
         }
+        mBaseToolBar.setLeftViewOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -290,10 +297,11 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
     @Override
     public void OpenUserInfor( UserInforBean userInforBean) {
         Intent it = new Intent(this, UserInformationActivity.class);
-        Bundle lBundle = new Bundle();
-        System.out.println("1="+userInforBean.getData().getName()+userInforBean.getData().getPhone());
-        lBundle.putParcelable("userInforBean", userInforBean.getData());
-        it.putExtras(lBundle);
+        if(userInforBean.getData().getUserId() != SharedUtil.getInt(App.instance,FieldConstant.userId)) {
+            Bundle lBundle = new Bundle();
+            lBundle.putParcelable("userInforBean", userInforBean.getData());
+            it.putExtras(lBundle);
+        }
         startActivity(it);
     }
 

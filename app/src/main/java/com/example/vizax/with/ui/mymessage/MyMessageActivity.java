@@ -89,6 +89,12 @@ public class MyMessageActivity extends BaseActivity implements MyMessageContact.
         //设置ToolBar
         toolbar.setCenterText(getResources().getString(R.string.my_news_title));
         toolbar.setLeftIcon(R.drawable.ic_keyboard_arrow_left);
+        toolbar.setLeftViewOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         //新建Presenter
         mMessagePresenter = new MyMessagePresenter(getApplicationContext());

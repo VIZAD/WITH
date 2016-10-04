@@ -95,11 +95,11 @@ public class UserTabFragment extends Fragment implements MyConcernContact.View {
                                                                          if(concern_btn.getText().equals("取关")) {
                                                                              concern_btn.setText("关注");
                                                                              concern_btn.setBackgroundResource(R.color.lightgray_text_def);
-                                                                             myConcernPresenter.IsCocern();
+                                                                             myConcernPresenter.IsCocern(""+data.getConcernedUserId());
                                                                          } else {
                                                                              concern_btn.setText("取关");
                                                                              concern_btn.setBackgroundResource(R.color.colorPrimary);
-                                                                             myConcernPresenter.IsCocern();
+                                                                             myConcernPresenter.IsCocern(""+data.getConcernedUserId());
                                                                          }
                                                                          break;
                                                                  }

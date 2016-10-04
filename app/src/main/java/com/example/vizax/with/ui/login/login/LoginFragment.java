@@ -149,12 +149,13 @@ public class LoginFragment extends Fragment implements LoginContact.View {
         SharedUtil.putInt(App.instance,FieldConstant.sex,data.getSex());
         SharedUtil.putInt(App.instance,FieldConstant.unReadedNumber,data.getUnReadedNumber());
         SharedUtil.putString(App.instance,FieldConstant.token,data.getToken());
+        Log.w("haha",data.toString());
         SharedUtil.putString(App.instance,FieldConstant.nickName,data.getNickName());
         SharedUtil.putString(App.instance,FieldConstant.userUrl,data.getUserUrl());
         SharedUtil.putInt(App.instance,FieldConstant.userId,data.getUserId());
         SharedUtil.putString(App.instance,FieldConstant.classX,data.getClassX());
         SharedUtil.putString(App.instance,FieldConstant.studentID,data.getStudentID());
-        SharedUtil.putString(App.instance,FieldConstant.realName,data.getStudentID());
+        SharedUtil.putString(App.instance,FieldConstant.realName,data.getRealName());
         SharedUtil.putString(App.instance,FieldConstant.qq,data.getQq());
 
         SharedUtil.putBoolean(App.instance,FieldConstant.ishadlogin,true);

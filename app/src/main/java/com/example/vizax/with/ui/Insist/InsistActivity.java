@@ -516,7 +516,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             mPresenter.TaskMessages(year+"-"+month, String.valueOf(misson.getData().getCurrTasks().get(0).getTaskId()));
         } else {
             initData();
-            reset.run();
+            //reset.run();
         }
         mSelectedMonth = year+"-"+month;
         mViewAnimator = new ViewAnimator(this, mList, contentFragment, mDrawerLayout, this);
@@ -624,7 +624,9 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
                 mToolBar.setRightIcon(R.drawable.calendar_unselect);
                 mToolBar.setRightViewEnable(true);
             System.out.println("TaskId = "+TaskId);
-            mPresenter.TaskMessages(mSelectedMonth, TaskId);
+            if(mCreateTask == false) {
+                mPresenter.TaskMessages(mSelectedMonth, TaskId);
+            }
         }
     };
     @Override

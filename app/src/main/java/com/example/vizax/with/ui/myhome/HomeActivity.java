@@ -22,6 +22,7 @@ import com.example.vizax.with.base.BaseActivity;
 import com.example.vizax.with.bean.InvitationBaseBean;
 import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.bean.UserInforBean;
+import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.customView.BaseToolBar;
 import com.example.vizax.with.ui.Insist.InsistActivity;
 import com.example.vizax.with.ui.changpsw.ChangePswActivity;
@@ -34,9 +35,11 @@ import com.example.vizax.with.ui.myconcern.MyConcernActivity;
 import com.example.vizax.with.ui.mymessage.MyMessageActivity;
 import com.example.vizax.with.ui.userInformation.UserInformationActivity;
 import com.example.vizax.with.util.LoadMoreRecyclerView;
+import com.example.vizax.with.util.SharedUtil;
 import com.example.vizax.with.util.SnackbarUtils;
 import com.example.vizax.with.util.StringUtil;
 import com.example.vizax.with.util.filedownload.UpdateManager;
+import com.squareup.picasso.Picasso;
 
 import net.mobctrl.views.SuperSwipeRefreshLayout;
 
@@ -101,6 +104,10 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
         //设置邀约列表的类型
 
         mBaseToolBar.setCenterText(getResources().getString(R.string.home_title));
+        /*String url = SharedUtil.getString(App.instance, FieldConstant.userUrl);
+        Picasso.with(this)
+                .load(url)
+                .into(mBaseToolBar.getLeftView());*/
         mBaseToolBar.setLeftIcon(getResources().getDrawable(R.drawable.user_img));
         mBaseToolBar.setLeftViewOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +140,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
 
     @Override
     protected boolean isApplyStatusBarColor() {
-        return false;
+        return true;
     }
 
     //初始化dialog

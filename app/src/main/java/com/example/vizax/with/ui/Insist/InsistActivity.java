@@ -530,7 +530,6 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         );
         mMaterialCalendarView.setSelectedDate(CalendarDay.today());
         System.out.println("set data");
-        mCreateTask = false;
     }
     //根据接口数据设置日历界面
     protected  void setDays (TaskMsg taskMsg){
@@ -627,6 +626,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             if(mCreateTask == false) {
                 mPresenter.TaskMessages(mSelectedMonth, TaskId);
             }
+            mCreateTask = false;
         }
     };
     @Override

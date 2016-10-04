@@ -102,9 +102,9 @@ public class InsistPresenter implements InsistContact.Presenter {
                                     System.out.println("day = " + TaskMsg.getData().getCalendar().get(i).getDay());
                                     System.out.println("content = " + TaskMsg.getData().getCalendar().get(i).getRemark());
                                 }
+                                InsistView.setClData(TaskMsg);
+                                InsistView.dimissLoading();
                             }
-                            InsistView.setClData(TaskMsg);
-                            InsistView.dimissLoading();
                         }
                         else {
                         }

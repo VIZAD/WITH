@@ -536,22 +536,24 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         ArrayList<CalendarDay> dates_remark = new ArrayList<>();
         for (int i = 0; i < 31; i++) {
             mRemark_txt.add("");
-            for (int j = 0; j<taskMsg.getData().getCalendar().size();j++) {
-                CalendarDay day = CalendarDay.from(calendar);
-                if (i == taskMsg.getData().getCalendar().get(j).getDay() - 1 && taskMsg.getData().getCalendar().get(j).isJour_punch()) {
-                    dates.add(day);
-                    if (i == CalendarDay.today().getDay() - 1) {
-                        mToolBar.setRightIcon(R.drawable.signed);
-                        mToolBar.setRightViewEnable(false);
+            if (taskMsg.getData().getCalendar()!= null) {
+                for (int j = 0; j < taskMsg.getData().getCalendar().size(); j++) {
+                    CalendarDay day = CalendarDay.from(calendar);
+                    if (i == taskMsg.getData().getCalendar().get(j).getDay() - 1 && taskMsg.getData().getCalendar().get(j).isJour_punch()) {
+                        dates.add(day);
+                        if (i == CalendarDay.today().getDay() - 1) {
+                            mToolBar.setRightIcon(R.drawable.signed);
+                            mToolBar.setRightViewEnable(false);
+                        }
+                    }
+                    if (i == taskMsg.getData().getCalendar().get(j).getDay() - 1 && !taskMsg.getData().getCalendar().get(j).getRemark().equals("")) {
+                        dates_remark.add(day);
+                        mRemark_txt.set(i, taskMsg.getData().getCalendar().get(j).getRemark().toString());
+                        System.out.println("remark =" + taskMsg.getData().getCalendar().get(j).getRemark().toString());
                     }
                 }
-                if (i == taskMsg.getData().getCalendar().get(j).getDay() - 1 && !taskMsg.getData().getCalendar().get(j).getRemark().equals("")) {
-                    dates_remark.add(day);
-                    mRemark_txt.set(i,taskMsg.getData().getCalendar().get(j).getRemark().toString());
-                    System.out.println("remark =" + taskMsg.getData().getCalendar().get(j).getRemark().toString());
-                }
+                calendar.add(Calendar.DATE, 1);
             }
-            calendar.add(Calendar.DATE, 1);
         }
         mMaterialCalendarView.addDecorator(new EventDecorator(Color.RED, dates));
         mMaterialCalendarView.addDecorator(new EventDocDecorator(Color.RED, dates_remark));
@@ -560,6 +562,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     }
     //初始化数据
     public void initData() {
+        mRemark_txt = new ArrayList<String>();
         String year = String.valueOf(CalendarDay.today().getYear());
         String month = String.valueOf(CalendarDay.today().getMonth()+1);
         if(CalendarDay.today().getMonth()<9) {
@@ -619,6 +622,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
                 mToolBar.setRightIcon(R.drawable.calendar_unselect);
                 mToolBar.setRightViewEnable(true);
             System.out.println("TaskId = "+TaskId);
+            initData();
             mPresenter.TaskMessages(mSelectedMonth, TaskId);
         }
     };

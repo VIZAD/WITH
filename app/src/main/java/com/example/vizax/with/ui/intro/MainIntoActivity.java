@@ -8,7 +8,7 @@ import android.widget.Toast;
 import com.example.vizax.with.App;
 import com.example.vizax.with.R;
 import com.example.vizax.with.constant.FieldConstant;
-import com.example.vizax.with.ui.home.HomeActivity;
+import com.example.vizax.with.ui.myhome.HomeActivity;
 import com.example.vizax.with.util.SharedUtil;
 import com.heinrichreimersoftware.materialintro.app.IntroActivity;
 import com.heinrichreimersoftware.materialintro.slide.SimpleSlide;

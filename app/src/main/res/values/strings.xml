@@ -108,6 +108,7 @@
     <string name="my_news_label">我的信息</string>
     <string name="my_concern_label">我的关注</string>
     <string name="setting_label">设置</string>
+    <string name="quit_label">退出登录</string>
     <string name="check_update_label">检查更新</string>
 
 

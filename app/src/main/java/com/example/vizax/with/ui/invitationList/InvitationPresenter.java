@@ -248,4 +248,15 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
             }
         });
     }
+
+    @Override
+    public void quit() {
+        SharedUtil.putBoolean(App.instance,FieldConstant.ishadlogin,false);
+        SharedUtil.putString(App.instance,FieldConstant.token,"nologin");
+    }
+
+    @Override
+    public void showQuitDialog() {
+        mInvitationActivity.showQuitDialog();
+    }
 }

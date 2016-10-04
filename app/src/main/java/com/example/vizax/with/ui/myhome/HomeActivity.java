@@ -30,9 +30,11 @@ import com.example.vizax.with.ui.invitationList.InvitationActivity;
 import com.example.vizax.with.ui.invitationList.InvitationContact;
 import com.example.vizax.with.ui.invitationList.InvitationDetailsActivity;
 import com.example.vizax.with.ui.invitationList.InvitationPresenter;
+import com.example.vizax.with.ui.login.MainActivity;
 import com.example.vizax.with.ui.myconcern.MyConcernActivity;
 import com.example.vizax.with.ui.mymessage.MyMessageActivity;
 import com.example.vizax.with.ui.userInformation.UserInformationActivity;
+import com.example.vizax.with.util.AppManager;
 import com.example.vizax.with.util.LoadMoreRecyclerView;
 import com.example.vizax.with.util.SnackbarUtils;
 import com.example.vizax.with.util.StringUtil;
@@ -65,8 +67,8 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
     private int visible;
     private InvitationPresenter mInvitationListPresenter;
     private int mMainClass;
-    private SuperSwipeRefreshLayout refreshLayout;
-    private MaterialDialog mEdit, mJoinDialog, mJoing;
+    //private SuperSwipeRefreshLayout refreshLayout;
+    private MaterialDialog mEdit, mJoinDialog, mJoing,quitDialog;
     public String token = "2";
     // private SwipeBackLayout mSwipeBackLayout;
     private int position;
@@ -133,7 +135,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
 
     @Override
     protected boolean isApplyStatusBarColor() {
-        return false;
+        return true;
     }
 
     //初始化dialog
@@ -154,6 +156,22 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
         mJoing = new MaterialDialog.Builder(this)
                 .content("正在处理请稍等...")
                 .progress(true, 0)
+                .build();
+
+        quitDialog = new MaterialDialog.Builder(this)
+                .content("确定退出吗?")
+                .positiveText("是")
+                .negativeText("否")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        mInvitationListPresenter.quit();
+                        Intent intent = new Intent(App.instance,MainActivity.class);
+
+                        AppManager.getAppManager().finishAllActivity();
+                        startActivity(intent);
+                    }
+                })
                 .build();
 
     }
@@ -185,7 +203,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
         invitationRefresh.setOnPushLoadMoreListener(new SuperSwipeRefreshLayout.OnPushLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                mInvitationListPresenter.pullLoadMore(HomeActivity.this, mRecyclerView, visible, null, null);
+                mInvitationListPresenter.pullLoadMore(HomeActivity.this, mRecyclerView, View.GONE, null, null);
 
 
             }
@@ -259,6 +277,11 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
             initDialog(contents, position);
             mJoinDialog.show();
         }
+    }
+    @Override
+    public void showQuitDialog() {
+       quitDialog .show();
+
     }
 
     @Override
@@ -415,6 +438,9 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
     class SlideBarViewHolder {
         @BindView(R.id.my_info_lLayout)
         LinearLayout myInfoLLayout;
+        @BindView(R.id.my_quit_txtVi)
+        TextView myQuitLayout;
+
         @BindView(R.id.my_changepassword_txtVi)
         TextView myChangepasswordTxtVi;
         @BindView(R.id.my_invitation_txtVi)
@@ -435,7 +461,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
         SlideBarViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
-        @OnClick({R.id.my_info_lLayout, R.id.my_invitation_txtVi, R.id.my_participation_txtVi, R.id.my_insist_txtVi, R.id.my_news_txtVi, R.id.my_concern_txtVi, R.id.my_setting_txtVi, R.id.my_update_txtVi, R.id.my_changepassword_txtVi} )
+        @OnClick({R.id.my_info_lLayout, R.id.my_invitation_txtVi, R.id.my_participation_txtVi, R.id.my_insist_txtVi, R.id.my_news_txtVi, R.id.my_concern_txtVi, R.id.my_setting_txtVi, R.id.my_update_txtVi, R.id.my_changepassword_txtVi,R.id.my_quit_txtVi} )
         public void onClick(View view) {
             Intent intent;
             switch (view.getId()) {
@@ -472,6 +498,10 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
                     break;
                 case R.id.my_setting_txtVi:
                     HomeActivity.this.showToast("设置");
+                    break;
+                case R.id.my_quit_txtVi:
+                    HomeActivity.this.showToast("退出");
+                    mInvitationListPresenter.showQuitDialog();
                     break;
                 case R.id.my_update_txtVi:
                     //showHomeToast("检查更新");

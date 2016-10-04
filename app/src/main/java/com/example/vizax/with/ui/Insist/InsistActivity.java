@@ -263,7 +263,9 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             mTxtVi_title.setText(mMisson.getData().getCurrTasks().get(Integer.parseInt(mSelectedCase) - 1).getTitle().toString());
             mTxtVi_center_txt.setText(mMisson.getData().getCurrTasks().get(Integer.parseInt(mSelectedCase) - 1).getContent().toString());
         }
+
         reset.run();
+
         return contentFragment;
     }
     //当抽屉的选择发生改变
@@ -311,6 +313,8 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
                     return replaceFragment(screenShotable, position, mInsistColor.COLOR1_CALENDER, mInsistColor.COLOR1_MISSION, mInsistColor.COLOR1_MOOD);
             }
         }
+
+
     }
 
     @Override

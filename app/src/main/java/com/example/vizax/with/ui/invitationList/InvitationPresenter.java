@@ -34,7 +34,6 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     private String finalItemId;
     private UserInforBean mUserInforBean;
     public InvitationBaseBean baseBean;
-    private String token ;
 
 
     /**
@@ -247,5 +246,16 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
                 mInvitationActivity.dismissDialog();
             }
         });
+    }
+
+    @Override
+    public void quit() {
+        SharedUtil.putBoolean(App.instance,FieldConstant.ishadlogin,false);
+        SharedUtil.putString(App.instance,FieldConstant.token,"nologin");
+    }
+
+    @Override
+    public void showQuitDialog() {
+        mInvitationActivity.showQuitDialog();
     }
 }

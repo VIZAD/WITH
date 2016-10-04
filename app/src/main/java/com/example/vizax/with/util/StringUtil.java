@@ -28,8 +28,11 @@ public class StringUtil {
     }
 
     public static  String invitationIdUtil(String title){
-        String result = "";
+        String result = null;
         switch (title){
+            case "我发起的":
+                result = null;
+                break;
             case  "运动" :
                 result =  "1";
                 break;

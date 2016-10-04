@@ -1,13 +1,16 @@
 package com.example.vizax.with.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.vizax.with.App;
 import com.example.vizax.with.R;
 import com.example.vizax.with.bean.MembersBean;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -19,9 +22,11 @@ import butterknife.ButterKnife;
  */
 public class UserImgListecyclerViewAdapter extends RecyclerView.Adapter<UserImgListecyclerViewAdapter.MyViewHolder> {
     ArrayList<MembersBean> mMembersBean;
+    Context context;
 
-    public UserImgListecyclerViewAdapter(ArrayList<MembersBean> mMembersBean) {
+    public UserImgListecyclerViewAdapter(ArrayList<MembersBean> mMembersBean,Context context) {
         this.mMembersBean = mMembersBean;
+        this.context = context;
     }
 
     @Override
@@ -34,7 +39,14 @@ public class UserImgListecyclerViewAdapter extends RecyclerView.Adapter<UserImgL
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        if (position % 5 == 0)
+        Picasso.with(context)
+                .load(mMembersBean.get(position).getHeadUrl())
+                .placeholder(R.drawable.user0)
+                .into(holder.itemInvitationUserlistImg);
+        /**
+         * 临时数据
+         */
+      /*  if (position % 5 == 0)
             holder.itemInvitationUserlistImg.setImageResource(R.drawable.user0);
         if (position % 5 == 1)
             holder.itemInvitationUserlistImg.setImageResource(R.drawable.user1);
@@ -45,7 +57,7 @@ public class UserImgListecyclerViewAdapter extends RecyclerView.Adapter<UserImgL
         if (position % 5 == 4)
             holder.itemInvitationUserlistImg.setImageResource(R.drawable.user4);
         if (position % 5 == 5)
-            holder.itemInvitationUserlistImg.setImageResource(R.drawable.user5);
+            holder.itemInvitationUserlistImg.setImageResource(R.drawable.user5);*/
 
 
     }

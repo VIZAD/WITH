@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <include layout="@layout/base_toolbar"/>
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipeLayout"
+        <net.mobctrl.views.SuperSwipeRefreshLayout
+            android:id="@+id/invitation_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="?attr/actionBarSize"
@@ -21,15 +21,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <net.mobctrl.views.SuperSwipeRefreshLayout
-                    android:id="@+id/invitation_refresh"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+
                     <com.example.vizax.with.util.LoadMoreRecyclerView
                         android:id="@+id/activity_my_focus_recyclerview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
-                </net.mobctrl.views.SuperSwipeRefreshLayout>
+
             </LinearLayout>
 
             <android.support.design.widget.FloatingActionButton
@@ -39,7 +36,7 @@
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/fab_margin"
                 android:src="@drawable/launch" />
-        </android.support.v4.widget.SwipeRefreshLayout>
+        </net.mobctrl.views.SuperSwipeRefreshLayout>
     </RelativeLayout>
 
     <!--侧滑菜单-->

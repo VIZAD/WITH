@@ -50,6 +50,7 @@ public class InvitationBean extends MultiItemEntity implements Parcelable{
             invitationBean.setJoin((source.readInt() == 1 )? true:false);
             invitationBean.setInvitationTime(source.readString());
             invitationBean.setPublishTime(source.readString());
+            invitationBean.setOriginatorHeadUrl(source.readString());
 //            invitationBean.setMembers(source.readArrayList(MembersBean.class.getClassLoader()));
             return invitationBean;
         }
@@ -273,6 +274,7 @@ public class InvitationBean extends MultiItemEntity implements Parcelable{
         dest.writeInt(isJoin ? 1:0 );
         dest.writeString(invitationTime);
         dest.writeString(publishTime);
+        dest.writeString(originatorHeadUrl);
        // dest.writeList(members);
 
     }

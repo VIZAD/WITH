@@ -14,14 +14,17 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.vizax.with.App;
 import com.example.vizax.with.R;
 import com.example.vizax.with.adapter.InvitationRecyclerViewAdapter;
 import com.example.vizax.with.bean.InvitationBaseBean;
 import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.bean.UserInforBean;
+import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.customView.BaseToolBar;
 import com.example.vizax.with.ui.invitation.LuanchInvitationActivity;
 import com.example.vizax.with.ui.userInformation.UserInformationActivity;
+import com.example.vizax.with.util.SharedUtil;
 import com.example.vizax.with.util.SnackbarUtils;
 import com.example.vizax.with.util.ArrayUtil;
 import com.example.vizax.with.util.StringUtil;
@@ -36,6 +39,7 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 public class InvitationActivity extends SwipeBackActivity implements InvitationContact.View {
     private static final String MY_INVITATION = "我发起的";
+    private static final String MY_JOINED = "我参与的";
     @BindView(R.id.baseToolBar)
     BaseToolBar mBaseToolBar;
     @BindView(R.id.activity_my_focus_recyclerview)
@@ -57,7 +61,7 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
     public String token = "2";
     private SwipeBackLayout mSwipeBackLayout;
     private int position;
-    private SharedPreferences sp;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +76,7 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
         setType();
         //初始化recyclerView
         // token  = User.token;
-        mInvitationListPresenter.getDataAndSetAdapter(this, mRecyclerView, visible, typeId, null);
+        mInvitationListPresenter.getDataAndSetAdapter(this, mRecyclerView, visible, typeId, userId);
         //初始化toolbar
         initToolbar();
         //初始化superSwipeRefreshLayout
@@ -120,7 +124,7 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
         invitationRefresh.setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
             @Override
             public void onRefresh() {
-                mInvitationListPresenter.getDataAndSetAdapter(InvitationActivity.this, mRecyclerView, visible, typeId, null);
+                mInvitationListPresenter.getDataAndSetAdapter(InvitationActivity.this, mRecyclerView, visible, typeId, userId);
                 invitationRefresh.setRefreshing(false);
             }
 
@@ -137,7 +141,7 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
         invitationRefresh.setOnPushLoadMoreListener(new SuperSwipeRefreshLayout.OnPushLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                mInvitationListPresenter.pullLoadMore(InvitationActivity.this, mRecyclerView, visible, null, null);
+                mInvitationListPresenter.pullLoadMore(InvitationActivity.this, mRecyclerView, visible, typeId, userId);
 
 
             }
@@ -161,7 +165,12 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
         if (type != null) {
             if (type.equals(MY_INVITATION)) {
                 visible = View.VISIBLE;
+                userId =String.valueOf(SharedUtil.getInt(App.instance, FieldConstant.userId));
             } else {
+                //我参与的活动 typeId传-1
+                if(type.equals(MY_JOINED)){
+                    typeId = "-1";
+                }
                 visible = View.GONE;
             }
         } else {
@@ -191,7 +200,7 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
                             public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                                 mBaseToolBar.setCenterText(text);
                                 typeId = StringUtil.invitationIdUtil(String.valueOf(text));
-                                mInvitationListPresenter.getDataAndSetAdapter(InvitationActivity.this, mRecyclerView, visible,typeId,null);
+                                mInvitationListPresenter.getDataAndSetAdapter(InvitationActivity.this, mRecyclerView, visible,typeId,userId);
                             }
                         })
                         .show();
@@ -222,6 +231,11 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
             initDialog(contents, position);
             mJoinDialog.show();
         }
+    }
+
+    @Override
+    public void showQuitDialog() {
+
     }
 
     @Override

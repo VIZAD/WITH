@@ -137,6 +137,20 @@
         android:text="@string/setting_label"
         android:textColor="#a2000000"
         android:textSize="15sp"/>
+    <TextView
+        android:id="@+id/my_quit_txtVi"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="27dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="18dp"
+        android:gravity="center_vertical"
+        android:drawablePadding="27dp"
+        android:drawableLeft="@drawable/setting"
+        android:text="@string/quit_label"
+        android:textColor="#a2000000"
+        android:textSize="15sp"/>
 
     <View
         android:clickable="true"

@@ -18,6 +18,7 @@ import com.example.vizax.with.ui.invitationList.InvitationContact;
 import com.example.vizax.with.util.SharedUtil;
 import com.example.vizax.with.util.StringUtil;
 import com.example.vizax.with.util.TimeUtil;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -86,11 +87,19 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
         holder.itemInvitationPlace.setText("活动地点:"+mData.getData().get(position).getPlace());
         holder.itemInvitationSexRequire.setText("性别要求:"+sex);
         holder.itemInvitationNumber.setText(mData.getData().get(position).getCurrentNumber()+"/"+mData.getData().get(position).getTotalNumber());
-
+        System.out.println("url="+mData.getData().get(position).getOriginatorHeadUrl());
+        Picasso.with(context)
+                .load(mData.getData().get(position).getOriginatorHeadUrl())
+                .placeholder(R.drawable.user0)
+                .into(holder.itemInvitationOriginatorImagVi);
+        Picasso.with(context)
+                .load(mData.getData().get(position).getIconUrl())
+                .placeholder(R.drawable.langrensha)
+                .into(holder.itemInvitationIcon);
         /**
          * 参与人头像横向recyclerView
          */
-        mAdapter = new UserImgListecyclerViewAdapter(mData.getData().get(position).getMembers());
+        mAdapter = new UserImgListecyclerViewAdapter(mData.getData().get(position).getMembers(),context);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.mRecyclerView.setLayoutManager(linearLayoutManager);

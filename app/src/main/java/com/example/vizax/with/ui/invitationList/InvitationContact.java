@@ -22,7 +22,7 @@ public interface InvitationContact {
 
        //显示dialog type == true 显示操作dialog  type == false 显示joindialog
         void showDialog(boolean type,@Nullable String contents, int position);
-
+        void showQuitDialog();
         void showDiaolog();
         void dismissDialog();
         //获取数据失败事件
@@ -55,6 +55,9 @@ public interface InvitationContact {
         void setNotifyChange();
         void deleteInvitation(int position);
 
+        void quit();
+
+        void showQuitDialog();
     }
     interface InvitationCallBack {
         //获得json数据后回调setAdapter

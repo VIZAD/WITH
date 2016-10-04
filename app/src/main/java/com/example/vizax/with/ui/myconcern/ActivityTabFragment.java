@@ -75,6 +75,11 @@ public class ActivityTabFragment extends Fragment implements InvitationContact.V
     }
 
     @Override
+    public void showQuitDialog() {
+        //
+    }
+
+    @Override
     public void showDiaolog() {
 
     }

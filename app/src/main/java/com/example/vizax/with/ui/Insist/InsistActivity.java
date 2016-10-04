@@ -69,6 +69,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     private String mSelectedCase = "1";
     private String TaskId = "-1";
     private Boolean mNet = false;
+    private Boolean mCreateTask = false;
     private ToDayDecorator toDayDecorator = new ToDayDecorator();
     private static final DateFormat FORMATTER = SimpleDateFormat.getDateInstance();
     private Misson mMisson;
@@ -259,20 +260,21 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             findViewById(R.id.content_overlay).setBackgroundDrawable(new BitmapDrawable(getResources(), screenShotable.getBitmap()));
             animator.start();*/
         }
-
         ContentFragment contentFragment = ContentFragment.newInstance(color_cl,color_mi);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, contentFragment).commit();
         System.out.println("ScreenShotable color ="+color_md);
         mTxtVi_title.setTextColor(color_md);
         mTxtVi_center_txt.setTextColor(color_md);
         //mTxtVi_foot_txt.setTextColor(color_md);
-        if(mNet==true) {
+        if(mNet==true && mCreateTask==false) {
             mTxtVi_title.setText(mMisson.getData().getCurrTasks().get(Integer.parseInt(mSelectedCase) - 1).getTitle().toString());
             mTxtVi_center_txt.setText(mMisson.getData().getCurrTasks().get(Integer.parseInt(mSelectedCase) - 1).getContent().toString());
+        } else if(mNet==true  && mCreateTask==true) {
+            mPresenter.getTask();
+        } else {
+            ;
         }
-
         reset.run();
-
         return contentFragment;
     }
     //当抽屉的选择发生改变
@@ -449,6 +451,14 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         mDialog.dismiss();
     }
 
+    //新建任务后设置title和content
+    @Override
+    public void setTitle_Content(String title,String content) {
+        mTxtVi_title.setText(title);
+        mTxtVi_center_txt.setText(content);
+        mCreateTask = true;
+    }
+
     @Override
     public void disconnected() {
         mDialog.dismiss();
@@ -463,8 +473,12 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
     @Override
     public void setData(Misson misson) {
         mNet=true;
-        mTxtVi_title.setText(misson.getData().getCurrTasks().get(0).getTitle().toString());
-        mTxtVi_center_txt.setText(misson.getData().getCurrTasks().get(0).getContent().toString());
+        if(mCreateTask == false) {
+            mMisson = misson;
+            mTxtVi_title.setText(misson.getData().getCurrTasks().get(0).getTitle().toString());
+            mTxtVi_center_txt.setText(misson.getData().getCurrTasks().get(0).getContent().toString());
+            TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(0).getTaskId());
+        }
         sp = getSharedPreferences("mySp",Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         for(int i = 0; i < 5;i++) {
@@ -499,8 +513,6 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             month = "0"+month;
         }
         mPresenter.TaskMessages(year+"-"+month, String.valueOf(misson.getData().getCurrTasks().get(0).getTaskId()));
-        mMisson = misson;
-        TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(0).getTaskId());
         mSelectedMonth = year+"-"+month;
         mViewAnimator = new ViewAnimator(this, mList, contentFragment, mDrawerLayout, this);
         mDrawerLayout.setScrimColor(Color.TRANSPARENT);
@@ -511,7 +523,9 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
                 new OneDayDecorator()
                 //toDayDecorator
         );
+        mMaterialCalendarView.setSelectedDate(CalendarDay.today());
         System.out.println("set data");
+        mCreateTask = false;
     }
     //根据接口数据设置日历界面
     protected  void setDays (TaskMsg taskMsg){
@@ -542,7 +556,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         mMaterialCalendarView.addDecorator(new EventDecorator(Color.RED, dates));
         mMaterialCalendarView.addDecorator(new EventDocDecorator(Color.RED, dates_remark));
         //还有点问题
-        mTxtVi_foot_txt.setText(mRemark_txt.get(CalendarDay.today().getDay()));
+        mTxtVi_foot_txt.setText(mRemark_txt.get(CalendarDay.today().getDay()-1));
     }
     //初始化数据
     public void initData() {
@@ -602,6 +616,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
                         new OneDayDecorator()
                         //toDayDecorator
                 );
+                mMaterialCalendarView.setSelectedDate(CalendarDay.today());
                 mToolBar.setRightIcon(R.drawable.calendar_unselect);
                 mToolBar.setRightViewEnable(true);
             System.out.println("TaskId = "+TaskId);

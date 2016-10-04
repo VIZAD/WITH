@@ -19,6 +19,7 @@ public interface InsistContact {
         void setFootText(TaskMsg taskMsg,String remarkTxt);
         void showLoading();
         void dimissLoading();
+        void setTitle_Content(String title,String content);
         void disconnected();
 
     }

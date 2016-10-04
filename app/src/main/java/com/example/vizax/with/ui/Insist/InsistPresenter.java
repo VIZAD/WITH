@@ -52,6 +52,7 @@ public class InsistPresenter implements InsistContact.Presenter {
                 BaseBean<Misson> baseBean = GsonUtil.toString(response,BaseBean.class);
                         if (baseBean.getCode().equals("200")) {
                             System.out.println("bean = "+baseBean.getCode());
+                            InsistView.setTitle_Content(title,content);
                         }
                         else {
                         }
@@ -66,7 +67,6 @@ public class InsistPresenter implements InsistContact.Presenter {
             public void onError(Call call, Exception e, int id) {
                 e.printStackTrace();
             }
-
             @Override
             public void onResponse(String response, int id) {
                         /*Gson解析已经封装，下次把User改成自己对应的Bean即可
@@ -157,6 +157,7 @@ public class InsistPresenter implements InsistContact.Presenter {
 
                         if (TaskMsg.getCode().equals("200")) {
                             System.out.println("编辑成功:"+TaskMsg.getMsg());
+                            Toast.makeText((Context) InsistView,"已保存",Toast.LENGTH_SHORT).show();
                             InsistView.setFootText(TaskMsg,remark);
                             InsistView.dimissLoading();
                         }

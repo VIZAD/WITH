@@ -476,6 +476,8 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             mTxtVi_center_txt.setText(misson.getData().getCurrTasks().get(0).getContent().toString());
             TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(0).getTaskId());
         } else {
+            mMaterialCalendarView.clearSelection();
+            mMaterialCalendarView.removeDecorators();
             TaskId = String.valueOf(mMisson.getData().getCurrTasks().get(mMisson.getData().getCurrTasks().size()-1).getTaskId());
         }
         sp = getSharedPreferences("mySp",Activity.MODE_PRIVATE);

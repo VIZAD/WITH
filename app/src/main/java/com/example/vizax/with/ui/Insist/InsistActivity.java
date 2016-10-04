@@ -512,7 +512,12 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         if(today.getMonth()<9) {
             month = "0"+month;
         }
-        mPresenter.TaskMessages(year+"-"+month, String.valueOf(misson.getData().getCurrTasks().get(0).getTaskId()));
+        if(mCreateTask == false) {
+            mPresenter.TaskMessages(year+"-"+month, String.valueOf(misson.getData().getCurrTasks().get(0).getTaskId()));
+        } else {
+            initData();
+            reset.run();
+        }
         mSelectedMonth = year+"-"+month;
         mViewAnimator = new ViewAnimator(this, mList, contentFragment, mDrawerLayout, this);
         mDrawerLayout.setScrimColor(Color.TRANSPARENT);
@@ -523,12 +528,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
                 new OneDayDecorator()
                 //toDayDecorator
         );
-        if(mCreateTask == false) {
-            mMaterialCalendarView.setSelectedDate(CalendarDay.today());
-        } else {
-            initData();
-            reset.run();
-        }
+        mMaterialCalendarView.setSelectedDate(CalendarDay.today());
         System.out.println("set data");
         mCreateTask = false;
     }
@@ -627,6 +627,10 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             mPresenter.TaskMessages(mSelectedMonth, TaskId);
         }
     };
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
+    }
 
 }

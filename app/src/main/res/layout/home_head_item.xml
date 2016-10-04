@@ -39,7 +39,6 @@
                     android:text="运动" />
 
                 <ImageView
-                    android:id="@+id/onebsport"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:layout_marginBottom="25dp"
@@ -58,7 +57,7 @@
                         android:layout_height="32dp"
                         android:layout_weight="1"
                         android:src="@drawable/litlesport"
-                        android:tag="足球" />
+                        android:tag="篮球" />
 
                     <ImageView
                         android:id="@+id/iv_sport2"
@@ -66,7 +65,7 @@
                         android:layout_height="32dp"
                         android:layout_weight="1"
                         android:src="@drawable/litlesport"
-                        android:tag="篮球" />
+                        android:tag="足球" />
 
                     <ImageView
                         android:id="@+id/iv_sport3"
@@ -118,7 +117,7 @@
                         android:layout_height="32dp"
                         android:layout_weight="1"
                         android:src="@drawable/litlesport"
-                        android:tag="足球"/>
+                        android:tag="自习"/>
 
                     <ImageView
                         android:id="@+id/iv_study2"
@@ -126,7 +125,7 @@
                         android:layout_height="32dp"
                         android:layout_weight="1"
                         android:src="@drawable/litlesport"
-                        android:tag="足球"/>
+                        android:tag="考研"/>
 
                     <ImageView
                         android:id="@+id/iv_study3"
@@ -134,7 +133,7 @@
                         android:layout_height="32dp"
                         android:layout_weight="1"
                         android:src="@drawable/litlesport"
-                        android:tag="足球"/>
+                        android:tag="晨读"/>
                 </LinearLayout>
 
 
@@ -180,6 +179,7 @@
                     /*三个小活动*/
 
                     <ImageView
+                        android:tag="狼人杀"
                         android:id="@+id/iv_board_game1"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
@@ -187,6 +187,7 @@
                         android:src="@drawable/litlesport" />
 
                     <ImageView
+                        android:tag="UNO"
                         android:id="@+id/iv_board_game2"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
@@ -194,6 +195,7 @@
                         android:src="@drawable/litlesport" />
 
                     <ImageView
+                        android:tag="围棋"
                         android:id="@+id/iv_board_game3"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
@@ -237,6 +239,7 @@
                     /*三个小活动*/
 
                     <ImageView
+                        android:tag="英雄联盟"
                         android:id="@+id/iv_online_game1"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
@@ -244,6 +247,7 @@
                         android:src="@drawable/litlesport" />
 
                     <ImageView
+                        android:tag="王者荣耀"
                         android:id="@+id/iv_online_game2"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
@@ -251,6 +255,7 @@
                         android:src="@drawable/litlesport" />
 
                     <ImageView
+                        android:tag="DNF"
                         android:id="@+id/iv_online_game3"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
@@ -301,6 +306,7 @@
                     /*三个小活动*/
 
                     <ImageView
+                        android:tag="电影"
                         android:id="@+id/iv_date1"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
@@ -308,6 +314,7 @@
                         android:src="@drawable/litlesport" />
 
                     <ImageView
+                        android:tag="散步"
                         android:id="@+id/iv_date2"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
@@ -315,6 +322,7 @@
                         android:src="@drawable/litlesport" />
 
                     <ImageView
+                        android:tag="唱K"
                         android:id="@+id/iv_date3"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
@@ -343,7 +351,8 @@
                     android:layout_margin="5dp"
                     android:textSize="15dp"
                     android:textColor="@color/colorPrimary"
-                    android:text="其他" />
+                    android:text="其他"
+                    android:id="@+id/textView" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

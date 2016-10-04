@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.vizax.with.ui.home.HomeActivity">
-
-
+    tools:context="com.example.vizax.with.ui.myhome.HomeActivity">
     <include layout="@layout/home_sidebar"/>
 
     <!--<android.support.v4.widget.SwipeRefreshLayout-->

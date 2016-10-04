@@ -121,6 +121,7 @@ public class BaseToolBar extends Toolbar {
             if (leftIcon != null) {
                 leftView.setWidth(leftIcon.getIntrinsicWidth());
                 leftView.setHeight(leftIcon.getIntrinsicHeight());
+
                 leftView.setBackgroundDrawable(leftIcon);
                 leftView.setClickable(true);
             }

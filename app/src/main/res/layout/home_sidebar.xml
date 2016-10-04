@@ -16,14 +16,29 @@
             android:layout_height="match_parent"
             android:layout_marginTop="?attr/actionBarSize"
             android:scrollbars="vertical">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyVi"
+            <LinearLayout
+                android:id="@+id/invitation_root"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="vertical"
-                android:background="@color/backColor">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <net.mobctrl.views.SuperSwipeRefreshLayout
+                    android:id="@+id/invitation_refresh"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.example.vizax.with.util.LoadMoreRecyclerView
+                        android:id="@+id/activity_my_focus_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </net.mobctrl.views.SuperSwipeRefreshLayout>
+            </LinearLayout>
 
-            </android.support.v7.widget.RecyclerView>
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/invitation_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/launch" />
         </android.support.v4.widget.SwipeRefreshLayout>
     </RelativeLayout>
 

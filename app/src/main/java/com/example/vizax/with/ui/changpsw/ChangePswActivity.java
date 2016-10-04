@@ -12,7 +12,8 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.R;
 import com.example.vizax.with.base.BaseActivity;
 import com.example.vizax.with.customView.BaseToolBar;
-import com.example.vizax.with.ui.home.HomeActivity;
+
+import com.example.vizax.with.ui.myhome.HomeActivity;
 import com.example.vizax.with.util.AnimationUtil;
 import com.example.vizax.with.util.SnackbarUtils;
 import com.example.vizax.with.util.TextUtil;

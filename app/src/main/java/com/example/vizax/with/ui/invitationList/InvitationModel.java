@@ -22,7 +22,6 @@ public class InvitationModel implements InvitationContact.InvitationlModel {
     @Override
     public void getData(String typeId, String userId,StringCallback stringCallback) {
         //System.out.println("type="+typeId+"userId="+userId);
-
         PostFormBuilder builder =OkHttpUtils .post()
                 .url(APIConstant.getApi(APIConstant.INVITATION_GETINVITATIONS));
         if(typeId != null&& !typeId.equals("")){
@@ -31,8 +30,6 @@ public class InvitationModel implements InvitationContact.InvitationlModel {
         if(userId != null&& !userId.equals("")){
             builder.addParams("userId",userId);
         }
-
-
         builder .addParams("token",SharedUtil.getString(App.instance, FieldConstant.token))
                 .addParams("limit","10")
                 .addParams("lastInvitationId","0")

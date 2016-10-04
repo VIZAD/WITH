@@ -38,6 +38,8 @@ public interface InvitationContact {
         void OpenDetail(int position, InvitationBaseBean invitationBean);
         void OpenUserInfor(UserInforBean userInforBean);
         void stopRefresh();
+
+        void openHeadDetail(String string);
     }
     interface InvitationlModel{
         void getData(String typeId, String userId, StringCallback stringCallback);

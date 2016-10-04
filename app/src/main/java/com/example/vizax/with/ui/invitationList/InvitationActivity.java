@@ -111,6 +111,11 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
         invitationRefresh.setRefreshing(false);
     }
 
+    @Override
+    public void openHeadDetail(String string) {
+        //用于首页
+    }
+
     private void initSuperSwipeRefresh() {
         invitationRefresh.setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
             @Override

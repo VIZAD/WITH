@@ -146,6 +146,11 @@ public class ActivityTabFragment extends Fragment implements InvitationContact.V
         concern_refresh.setRefreshing(false);
     }
 
+    @Override
+    public void openHeadDetail(String string) {
+        //
+    }
+
 
     private void initSuperSwipeRefresh() {
         concern_refresh.setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {

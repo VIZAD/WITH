@@ -7,11 +7,16 @@ import java.util.List;
  */
 
 public class MyMessageBean {
+    public MyMessageBean(List<DataBean> data) {
+        this.data = data;
+    }
+
     /**
      * data : [{"readed":true,"invationId":2,"invitationTotalNumber":10,"invitationTime":"2016-9-12 16:40","sendTime":"2016-9-10 22:30","invitationCurrNumber":8,"messageType":1,"content":"取消活动","applyUserId":2,"invitationTitle":"接师妹","name":"吴一鸣","headUrl":"headimg/head.png","messageId":1,"invitationPlace":"青年广场"}]
      * code : 200
      * msg : http://www.bejson.com
      */
+
 
     private String code;
     private String msg;

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.vizax.with.App;
 import com.example.vizax.with.bean.BaseEmptyBean;
 import com.example.vizax.with.bean.MyMessageBean;
 import com.example.vizax.with.constant.FieldConstant;
@@ -28,12 +29,11 @@ public class MyMessagePresenter implements MyMessageContact.Presenter {
     public MyMessagePresenter(Context mContext) {
         this.mContext = mContext;
         mMessageModel = new MyMessageModel();
-        mMessageBeenLists = new ArrayList<>();
+
     }
 
     private MyMessageContact.Modle mMessageModel;
-    private MyMessageBean mMessageBean;
-    public ArrayList<MyMessageBean.DataBean> mMessageBeenLists;
+
     private int lastId;
 
 
@@ -49,7 +49,7 @@ public class MyMessagePresenter implements MyMessageContact.Presenter {
     }
 
     //填充数据
-    @Override
+    /*@Override
     public void loadMessageData(String token, int lastMessageId, int limit) {
         mMessageModel.loadMyMessageData(token, lastMessageId, limit, new StringCallback() {
             @Override
@@ -80,7 +80,7 @@ public class MyMessagePresenter implements MyMessageContact.Presenter {
                 }
             }
         });
-    }
+    }*/
 
     @Override
     public void deleteMessage(MyMessageAdapter mMessageAdapter, int adapterPosition, int messageId) {
@@ -97,8 +97,8 @@ public class MyMessagePresenter implements MyMessageContact.Presenter {
                 Log.i("response", "response:"+response.toString());
                 Log.i("response", "messageresponsebeen:"+baseEmptyBean.toString());
                 if (baseEmptyBean.getCode()==200){
-                    mMessageAdapter.getmDatas().remove(adapterPosition);
-                    mMessageAdapter.getmDatas().get(adapterPosition).setReaded(true);
+                    mMessageAdapter.getmDatas().getData().remove(adapterPosition);
+                    mMessageAdapter.getmDatas().getData().get(adapterPosition).setReaded(true);
                     mMessageAdapter.notifyItemRemoved(adapterPosition);
                 }else {
                     mMessageView.showToast(baseEmptyBean.getMsg());
@@ -123,7 +123,7 @@ public class MyMessagePresenter implements MyMessageContact.Presenter {
                 Log.i("response", "messageresponsebeen:"+baseEmptyBean.toString());
                 if (baseEmptyBean.getCode()==200){
                     //mMessageAdapter.getmDatas().remove(adapterPosition);
-                    mMessageAdapter.getmDatas().get(adapterPosition).setReaded(true);
+                    mMessageAdapter.getmDatas().getData().get(adapterPosition).setReaded(true);
                     mMessageAdapter.notifyItemChanged(adapterPosition);
                 }else {
                     mMessageView.showToast(baseEmptyBean.getMsg());
@@ -138,8 +138,8 @@ public class MyMessagePresenter implements MyMessageContact.Presenter {
                 SharedUtil.getString(mContext, FieldConstant.token)
                 ,messageId
                 ,true
-                ,mMessageAdapter.getmDatas().get(position).getInvationId()
-                ,mMessageAdapter.getmDatas().get(position).getApplyUserId()
+                ,mMessageAdapter.getmDatas().getData().get(position).getInvationId()
+                ,mMessageAdapter.getmDatas().getData().get(position).getApplyUserId()
                 , new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -152,7 +152,7 @@ public class MyMessagePresenter implements MyMessageContact.Presenter {
                 Log.i("response", "response:"+response.toString());
                 Log.i("response", "messageresponsebeen:"+baseEmptyBean.toString());
                 if (baseEmptyBean.getCode()==200){
-                    mMessageAdapter.getmDatas().remove(position);
+                    mMessageAdapter.getmDatas().getData().remove(position);
                     mMessageAdapter.notifyItemRemoved(position);
                 }else {
                     mMessageView.showToast(baseEmptyBean.getMsg());
@@ -160,14 +160,72 @@ public class MyMessagePresenter implements MyMessageContact.Presenter {
             }
         });
     }
+
+    @Override
+    public void OnPullRefresh(MyMessageAdapter mMessageAdapter) {
+        mMessageModel.loadMyMessageData(
+                SharedUtil.getString(App.instance,FieldConstant.token)
+                , 10000000, 10, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                mMessageView.stopRefresh();
+            }
+            @Override
+            public void onResponse(String response, int id) {
+                MyMessageBean mMessageBean = GsonUtil.toString(response, MyMessageBean.class);
+                Log.i("xxx", mMessageBean.toString());
+
+                if (mMessageBean.getCode().equals("200")) {
+                    mMessageAdapter.getmDatas().setData(mMessageBean.getData());
+                    mMessageAdapter.notifyDataSetChanged();
+                }else if (mMessageBean.getCode().equals("499")){
+                    mMessageView.startLoginActivity();
+                    //ReLoginUtil.relogin();
+                }
+                mMessageView.stopRefresh();
+            }
+        });
+    }
+
+    @Override
+    public void pullLoadMore(MyMessageAdapter mMessageAdapter) {
+        int lastMessageId = mMessageAdapter.getmDatas().getData().get(mMessageAdapter.getmDatas().getData().size()-1).getMessageId();
+        mMessageView.showToast("pullLoadMore lastMessageId:"+lastMessageId);
+        mMessageModel.loadMyMessageData(
+                SharedUtil.getString(App.instance,FieldConstant.token)
+                , lastMessageId
+                , 10
+                , new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        mMessageView.stopRefresh();
+                    }
+                    @Override
+                    public void onResponse(String response, int id) {
+                        MyMessageBean mMessageBean = GsonUtil.toString(response, MyMessageBean.class);
+                        Log.i("xxx", mMessageBean.toString());
+
+                        if (mMessageBean.getCode().equals("200")) {
+                            mMessageAdapter.getmDatas().getData().addAll(mMessageBean.getData());
+                            mMessageAdapter.notifyDataSetChanged();
+                        }else if (mMessageBean.getCode().equals("499")){
+                            mMessageView.startLoginActivity();
+                            //ReLoginUtil.relogin();
+                        }
+                        mMessageView.stopRefresh();
+                    }
+
+                });
+    }
+
     @Override
     public void rejectMessage(MyMessageAdapter mMessageAdapter, int position, int messageId) {
         mMessageModel.agreeMessage(
                 SharedUtil.getString(mContext, FieldConstant.token)
                 ,messageId
                 ,false
-                ,mMessageAdapter.getmDatas().get(position).getInvationId()
-                ,mMessageAdapter.getmDatas().get(position).getApplyUserId()
+                ,mMessageAdapter.getmDatas().getData().get(position).getInvationId()
+                ,mMessageAdapter.getmDatas().getData().get(position).getApplyUserId()
                 , new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -180,7 +238,7 @@ public class MyMessagePresenter implements MyMessageContact.Presenter {
                 Log.i("response", "response:"+response.toString());
                 Log.i("response", "messageresponsebeen:"+baseEmptyBean.toString());
                 if (baseEmptyBean.getCode()==200){
-                    mMessageAdapter.getmDatas().remove(position);
+                    mMessageAdapter.getmDatas().getData().remove(position);
                     mMessageAdapter.notifyItemRemoved(position);
                 }else {
                     mMessageView.showToast(baseEmptyBean.getMsg());

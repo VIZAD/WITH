@@ -70,7 +70,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".ui.invitation.EditInvitationActivity"/>
         <service android:name=".util.filedownload.DownLoadService"/>
 
         <!--友盟推送和多渠道打包-->

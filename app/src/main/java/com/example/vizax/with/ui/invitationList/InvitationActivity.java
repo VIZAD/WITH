@@ -22,6 +22,7 @@ import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.bean.UserInforBean;
 import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.customView.BaseToolBar;
+import com.example.vizax.with.ui.invitation.EditInvitationActivity;
 import com.example.vizax.with.ui.invitation.LuanchInvitationActivity;
 import com.example.vizax.with.ui.userInformation.UserInformationActivity;
 import com.example.vizax.with.util.LoadMoreRecyclerView;
@@ -263,9 +264,9 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
     @Override
     public void openEdit() {
         InvitationBean invitationBean = mInvitationListPresenter.baseBean.getData().get(position);
-        Intent it = new Intent(this, LuanchInvitationActivity.class);
+        Intent it = new Intent(this, EditInvitationActivity.class);
         Bundle lBundle = new Bundle();
-        lBundle.putParcelable("invitationBean", invitationBean);
+        lBundle.putParcelable(FieldConstant.INVITATION_BEAN, invitationBean);
         it.putExtras(lBundle);
         startActivity(it);
     }

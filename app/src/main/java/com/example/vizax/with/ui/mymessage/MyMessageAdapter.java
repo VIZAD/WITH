@@ -22,19 +22,20 @@ import java.util.List;
 
 public class MyMessageAdapter extends SwipeMenuAdapter<MyMessageAdapter.DefaultViewHolder> {
 
-    private List<MyMessageBean.DataBean> mDatas;
+    private MyMessageBean mDatas;
 
-    public List<MyMessageBean.DataBean> getmDatas() {
-        return mDatas;
+    public MyMessageAdapter(){}
+    public MyMessageAdapter(MyMessageBean mDatas) {
+        this.mDatas = mDatas;
     }
 
     private OnItemClickListener mOnItemClickListener;
 
-    public MyMessageAdapter(List<MyMessageBean.DataBean> mDatas) {
-        this.mDatas = mDatas;
+    public MyMessageBean getmDatas() {
+        return mDatas;
     }
 
-    public void setmDatas(List<MyMessageBean.DataBean> mDatas) {
+    public void setmDatas(MyMessageBean mDatas) {
         this.mDatas = mDatas;
     }
 
@@ -43,7 +44,7 @@ public class MyMessageAdapter extends SwipeMenuAdapter<MyMessageAdapter.DefaultV
     }
     @Override
     public int getItemCount() {
-        return mDatas.size();
+        return mDatas.getData().size();
     }
 
     @Override
@@ -59,14 +60,14 @@ public class MyMessageAdapter extends SwipeMenuAdapter<MyMessageAdapter.DefaultV
     @Override
     public void onBindViewHolder(DefaultViewHolder holder, final int position) {
         if (holder!=null){
-            holder.name.setText(mDatas.get(position).getName());
-            holder.content.setText(mDatas.get(position).getContent());
+            holder.name.setText(mDatas.getData().get(position).getName());
+            holder.content.setText(mDatas.getData().get(position).getContent());
 
-            Date date = new Date(mDatas.get(position).getSendTime());
+            Date date = new Date(mDatas.getData().get(position).getSendTime());
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 
             holder.time.setText(sdf.format(date));
-            if (mDatas.get(position).isReaded()){
+            if (mDatas.getData().get(position).isReaded()){
                 holder.unread.setVisibility(View.INVISIBLE);
             }
         }

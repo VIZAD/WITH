@@ -13,8 +13,8 @@ import java.util.List;
 
 public interface MyMessageContact {
     interface View extends BaseView{
-        public void loadDatas(List<MyMessageBean.DataBean> mMessageList, int lastId);
-
+        //public void loadDatas(List<MyMessageBean.DataBean> mMessageList, int lastId);
+        void stopRefresh();
         void showToast(String msg);
 
         void startLoginActivity();
@@ -31,11 +31,14 @@ public interface MyMessageContact {
     }
 
     interface Presenter extends BasePresenter<View> {
-        public void loadMessageData(String token, int lastMessageId, int limit);
 
         void deleteMessage(MyMessageAdapter mMessageAdapter, int adapterPosition, int messageId);
         void readMessage(MyMessageAdapter mMessageAdapter, int adapterPosition, int messageId);
         void rejectMessage(MyMessageAdapter mMessageAdapter, int position, int messageId);
         void agreeMessage(MyMessageAdapter mMessageAdapter, int position, int messageId);
+
+        void OnPullRefresh(MyMessageAdapter mMessageAdapter);
+
+        void pullLoadMore(MyMessageAdapter mMessageAdapter);
     }
 }

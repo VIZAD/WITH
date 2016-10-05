@@ -68,8 +68,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
     ImageView myInfoUserAvatar;
     @BindView(R.id.my_info_user_name)
     TextView myInfoUserName;
-    @BindView(R.id.my_info_lLayout)
-    LinearLayout myInfoLLayout;
+
     private InvitationRecyclerViewAdapter mAdapter;
     private String type, typeId = null;
     private int visible;
@@ -231,8 +230,6 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
             @Override
             public void onLoadMore() {
                 mInvitationListPresenter.pullLoadMore(HomeActivity.this, mRecyclerView, View.GONE, null, null);
-
-
             }
 
             @Override
@@ -335,7 +332,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
 
     @Override
     public void openEdit() {
-        InvitationBean invitationBean = mInvitationListPresenter.baseBean.getData().get(position);
+        InvitationBean invitationBean = mInvitationListPresenter.mAdapter.getmData().getData().get(position);
         Intent it = new Intent(this, LuanchInvitationActivity.class);
         Bundle lBundle = new Bundle();
         lBundle.putParcelable("invitationBean", invitationBean);
@@ -361,12 +358,13 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
     }
 
     @Override
-    public void OpenUserInfor(UserInforBean userInforBean) {
+    public void OpenUserInfor( UserInforBean userInforBean) {
         Intent it = new Intent(this, UserInformationActivity.class);
-        Bundle lBundle = new Bundle();
-        System.out.println("1=" + userInforBean.getData().getName() + userInforBean.getData().getPhone());
-        lBundle.putParcelable("userInforBean", userInforBean.getData());
-        it.putExtras(lBundle);
+        if(userInforBean.getData().getUserId() != SharedUtil.getInt(App.instance,FieldConstant.userId)) {
+            Bundle lBundle = new Bundle();
+            lBundle.putParcelable("userInforBean", userInforBean.getData());
+            it.putExtras(lBundle);
+        }
         startActivity(it);
     }
 
@@ -375,8 +373,8 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
         super.onActivityResult(requestCode, resultCode, data);
         boolean join = data.getBooleanExtra("join", false);
         int index = data.getIntExtra("index", 0);
-        mInvitationListPresenter.baseBean.getData().get(index).setMembers(data.getParcelableArrayListExtra("members"));
-        mInvitationListPresenter.baseBean.getData().get(index).setJoin(join);
+        mInvitationListPresenter.mAdapter.getmData().getData().get(index).setMembers(data.getParcelableArrayListExtra("members"));
+        mInvitationListPresenter.mAdapter.getmData().getData().get(index).setJoin(join);
         mInvitationListPresenter.setNotifyChange();
         // mInvitationListPresenter.setAdapter(this, mRecyclerView, mInvitationListPresenter.baseBean,visible);
     }
@@ -388,6 +386,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
         Intent it = new Intent(this, LuanchInvitationActivity.class);
         it.putExtra("typeId", StringUtil.invitationIdUtil(type));
         startActivity(it);
+
     }
 
 
@@ -406,9 +405,6 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
         ButterKnife.bind(this);
     }
 
-    @OnClick(R.id.my_info_lLayout)
-    public void onClick() {
-    }
 
     class HeadViewHolder {
 
@@ -500,7 +496,14 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
             Intent intent;
             switch (view.getId()) {
                 case R.id.my_info_lLayout:
-                    HomeActivity.this.showToast("我的个人信息");
+                    if(SharedUtil.getBoolean(App.instance,FieldConstant.ishadlogin,false)) {
+                        Intent it = new Intent(App.instance,UserInformationActivity.class);
+                        startActivity(it);
+                    }else {
+                        Intent it = new Intent(App.instance,MainActivity.class);
+                        startActivity(it);
+                    }
+
                     break;
                 case R.id.my_changepassword_txtVi:
                     intent = new Intent(App.instance, ChangePswActivity.class);

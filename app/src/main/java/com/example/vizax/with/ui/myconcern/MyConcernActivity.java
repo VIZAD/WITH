@@ -39,6 +39,12 @@ public class MyConcernActivity extends BaseActivity {
         ButterKnife.bind(this);
         mToolBar.setCenterText("我的关注");
         mToolBar.setLeftIcon(R.drawable.ic_keyboard_arrow_left);
+        mToolBar.setLeftViewOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         AnimationUtil.showCircularReveal(fragment,2,2000);
 
     }

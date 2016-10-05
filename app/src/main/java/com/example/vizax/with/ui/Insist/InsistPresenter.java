@@ -28,28 +28,22 @@ import okhttp3.Call;
 
 public class InsistPresenter implements InsistContact.Presenter {
 
-
     private List<SlideMenuItem> list = new ArrayList<>();
     private Misson_bg_colorSet mMssion_bg_colorSet;
     private SharedPreferences sp;
     private InsistContact.View InsistView;
-    private Activity activity;
-    private ContentFragment contentFragment;
     private TaskMsg TaskMsg;
     private InsistContact.InsistModle Model;
-
     public InsistPresenter() {
         Model = new InisitModel();
     }
 
     @Override
     public void createTask(String title,String content,String iconIndex) {
-
         Model.createTaskPost(title,content,iconIndex,new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                    Toast.makeText((Context) InsistView,"无法连接网络",Toast.LENGTH_LONG).show();
-                    e.printStackTrace();
+                e.printStackTrace();
             }
             @Override
             public void onResponse(String response, int id) {
@@ -58,9 +52,9 @@ public class InsistPresenter implements InsistContact.Presenter {
                 BaseBean<Misson> baseBean = GsonUtil.toString(response,BaseBean.class);
                         if (baseBean.getCode().equals("200")) {
                             System.out.println("bean = "+baseBean.getCode());
+                            InsistView.setTitle_Content(title,content);
                         }
                         else {
-
                         }
 
             }
@@ -71,10 +65,8 @@ public class InsistPresenter implements InsistContact.Presenter {
         Model.getTaskPost( new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                Toast.makeText((Context) InsistView,"无法连接网络",Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
-
             @Override
             public void onResponse(String response, int id) {
                         /*Gson解析已经封装，下次把User改成自己对应的Bean即可
@@ -83,6 +75,7 @@ public class InsistPresenter implements InsistContact.Presenter {
                 if(misson.getCode().equals("200")) {
                     System.out.println("code = "+misson.getData().getCurrTasks().size());
                     InsistView.setData(misson);
+                    InsistView.dimissLoading();
                 }
             }
         });
@@ -95,7 +88,6 @@ public class InsistPresenter implements InsistContact.Presenter {
         Model.TaskMessagesPost(date,taskId,new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                Toast.makeText((Context) InsistView,"无法连接网络",Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
             @Override
@@ -110,15 +102,12 @@ public class InsistPresenter implements InsistContact.Presenter {
                                     System.out.println("day = " + TaskMsg.getData().getCalendar().get(i).getDay());
                                     System.out.println("content = " + TaskMsg.getData().getCalendar().get(i).getRemark());
                                 }
-                                InsistView.setClData(TaskMsg);
                             }
+                            InsistView.setClData(TaskMsg);
+                            InsistView.dimissLoading();
                         }
                         else {
                         }
-
-
-
-
             }
         });
 
@@ -126,11 +115,9 @@ public class InsistPresenter implements InsistContact.Presenter {
 
     @Override
     public void JourPunch(String taskId) {
-
         Model.JourPunchPost(taskId,new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                Toast.makeText((Context) InsistView,"无法连接网络",Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
 
@@ -142,6 +129,7 @@ public class InsistPresenter implements InsistContact.Presenter {
 
                         if (TaskMsg.getCode().equals("200")) {
                             System.out.println("签到:"+TaskMsg.getMsg());
+                            InsistView.dimissLoading();
                         }
                         else {
                         }
@@ -154,7 +142,6 @@ public class InsistPresenter implements InsistContact.Presenter {
          Model.JourEditPost(taskId,date,remark,new StringCallback() {
              @Override
              public void onError(Call call, Exception e, int id) {
-                 Toast.makeText((Context) InsistView,"无法连接网络",Toast.LENGTH_LONG).show();
                  e.printStackTrace();
              }
 
@@ -163,10 +150,11 @@ public class InsistPresenter implements InsistContact.Presenter {
                         /*Gson解析已经封装，下次把User改成自己对应的Bean即可
                           默认状态码200为成功*/
                  TaskMsg = GsonUtil.toString(response,TaskMsg.class);
-
                         if (TaskMsg.getCode().equals("200")) {
                             System.out.println("编辑成功:"+TaskMsg.getMsg());
+                            Toast.makeText((Context) InsistView,"已保存",Toast.LENGTH_SHORT).show();
                             InsistView.setFootText(TaskMsg,remark);
+                            InsistView.dimissLoading();
                         }
                         else {
                        }
@@ -179,12 +167,10 @@ public class InsistPresenter implements InsistContact.Presenter {
     //删除
     @Override
     public void deleteTask(String taskId) {
-
     Model.deleteTaskPost(taskId,  new StringCallback() {
         @Override
         public void onError(Call call, Exception e, int id) {
-            Toast.makeText((Context) InsistView,"无法连接网络",Toast.LENGTH_LONG).show();
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         @Override
@@ -192,16 +178,11 @@ public class InsistPresenter implements InsistContact.Presenter {
                         /*Gson解析已经封装，下次把User改成自己对应的Bean即可
                           默认状态码200为成功*/
             TaskMsg = GsonUtil.toString(response,TaskMsg.class);
-
-//                        if (baseBean.getCode().equals("200")) {
-//                            //System.out.println("number:"+baseBean.getData().getTaskNumber());
-//                        }
-//                        else {
-//                        }
-            System.out.println("删除:"+TaskMsg.getCode());
-
-
-
+                        if (TaskMsg.getCode().equals("200")) {
+                            InsistView.showToast("删除成功");
+                        }
+                        else {
+                        }
         }
     });
     }
@@ -209,9 +190,7 @@ public class InsistPresenter implements InsistContact.Presenter {
     @Override
     public void attachView(@NonNull InsistContact.View View) {
         InsistView = View;
-
     }
-
     @Override
     public void detachView() {
 

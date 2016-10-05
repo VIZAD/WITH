@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.vizax.with.R;
+import com.example.vizax.with.util.CircleTransformation;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class UserTabItemAdapter extends BaseQuickAdapter<MyConcern.DataBean> {
 
         public UserTabItemAdapter( Context context ,List<MyConcern.DataBean> data) {
             super(R.layout.user_tab_item, data);
+
             this.context = context;
         }
 
@@ -38,6 +40,8 @@ public class UserTabItemAdapter extends BaseQuickAdapter<MyConcern.DataBean> {
             ImageView imageView = holder.getView(R.id.head_imgvi);
             Picasso.with(context)
                     .load(data.getHeadUrl())
+                    .placeholder(R.drawable.user0)
+                    .transform(new CircleTransformation())
                     .into(imageView);
             holder.setText(R.id.name_label_txtvi,data.getName())
                     .setText(R.id.description_hint_txtvi,"hint")

@@ -20,7 +20,7 @@ public class InvitationModel implements InvitationContact.InvitationlModel {
     private InvitationRecyclerViewAdapter mAdapter;
     private InvitationBaseBean  mData;
     @Override
-    public void getData(String typeId, String userId,StringCallback stringCallback) {
+    public void getData(String typeId, String userId,String lastInvitationId,StringCallback stringCallback) {
         //System.out.println("type="+typeId+"userId="+userId);
         PostFormBuilder builder =OkHttpUtils .post()
                 .url(APIConstant.getApi(APIConstant.INVITATION_GETINVITATIONS));
@@ -32,7 +32,7 @@ public class InvitationModel implements InvitationContact.InvitationlModel {
         }
         builder .addParams("token",SharedUtil.getString(App.instance, FieldConstant.token))
                 .addParams("limit","10")
-                .addParams("lastInvitationId","0")
+                .addParams("lastInvitationId",lastInvitationId)
                 .build()
                 .execute(stringCallback);
 

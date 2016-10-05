@@ -141,7 +141,7 @@ public class ActivityTabFragment extends Fragment implements InvitationContact.V
         int index = data.getIntExtra("index",0);
         MembersBean mem = data.getParcelableExtra("member");
         InvitationBaseBean invitationBaseBean = new InvitationBaseBean();
-        InvitationPresenter.mInvitationBaseBean.getData().get(index).setJoin(join);
+        mInvitationListPresenter.mAdapter.getmData().getData().get(index).setJoin(join);
         mInvitationListPresenter.setAdapter(getContext(), mRecyclerView,invitationBaseBean,visible);
     }
 

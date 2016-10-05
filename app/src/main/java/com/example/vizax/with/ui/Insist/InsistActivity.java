@@ -271,6 +271,8 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             mTxtVi_center_txt.setText(mMisson.getData().getCurrTasks().get(Integer.parseInt(mSelectedCase) - 1).getContent().toString());
             reset.run();
         } else if(mNet==true  && mCreateTask==true) {
+            mToolBar.setRightIcon(R.drawable.calendar_unselect);
+            mToolBar.setRightViewEnable(true);
             mPresenter.getTask();
         } else {
             reset.run();

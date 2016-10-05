@@ -28,6 +28,11 @@ public class InsistColor {
     public  int COLOR3_MOOD;
     public  int COLOR4_MOOD;
     public  int COLOR5_MOOD;
+    public  int COLOR1_TXT;
+    public  int COLOR2_TXT;
+    public  int COLOR3_TXT;
+    public  int COLOR4_TXT;
+    public  int COLOR5_TXT;
 
     public InsistColor( Activity activity) {
         this.activity = activity;
@@ -49,7 +54,12 @@ public class InsistColor {
         COLOR2_MOOD = activity.getResources().getColor(R.color.insist_mood_bg2);
         COLOR3_MOOD = activity.getResources().getColor(R.color.insist_mood_bg3);
         COLOR4_MOOD = activity.getResources().getColor(R.color.insist_mood_bg4);
-        COLOR5_MOOD = activity.getResources().getColor(R.color.insist_mood_bg5);
+        COLOR5_MOOD = activity.getResources().getColor(R.color.insist_mood_bg4);
+        COLOR1_TXT = activity.getResources().getColor(R.color.white);
+        COLOR2_TXT = activity.getResources().getColor(R.color.white);
+        COLOR3_TXT = activity.getResources().getColor(R.color.white);
+        COLOR4_TXT = activity.getResources().getColor(R.color.white);
+        COLOR5_TXT = activity.getResources().getColor(R.color.white);
     }
 
 

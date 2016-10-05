@@ -1,7 +1,6 @@
 package com.example.vizax.with.ui.invitationList;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,7 +32,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     private String type = "";
     private String finalItemId;
     private UserInforBean mUserInforBean;
-    public InvitationBaseBean baseBean;
+    //public InvitationBaseBean baseBean;
 
 
     /**
@@ -44,8 +43,8 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
      */
     @Override
     public void getDataAndSetAdapter(Context context, RecyclerView recyclerView,int visible, String typeId, String userId){
-
-        mInvitationModel.getData(typeId, userId,new StringCallback() {
+        String lastInvitationId ="100000000";
+        mInvitationModel.getData(typeId, userId, lastInvitationId,new StringCallback() {
 
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -54,7 +53,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
             @Override
             public void onResponse(String response, int id) {
 
-                baseBean = GsonUtil.toString(response,InvitationBaseBean.class);
+                InvitationBaseBean baseBean = GsonUtil.toString(response,InvitationBaseBean.class);
 
                 if (baseBean.getCode().equals("200")){
                     setAdapter(context,recyclerView,baseBean,visible);
@@ -85,6 +84,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     @Override
     public void onPositive(int position) {
         mInvitationActivity.showDiaolog();
+        InvitationBaseBean baseBean = mAdapter.getmData();
         new  InvitationDetailModel().join(baseBean.getData().get(position), type, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -118,6 +118,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
 
     private void membersAdd(int position) {
         MembersBean newMember = new MembersBean();
+        InvitationBaseBean baseBean = mAdapter.getmData();
         newMember.setUserId(String.valueOf(SharedUtil.getInt(App.instance,FieldConstant.userId)));
         newMember.setRealName(SharedUtil.getString(App.instance,FieldConstant.realName));
         newMember.setPhone(SharedUtil.getString(App.instance,FieldConstant.phone));
@@ -126,6 +127,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
         baseBean.getData().get(position).setCurrentNumber(String.valueOf(num));
     }
     private void membersReduce(int position) {
+        InvitationBaseBean baseBean = mAdapter.getmData();
         for(int i = 1;i <  baseBean.getData().get(position).getMembers().size();i++){
             if (baseBean.getData().get(position).getMembers().get(i).getUserId().equals(SharedUtil.getString(App.instance,FieldConstant.userId))){
                 baseBean.getData().get(position).getMembers().remove(i);
@@ -172,9 +174,11 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
 
     @Override
     public void pullLoadMore(Context context, RecyclerView recyclerView, int visible, String typeId, String userId) {
+        InvitationBaseBean baseBean = mAdapter.getmData();
         int lLastIndex = baseBean.getData().size() - 1;
         finalItemId = baseBean.getData().get(lLastIndex).getInvitaionId();
-        mInvitationModel.addData(finalItemId, "10", new StringCallback() {
+        mInvitationActivity.showToast("load more finalItemId:"+finalItemId);
+        mInvitationModel.getData(null,null,finalItemId,new StringCallback() {
             @Override
             public void onAfter(int id) {
                 super.onAfter(id);
@@ -189,8 +193,10 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
 
             @Override
             public void onResponse(String response, int id) {
-                InvitationBaseBean  loadBean = GsonUtil.toString(response, InvitationBaseBean.class);
-                if (loadBean.getCode().equals("200")){
+                InvitationBaseBean loadmoreBean = GsonUtil.toString(response, InvitationBaseBean.class);
+                if (loadmoreBean.getCode().equals("200")){
+                    mAdapter.getmData().getData().addAll(loadmoreBean.getData());
+                    mAdapter.notifyDataSetChanged();
                     System.out.println("success!!!");
                 }
                 else{
@@ -233,6 +239,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     @Override
     public void deleteInvitation(int position) {
         mInvitationActivity.showDiaolog();
+        InvitationBaseBean baseBean = mAdapter.getmData();
         mInvitationModel.deleteData(baseBean.getData().get(position).getInvitaionId(), new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {

@@ -42,7 +42,7 @@ public interface InvitationContact {
         void openHeadDetail(String string);
     }
     interface InvitationlModel{
-        void getData(String typeId, String userId, StringCallback stringCallback);
+        void getData(String typeId, String userId, String lastInvitationId,StringCallback stringCallback);
         void addData(String finalItemId, String count,StringCallback stringCallback);
         void deleteData(String invitationId,StringCallback stringCallback);
     }

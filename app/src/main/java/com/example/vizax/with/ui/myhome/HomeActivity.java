@@ -230,8 +230,6 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
             @Override
             public void onLoadMore() {
                 mInvitationListPresenter.pullLoadMore(HomeActivity.this, mRecyclerView, View.GONE, null, null);
-
-
             }
 
             @Override
@@ -334,7 +332,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
 
     @Override
     public void openEdit() {
-        InvitationBean invitationBean = mInvitationListPresenter.baseBean.getData().get(position);
+        InvitationBean invitationBean = mInvitationListPresenter.mAdapter.getmData().getData().get(position);
         Intent it = new Intent(this, LuanchInvitationActivity.class);
         Bundle lBundle = new Bundle();
         lBundle.putParcelable("invitationBean", invitationBean);
@@ -375,8 +373,8 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
         super.onActivityResult(requestCode, resultCode, data);
         boolean join = data.getBooleanExtra("join", false);
         int index = data.getIntExtra("index", 0);
-        mInvitationListPresenter.baseBean.getData().get(index).setMembers(data.getParcelableArrayListExtra("members"));
-        mInvitationListPresenter.baseBean.getData().get(index).setJoin(join);
+        mInvitationListPresenter.mAdapter.getmData().getData().get(index).setMembers(data.getParcelableArrayListExtra("members"));
+        mInvitationListPresenter.mAdapter.getmData().getData().get(index).setJoin(join);
         mInvitationListPresenter.setNotifyChange();
         // mInvitationListPresenter.setAdapter(this, mRecyclerView, mInvitationListPresenter.baseBean,visible);
     }

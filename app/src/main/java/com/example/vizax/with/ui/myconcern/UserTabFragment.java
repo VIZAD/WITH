@@ -158,7 +158,7 @@ public class UserTabFragment extends Fragment implements MyConcernContact.View {
         invitationRefresh.setOnPushLoadMoreListener(new SuperSwipeRefreshLayout.OnPushLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                myConcernPresenter.onloadMore(20);
+                myConcernPresenter.onloadMore(mAdapter.getData().get(mAdapter.getData().size()-1).getConcernedUserId());
             }
 
             @Override

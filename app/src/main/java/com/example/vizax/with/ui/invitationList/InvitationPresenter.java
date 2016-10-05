@@ -28,7 +28,12 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     private InvitationContact.InvitationlModel mInvitationModel;
     private UserInformationModuel mUserinforModuel;
     public InvitationRecyclerViewAdapter mAdapter;
-    public static InvitationBaseBean mInvitationBaseBean;
+
+    public InvitationRecyclerViewAdapter getmAdapter() {
+        return mAdapter;
+    }
+
+    //public static InvitationBaseBean mInvitationBaseBean;
     private String type = "";
     private String finalItemId;
     private UserInforBean mUserInforBean;

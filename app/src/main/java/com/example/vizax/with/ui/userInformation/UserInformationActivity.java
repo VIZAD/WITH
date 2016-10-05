@@ -147,10 +147,6 @@ public class UserInformationActivity extends BaseActivity implements UserInforma
 
     @Override
     public void setInfomation(boolean ifMy) {
-        RequestCreator requestCreator =  Picasso.with(this)
-                .load(SharedUtil.getString(App.instance,FieldConstant.userUrl))
-                .placeholder(R.drawable.user0)
-                .transform(new CircleTransformation());
         if (ifMy) {
             userInforNameTxt.setText(SharedUtil.getString(App.instance,FieldConstant.realName));
             userInforNumTxt.setText(SharedUtil.getString(App.instance,FieldConstant.studentID));
@@ -159,7 +155,10 @@ public class UserInformationActivity extends BaseActivity implements UserInforma
             avatarId = String.valueOf(SharedUtil.getInt(App.instance,FieldConstant.userId));
             follow.setVisibility(View.GONE);
             userInforAvatar.setFile(avatarId, path);
-              requestCreator .into(userInforAvatar);
+            Picasso.with(this)
+                    .load(SharedUtil.getString(App.instance,FieldConstant.userUrl))
+                    .placeholder(R.drawable.user0)
+                    .transform(new CircleTransformation()).into(userInforAvatar);
 
 
 
@@ -170,7 +169,10 @@ public class UserInformationActivity extends BaseActivity implements UserInforma
             userInforPhonenumTxt.setText(String.valueOf(mUserInforBean.getPhone()));
             userInforQQTxt.setText(mUserInforBean.getQq());
             follow.setVisibility(View.VISIBLE);
-            requestCreator.into(userInforImg);
+            Picasso.with(this)
+                    .load(mUserInforBean.getHeadUrl())
+                    .placeholder(R.drawable.user0)
+                    .transform(new CircleTransformation()).into(userInforImg);
             if(mUserInforBean.isIsConcerned()){
                 follow.setBackgroundColor(getResources().getColor(R.color.my_follow_follow_btn));
                 follow.setText("取消关注");

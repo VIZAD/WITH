@@ -31,6 +31,8 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
+import net.mobctrl.views.SuperSwipeRefreshLayout;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,7 +51,7 @@ public class MyMessageActivity extends BaseActivity implements MyMessageContact.
     @BindView(R.id.swipe_menu_recyclerview)
     SwipeMenuRecyclerView mMessageView;
     @BindView(R.id.swipe_layout)
-    SwipeRefreshLayout swipeLayout;
+    SuperSwipeRefreshLayout swipeLayout;
 
     private TextView mDialogName;
     private TextView mDialogType;
@@ -120,24 +122,26 @@ public class MyMessageActivity extends BaseActivity implements MyMessageContact.
 
         //初始化适配器
         mMessageList = new ArrayList<>();
-        mMessageAdapter = new MyMessageAdapter(mMessageList);
+        mMessageAdapter = new MyMessageAdapter();
+        mMessageAdapter.setmDatas(new MyMessageBean(mMessageList));
         mMessageAdapter.setOnItemClickListener(itemClickListener);//Item点击事件监听
         mMessageView.setAdapter(mMessageAdapter);
 
         //加载数据
-        mMessagePresenter.loadMessageData(SharedUtil.getString(getBaseContext(),FieldConstant.token),0,20);
+        swipeLayout.setRefreshing(true);
+        mMessagePresenter.OnPullRefresh(mMessageAdapter);
 
         view = View.inflate(this, R.layout.dialog_my_message, null);
-
-        //刷新监听
+        initSuperSwipeRefresh();
+ /*       //刷新监听
         swipeLayout.setOnRefreshListener(refreshListener);
 
         //加载监听
-        mMessageView.addOnScrollListener(onScrollListener);
+        mMessageView.addOnScrollListener(onScrollListener);*/
     }
 
     //下拉刷新
-    private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+/*    private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
             mMessageView.postDelayed(new Runnable() {
@@ -148,10 +152,46 @@ public class MyMessageActivity extends BaseActivity implements MyMessageContact.
                 }
             },2000);
         }
-    };
+    };*/
+    public void initSuperSwipeRefresh(){
+        swipeLayout.setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeLayout.setRefreshing(true);
+                mMessagePresenter.OnPullRefresh(mMessageAdapter);
+            }
 
+            @Override
+            public void onPullDistance(int distance) {
+
+            }
+
+            @Override
+            public void onPullEnable(boolean enable) {
+
+            }
+        });
+        swipeLayout.setOnPushLoadMoreListener(new SuperSwipeRefreshLayout.OnPushLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                swipeLayout.setLoadMore(true);
+                mMessagePresenter.pullLoadMore(mMessageAdapter);
+
+            }
+
+            @Override
+            public void onPushDistance(int distance) {
+
+            }
+
+            @Override
+            public void onPushEnable(boolean enable) {
+
+            }
+        });
+    }
     //上拉加载
-    private RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
+   /* private RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             if (!recyclerView.canScrollVertically(1)) {
@@ -159,7 +199,7 @@ public class MyMessageActivity extends BaseActivity implements MyMessageContact.
                 mMessageAdapter.notifyDataSetChanged();
             }
         }
-    };
+    };*/
 
     //创建菜单
     private SwipeMenuCreator swipeMenuCreator = new  SwipeMenuCreator() {
@@ -196,7 +236,7 @@ public class MyMessageActivity extends BaseActivity implements MyMessageContact.
             MaterialDialog.Builder builder = new MaterialDialog.Builder(MyMessageActivity.this);
             builder.customView(view,true);
             builder.neutralText("取消");
-            if (mMessageAdapter.getmDatas().get(position).getMessageType()==FieldConstant.MESSAGE_TYPE_APPLY) {
+            if (mMessageAdapter.getmDatas().getData().get(position).getMessageType()==FieldConstant.MESSAGE_TYPE_APPLY) {
                 builder.positiveText("批准");
                 builder.neutralColorRes(R.color.gray);
                 builder.negativeText("拒绝");
@@ -266,15 +306,19 @@ public class MyMessageActivity extends BaseActivity implements MyMessageContact.
     private int dp2px(int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
     }
-
-
     @Override
+    public void stopRefresh() {
+        swipeLayout.setLoadMore(false);
+        swipeLayout.setRefreshing(false);
+    }
+
+ /*   @Override
     public void loadDatas(List<MyMessageBean.DataBean> mMessageList,int lastId) {
         this.mMessageList = mMessageList;
         mMessageAdapter.setmDatas(mMessageList);
         mMessageAdapter.notifyDataSetChanged();
         this.lastId = lastId;
-    }
+    }*/
 
     @Override
     public void showToast(String msg) {

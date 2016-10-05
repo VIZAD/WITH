@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.R;
@@ -245,6 +246,8 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         //this.color = this.color == color1?color2:color1;
         //
         int finalRadius = Math.max(mView.getWidth(), mView.getHeight());
+
+
         Animator animator = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             animator = ViewAnimationUtils.createCircularReveal(mView, 0, topPosition, 0, finalRadius);
@@ -274,6 +277,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             mToolBar.setRightIcon(R.drawable.calendar_unselect);
             mToolBar.setRightViewEnable(true);
             mPresenter.getTask();
+            System.out.println("创建了新的任务");
         } else {
             reset.run();
         }
@@ -473,6 +477,12 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
                 .build();
         mDialog.show();
     }
+
+    @Override
+    public void showToast(String text) {
+        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
+    }
+
     //把从接口接收到的数据放到页面上
     @Override
     public void setData(Misson misson) {
@@ -533,6 +543,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         );
         mMaterialCalendarView.setSelectedDate(CalendarDay.today());
         System.out.println("set data");
+
     }
     //根据接口数据设置日历界面
     protected  void setDays (TaskMsg taskMsg){
@@ -586,6 +597,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             mRemark_txt.add("没有备注");
             System.out.println("添加数据"+i);
         }
+
     }
     //选择年月按钮的点击事件
     @OnClick(R.id.set_date_btn)

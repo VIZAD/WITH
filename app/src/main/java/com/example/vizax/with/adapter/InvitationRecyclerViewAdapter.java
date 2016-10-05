@@ -34,6 +34,14 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
     int visible = View.GONE;
     private InvitationBaseBean mData;
 
+    public InvitationBaseBean getmData() {
+        return mData;
+    }
+
+    public void setmData(InvitationBaseBean mData) {
+        this.mData = mData;
+    }
+
     private  InvitationContact.InvitationCallBack mInvitationCallBack;
     private ClickListerner clickListerner;
     private SetMemberNum setMemberNum;

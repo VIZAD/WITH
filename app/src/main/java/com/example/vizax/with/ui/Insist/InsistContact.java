@@ -21,6 +21,7 @@ public interface InsistContact {
         void dimissLoading();
         void setTitle_Content(String title,String content);
         void disconnected();
+        void showToast(String text);
 
     }
 

@@ -59,7 +59,7 @@ public class MyConcernPresenter implements MyConcernContact.Presenter  {
         OkHttpUtils.post()
                 .url(APIConstant.getApi(INVITATION_GETCONCERNEDUSERS))
                 .addParams("token",SharedUtil.getString(context, FieldConstant.token))
-                .addParams("concernedUserId","0")//最后一个id，刷新的话，则为0
+                .addParams("concernedUserId","10000000")//最后一个id，刷新的话，则为0
                 .addParams("limit","20")
                 .build()
                 .execute(new StringCallback() {
@@ -90,7 +90,7 @@ public class MyConcernPresenter implements MyConcernContact.Presenter  {
 
     @Override
     public void onloadMore(int lastConcernedUserId ) {
-
+        concernedUserFragmentView.showErrorToast("onloadMore lastConcernedUserId:"+lastConcernedUserId);
         OkHttpUtils.post()
                 .url(APIConstant.getApi(INVITATION_GETCONCERNEDUSERS))
                 .addParams("token",SharedUtil.getString(context,FieldConstant.token))
@@ -116,6 +116,7 @@ public class MyConcernPresenter implements MyConcernContact.Presenter  {
                         Log.i("myresponse bean",myConcern.toString());
                         concernedUserFragmentView.addData(myConcern.getData());
                         concernedUserFragmentView.stopRefresh();
+
                     }
                 });
     }

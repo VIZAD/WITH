@@ -25,6 +25,7 @@ import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.customView.BaseToolBar;
 import com.example.vizax.with.ui.Insist.InsistActivity;
 import com.example.vizax.with.ui.changpsw.ChangePswActivity;
+import com.example.vizax.with.ui.invitation.EditInvitationActivity;
 import com.example.vizax.with.ui.invitation.LuanchInvitationActivity;
 import com.example.vizax.with.ui.invitationList.InvitationActivity;
 import com.example.vizax.with.ui.invitationList.InvitationContact;
@@ -333,7 +334,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
     @Override
     public void openEdit() {
         InvitationBean invitationBean = mInvitationListPresenter.mAdapter.getmData().getData().get(position);
-        Intent it = new Intent(this, LuanchInvitationActivity.class);
+        Intent it = new Intent(this, EditInvitationActivity.class);
         Bundle lBundle = new Bundle();
         lBundle.putParcelable("invitationBean", invitationBean);
         it.putExtras(lBundle);

@@ -271,7 +271,7 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
     @Override
     public void openEdit() {
         InvitationBean invitationBean = mInvitationListPresenter.mAdapter.getmData().getData().get(position);
-        Intent it = new Intent(this, LuanchInvitationActivity.class);
+        Intent it = new Intent(this, EditInvitationActivity.class);
         Bundle lBundle = new Bundle();
         lBundle.putParcelable(FieldConstant.INVITATION_BEAN, invitationBean);
         it.putExtras(lBundle);

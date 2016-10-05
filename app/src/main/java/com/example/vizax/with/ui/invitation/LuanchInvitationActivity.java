@@ -3,6 +3,7 @@ package com.example.vizax.with.ui.invitation;
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +26,7 @@ import com.example.vizax.with.R;
 import com.example.vizax.with.customView.BaseToolBar;
 import com.example.vizax.with.fragment.DatePickerFragment;
 import com.example.vizax.with.fragment.TimePickerFragment;
+import com.example.vizax.with.util.StringUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -63,8 +65,8 @@ public class LuanchInvitationActivity extends AppCompatActivity implements Luanc
     EditText launchUpper;
     @BindView(R.id.launch_add_imgBtn)
     ImageButton launchAddImgBtn;
-    @BindView(R.id.launch_hide_information_swt)
-    Switch launchHideInformationSwt;
+    /*@BindView(R.id.launch_hide_information_swt)
+    Switch launchHideInformationSwt;*/
     @BindView(R.id.launch_ensureBtn)
     Button launchEnsureBtn;
     @BindView(R.id.launch_cancelBtn)
@@ -81,13 +83,15 @@ public class LuanchInvitationActivity extends AppCompatActivity implements Luanc
     private LuanchInitInvitationPresenter init;
     private Boolean hidenBoolean;
     private RadioButton check_RdoBtn;
-    private String mClass = "运动";
+    private int typeId ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitation);
         EventBus.getDefault().register(this);//注册
         ButterKnife.bind(this);
+        typeId =  Integer.parseInt(getIntent().getStringExtra("typeId"));
         init = new LuanchInitInvitationPresenter(this);
         init.attachView(this);
         launchDateTxt.setText(init.setDate());
@@ -95,7 +99,8 @@ public class LuanchInvitationActivity extends AppCompatActivity implements Luanc
         initSpinner(init);
         launchUnlimitedRdoBtn.setChecked(true);
         sex=launchUnlimitedRdoBtn.getText().toString();
-        launchHideInformationSwt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        //Log.w("haha123",typeId+"!!!!");
+        /*launchHideInformationSwt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
@@ -105,7 +110,7 @@ public class LuanchInvitationActivity extends AppCompatActivity implements Luanc
                 else
                     hidenBoolean=false;
             }
-        });
+        });*/
         launchSexRequirementsRdoGrp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -168,7 +173,7 @@ public class LuanchInvitationActivity extends AppCompatActivity implements Luanc
     }
 
     private void listpopupwindow(LuanchInitInvitationPresenter init,String subclass) {
-        title_list = init.setTitle(mClass,subclass);
+        title_list = init.setTitle(typeId,subclass);
         mListPop = new ListPopupWindow(this);
         mListPop.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1,title_list));
         mListPop.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -184,7 +189,7 @@ public class LuanchInvitationActivity extends AppCompatActivity implements Luanc
     }
     public void initSpinner(LuanchInitInvitationPresenter init){
         spinner = (Spinner) findViewById(R.id.launch_selectActivity_spinner);
-        subclass_list= init.setspinner(mClass);
+        subclass_list= init.setspinner(typeId);
         //适配器
         arr_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subclass_list);
         //设置样式
@@ -214,7 +219,7 @@ public class LuanchInvitationActivity extends AppCompatActivity implements Luanc
         launchTimeTxt.setText(mTimeEventMessage.getTime());
     }
 
-    @OnClick({R.id.launch_toolbar, R.id.launch_invitationTitle_edtTxt, R.id.launch_description_ediTxt, R.id.launch_man_rdoBtn, R.id.launch_woman_rdoBtn, R.id.launch_unlimited_rdoBtn, R.id.launch_sex_requirements_rdoGrp, R.id.launch_date_Txt, R.id.launch_time_Txt, R.id.launch_site_edtTxt, R.id.launch_remove_imgBtn, R.id.launch_upper, R.id.launch_add_imgBtn, R.id.launch_hide_information_swt, R.id.launch_ensureBtn, R.id.launch_cancelBtn})
+    @OnClick({R.id.launch_toolbar, R.id.launch_invitationTitle_edtTxt, R.id.launch_description_ediTxt, R.id.launch_man_rdoBtn, R.id.launch_woman_rdoBtn, R.id.launch_unlimited_rdoBtn, R.id.launch_sex_requirements_rdoGrp, R.id.launch_date_Txt, R.id.launch_time_Txt, R.id.launch_site_edtTxt, R.id.launch_remove_imgBtn, R.id.launch_upper, R.id.launch_add_imgBtn, R.id.launch_ensureBtn, R.id.launch_cancelBtn})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.launch_date_Txt:
@@ -232,13 +237,15 @@ public class LuanchInvitationActivity extends AppCompatActivity implements Luanc
             case R.id.launch_ensureBtn:
                 init.luanchInvitation(subclass,launchInvitationTitleEdtTxt.getText().toString(),launchDescriptionEdiTxt.getText().toString(),
                         sex,invitation_date,launchTimeTxt.getText().toString(),launchSiteEdtTxt.getText().toString(),launchUpper.getText().toString(),
-                        hidenBoolean,title_list.get(0));
+                        false,title_list.get(0));
                 break;
         }
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         init.detachView();
+        finish();
     }
 }

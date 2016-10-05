@@ -68,8 +68,8 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
     EditText launchUpper;
     @BindView(R.id.launch_add_imgBtn)
     ImageButton launchAddImgBtn;
-    @BindView(R.id.launch_hide_information_swt)
-    Switch launchHideInformationSwt;
+    /*@BindView(R.id.launch_hide_information_swt)
+    Switch launchHideInformationSwt;*/
     @BindView(R.id.launch_ensureBtn)
     Button launchEnsureBtn;
     @BindView(R.id.launch_cancelBtn)
@@ -135,7 +135,7 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
 
         spinner= (Spinner) findViewById(R.id.launch_selectActivity_spinner);
         sex=launchUnlimitedRdoBtn.getText().toString();
-        launchHideInformationSwt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+       /* launchHideInformationSwt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
@@ -145,7 +145,7 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
                 else
                     hidenBoolean=false;
             }
-        });
+        });*/
         launchSexRequirementsRdoGrp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -250,7 +250,7 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
         launchTimeTxt.setText(mTimeEventMessage.getTime());
     }
 
-    @OnClick({R.id.launch_toolbar, R.id.launch_invitationTitle_edtTxt, R.id.launch_description_ediTxt, R.id.launch_man_rdoBtn, R.id.launch_woman_rdoBtn, R.id.launch_unlimited_rdoBtn, R.id.launch_sex_requirements_rdoGrp, R.id.launch_date_Txt, R.id.launch_time_Txt, R.id.launch_site_edtTxt, R.id.launch_remove_imgBtn, R.id.launch_upper, R.id.launch_add_imgBtn, R.id.launch_hide_information_swt, R.id.launch_ensureBtn, R.id.launch_cancelBtn})
+    @OnClick({R.id.launch_toolbar, R.id.launch_invitationTitle_edtTxt, R.id.launch_description_ediTxt, R.id.launch_man_rdoBtn, R.id.launch_woman_rdoBtn, R.id.launch_unlimited_rdoBtn, R.id.launch_sex_requirements_rdoGrp, R.id.launch_date_Txt, R.id.launch_time_Txt, R.id.launch_site_edtTxt, R.id.launch_remove_imgBtn, R.id.launch_upper, R.id.launch_add_imgBtn, R.id.launch_ensureBtn, R.id.launch_cancelBtn})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.launch_date_Txt:
@@ -268,7 +268,7 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
             case R.id.launch_ensureBtn:
                 Edit.luanchInvitation(subclass,launchInvitationTitleEdtTxt.getText().toString(),launchDescriptionEdiTxt.getText().toString(),
                         sex,invitation_date,launchTimeTxt.getText().toString(),launchSiteEdtTxt.getText().toString(),launchUpper.getText().toString(),
-                        hidenBoolean,title_list.get(0));
+                        false,title_list.get(0));
                 break;
         }
     }

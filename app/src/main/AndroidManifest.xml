@@ -52,9 +52,6 @@
         <activity
             android:name=".ui.invitationList.InvitationDetailsActivity"
             android:theme="@style/AppTheme" />
-
-        <activity android:name=".ui.home.HomeActivity" >
-        </activity>
         <activity android:name=".ui.invitation.LuanchInvitationActivity"/>
         <activity android:name=".ui.myhome.HomeActivity" />
         <activity android:name=".ui.changpsw.ChangePswActivity" />

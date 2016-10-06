@@ -285,6 +285,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     public void quit() {
         SharedUtil.putBoolean(App.instance,FieldConstant.ishadlogin,false);
         SharedUtil.putString(App.instance,FieldConstant.token,"nologin");
+        SharedUtil.putString(App.instance,FieldConstant.userUrl,"");
     }
 
     @Override

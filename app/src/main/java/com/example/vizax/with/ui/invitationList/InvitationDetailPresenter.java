@@ -103,6 +103,7 @@ public class InvitationDetailPresenter implements InvitationDetailContact.Presen
                 break;
             }
         }
+        mInvitationDetailView.reduceNum();
 
 
     }
@@ -112,8 +113,10 @@ public class InvitationDetailPresenter implements InvitationDetailContact.Presen
         newMember.setUserId(String.valueOf(SharedUtil.getInt(App.instance, FieldConstant.userId)));
         newMember.setRealName(SharedUtil.getString(App.instance,FieldConstant.realName));
         newMember.setPhone(SharedUtil.getString(App.instance,FieldConstant.phone));
+        newMember.setHeadUrl(SharedUtil.getString(App.instance,FieldConstant.userUrl));
         membersBean.add(newMember);
         mInvitationDetailView.addMember(membersBean.size());
+        mInvitationDetailView.addNum();
 
     }
     @Override

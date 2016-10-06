@@ -74,7 +74,7 @@ public class InsistPresenter implements InsistContact.Presenter {
                 Misson misson = GsonUtil.toString(response,Misson.class);
                 if(misson.getCode().equals("200")) {
                     System.out.println("code = "+misson.getData().getCurrTasks().size());
-                    if(misson.getData().getCurrTasks().size()>0) {
+                    if(misson.getData().getCurrTasks()!=null) {
                         InsistView.setData(misson);
                     }
                     InsistView.dimissLoading();

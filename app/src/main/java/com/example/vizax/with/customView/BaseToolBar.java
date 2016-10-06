@@ -2,6 +2,7 @@ package com.example.vizax.with.customView;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.TintTypedArray;
 import android.support.v7.widget.Toolbar;
@@ -12,7 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.vizax.with.App;
 import com.example.vizax.with.R;
+import com.example.vizax.with.util.CircleTransformation;
+import com.squareup.picasso.Picasso;
+
+import java.net.URI;
 
 /**
  * Created by prj on 2016/9/9.

@@ -76,6 +76,7 @@ public class ActivityTabFragment extends Fragment implements InvitationContact.V
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.invitation_activity, container, false);
         ButterKnife.bind(this, view);
+        fab.setVisibility(View.GONE);
         mBaseToolBar.setVisibility(View.GONE);
         mInvitationListPresenter = new InvitationPresenter(getContext());
         mInvitationListPresenter.attachView(this);

@@ -1,6 +1,7 @@
 package com.example.vizax.with.ui.myconcern;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.vizax.with.App;
 import com.example.vizax.with.R;
 import com.example.vizax.with.bean.Test;
 import com.example.vizax.with.constant.APIConstant;
@@ -110,7 +112,8 @@ public class UserTabFragment extends Fragment implements MyConcernContact.View {
 
     @Override
     public void showErrorToast(String error) {
-        Toast.makeText(getActivity(),error,Toast.LENGTH_SHORT).show();
+
+            Toast.makeText(App.instance,error,Toast.LENGTH_SHORT).show();
     }
 
     @Override

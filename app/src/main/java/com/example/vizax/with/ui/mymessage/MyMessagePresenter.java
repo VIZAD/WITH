@@ -88,6 +88,7 @@ public class MyMessagePresenter implements MyMessageContact.Presenter {
         mMessageModel.deleteMessage(SharedUtil.getString(mContext, FieldConstant.token),messageId, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
+                if (mMessageView!=null)
                 mMessageView.showToast("网络不稳定");
             }
 
@@ -113,6 +114,7 @@ public class MyMessagePresenter implements MyMessageContact.Presenter {
         mMessageModel.readMessage(SharedUtil.getString(mContext, FieldConstant.token),messageId, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
+                if (mMessageView!=null)
                 mMessageView.showToast("网络不稳定");
             }
 
@@ -143,6 +145,7 @@ public class MyMessagePresenter implements MyMessageContact.Presenter {
                 , new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
+                if (mMessageView!=null)
                 mMessageView.showToast("网络不稳定");
             }
 
@@ -168,7 +171,8 @@ public class MyMessagePresenter implements MyMessageContact.Presenter {
                 , 10000000, 10, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                mMessageView.stopRefresh();
+                if (mMessageView!= null)//因为activity关掉的时候，activity调用了detach，activity会被回收。这里的引用会为null
+                    mMessageView.stopRefresh();
             }
             @Override
             public void onResponse(String response, int id) {
@@ -198,7 +202,8 @@ public class MyMessagePresenter implements MyMessageContact.Presenter {
                 , new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        mMessageView.stopRefresh();
+                        if (mMessageView!=null)
+                            mMessageView.stopRefresh();
                     }
                     @Override
                     public void onResponse(String response, int id) {
@@ -229,6 +234,7 @@ public class MyMessagePresenter implements MyMessageContact.Presenter {
                 , new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
+                if (mMessageView!=null)
                 mMessageView.showToast("网络不稳定");
             }
 

@@ -65,7 +65,8 @@ public class MyConcernPresenter implements MyConcernContact.Presenter  {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        concernedUserFragmentView.showErrorToast(e.toString());
+                        if (concernedUserFragmentView!=null)
+                            concernedUserFragmentView.showErrorToast("未知错误");
                     }
 
                     @Override
@@ -100,8 +101,10 @@ public class MyConcernPresenter implements MyConcernContact.Presenter  {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        concernedUserFragmentView.showErrorToast(e.toString());
-                        concernedUserFragmentView.stopRefresh();
+                        if (concernedUserFragmentView!=null) {
+                            concernedUserFragmentView.showErrorToast(e.toString());
+                            concernedUserFragmentView.stopRefresh();
+                        }
                     }
 
                     @Override

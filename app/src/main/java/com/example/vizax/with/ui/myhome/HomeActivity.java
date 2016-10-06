@@ -156,15 +156,17 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
         initDialog(null, -1);
         //设置邀约列表的类型
 
-        tvCenter.setText(getResources().getString(R.string.home_title));
+        //tvCenter.setText(getResources().getString(R.string.home_title));
         imgInisit.setOnClickListener(view->{
             Intent intent = new Intent(HomeActivity.this, InsistActivity.class);
             startActivity(intent);
         });
 
         imgIcon.setOnClickListener(view->mDrawerLayout.openDrawer(mSideBar));
+        String url = SharedUtil.getString(App.instance,FieldConstant.userUrl);
+        url = url.equals("")?"http://img4.imgtn.bdimg.com/it/u=166575668,324111800&fm=11&gp=0.jpg":url;
         Picasso.with(this)
-                .load(SharedUtil.getString(App.instance,FieldConstant.userUrl))
+                .load(url)
                 //.resize(100,100)
                 .placeholder(R.drawable.user0)
                 .transform(new CircleTransformation())
@@ -307,7 +309,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
     }
 
     private void initToolbar() {
-        tvCenter.setText(type);
+        //tvCenter.setText(type);
         //mBaseToolBar.setCenterText(type);
         if (visible == View.GONE) {
             showRightIcon();

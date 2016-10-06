@@ -74,7 +74,9 @@ public class InsistPresenter implements InsistContact.Presenter {
                 Misson misson = GsonUtil.toString(response,Misson.class);
                 if(misson.getCode().equals("200")) {
                     System.out.println("code = "+misson.getData().getCurrTasks().size());
-                    InsistView.setData(misson);
+                    if(misson.getData().getCurrTasks().size()>0) {
+                        InsistView.setData(misson);
+                    }
                     InsistView.dimissLoading();
                 }
             }
@@ -126,7 +128,6 @@ public class InsistPresenter implements InsistContact.Presenter {
                         /*Gson解析已经封装，下次把User改成自己对应的Bean即可
                           默认状态码200为成功*/
                 TaskMsg = GsonUtil.toString(response,TaskMsg.class);
-
                         if (TaskMsg.getCode().equals("200")) {
                             System.out.println("签到:"+TaskMsg.getMsg());
                             InsistView.dimissLoading();

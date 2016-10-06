@@ -209,7 +209,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
             public void onAfter(int id) {
                 super.onAfter(id);
                 mInvitationActivity.stopRefresh();
-                mAdapter.notifyDataSetChanged();
+                //mAdapter.notifyDataSetChanged();
                 //setAdapter(context,recyclerView,baseBean,visible);
             }
             @Override

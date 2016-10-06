@@ -43,7 +43,7 @@
         android:paddingBottom="18dp"
         android:gravity="center_vertical"
         android:drawablePadding="27dp"
-        android:drawableLeft="@drawable/passwordchange"
+        android:drawableLeft="@drawable/changepsw"
         android:text="@string/modify_password_hint"
         android:textColor="#a2000000"
         android:textSize="15sp"/>
@@ -73,7 +73,7 @@
         android:paddingBottom="18dp"
         android:gravity="center_vertical"
         android:drawablePadding="27dp"
-        android:drawableLeft="@drawable/myattendance"
+        android:drawableLeft="@drawable/myjoin"
         android:text="@string/my_participation_label"
         android:textColor="#a2000000"
         android:textSize="15sp"/>
@@ -88,7 +88,7 @@
         android:paddingBottom="18dp"
         android:gravity="center_vertical"
         android:drawablePadding="27dp"
-        android:drawableLeft="@drawable/mypersistence"
+        android:drawableLeft="@drawable/myinsist"
         android:text="@string/my_insist_label"
         android:textColor="#a2000000"
         android:textSize="15sp"/>
@@ -103,7 +103,7 @@
         android:paddingBottom="18dp"
         android:gravity="center_vertical"
         android:drawablePadding="27dp"
-        android:drawableLeft="@drawable/myattention"
+        android:drawableLeft="@drawable/mymessage"
         android:text="@string/my_news_label"
         android:textColor="#a2000000"
         android:textSize="15sp"/>
@@ -118,7 +118,7 @@
         android:paddingBottom="18dp"
         android:gravity="center_vertical"
         android:drawablePadding="27dp"
-        android:drawableLeft="@drawable/mymessage"
+        android:drawableLeft="@drawable/myconcern"
         android:text="@string/my_concern_label"
         android:textColor="#a2000000"
         android:textSize="15sp"/>
@@ -147,7 +147,7 @@
         android:paddingBottom="18dp"
         android:gravity="center_vertical"
         android:drawablePadding="27dp"
-        android:drawableLeft="@drawable/setting"
+        android:drawableLeft="@drawable/logout"
         android:text="@string/quit_label"
         android:textColor="#a2000000"
         android:textSize="15sp"/>

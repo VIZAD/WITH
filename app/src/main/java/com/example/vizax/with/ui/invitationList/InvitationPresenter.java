@@ -16,6 +16,7 @@ import com.example.vizax.with.bean.UserInforBean;
 import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.ui.userInformation.UserInformationModuel;
 import com.example.vizax.with.util.GsonUtil;
+import com.example.vizax.with.util.LoadMoreRecyclerView;
 import com.example.vizax.with.util.SharedUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -29,6 +30,8 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     private InvitationContact.InvitationlModel mInvitationModel;
     private UserInformationModuel mUserinforModuel;
     public InvitationRecyclerViewAdapter mAdapter;
+    private LoadMoreRecyclerView recyclerView;
+
     public InvitationPresenter(Context context){
         mAdapter = new InvitationRecyclerViewAdapter(context, new InvitationBaseBean(), View.GONE);
     }
@@ -112,8 +115,10 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
                         } else {
                             membersReduce(position);
                         }
-                        mAdapter.notifyDataSetChanged();
-                        mAdapter.notifyItemChanged(position);
+                        mInvitationActivity.addRecyclerView(position);
+                        //recyclerView.notifyMoreFinish(true,position);
+                        /*mAdapter.notifyDataSetChanged();
+                        mAdapter.notifyItemChanged(position);*/
 
                         mInvitationActivity.showToast("notifyItemChanged position :"+position);
                     }else {
@@ -127,6 +132,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
             }
         });
     }
+
     private void membersAdd(int position) {
         mInvitationActivity.showToast("membersAdd ");
         MembersBean newMember = new MembersBean();
@@ -179,8 +185,12 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
                 InvitationPresenter.this.type = type;
                 if(contents == null)
                     mInvitationActivity.showDialog(true,null,position);
-                else
-                    mInvitationActivity.showDialog(false,contents,position);
+                else {
+                    if (type.equals("10")) {
+                        mInvitationActivity.showToast(contents);
+                    }else
+                        mInvitationActivity.showDialog(false, contents, position);
+                }
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(context));

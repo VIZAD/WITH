@@ -123,6 +123,11 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
         //用于首页
     }
 
+    @Override
+    public void addRecyclerView(int position) {
+
+    }
+
     private void initSuperSwipeRefresh() {
         invitationRefresh.setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
             @Override

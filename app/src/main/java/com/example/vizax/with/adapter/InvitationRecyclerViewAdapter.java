@@ -143,7 +143,7 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
                     //setMemberNum.setNum(position);
                 }
             }else {
-                //TODO
+                mInvitationCallBack.press("性别不符合要求，不可参加", position, "10");
             }
 
         });

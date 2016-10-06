@@ -9,6 +9,7 @@ import com.example.vizax.with.base.BaseView;
 import com.example.vizax.with.bean.InvitationBaseBean;
 import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.bean.UserInforBean;
+import com.example.vizax.with.util.LoadMoreRecyclerView;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 /**
@@ -40,6 +41,7 @@ public interface InvitationContact {
         void stopRefresh();
 
         void openHeadDetail(String string);
+        void addRecyclerView(int position);
     }
     interface InvitationlModel{
         void getData(String typeId, String userId, String lastInvitationId,StringCallback stringCallback);
@@ -65,7 +67,6 @@ public interface InvitationContact {
 
         //RecyclerView的操作按钮回调事件
         void press(@Nullable String contents, int position, String type);
-
 
     }
 

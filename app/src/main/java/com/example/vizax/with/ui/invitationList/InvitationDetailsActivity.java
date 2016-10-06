@@ -266,16 +266,16 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
     //已参与人数加一
     @Override
     public void addNum() {
-        int num = Integer.parseInt(mInvitationBeanList.get(index).getCurrentNumber()) + 1;
-        itemInvitationNumber.setText(num + "/" + mInvitationBeanList.get(index).getTotalNumber());
+        mInvitationBeanList.get(index).setCurrentNumber(Integer.parseInt(mInvitationBeanList.get(index).getCurrentNumber()) + 1+"");
+        itemInvitationNumber.setText(Integer.parseInt(mInvitationBeanList.get(index).getCurrentNumber())  + "/" + mInvitationBeanList.get(index).getTotalNumber());
 
     }
 
     //已参与人数减一
     @Override
     public void reduceNum() {
-        int num = Integer.parseInt(mInvitationBeanList.get(index).getCurrentNumber()) - 1;
-        itemInvitationNumber.setText(num + "/" + mInvitationBeanList.get(index).getTotalNumber());
+        mInvitationBeanList.get(index).setCurrentNumber(Integer.parseInt(mInvitationBeanList.get(index).getCurrentNumber()) - 1+"");
+        itemInvitationNumber.setText(Integer.parseInt(mInvitationBeanList.get(index).getCurrentNumber()) + "/" + mInvitationBeanList.get(index).getTotalNumber());
     }
 
     private void setResultData() {
@@ -288,6 +288,7 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
         intent.putExtras(bundle);
         setResult(1, intent);
     }
+
 
 
 }

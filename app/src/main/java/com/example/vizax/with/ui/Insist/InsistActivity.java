@@ -597,6 +597,12 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
             mRemark_txt.add("没有备注");
             System.out.println("添加数据"+i);
         }
+        sp = getSharedPreferences("mySp",Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        for (int j = 0; j<5;j++) {
+            editor.putInt("Item" + j, R.drawable.icn_add);
+        }
+        editor.commit();
 
     }
     //选择年月按钮的点击事件

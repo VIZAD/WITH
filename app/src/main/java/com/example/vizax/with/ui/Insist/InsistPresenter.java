@@ -80,7 +80,6 @@ public class InsistPresenter implements InsistContact.Presenter {
                     }
 
                 } else {
-                    InsistView.dimissLoading();
                     Toast.makeText((Context) InsistView,misson.getMsg(),Toast.LENGTH_SHORT).show();
                 }
             }

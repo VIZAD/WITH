@@ -78,6 +78,8 @@ public class InsistPresenter implements InsistContact.Presenter {
                         InsistView.setData(misson);
                     }
                     InsistView.dimissLoading();
+                } else {
+                    InsistView.dimissLoading();
                 }
             }
         });

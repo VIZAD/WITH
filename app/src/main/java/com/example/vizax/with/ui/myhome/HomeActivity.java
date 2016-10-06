@@ -161,6 +161,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
             Intent intent = new Intent(HomeActivity.this, InsistActivity.class);
             startActivity(intent);
         });
+
         imgIcon.setOnClickListener(view->mDrawerLayout.openDrawer(mSideBar));
         Picasso.with(this)
                 .load(SharedUtil.getString(App.instance,FieldConstant.userUrl))
@@ -197,7 +198,6 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
         initToolbar();
         //初始化superSwipeRefreshLayout
         initSuperSwipeRefresh();
-
         //设置swipback参数
         //mSwipeBackLayout = getSwipeBackLayout();
         //mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
@@ -455,6 +455,13 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
         Intent intent = new Intent(this, InvitationActivity.class);
         intent.putExtra("type", string);
         startActivity(intent);
+    }
+
+    @Override
+    public void addRecyclerView(int position) {
+        //mRecyclerView.getAdapter().notifyItemChanged(position);
+        mRecyclerView.notifyMoreFinish(true,position);
+       // mInvitationListPresenter.getmAdapter().notifyItemChanged(position);
     }
 
     @Override

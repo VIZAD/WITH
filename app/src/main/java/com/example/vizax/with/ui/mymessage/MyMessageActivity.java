@@ -64,7 +64,7 @@ public class MyMessageActivity extends BaseActivity implements MyMessageContact.
     private MyMessagePresenter mMessagePresenter;
     private LinearLayoutManager mManager;
     private int lastId = 2;
-    private List<MyMessageBean.DataBean> mMessageList;
+    //private List<MyMessageBean.DataBean> mMessageList;
     private MyMessageAdapter mMessageAdapter;
 
     private View view;
@@ -121,25 +121,20 @@ public class MyMessageActivity extends BaseActivity implements MyMessageContact.
 
 
         //初始化适配器
-        mMessageList = new ArrayList<>();
         mMessageAdapter = new MyMessageAdapter();
-        mMessageAdapter.setmDatas(new MyMessageBean(mMessageList));
+        mMessageAdapter.setmDatas(new MyMessageBean(new ArrayList<>()));
         mMessageAdapter.setOnItemClickListener(itemClickListener);//Item点击事件监听
         mMessageView.setAdapter(mMessageAdapter);
-
         //加载数据
         swipeLayout.setRefreshing(true);
         mMessagePresenter.OnPullRefresh(mMessageAdapter);
-
         view = View.inflate(this, R.layout.dialog_my_message, null);
         initSuperSwipeRefresh();
  /*       //刷新监听
         swipeLayout.setOnRefreshListener(refreshListener);
-
         //加载监听
         mMessageView.addOnScrollListener(onScrollListener);*/
     }
-
     //下拉刷新
 /*    private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
@@ -221,7 +216,7 @@ public class MyMessageActivity extends BaseActivity implements MyMessageContact.
         @Override
         public void onItemClick(Closeable closeable, int adapterPosition, int menuPosition, int direction) {
             if (menuPosition == 0) {
-                mMessagePresenter.deleteMessage(mMessageAdapter,adapterPosition,mMessageList.get(adapterPosition).getMessageId());
+                mMessagePresenter.deleteMessage(mMessageAdapter,adapterPosition,mMessageAdapter.getmDatas().getData().get(adapterPosition).getMessageId());
             }
         }
     };
@@ -230,7 +225,9 @@ public class MyMessageActivity extends BaseActivity implements MyMessageContact.
     private OnItemClickListener itemClickListener = new OnItemClickListener() {
         @Override
         public void onItemClick(int position) {
-            mMessagePresenter.readMessage(mMessageAdapter,position,mMessageList.get(position).getMessageId());
+            List<MyMessageBean.DataBean>  messageList = mMessageAdapter.getmDatas().getData();
+            //showToast("mMessageAdapter.toString()"+mMessageAdapter.toString()+" position:"+position+"mMessageList:"+messageList.toString());
+            mMessagePresenter.readMessage(mMessageAdapter,position,messageList.get(position).getMessageId());
             //View view = View.inflate(MyMessageActivity.this,R.layout.dialog_my_message,null);
             MaterialDialog dialog = null;
             MaterialDialog.Builder builder = new MaterialDialog.Builder(MyMessageActivity.this);
@@ -242,28 +239,28 @@ public class MyMessageActivity extends BaseActivity implements MyMessageContact.
                 builder.negativeText("拒绝");
                 builder.negativeColorRes(R.color.red);
                 builder.onPositive((dialog1, which) -> {
-                    mMessagePresenter.agreeMessage(mMessageAdapter, position, mMessageList.get(position).getMessageId());
+                    mMessagePresenter.agreeMessage(mMessageAdapter, position, messageList.get(position).getMessageId());
                 })
                  .onNegative((dialog1, which) -> {
-                            mMessagePresenter.rejectMessage(mMessageAdapter, position, mMessageList.get(position).getMessageId());
+                            mMessagePresenter.rejectMessage(mMessageAdapter, position, messageList.get(position).getMessageId());
                  });
             }
             dialog = builder.build();
             dialog.show();
 
             initDatas();
-            mDialogName.setText(mMessageList.get(position).getName());
-            mDialogTitle.setText(mMessageList.get(position).getInvitationTitle());
+            mDialogName.setText(messageList.get(position).getName());
+            mDialogTitle.setText(messageList.get(position).getInvitationTitle());
 
-            Date date = new Date(mMessageList.get(position).getInvitationTime());
+            Date date = new Date(messageList.get(position).getInvitationTime());
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             mDialogTime.setText(sdf.format(date));
 
-            mDialogPlace.setText(mMessageList.get(position).getInvitationPlace());
+            mDialogPlace.setText(messageList.get(position).getInvitationPlace());
             //mDialogCurrNumber.setText(mMessageList.get(position).getInvitationCurrNumber());
             //mDialogTotalNumber.setText(mMessageList.get(position).getInvitationTotalNumber());
 
-            switch (mMessageList.get(position).getMessageType()) {
+            switch (messageList.get(position).getMessageType()) {
                 case 0:
                     mDialogType.setText("【特批信息】");
                     break;
@@ -286,9 +283,7 @@ public class MyMessageActivity extends BaseActivity implements MyMessageContact.
                     break;
             }
 
-            Toast.makeText(MyMessageActivity.this,mMessageList.get(position).getName(),Toast.LENGTH_LONG).show();
-
-
+            Toast.makeText(MyMessageActivity.this,messageList.get(position).getName(),Toast.LENGTH_LONG).show();
         }
     };
 

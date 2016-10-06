@@ -72,14 +72,16 @@ public class InsistPresenter implements InsistContact.Presenter {
                         /*Gson解析已经封装，下次把User改成自己对应的Bean即可
                           默认状态码200为成功*/
                 Misson misson = GsonUtil.toString(response,Misson.class);
+                InsistView.dimissLoading();
                 if(misson.getCode().equals("200")) {
                     System.out.println("code = "+misson.getData().getCurrTasks().size());
                     if(misson.getData().getCurrTasks()!=null) {
                         InsistView.setData(misson);
                     }
-                    InsistView.dimissLoading();
+
                 } else {
                     InsistView.dimissLoading();
+                    Toast.makeText((Context) InsistView,misson.getMsg(),Toast.LENGTH_SHORT).show();
                 }
             }
         });

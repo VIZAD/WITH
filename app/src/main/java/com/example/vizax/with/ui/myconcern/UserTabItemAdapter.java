@@ -30,6 +30,7 @@ public class UserTabItemAdapter extends BaseQuickAdapter<MyConcern.DataBean> {
 
         public UserTabItemAdapter( Context context ,List<MyConcern.DataBean> data) {
             super(R.layout.user_tab_item, data);
+
             this.context = context;
         }
 

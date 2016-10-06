@@ -51,6 +51,7 @@ public class InvitationBean extends MultiItemEntity implements Parcelable{
             invitationBean.setInvitationTime(source.readString());
             invitationBean.setPublishTime(source.readString());
             invitationBean.setOriginatorHeadUrl(source.readString());
+            invitationBean.setTypeId(source.readString());
 //            invitationBean.setMembers(source.readArrayList(MembersBean.class.getClassLoader()));
             return invitationBean;
         }
@@ -98,6 +99,16 @@ public class InvitationBean extends MultiItemEntity implements Parcelable{
     String totalNumber;
     String place;
     String originatorrealName;
+
+    public String getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
+    }
+
+    String typeId;
     boolean isJoin;
     ArrayList<MembersBean> members;
     public ArrayList<MembersBean> getMembers() {
@@ -275,6 +286,7 @@ public class InvitationBean extends MultiItemEntity implements Parcelable{
         dest.writeString(invitationTime);
         dest.writeString(publishTime);
         dest.writeString(originatorHeadUrl);
+        dest.writeString(typeId);
        // dest.writeList(members);
 
     }

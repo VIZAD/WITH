@@ -230,4 +230,12 @@ public class BaseToolBar extends Toolbar {
     public void setCenterTextSize(int centerTextSize) {
         centerView.setTextSize(centerTextSize);
     }
+
+    public TextView getLeftView() {
+        return leftView;
+    }
+
+    public void setLeftView(TextView leftView) {
+        this.leftView = leftView;
+    }
 }

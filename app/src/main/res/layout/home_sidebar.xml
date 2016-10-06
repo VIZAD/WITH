@@ -11,20 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <include layout="@layout/base_toolbar"/>
+        <include layout="@layout/test"/>
         <net.mobctrl.views.SuperSwipeRefreshLayout
             android:id="@+id/invitation_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical">
-
-
                     <com.example.vizax.with.util.LoadMoreRecyclerView
                         android:id="@+id/activity_my_focus_recyclerview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
-
-
         </net.mobctrl.views.SuperSwipeRefreshLayout>
     </LinearLayout>
 

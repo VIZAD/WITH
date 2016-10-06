@@ -2,6 +2,7 @@ package com.example.vizax.with.ui.invitation;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,9 +22,12 @@ import android.widget.Toast;
 import com.example.vizax.with.EventBus.DateEventMessage;
 import com.example.vizax.with.EventBus.TimeEventMessage;
 import com.example.vizax.with.R;
+import com.example.vizax.with.bean.InvitationBean;
+import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.customView.BaseToolBar;
 import com.example.vizax.with.fragment.DatePickerFragment;
 import com.example.vizax.with.fragment.TimePickerFragment;
+import com.example.vizax.with.util.TimeUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -64,8 +68,8 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
     EditText launchUpper;
     @BindView(R.id.launch_add_imgBtn)
     ImageButton launchAddImgBtn;
-    @BindView(R.id.launch_hide_information_swt)
-    Switch launchHideInformationSwt;
+    /*@BindView(R.id.launch_hide_information_swt)
+    Switch launchHideInformationSwt;*/
     @BindView(R.id.launch_ensureBtn)
     Button launchEnsureBtn;
     @BindView(R.id.launch_cancelBtn)
@@ -83,12 +87,21 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
     private RadioButton check_RdoBtn;
     private Switch hidenswitch;
     private EditInvitationPresenter Edit;
+    private InvitationBean invitationBean;
+    private Bundle bundle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitation);
         EventBus.getDefault().register(this);//注册
         ButterKnife.bind(this);
+
+        bundle = getIntent().getExtras();
+        invitationBean = bundle.getParcelable(FieldConstant.INVITATION_BEAN);
+        assert invitationBean!=null;
+        //Toast.makeText(this,"haha"+"!!!"+invitationBean.getContent(),Toast.LENGTH_SHORT).show();
+        //Log.w("haha", invitationBean.getIconUrl());
 
         Edit=new EditInvitationPresenter();
         Edit.attachView(this);
@@ -102,9 +115,27 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
         launchTimeTxt.setText("时间");
         launchSiteEdtTxt.setText("地点");
         launchUpper.setText("10");
+
+        launchInvitationTitleEdtTxt.setText(invitationBean.getTitle());
+        launchDescriptionEdiTxt.setText(invitationBean.getContent());
+        launchSiteEdtTxt.setText(invitationBean.getPlace());
+        launchUpper.setText(invitationBean.getCurrentNumber());
+        launchDateTxt.setText(invitationBean.getInvitationTime());
+        launchTimeTxt.setText(invitationBean.getInvitationTime());
+
+        if (invitationBean.getSexRequire().equals("0"))
+             launchManRdoBtn.setChecked(true);
+        else if(invitationBean.getSexRequire().equals("1"))
+             launchWomanRdoBtn.setChecked(true);
+        else
+             launchUnlimitedRdoBtn.setChecked(true);
+
+        launchDateTxt.setText(TimeUtil.getDate(invitationBean.getInvitationTime())[0]);
+        launchTimeTxt.setText(TimeUtil.getDate(invitationBean.getInvitationTime())[1]);
+
         spinner= (Spinner) findViewById(R.id.launch_selectActivity_spinner);
         sex=launchUnlimitedRdoBtn.getText().toString();
-        launchHideInformationSwt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+       /* launchHideInformationSwt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
@@ -114,7 +145,7 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
                 else
                     hidenBoolean=false;
             }
-        });
+        });*/
         launchSexRequirementsRdoGrp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -219,7 +250,7 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
         launchTimeTxt.setText(mTimeEventMessage.getTime());
     }
 
-    @OnClick({R.id.launch_toolbar, R.id.launch_invitationTitle_edtTxt, R.id.launch_description_ediTxt, R.id.launch_man_rdoBtn, R.id.launch_woman_rdoBtn, R.id.launch_unlimited_rdoBtn, R.id.launch_sex_requirements_rdoGrp, R.id.launch_date_Txt, R.id.launch_time_Txt, R.id.launch_site_edtTxt, R.id.launch_remove_imgBtn, R.id.launch_upper, R.id.launch_add_imgBtn, R.id.launch_hide_information_swt, R.id.launch_ensureBtn, R.id.launch_cancelBtn})
+    @OnClick({R.id.launch_toolbar, R.id.launch_invitationTitle_edtTxt, R.id.launch_description_ediTxt, R.id.launch_man_rdoBtn, R.id.launch_woman_rdoBtn, R.id.launch_unlimited_rdoBtn, R.id.launch_sex_requirements_rdoGrp, R.id.launch_date_Txt, R.id.launch_time_Txt, R.id.launch_site_edtTxt, R.id.launch_remove_imgBtn, R.id.launch_upper, R.id.launch_add_imgBtn, R.id.launch_ensureBtn, R.id.launch_cancelBtn})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.launch_date_Txt:
@@ -237,7 +268,7 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
             case R.id.launch_ensureBtn:
                 Edit.luanchInvitation(subclass,launchInvitationTitleEdtTxt.getText().toString(),launchDescriptionEdiTxt.getText().toString(),
                         sex,invitation_date,launchTimeTxt.getText().toString(),launchSiteEdtTxt.getText().toString(),launchUpper.getText().toString(),
-                        hidenBoolean,title_list.get(0));
+                        false,title_list.get(0));
                 break;
         }
     }

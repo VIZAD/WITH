@@ -24,7 +24,7 @@ public class StringUtil {
     }
 
     public static  String phoneUtil(String phoneNum){
-        return phoneNum.substring(0,3)+"****"+phoneNum.substring(7,10);
+        return phoneNum.substring(0,3)+"****"+phoneNum.substring(7,11);
     }
 
     public static  String invitationIdUtil(String title){

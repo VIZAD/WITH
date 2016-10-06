@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,6 +17,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader;
 import com.example.vizax.with.App;
 import com.example.vizax.with.R;
 import com.example.vizax.with.adapter.InvitationRecyclerViewAdapter;
@@ -22,9 +26,9 @@ import com.example.vizax.with.bean.InvitationBaseBean;
 import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.bean.UserInforBean;
 import com.example.vizax.with.constant.FieldConstant;
-import com.example.vizax.with.customView.BaseToolBar;
 import com.example.vizax.with.ui.Insist.InsistActivity;
 import com.example.vizax.with.ui.changpsw.ChangePswActivity;
+import com.example.vizax.with.ui.invitation.EditInvitationActivity;
 import com.example.vizax.with.ui.invitation.LuanchInvitationActivity;
 import com.example.vizax.with.ui.invitationList.InvitationActivity;
 import com.example.vizax.with.ui.invitationList.InvitationContact;
@@ -36,6 +40,7 @@ import com.example.vizax.with.ui.mymessage.MyMessageActivity;
 import com.example.vizax.with.ui.userInformation.UserInformationActivity;
 import com.example.vizax.with.util.AppManager;
 import com.example.vizax.with.util.CircleTransformation;
+import com.example.vizax.with.util.DividerItemDecoration;
 import com.example.vizax.with.util.LoadMoreRecyclerView;
 import com.example.vizax.with.util.SharedUtil;
 import com.example.vizax.with.util.SnackbarUtils;
@@ -51,8 +56,7 @@ import butterknife.OnClick;
 
 public class HomeActivity extends BaseActivity implements InvitationContact.View {
     private static final String MY_INVITATION = "我发起的";
-    @BindView(R.id.toolbar)
-    BaseToolBar mBaseToolBar;
+
     @BindView(R.id.sidebar_menu)
     LinearLayout mSideBar;
     @BindView(R.id.activity_my_focus_recyclerview)
@@ -62,12 +66,39 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
     @BindView(R.id.invitation_refresh)
     SuperSwipeRefreshLayout invitationRefresh;
 
+    //RecyclerViewHeader recyclerViewHeader ;
     @BindView(R.id.drawerlayout_id)
     DrawerLayout mDrawerLayout;
     @BindView(R.id.my_info_user_avatar)
     ImageView myInfoUserAvatar;
     @BindView(R.id.my_info_user_name)
     TextView myInfoUserName;
+    @BindView(R.id.img_icon)
+    ImageView imgIcon;
+    @BindView(R.id.tv_center)
+    TextView tvCenter;
+    @BindView(R.id.img_inisit)
+    ImageView imgInisit;
+    @BindView(R.id.my_info_lLayout)
+    LinearLayout myInfoLLayout;
+    @BindView(R.id.my_changepassword_txtVi)
+    TextView myChangepasswordTxtVi;
+    @BindView(R.id.my_invitation_txtVi)
+    TextView myInvitationTxtVi;
+    @BindView(R.id.my_participation_txtVi)
+    TextView myParticipationTxtVi;
+    @BindView(R.id.my_insist_txtVi)
+    TextView myInsistTxtVi;
+    @BindView(R.id.my_news_txtVi)
+    TextView myNewsTxtVi;
+    @BindView(R.id.my_concern_txtVi)
+    TextView myConcernTxtVi;
+    @BindView(R.id.my_setting_txtVi)
+    TextView mySettingTxtVi;
+    @BindView(R.id.my_quit_txtVi)
+    TextView myQuitTxtVi;
+    @BindView(R.id.my_update_txtVi)
+    TextView myUpdateTxtVi;
 
     private InvitationRecyclerViewAdapter mAdapter;
     private String type, typeId = null;
@@ -102,19 +133,45 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
         headViewHolder = new HeadViewHolder(linearLayout_head);
         slideBarViewHolder = new SlideBarViewHolder(mSideBar);
         mRecyclerView.addHeaderView(linearLayout_head);
-        mInvitationListPresenter = new InvitationPresenter();
+
+        //recyclerViewHeader = RecyclerViewHeader.fromXml(getApplicationContext(),R.layout.home_head_item);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
+                DividerItemDecoration.VERTICAL_LIST));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        /*recyclerViewHeader.attachTo(mRecyclerView);
+        recyclerViewHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });*/
+        mInvitationListPresenter = new InvitationPresenter(getApplicationContext());
+
         mInvitationListPresenter.attachView(this);
-       //初始化头像 和 姓名
+        //初始化头像 和 姓名
         initAvatarAndName();
         //初始化dialog
         initDialog(null, -1);
         //设置邀约列表的类型
 
-        mBaseToolBar.setCenterText(getResources().getString(R.string.home_title));
-        /*String url = SharedUtil.getString(App.instance, FieldConstant.userUrl);
+        tvCenter.setText(getResources().getString(R.string.home_title));
+        imgInisit.setOnClickListener(view->{
+            Intent intent = new Intent(HomeActivity.this, InsistActivity.class);
+            startActivity(intent);
+        });
+        imgIcon.setOnClickListener(view->mDrawerLayout.openDrawer(mSideBar));
+        Picasso.with(this)
+                .load(SharedUtil.getString(App.instance,FieldConstant.userUrl))
+                //.resize(100,100)
+                .placeholder(R.drawable.user0)
+                .into(imgIcon);
+        /*mBaseToolBar.setCenterText(getResources().getString(R.string.home_title));
+        *//*String url = SharedUtil.getString(App.instance, FieldConstant.userUrl);
         Picasso.with(this)
                 .load(url)
-                .into(mBaseToolBar.getLeftView());*/
+                .into(mBaseToolBar.getLeftView());*//*
         mBaseToolBar.setLeftIcon(getResources().getDrawable(R.drawable.user_img));
         mBaseToolBar.setLeftViewOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +187,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
                 Intent intent = new Intent(HomeActivity.this, InsistActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         //初始化recyclerView
         // token  = User.token;
@@ -149,10 +206,10 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
      * 初始化头像 和 姓名
      */
     private void initAvatarAndName() {
-        if(SharedUtil.getBoolean(App.instance,FieldConstant.ishadlogin,false)) {
+        if (SharedUtil.getBoolean(App.instance, FieldConstant.ishadlogin, false)) {
             myInfoUserName.setText(SharedUtil.getString(App.instance, FieldConstant.realName));
             Picasso.with(this)
-                    .load(SharedUtil.getString(App.instance,FieldConstant.userUrl))
+                    .load(SharedUtil.getString(App.instance, FieldConstant.userUrl))
                     .placeholder(R.drawable.user0)
                     .transform(new CircleTransformation())
                     .into(myInfoUserAvatar);
@@ -175,7 +232,6 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         mInvitationListPresenter.onPositive(position);
-
                     }
                 })
                 .build();
@@ -209,6 +265,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
     }
 
     private void initSuperSwipeRefresh() {
+        //invitationRefresh.setHeaderView(linearLayout_head);
         invitationRefresh.setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
             @Override
             public void onRefresh() {
@@ -249,7 +306,8 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
     }
 
     private void initToolbar() {
-        mBaseToolBar.setCenterText(type);
+        tvCenter.setText(type);
+        //mBaseToolBar.setCenterText(type);
         if (visible == View.GONE) {
             showRightIcon();
         }
@@ -257,7 +315,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
 
     @Override
     public void showRightIcon() {
-        mBaseToolBar.setRightIcon(R.drawable.ic_menu);
+        /*mBaseToolBar.setRightIcon(R.drawable.ic_menu);
         mBaseToolBar.setRightViewOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -273,7 +331,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
                         })
                         .show();
             }
-        });
+        });*/
 
     }
 
@@ -333,7 +391,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
     @Override
     public void openEdit() {
         InvitationBean invitationBean = mInvitationListPresenter.mAdapter.getmData().getData().get(position);
-        Intent it = new Intent(this, LuanchInvitationActivity.class);
+        Intent it = new Intent(this, EditInvitationActivity.class);
         Bundle lBundle = new Bundle();
         lBundle.putParcelable("invitationBean", invitationBean);
         it.putExtras(lBundle);
@@ -358,9 +416,9 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
     }
 
     @Override
-    public void OpenUserInfor( UserInforBean userInforBean) {
+    public void OpenUserInfor(UserInforBean userInforBean) {
         Intent it = new Intent(this, UserInformationActivity.class);
-        if(userInforBean.getData().getUserId() != SharedUtil.getInt(App.instance,FieldConstant.userId)) {
+        if (userInforBean.getData().getUserId() != SharedUtil.getInt(App.instance, FieldConstant.userId)) {
             Bundle lBundle = new Bundle();
             lBundle.putParcelable("userInforBean", userInforBean.getData());
             it.putExtras(lBundle);
@@ -496,11 +554,11 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
             Intent intent;
             switch (view.getId()) {
                 case R.id.my_info_lLayout:
-                    if(SharedUtil.getBoolean(App.instance,FieldConstant.ishadlogin,false)) {
-                        Intent it = new Intent(App.instance,UserInformationActivity.class);
+                    if (SharedUtil.getBoolean(App.instance, FieldConstant.ishadlogin, false)) {
+                        Intent it = new Intent(App.instance, UserInformationActivity.class);
                         startActivity(it);
-                    }else {
-                        Intent it = new Intent(App.instance,MainActivity.class);
+                    } else {
+                        Intent it = new Intent(App.instance, MainActivity.class);
                         startActivity(it);
                     }
 

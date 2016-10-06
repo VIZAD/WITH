@@ -65,26 +65,26 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
         date1= year+"-"+String.valueOf(month+1)+"-"+day;
         return date1;
     }*/
-    public  List<String> setspinner(String mClass)
+    public  List<String> setspinner(int typeId)
     {
         List<String> data_list= new ArrayList<String>();
-        switch (String.valueOf(mClass)){
-            case "运动":
+        switch (typeId){
+            case 1:
                 data_list = Arrays.asList(context.getResources().getStringArray(R.array.sports));
                 break;
-            case "学习":
+            case 4:
                 data_list = Arrays.asList(context.getResources().getStringArray(R.array.study));
                 break;
-            case "桌游":
+            case 3:
                 data_list = Arrays.asList(context.getResources().getStringArray(R.array.brpg));
                 break;
-            case "网游":
+            case 2:
                 data_list = Arrays.asList(context.getResources().getStringArray(R.array.onlineGame));
                 break;
-            case "聚会":
+            case 5:
                 data_list = Arrays.asList(context.getResources().getStringArray(R.array.date));
                 break;
-            case "其他":
+            case 6:
                 data_list = Arrays.asList(context.getResources().getStringArray(R.array.other));
                 break;
         }
@@ -114,11 +114,11 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
         return time;
 
     }
-    public  List<String> setTitle(String mClass,String subclass){
+    public  List<String> setTitle(int typeId,String subclass){
         List<String> title_list= new ArrayList<String>();
 
-        switch (String.valueOf(mClass)){
-            case "运动":
+        switch (typeId){
+            case 1:
                 switch (String.valueOf(subclass)){
                     case "篮球":
                         title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_basketball));
@@ -161,7 +161,7 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
                         break;
                 }
                 break;
-            case "学习":
+            case 4:
                 switch (String.valueOf(subclass)){
                     case "自习":
                         title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_selfstudy));
@@ -189,7 +189,7 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
                         break;
                 }
                 break;
-            case "桌游":
+            case 3:
                 switch (String.valueOf(subclass)){
                     case "三国杀":
                         title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_wwtk));
@@ -220,7 +220,7 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
                         break;
                 }
                 break;
-            case "网游":
+            case 2:
                 switch (String.valueOf(subclass)){
                     case "英雄联盟":
                         title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_wwtk));
@@ -248,7 +248,7 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
                         break;
                 }
                 break;
-            case "聚会":
+            case 5:
                 switch (String.valueOf(subclass)){
                     case "吃饭":
                         title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_wwtk));
@@ -273,7 +273,7 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
                         break;
                 }
                 break;
-            case "其他":
+            case 6:
                 break;
         }
 
@@ -388,18 +388,18 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
             model.commit("1", invitationtype, titletext, descriptiontext, sex, date, site, Upper, hidenBoolean, new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
-                    view.showCommitError("aaaaaaaa发起活动失败");
+                    view.showCommitError("发起活动失败");
                 }
                 @Override
                 public void onResponse(String response, int id) {
-                    Log.w("aaaaaaaaaa",response);
+                    //Log.w("aaaaaaaaaa",response);
                     BaseBean baseBean = GsonUtil.toString(response,BaseBean.class);
                     if (baseBean.getCode().equals("200")) {
                         view.showCommitError("发起活动成功");
-                        //view.onDestroy();
+                        view.onDestroy();
                     }
                     else
-                        view.showCommitError("bbbbbbbbb发起活动失败");
+                        view.showCommitError("发起活动失败");
                 }
             });
         }

@@ -1,5 +1,7 @@
 package com.example.vizax.with.util;
 
+import android.util.Log;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -13,7 +15,7 @@ public class TimeUtil {
 
     public static String getTime(String time){
         Date nowDate = Calendar.getInstance().getTime();
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//小写的mm表示的是分钟
+        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//小写的mm表示的是分钟
         try {
             Date date=sdf.parse(time);
 
@@ -47,5 +49,16 @@ public class TimeUtil {
             e.printStackTrace();
         }
        return null;
+    }
+
+    public static String[] getDate(String t){
+
+        String s[] = t.split(" ");
+        String date[] = s[0].split("-");
+        String time[] = s[1].split(":");
+
+        s[0] = date[0]+"年"+date[1]+"月"+date[2]+"日";
+        s[1] = time[0]+":"+time[1];
+        return s;
     }
 }

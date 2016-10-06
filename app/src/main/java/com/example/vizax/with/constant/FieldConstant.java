@@ -28,4 +28,6 @@ public class FieldConstant {
     public static final int MESSAGE_TYPE_REJECT = 4;
     public static final int MESSAGE_TYPE_CANCEL = 5;
 
+    public static final String INVITATION_BEAN = "invitationBean";
+
 }

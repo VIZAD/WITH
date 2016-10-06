@@ -239,7 +239,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
 
     }
     //背景的动画效果
-    private ScreenShotable replaceFragment(ScreenShotable screenShotable, int topPosition , int color_cl,int color_mi,int color_md) {
+    private ScreenShotable replaceFragment(ScreenShotable screenShotable, int topPosition , int color_cl,int color_mi,int color_md,int color_txt) {
         //判断颜色不一致则替换
         //this.res = this.res == R.drawable.blue_bg ? R.drawable.white_bg : R.drawable.blue_bg;
         //测试
@@ -268,7 +268,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         System.out.println("ScreenShotable color ="+color_md);
         mTxtVi_title.setTextColor(color_md);
         mTxtVi_center_txt.setTextColor(color_md);
-        //mTxtVi_foot_txt.setTextColor(color_md);
+        mTxtVi_foot_txt.setTextColor(color_txt);
         if(mNet==true && mCreateTask==false) {
             mTxtVi_title.setText(mMisson.getData().getCurrTasks().get(Integer.parseInt(mSelectedCase) - 1).getTitle().toString());
             mTxtVi_center_txt.setText(mMisson.getData().getCurrTasks().get(Integer.parseInt(mSelectedCase) - 1).getContent().toString());
@@ -293,40 +293,40 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
                     //// TODO: 2016/09/16
                     mSelectedCase = "1";
                     TaskId = String.valueOf(sp.getInt("TaskId0",0));
-                    return replaceFragment(screenShotable, position, mInsistColor.COLOR1_CALENDER, mInsistColor.COLOR1_MISSION, mInsistColor.COLOR1_MOOD);
+                    return replaceFragment(screenShotable, position, mInsistColor.COLOR1_CALENDER, mInsistColor.COLOR1_MISSION, mInsistColor.COLOR1_MOOD,mInsistColor.COLOR1_TXT);
                 case ContentFragment.BUILDING:
                     mSelectedCase = "2";
                     TaskId = String.valueOf(sp.getInt("TaskId1",0));
-                    return replaceFragment(screenShotable, position, mInsistColor.COLOR2_CALENDER, mInsistColor.COLOR2_MISSION, mInsistColor.COLOR2_MOOD);
+                    return replaceFragment(screenShotable, position, mInsistColor.COLOR2_CALENDER, mInsistColor.COLOR2_MISSION, mInsistColor.COLOR2_MOOD,mInsistColor.COLOR2_TXT);
                 case ContentFragment.BOOK:
                     mSelectedCase = "3";
                     TaskId = String.valueOf(sp.getInt("TaskId2",0));
-                    return replaceFragment(screenShotable, position, mInsistColor.COLOR3_CALENDER, mInsistColor.COLOR3_MISSION, mInsistColor.COLOR3_MOOD);
+                    return replaceFragment(screenShotable, position, mInsistColor.COLOR3_CALENDER, mInsistColor.COLOR3_MISSION, mInsistColor.COLOR3_MOOD,mInsistColor.COLOR3_TXT);
                 case ContentFragment.PAINT:
                     mSelectedCase = "4";
                     TaskId = String.valueOf(sp.getInt("TaskId3",0));
-                    return replaceFragment(screenShotable, position, mInsistColor.COLOR4_CALENDER, mInsistColor.COLOR4_MISSION, mInsistColor.COLOR4_MOOD);
+                    return replaceFragment(screenShotable, position, mInsistColor.COLOR4_CALENDER, mInsistColor.COLOR4_MISSION, mInsistColor.COLOR4_MOOD,mInsistColor.COLOR4_TXT);
                 case ContentFragment.CASE:
                     mSelectedCase = "5";
                     TaskId = String.valueOf(sp.getInt("TaskId4",0));
-                    return replaceFragment(screenShotable, position, mInsistColor.COLOR5_CALENDER, mInsistColor.COLOR5_MISSION, mInsistColor.COLOR5_MOOD);
+                    return replaceFragment(screenShotable, position, mInsistColor.COLOR5_CALENDER, mInsistColor.COLOR5_MISSION, mInsistColor.COLOR5_MOOD,mInsistColor.COLOR5_TXT);
                 default:
-                    return replaceFragment(screenShotable, position, mInsistColor.COLOR1_CALENDER, mInsistColor.COLOR1_MISSION, mInsistColor.COLOR1_MOOD);
+                    return replaceFragment(screenShotable, position, mInsistColor.COLOR1_CALENDER, mInsistColor.COLOR1_MISSION, mInsistColor.COLOR1_MOOD,mInsistColor.COLOR1_TXT);
             }
         } else {
             switch (slideMenuItem.getName()) {
                 case ContentFragment.CLOSE:
-                    return replaceFragment(screenShotable, position, mInsistColor.COLOR1_CALENDER, mInsistColor.COLOR1_MISSION, mInsistColor.COLOR1_MOOD);
+                    return replaceFragment(screenShotable, position, mInsistColor.COLOR1_CALENDER, mInsistColor.COLOR1_MISSION, mInsistColor.COLOR1_MOOD,mInsistColor.COLOR1_TXT);
                 case ContentFragment.BUILDING:
-                    return replaceFragment(screenShotable, position, mInsistColor.COLOR2_CALENDER, mInsistColor.COLOR2_MISSION, mInsistColor.COLOR2_MOOD);
+                    return replaceFragment(screenShotable, position, mInsistColor.COLOR2_CALENDER, mInsistColor.COLOR2_MISSION, mInsistColor.COLOR2_MOOD,mInsistColor.COLOR2_TXT);
                 case ContentFragment.BOOK:
-                    return replaceFragment(screenShotable, position, mInsistColor.COLOR3_CALENDER, mInsistColor.COLOR3_MISSION, mInsistColor.COLOR3_MOOD);
+                    return replaceFragment(screenShotable, position, mInsistColor.COLOR3_CALENDER, mInsistColor.COLOR3_MISSION, mInsistColor.COLOR3_MOOD,mInsistColor.COLOR3_TXT);
                 case ContentFragment.PAINT:
-                    return replaceFragment(screenShotable, position, mInsistColor.COLOR4_CALENDER, mInsistColor.COLOR4_MISSION, mInsistColor.COLOR4_MOOD);
+                    return replaceFragment(screenShotable, position, mInsistColor.COLOR4_CALENDER, mInsistColor.COLOR4_MISSION, mInsistColor.COLOR4_MOOD,mInsistColor.COLOR4_TXT);
                 case ContentFragment.CASE:
-                    return replaceFragment(screenShotable, position, mInsistColor.COLOR5_CALENDER, mInsistColor.COLOR5_MISSION, mInsistColor.COLOR5_MOOD);
+                    return replaceFragment(screenShotable, position, mInsistColor.COLOR5_CALENDER, mInsistColor.COLOR5_MISSION, mInsistColor.COLOR5_MOOD,mInsistColor.COLOR5_TXT);
                 default:
-                    return replaceFragment(screenShotable, position, mInsistColor.COLOR1_CALENDER, mInsistColor.COLOR1_MISSION, mInsistColor.COLOR1_MOOD);
+                    return replaceFragment(screenShotable, position, mInsistColor.COLOR1_CALENDER, mInsistColor.COLOR1_MISSION, mInsistColor.COLOR1_MOOD,mInsistColor.COLOR1_TXT);
             }
         }
 

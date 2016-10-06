@@ -1,5 +1,6 @@
 package com.example.vizax.with.ui.invitation;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import com.example.vizax.with.EventBus.DateEventMessage;
 import com.example.vizax.with.EventBus.TimeEventMessage;
 import com.example.vizax.with.R;
+import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.customView.BaseToolBar;
 import com.example.vizax.with.fragment.DatePickerFragment;
 import com.example.vizax.with.fragment.TimePickerFragment;
@@ -243,9 +245,9 @@ public class LuanchInvitationActivity extends AppCompatActivity implements Luanc
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void destroy() {
         init.detachView();
+        setResult(2);
         finish();
     }
 }

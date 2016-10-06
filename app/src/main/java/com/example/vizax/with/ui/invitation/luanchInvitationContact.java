@@ -24,7 +24,7 @@ public interface LuanchInvitationContact {
         void setDescriptionError();
         void setSiteError();
         void setUpperError();
-        void onDestroy();
+        void destroy();
     }
     interface Modle{
         void commit(String token,String type, String titletext,String descriptiontext,String sex,String datetime,String site,String upper,Boolean hidenBoolean,StringCallback stringCallback);

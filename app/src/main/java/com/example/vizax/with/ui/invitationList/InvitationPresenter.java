@@ -87,7 +87,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
 
     @Override
     public void detachView() {
-
+        mInvitationActivity = null;
     }
 
     @Override
@@ -263,7 +263,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
 
             @Override
             public void onResponse(String response, int id) {
-                //  baseBean.getData().remove(position);
+                  baseBean.getData().remove(position);
                 mAdapter.notifyItemRemoved(position);
                 mInvitationActivity.dismissDialog();
             }

@@ -170,10 +170,12 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
         if (type != null) {
             if (type.equals(MY_INVITATION)) {
                 visible = View.VISIBLE;
+                fab.setVisibility(View.GONE);
                 userId =String.valueOf(SharedUtil.getInt(App.instance, FieldConstant.userId));
             } else {
                 //我参与的活动 typeId传-1
                 if(type.equals(MY_JOINED)){
+                    fab.setVisibility(View.GONE);
                     typeId = "-1";
                 }
                 visible = View.GONE;
@@ -311,16 +313,20 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        boolean join = data.getBooleanExtra("join", false);
-        int index = data.getIntExtra("index", 0);
-        mInvitationListPresenter.mAdapter.getmData().getData().get(index).setMembers(data.getParcelableArrayListExtra("members"));
-        mInvitationListPresenter.mAdapter.getmData().getData().get(index).setCurrentNumber(mInvitationListPresenter.mAdapter.getmData().getData().get(index).getMembers().size()+"");
-        mInvitationListPresenter.mAdapter.getmData().getData().get(index).setJoin(join);
-        mInvitationListPresenter.setNotifyChange();
-        // mInvitationListPresenter.setAdapter(this, mRecyclerView, mInvitationListPresenter.baseBean,visible);
+        if(resultCode == 1) {
+            boolean join = data.getBooleanExtra("join", false);
+            int index = data.getIntExtra("index", 0);
+            mInvitationListPresenter.mAdapter.getmData().getData().get(index).setMembers(data.getParcelableArrayListExtra("members"));
+            mInvitationListPresenter.mAdapter.getmData().getData().get(index).setCurrentNumber(mInvitationListPresenter.mAdapter.getmData().getData().get(index).getMembers().size() + "");
+            mInvitationListPresenter.mAdapter.getmData().getData().get(index).setJoin(join);
+            mInvitationListPresenter.setNotifyChange();
+            // mInvitationListPresenter.setAdapter(this, mRecyclerView, mInvitationListPresenter.baseBean,visible);
+        }else if(resultCode == 2){
+            System.out.println("getset");
+            mInvitationListPresenter.getDataAndSetAdapter(this, mRecyclerView, visible, typeId, userId);
+        }
     }
-
-
+    
     @OnClick(R.id.invitation_fab)
     public void onClick() {
         openLaunch();
@@ -331,6 +337,6 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
     public void openLaunch() {
         Intent it = new Intent(this, LuanchInvitationActivity.class);
         it.putExtra("typeId", StringUtil.invitationIdUtil(type));
-        startActivity(it);
+        startActivityForResult(it,1);
     }
 }

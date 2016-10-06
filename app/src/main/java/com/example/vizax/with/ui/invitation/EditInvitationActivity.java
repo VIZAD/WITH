@@ -27,6 +27,7 @@ import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.customView.BaseToolBar;
 import com.example.vizax.with.fragment.DatePickerFragment;
 import com.example.vizax.with.fragment.TimePickerFragment;
+import com.example.vizax.with.util.StringUtil;
 import com.example.vizax.with.util.TimeUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -123,7 +124,7 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
         launchUpper.setText(invitationBean.getCurrentNumber());
         launchDateTxt.setText(invitationBean.getInvitationTime());
         launchTimeTxt.setText(invitationBean.getInvitationTime());
-
+        launchSelectActivitySpinner.setSelection(StringUtil.getIndex(Integer.parseInt(invitationBean.getTypeId())));
         if (invitationBean.getSexRequire().equals("0"))
              launchManRdoBtn.setChecked(true);
         else if(invitationBean.getSexRequire().equals("1"))

@@ -38,7 +38,7 @@ public class InvitationDetailPresenter implements InvitationDetailContact.Presen
 
     @Override
     public void detachView() {
-
+        mInvitationDetailView = null;
     }
 
     /**

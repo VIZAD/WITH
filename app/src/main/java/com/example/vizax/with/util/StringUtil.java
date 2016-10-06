@@ -1,5 +1,9 @@
 package com.example.vizax.with.util;
 
+import com.example.vizax.with.R;
+
+import java.util.Arrays;
+
 /**
  * 字符串工具类
  * Created by Young on 2016/9/16.
@@ -191,6 +195,23 @@ public class StringUtil {
                 break;
 
         }
+        return result;
+    }
+    public  static int getIndex(int typeId){
+        int result;
+        if(typeId>=7&&typeId<=19)
+            result = typeId - 7;
+        else if(typeId>=20&&typeId<=28)
+            result = typeId - 20;
+        else if(typeId>=29&&typeId<=38)
+            result = typeId - 29;
+        else if(typeId>=39&&typeId<=46)
+            result = typeId - 39;
+        else if(typeId>=47&&typeId<=53)
+            result = typeId - 47;
+        else
+            result = 0 ;
+        System.out.println("result="+result);
         return result;
     }
 }

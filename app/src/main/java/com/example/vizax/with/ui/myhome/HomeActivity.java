@@ -167,6 +167,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
                 .load(SharedUtil.getString(App.instance,FieldConstant.userUrl))
                 //.resize(100,100)
                 .placeholder(R.drawable.user0)
+                .transform(new CircleTransformation())
                 .into(imgIcon);
         /*mBaseToolBar.setCenterText(getResources().getString(R.string.home_title));
         *//*String url = SharedUtil.getString(App.instance, FieldConstant.userUrl);

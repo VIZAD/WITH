@@ -1,15 +1,19 @@
 package com.example.vizax.with.ui.invitation;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.vizax.with.R;
 import com.example.vizax.with.fragment.DatePickerFragment;
 import com.example.vizax.with.fragment.TimePickerFragment;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +25,15 @@ import java.util.List;
 public class EditInvitationPresenter implements EditInvitationContact.Presenter{
     private EditInvitationContact.View view;
     private static String date1;
+
+    private Context context;
+    Resources resources ;
+    EditInvitationPresenter(Context context){
+        this.context = context;
+
+    }
+
+
     public void setDate(){
         Calendar c ;
         int year ;
@@ -33,22 +46,21 @@ public class EditInvitationPresenter implements EditInvitationContact.Presenter{
         date1= year+"-"+String.valueOf(month+1)+"-"+day;
     }
 
-    public static List<String> setspinner()
+    public  List<String> setspinner(int typeId)
     {
         List<String> data_list= new ArrayList<String>();
-        data_list.add("篮球");
-        data_list.add("足球");
-        data_list.add("乒乓球");
-        data_list.add("羽毛球");
-        data_list.add("排球");
-        data_list.add("网球");
-        data_list.add("桌球");
-        data_list.add("跑步");
-        data_list.add("健身");
-        data_list.add("游泳");
-        data_list.add("户外");
-        data_list.add("溜冰");
-        data_list.add("其他运动");
+        if(typeId>=7&&typeId<=19)
+            data_list = Arrays.asList(context.getResources().getStringArray(R.array.sports));
+        else if(typeId>=20&&typeId<=28)
+            data_list = Arrays.asList(context.getResources().getStringArray(R.array.onlineGame));
+        else if(typeId>=29&&typeId<=38)
+            data_list = Arrays.asList(context.getResources().getStringArray(R.array.brpg));
+        else if(typeId>=39&&typeId<=46)
+            data_list = Arrays.asList(context.getResources().getStringArray(R.array.study));
+        else if(typeId>=47&&typeId<=53)
+            data_list = Arrays.asList(context.getResources().getStringArray(R.array.date));
+        else
+            data_list = Arrays.asList(context.getResources().getStringArray(R.array.other));
         return data_list;
     }
     @Override
@@ -86,21 +98,144 @@ public class EditInvitationPresenter implements EditInvitationContact.Presenter{
             view.setUpper(String.valueOf(Integer.parseInt(launchUpper.getText().toString())+1));
         }
     }
-    public static List<String> setTitle(String subclass){
-        System.out.println("bbbbbbbbbbbbbbbbb"+subclass);
+    public  List<String> setTitle(String subclass){
         List<String> title_list= new ArrayList<String>();
-
-        switch (String.valueOf(subclass)){
-            case "篮球":
-                title_list.add("无兄弟，不篮球！");
-                title_list.add("发起了篮球活动");
-                title_list.add("组队一起打篮球，求With！");
-                break;
-            case "足球":
-                title_list.add("无兄弟，不足球！");
-                title_list.add("发起了足球活动");
-                title_list.add("组队一起打足球，求With！");
-                break;
+                switch (String.valueOf(subclass)){
+                    case "篮球":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_basketball));
+                        break;
+                    case "足球":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_football));
+                        break;
+                    case "乒乓球":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_pingpongball));
+                        break;
+                    case "羽毛球":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_badminton));
+                        break;
+                    case "排球":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_volleyball));
+                        break;
+                    case "网球":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_tennis));
+                        break;
+                    case "桌球":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_billiards));
+                        break;
+                    case "跑步":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_run));
+                        break;
+                    case "健身":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_bodybuilding));
+                        break;
+                    case "游泳":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_swimming));
+                        break;
+                    case "户外":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_outdoors));
+                        break;
+                    case "溜冰":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_skating));
+                        break;
+                    case "其他运动":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_other));
+                        break;
+                    case "自习":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_selfstudy));
+                        break;
+                    case "英语口语":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_spokenenglish));
+                        break;
+                    case "英语四六级":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_cet));
+                        break;
+                    case "晨读":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_morningreading));
+                        break;
+                    case "图书馆":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_read));
+                        break;
+                    case "考研":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_pubmed));
+                        break;
+                    case "BEC":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_bec));
+                        break;
+                    case "其他学习":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_other));
+                        break;
+                    case "三国杀":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_wwtk));
+                        break;
+                    case "狼人杀":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_werewolfkill));
+                        break;
+                    case "UNO":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_uno));
+                        break;
+                    case "围棋":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_go));
+                        break;
+                    case "象棋":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_chinesechess));
+                        break;
+                    case "五子棋":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_gobang));
+                        break;
+                    case "德州扑克":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_texasholdem));
+                        break;
+                    case "21点":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_point21));
+                        break;
+                    case "其他":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_other));
+                        break;
+                    case "英雄联盟":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_wwtk));
+                        break;
+                    case "Dota2":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_werewolfkill));
+                        break;
+                    case "守望先锋":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_uno));
+                        break;
+                    case "CF":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_go));
+                        break;
+                    case "DNF":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_chinesechess));
+                        break;
+                    case "王者荣耀":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_gobang));
+                        break;
+                    case "斗地主":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_texasholdem));
+                        break;
+                    case "其他网游":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_point21));
+                        break;
+                    case "吃饭":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_wwtk));
+                        break;
+                    case "唱K":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_werewolfkill));
+                        break;
+                    case "电影":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_uno));
+                        break;
+                    case "散步":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_go));
+                        break;
+                    case "演唱会":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_chinesechess));
+                        break;
+                    case "露营":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_gobang));
+                        break;
+                    case "其他约会":
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_texasholdem));
+                        break;
         }
 
         return title_list;

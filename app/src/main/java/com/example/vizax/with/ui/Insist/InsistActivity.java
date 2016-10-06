@@ -137,7 +137,7 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         mToolBar.setCenterText("坚持");
         mToolBar.setLeftIcon(getResources().getDrawable(R.drawable.back_ic));
         mToolBar.setRightIcon(getResources().getDrawable(R.drawable.calendar_unselect));
-        contentFragment = ContentFragment.newInstance(mInsistColor.COLOR_CALENDER,mInsistColor.COLOR_CALENDER);
+        contentFragment = ContentFragment.newInstance(mInsistColor.COLOR_CALENDER,mInsistColor.COLOR1_MOOD);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, contentFragment)
                 .commit();

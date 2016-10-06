@@ -123,11 +123,6 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
         //用于首页
     }
 
-    @Override
-    public void addRecyclerView(int position) {
-
-    }
-
     private void initSuperSwipeRefresh() {
         invitationRefresh.setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
             @Override
@@ -317,6 +312,7 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
         boolean join = data.getBooleanExtra("join", false);
         int index = data.getIntExtra("index", 0);
         mInvitationListPresenter.mAdapter.getmData().getData().get(index).setMembers(data.getParcelableArrayListExtra("members"));
+        mInvitationListPresenter.mAdapter.getmData().getData().get(index).setCurrentNumber(mInvitationListPresenter.mAdapter.getmData().getData().get(index).getMembers().size()+"");
         mInvitationListPresenter.mAdapter.getmData().getData().get(index).setJoin(join);
         mInvitationListPresenter.setNotifyChange();
         // mInvitationListPresenter.setAdapter(this, mRecyclerView, mInvitationListPresenter.baseBean,visible);

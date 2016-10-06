@@ -89,6 +89,7 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
     private EditInvitationPresenter Edit;
     private InvitationBean invitationBean;
     private Bundle bundle;
+    private int typeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +104,7 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
         //Toast.makeText(this,"haha"+"!!!"+invitationBean.getContent(),Toast.LENGTH_SHORT).show();
         //Log.w("haha", invitationBean.getIconUrl());
 
-        Edit=new EditInvitationPresenter();
+        Edit=new EditInvitationPresenter(this);
         Edit.attachView(this);
         initSpinner();
         launchUnlimitedRdoBtn.setChecked(true);
@@ -173,7 +174,7 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
     }
     public void initSpinner(){
         spinner = (Spinner) findViewById(R.id.launch_selectActivity_spinner);
-        subclass_list= Edit.setspinner();
+        subclass_list= Edit.setspinner(Integer.parseInt(invitationBean.getTypeId()));
         //适配器
         arr_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subclass_list);
         //设置样式

@@ -325,6 +325,7 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
     public void luanchInvitation(String type, String titletext, String descriptiontext, String sex, String invitation_date, String timetext, String site, String Upper, Boolean hidenBoolean,String title0) {
         String date;
         String invitationtype="";
+        //获取邀约类别id
         invitationtype = StringUtil.invitationIdUtil(type);
         Log.w("aaaa",invitationtype);
        /* String[] str=new String[]{"篮球","排球","桌球","足球","乒乓球","羽毛球","网球","跑步","健身","游泳","户外","溜冰","其他运动","英雄联盟","守望先锋"

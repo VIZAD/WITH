@@ -13,12 +13,11 @@
         android:layout_height="?actionBarSize">
 
         <ImageView
-            android:paddingRight="20dp"
-            android:paddingLeft="20dp"
-            android:src="@drawable/user1"
+            android:padding="5dp"
+            android:src="@drawable/user0"
             android:id="@+id/img_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="?actionBarSize"
+            android:layout_height="?actionBarSize"
             android:layout_gravity="center"/>
 
         <TextView
@@ -29,11 +28,10 @@
 
         <ImageView
             android:layout_gravity="center"
-            android:paddingRight="20dp"
-            android:paddingLeft="20dp"
+            android:padding="5dp"
             android:src="@drawable/calenda_94dp"
             android:id="@+id/img_inisit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="?actionBarSize"
+            android:layout_height="?actionBarSize"/>
     </LinearLayout>
 </android.support.design.widget.AppBarLayout>

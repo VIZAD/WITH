@@ -71,7 +71,7 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.invitation_activity);
         ButterKnife.bind(this);
-        mInvitationListPresenter = new InvitationPresenter();
+        mInvitationListPresenter = new InvitationPresenter(getApplicationContext());
         mInvitationListPresenter.attachView(this);
         //初始化dialog
         initDialog(null, -1);

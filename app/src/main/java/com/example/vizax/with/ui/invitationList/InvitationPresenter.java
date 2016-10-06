@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.example.vizax.with.App;
 import com.example.vizax.with.adapter.InvitationRecyclerViewAdapter;
@@ -28,6 +29,9 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     private InvitationContact.InvitationlModel mInvitationModel;
     private UserInformationModuel mUserinforModuel;
     public InvitationRecyclerViewAdapter mAdapter;
+    public InvitationPresenter(Context context){
+        mAdapter = new InvitationRecyclerViewAdapter(context, new InvitationBaseBean(), View.GONE);
+    }
 
     public InvitationRecyclerViewAdapter getmAdapter() {
         return mAdapter;
@@ -108,7 +112,10 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
                         } else {
                             membersReduce(position);
                         }
+                        mAdapter.notifyDataSetChanged();
                         mAdapter.notifyItemChanged(position);
+
+                        mInvitationActivity.showToast("notifyItemChanged position :"+position);
                     }else {
                         mInvitationActivity.showToast("已发送特批信息");
                     }
@@ -120,22 +127,24 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
             }
         });
     }
-
     private void membersAdd(int position) {
+        mInvitationActivity.showToast("membersAdd ");
         MembersBean newMember = new MembersBean();
         InvitationBaseBean baseBean = mAdapter.getmData();
         newMember.setUserId(String.valueOf(SharedUtil.getInt(App.instance,FieldConstant.userId)));
         newMember.setRealName(SharedUtil.getString(App.instance,FieldConstant.realName));
         newMember.setPhone(SharedUtil.getString(App.instance,FieldConstant.phone));
-        baseBean.getData().get(position).getMembers().add(newMember);
         int num = Integer.parseInt(baseBean.getData().get(position).getCurrentNumber()) + 1;
         baseBean.getData().get(position).setCurrentNumber(String.valueOf(num));
+        baseBean.getData().get(position).getMembers().add(newMember);
     }
     private void membersReduce(int position) {
+
         InvitationBaseBean baseBean = mAdapter.getmData();
-        for(int i = 1;i <  baseBean.getData().get(position).getMembers().size();i++){
-            if (baseBean.getData().get(position).getMembers().get(i).getUserId().equals(SharedUtil.getString(App.instance,FieldConstant.userId))){
+        for(int i = 0;i <  baseBean.getData().get(position).getMembers().size();i++){
+            if (baseBean.getData().get(position).getMembers().get(i).getUserId().equals(SharedUtil.getInt(App.instance,FieldConstant.userId)+"")){
                 baseBean.getData().get(position).getMembers().remove(i);
+                mInvitationActivity.showToast("membersReduce mebber position :"+i);
                 break;
             }
         }
@@ -144,7 +153,8 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     }
 
     public void setAdapter(Context context, RecyclerView recyclerView, InvitationBaseBean invitationBaseBean, int visible) {
-        mAdapter = new InvitationRecyclerViewAdapter(context, invitationBaseBean,visible);
+
+        mAdapter.setmData(invitationBaseBean);
         mAdapter.setOnItemClickListener(new InvitationRecyclerViewAdapter.ClickListerner() {
             @Override
             public void onItemClick(int position,InvitationBaseBean invitationBaseBean) {

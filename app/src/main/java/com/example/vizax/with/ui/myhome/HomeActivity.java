@@ -433,8 +433,9 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
         boolean join = data.getBooleanExtra("join", false);
         int index = data.getIntExtra("index", 0);
         mInvitationListPresenter.mAdapter.getmData().getData().get(index).setMembers(data.getParcelableArrayListExtra("members"));
+        mInvitationListPresenter.mAdapter.getmData().getData().get(index).setCurrentNumber(mInvitationListPresenter.mAdapter.getmData().getData().get(index).getMembers().size() + "");
         mInvitationListPresenter.mAdapter.getmData().getData().get(index).setJoin(join);
-        mInvitationListPresenter.setNotifyChange();
+        addRecyclerView(index);
         // mInvitationListPresenter.setAdapter(this, mRecyclerView, mInvitationListPresenter.baseBean,visible);
     }
 

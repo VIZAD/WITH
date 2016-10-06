@@ -117,10 +117,10 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
                         }
                         mInvitationActivity.addRecyclerView(position);
                         //recyclerView.notifyMoreFinish(true,position);
-                        /*mAdapter.notifyDataSetChanged();
-                        mAdapter.notifyItemChanged(position);*/
+                        mAdapter.notifyDataSetChanged();
+                       // mAdapter.notifyItemChanged(position);
 
-                        mInvitationActivity.showToast("notifyItemChanged position :"+position);
+                       // mInvitationActivity.showToast("notifyItemChanged position :"+position);
                     }else {
                         mInvitationActivity.showToast("已发送特批信息");
                     }
@@ -140,6 +140,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
         newMember.setUserId(String.valueOf(SharedUtil.getInt(App.instance,FieldConstant.userId)));
         newMember.setRealName(SharedUtil.getString(App.instance,FieldConstant.realName));
         newMember.setPhone(SharedUtil.getString(App.instance,FieldConstant.phone));
+        newMember.setHeadUrl(SharedUtil.getString(App.instance,FieldConstant.userUrl));
         int num = Integer.parseInt(baseBean.getData().get(position).getCurrentNumber()) + 1;
         baseBean.getData().get(position).setCurrentNumber(String.valueOf(num));
         baseBean.getData().get(position).getMembers().add(newMember);

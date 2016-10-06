@@ -19,15 +19,13 @@
             android:layout_gravity="center_vertical"
             android:padding="10dp"
             android:layout_marginLeft="5dp"
-            android:src="@drawable/head"/>
+            android:src="@drawable/user3"/>
         <TextView
             android:id="@+id/my_info_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:paddingLeft="27dp"
-            android:paddingTop="18dp"
-            android:paddingBottom="18dp"
             android:text="点击此处登录"
             android:textColor="#fff"
             android:textSize="22sp"/>

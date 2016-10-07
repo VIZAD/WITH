@@ -11,10 +11,8 @@ import com.example.vizax.with.bean.BaseBean;
 import com.example.vizax.with.bean.Misson;
 import com.example.vizax.with.bean.Misson_bg_colorSet;
 import com.example.vizax.with.bean.TaskMsg;
-import com.example.vizax.with.constant.APIConstant;
 import com.example.vizax.with.util.GsonUtil;
 import com.example.vizax.with.util.sidemenu.model.SlideMenuItem;
-import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.util.ArrayList;
@@ -74,6 +72,7 @@ public class InsistPresenter implements InsistContact.Presenter {
                 Misson misson = GsonUtil.toString(response,Misson.class);
                 InsistView.dimissLoading();
                 if(misson.getCode().equals("200")) {
+                    Log.w("haha",response);
                     System.out.println("code = "+misson.getData().getCurrTasks().size());
                     if(misson.getData().getCurrTasks()!=null) {
                         InsistView.setData(misson);

@@ -93,7 +93,7 @@ public class MainIntoActivity extends IntroActivity{
 
     private void startHomeActivity(){
         Intent intent = new Intent(App.instance, HomeActivity.class);
-        SharedUtil.putBoolean(App.instance,FieldConstant.isfirstlogin,false);
+        SharedUtil.putBoolean(App.instance,FieldConstant.isfirstlogin,true);
         startActivity(intent);
         finish();
     }

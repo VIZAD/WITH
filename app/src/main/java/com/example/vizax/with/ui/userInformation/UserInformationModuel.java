@@ -70,6 +70,7 @@ public class UserInformationModuel implements UserInformationContact.Moduel {
         String fileName = UUIDUtil.createUUID()+ "max.jpg";
         File f=new File(url);
         PrjOkHttpUtil.addToken()
+                //.url("http://172.18.0.139:8080/with/user/uploadHeadPic")
                 .url(APIConstant.getApi(APIConstant.USER_UPLOADHEADPIC ))
                 .addFile("file",fileName,f)
                 .build()

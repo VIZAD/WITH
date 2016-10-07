@@ -58,7 +58,8 @@ public class UserInformationPresenter  implements UserInformationContact.Present
 
             @Override
             public void onResponse(String response, int id) {
-                Log.w("haha!!!!",response);
+                //Log.w("haha!!!!",response);
+                Log.w("haha",response);
                 mUserInfoView.upLoadSuccess();
                 mUserInfoView.dimissUploadDialog();
             }

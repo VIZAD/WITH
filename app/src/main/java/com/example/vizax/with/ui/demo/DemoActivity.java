@@ -1,11 +1,8 @@
 package com.example.vizax.with.ui.demo;
 
-import android.animation.Animator;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TextInputLayout;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -17,7 +14,6 @@ import com.example.vizax.with.customView.BaseToolBar;
 import com.example.vizax.with.ui.Insist.InsistActivity;
 import com.example.vizax.with.util.AnimationUtil;
 import com.example.vizax.with.util.SnackbarUtils;
-import com.example.vizax.with.util.TextUtil;
 import com.example.vizax.with.util.filedownload.UpdateManager;
 import com.squareup.picasso.Picasso;
 

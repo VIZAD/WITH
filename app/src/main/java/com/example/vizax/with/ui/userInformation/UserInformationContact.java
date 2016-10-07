@@ -15,6 +15,7 @@ import okhttp3.Callback;
  * Created by Young on 2016/9/19.
  */
 public interface UserInformationContact {
+
     interface View extends BaseView{
         void setInfomation(boolean type);
         //修改头像

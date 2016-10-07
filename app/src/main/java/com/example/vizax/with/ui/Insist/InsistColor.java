@@ -1,8 +1,6 @@
 package com.example.vizax.with.ui.Insist;
 
 import android.app.Activity;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
 
 import com.example.vizax.with.R;
 

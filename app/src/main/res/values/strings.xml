@@ -241,7 +241,7 @@
     <string name="basketball_title2_label">发起了打篮球活动</string>
     <string name="basketball_title3_label">打篮球，求with！</string>
     <string-array name="title_basketball">
-        <item>无兄弟，不篮球！</item>
+        <item>无兄弟，不篮球</item>
         <item>发起了打篮球活动</item>
         <item>打篮球，求with</item>
     </string-array>
@@ -257,15 +257,15 @@
     <string name="pingpongball_title2_label">发起了打乒乓球活动</string>
     <string name="pingpongball_title3_label">组队打乒乓球，求with！</string>
     <string-array name="title_pingpongball">
-        <item>乒出快乐，乒出精彩</item>
-        <item>发起了打乒乓球活动</item>
+        <item>乒出快乐乒出精彩</item>
+        <item>发起了乒乓球活动</item>
         <item>打乒乓球，求with</item>
     </string-array>
     <string name="badminton_title1_label">“羽”你相遇，好幸运~</string>
     <string name="badminton_title2_label">发起了打羽毛球活动</string>
     <string name="badminton_title3_label">组队打羽毛球，求with！</string>
     <string-array name="title_badminton">
-        <item>“羽”你相遇，好幸运</item>
+        <item>羽你相遇，好幸运</item>
         <item>发起了打羽毛球活动</item>
         <item>打羽毛球，求with</item>
     </string-array>
@@ -273,7 +273,7 @@
     <string name="volleyball_title2_label">发起了打排球活动</string>
     <string name="volleyball_title3_label">组队打排球，求with！</string>
     <string-array name="title_volleyball">
-        <item>排排更健康！</item>
+        <item>排排更健康</item>
         <item>发起了打排球活动</item>
         <item>打排球，求with</item>
     </string-array>
@@ -289,7 +289,7 @@
     <string name="billiards_title2_label">发起了打桌球活动</string>
     <string name="billiards_title3_label">组队打桌球，求with！</string>
     <string-array name="title_billiards">
-        <item>一杆在手，广交朋友</item>
+        <item>一杆在手广交朋友</item>
         <item>发起了打桌球活动</item>
         <item>打桌球，求with</item>
     </string-array>
@@ -297,7 +297,7 @@
     <string name="run_title2_label">发起了跑步活动</string>
     <string name="run_title3_label">组队跑步，求with！</string>
     <string-array name="title_run">
-        <item>随风奔跑自由是方向</item>
+        <item>追你才想跑步</item>
         <item>发起了跑步活动</item>
         <item>跑步，求with</item>
     </string-array>
@@ -305,7 +305,7 @@
     <string name="bodybuilding_title2_label">发起了健身活动</string>
     <string name="bodybuilding_title3_label">组队健身，求with！</string>
     <string-array name="title_bodybuilding">
-        <item>生命不止，健身不息</item>
+        <item>生命不止健身不息</item>
         <item>发起了健身活动</item>
         <item>组队健身，求with</item>
     </string-array>
@@ -315,13 +315,13 @@
     <string-array name="title_swimming">
         <item>泳者无疆，任你游</item>
         <item>发起了游泳活动</item>
-        <item>组队游泳，求with</item>
+        <item>游泳，求with</item>
     </string-array>
     <string name="outdoors_title1_label">走出宿舍，走向户外！</string>
     <string name="outdoors_title2_label">发起了户外活动</string>
     <string name="outdoors_title3_label">组队户外，求with！</string>
     <string-array name="title_outdoors">
-        <item>走出宿舍，走向户外</item>
+        <item>走出宿舍走向户外</item>
         <item>发起了户外活动</item>
         <item>组队户外，求with</item>
     </string-array>
@@ -337,7 +337,7 @@
     <string name="lol_title2_label">发起了英雄联盟活动</string>
     <string name="lol_title3_label">组队LOL，求with！</string>
     <string-array name="title_lol">
-        <item>享受电竞，热爱生活</item>
+        <item>享受电竞热爱生活</item>
         <item>发起了LOL活动</item>
         <item>组队LOL，求with</item>
     </string-array>
@@ -362,22 +362,22 @@
     <string name="dota2_title3_label">组队DOTA2，求with！</string>
     <string-array name="title_dota2">
         <item>人在塔在！</item>
-        <item>发起了DOTA2活动</item>
+        <item>发起DOTA2活动</item>
         <item>DOTA2，求with</item>
     </string-array>
     <string name="kingglory_title1_label">一起王者荣耀，一起超神！</string>
     <string name="kingglory_title2_label">发起了王者荣耀活动</string>
     <string name="kingglory_title3_label">组队王者荣耀，求with！</string>
     <string-array name="title_kingglory">
-        <item>王者荣耀，一起超神</item>
-        <item>发起了王者荣耀活动</item>
+        <item>王者农药一起超神</item>
+        <item>发起了王者活动</item>
         <item>王者荣耀，求with</item>
     </string-array>
     <string name="cf_title1_label">决胜千里，让子弹飞</string>
     <string name="cf_title2_label">发起了CF活动</string>
     <string name="cf_title3_label">组队CF，求with！</string>
     <string-array name="title_cf">
-        <item>决胜千里，让子弹飞</item>
+        <item>让子弹飞</item>
         <item>发起了CF活动</item>
         <item>组队CF，求with</item>
     </string-array>
@@ -409,7 +409,7 @@
     <string name="go_title2_label">发起了围棋活动</string>
     <string name="go_title3_label">组队围棋,求with！</string>
     <string-array name="title_go">
-        <item>黑白之间，玄妙无尽</item>
+        <item>黑白间，玄妙无尽</item>
         <item>发起了围棋活动</item>
         <item>围棋,求with</item>
     </string-array>
@@ -473,7 +473,7 @@
     <string name="cet_tiltle2_label">发起了备考四六级活动</string>
     <string name="cet_tiltle3_label">组队备考英语四六级,求with！</string>
     <string-array name="title_cet">
-        <item>CET，一起考一起过</item>
+        <item>CET，一起过</item>
         <item>发起了CET活动</item>
         <item>备考CET,求with</item>
     </string-array>
@@ -481,7 +481,7 @@
     <string name="morningreading_title2_label"> 发起了晨读活动</string>
     <string name="morningreading_title3_label">组队晨读,求with！</string>
     <string-array name="title_morningreading">
-        <item>早起读书，天天向上</item>
+        <item>早起读书天天向上</item>
         <item>发起了晨读活动</item>
         <item>晨读,求with</item>
     </string-array>
@@ -537,7 +537,7 @@
     <string name="camping_title2_label">发起了露营活动</string>
     <string name="camping_title3_label">组队露营,求with！</string>
     <string-array name="title_camping">
-        <item>亲近自然，享受生活</item>
+        <item>享受大自然</item>
         <item>发起了露营活动</item>
         <item>露营,求with！</item>
     </string-array>

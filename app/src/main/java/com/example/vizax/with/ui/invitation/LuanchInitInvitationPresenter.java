@@ -223,53 +223,53 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
             case 2:
                 switch (String.valueOf(subclass)){
                     case "英雄联盟":
-                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_wwtk));
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_lol));
                         break;
                     case "Dota2":
-                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_werewolfkill));
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_dota2));
                         break;
                     case "守望先锋":
-                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_uno));
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_overwatch));
                         break;
                     case "CF":
-                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_go));
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_cf));
                         break;
                     case "DNF":
-                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_chinesechess));
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_dnf));
                         break;
                     case "王者荣耀":
-                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_gobang));
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_kingglory));
                         break;
                     case "斗地主":
-                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_texasholdem));
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_fal));
                         break;
                     case "其他网游":
-                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_point21));
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_other));
                         break;
                 }
                 break;
             case 5:
                 switch (String.valueOf(subclass)){
                     case "吃饭":
-                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_wwtk));
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_dinner));
                         break;
                     case "唱K":
-                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_werewolfkill));
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_karaoke));
                         break;
                     case "电影":
-                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_uno));
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_film));
                         break;
                     case "散步":
-                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_go));
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_walk));
                         break;
                     case "演唱会":
-                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_chinesechess));
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_concert));
                         break;
                     case "露营":
-                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_gobang));
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_camping));
                         break;
                     case "其他约会":
-                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_texasholdem));
+                        title_list = Arrays.asList(context.getResources().getStringArray(R.array.other));
                         break;
                 }
                 break;

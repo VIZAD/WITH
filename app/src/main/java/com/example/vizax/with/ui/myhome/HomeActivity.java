@@ -136,9 +136,8 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
 
         //recyclerViewHeader = RecyclerViewHeader.fromXml(getApplicationContext(),R.layout.home_head_item);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
-                DividerItemDecoration.VERTICAL_LIST));
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        //mRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL_LIST));
+       // mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         /*recyclerViewHeader.attachTo(mRecyclerView);
         recyclerViewHeader.setOnClickListener(new View.OnClickListener() {
@@ -437,6 +436,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
         mInvitationListPresenter.mAdapter.getmData().getData().get(index).setMembers(data.getParcelableArrayListExtra("members"));
         mInvitationListPresenter.mAdapter.getmData().getData().get(index).setCurrentNumber(mInvitationListPresenter.mAdapter.getmData().getData().get(index).getMembers().size() + "");
         mInvitationListPresenter.mAdapter.getmData().getData().get(index).setJoin(join);
+        //mRecyclerView.getAdapter().notifyDataSetChanged();
         addRecyclerView(index);
         // mInvitationListPresenter.setAdapter(this, mRecyclerView, mInvitationListPresenter.baseBean,visible);
     }
@@ -463,7 +463,8 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
     @Override
     public void addRecyclerView(int position) {
         //mRecyclerView.getAdapter().notifyItemChanged(position);
-        mRecyclerView.notifyMoreFinish(true,position);
+       // mRecyclerView.notifyMoreFinish(true,position);
+        mRecyclerView.getAdapter().notifyDataSetChanged();
        // mInvitationListPresenter.getmAdapter().notifyItemChanged(position);
     }
 

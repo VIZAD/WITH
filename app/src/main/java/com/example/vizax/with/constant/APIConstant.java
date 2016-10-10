@@ -5,7 +5,8 @@ package com.example.vizax.with.constant;
  */
 public class APIConstant {
 
-    public static final String WITH_BASE  = "http://119.29.180.122:8080/with/";//获取邀约列表
+    //119.29.197.248
+    private static final String WITH_BASE  = "http://119.29.197.248:8080/with/";//获取邀约列表
 
     //---------------------------------------------------------邀约活动模块---------------------------------------------------------------------
     public static final String INVITATION_GETINVITATIONS           = "invitation/getInvitations";//获取邀约列表

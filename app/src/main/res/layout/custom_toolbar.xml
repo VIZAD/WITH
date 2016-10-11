@@ -9,7 +9,7 @@
     <com.example.vizax.with.customView.BaseToolBar
         app:centerText="哈哈"
         app:centerTextSize="24"
-        app:leftIcon="@drawable/ic_keyboard_arrow_left"
+        app:leftIcon="@drawable/ic_arrow_back_black_36dp"
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"

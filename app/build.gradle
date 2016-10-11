@@ -129,7 +129,7 @@ android {
         }
         release {
             //是否混淆
-            minifyEnabled true
+            minifyEnabled false
             zipAlignEnabled true
             //移除resource下无用资源
             //shrinkResources true

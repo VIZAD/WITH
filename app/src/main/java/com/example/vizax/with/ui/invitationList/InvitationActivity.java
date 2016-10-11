@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.App;
+import com.example.vizax.with.EventBus.InvitationMessage;
 import com.example.vizax.with.R;
 import com.example.vizax.with.adapter.InvitationRecyclerViewAdapter;
 import com.example.vizax.with.bean.InvitationBaseBean;
@@ -27,10 +28,12 @@ import com.example.vizax.with.ui.invitation.EditInvitationActivity;
 import com.example.vizax.with.ui.invitation.LuanchInvitationActivity;
 import com.example.vizax.with.ui.userInformation.UserInformationActivity;
 import com.example.vizax.with.util.LoadMoreRecyclerView;
+import com.example.vizax.with.util.RxBus;
 import com.example.vizax.with.util.SharedUtil;
 import com.example.vizax.with.util.SnackbarUtils;
 import com.example.vizax.with.util.ArrayUtil;
 import com.example.vizax.with.util.StringUtil;
+import com.example.vizax.with.util.TimeUtil;
 
 import net.mobctrl.views.SuperSwipeRefreshLayout;
 
@@ -39,6 +42,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 public class InvitationActivity extends SwipeBackActivity implements InvitationContact.View {
     private static final String MY_INVITATION = "我发起的";
@@ -65,6 +72,7 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
     private SwipeBackLayout mSwipeBackLayout;
     private int position;
     private String userId;
+    public Subscription rxSubscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +96,24 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
         //设置swipback参数
         mSwipeBackLayout = getSwipeBackLayout();
         mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
+
+        RxBus.getDefault().toObservable(InvitationMessage.class)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(invitationMessage -> {
+                    InvitationBean invitationBean = mInvitationListPresenter.mAdapter.getmData().getData().get(position);
+
+                    InvitationBean mInvitation = invitationMessage.getInvitationBean();
+                    invitationBean.setPlace(mInvitation.getPlace());
+                    invitationBean.setTitle(mInvitation.getTitle());
+                    invitationBean.setSexRequire(mInvitation.getSexRequire());
+                    invitationBean.setInvitationTime(mInvitation.getInvitationTime());
+                    invitationBean.setTotalNumber(mInvitation.getTotalNumber());
+                    invitationBean.setTypeId(mInvitation.getTypeId());
+                    invitationBean.setContent(mInvitation.getContent());
+
+                    mInvitationListPresenter.mAdapter.notifyDataSetChanged();
+                });
     }
 
     //初始化dialog
@@ -281,6 +307,7 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
         Intent it = new Intent(this, EditInvitationActivity.class);
         Bundle lBundle = new Bundle();
         lBundle.putParcelable(FieldConstant.INVITATION_BEAN, invitationBean);
+        lBundle.putInt("position",position);
         it.putExtras(lBundle);
         startActivity(it);
     }
@@ -341,5 +368,12 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
         Intent it = new Intent(this, LuanchInvitationActivity.class);
         it.putExtra("typeId", StringUtil.invitationIdUtil(type));
         startActivityForResult(it,1);
+    }
+
+    @Override protected void onDestroy() {
+        super.onDestroy();
+        if(rxSubscription!=null&&rxSubscription.isUnsubscribed()){
+            rxSubscription.unsubscribe();
+        }
     }
 }

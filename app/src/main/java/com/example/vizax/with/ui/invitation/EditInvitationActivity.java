@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vizax.with.EventBus.DateEventMessage;
+import com.example.vizax.with.EventBus.InvitationMessage;
 import com.example.vizax.with.EventBus.TimeEventMessage;
 import com.example.vizax.with.R;
 import com.example.vizax.with.bean.InvitationBean;
@@ -28,6 +29,7 @@ import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.customView.BaseToolBar;
 import com.example.vizax.with.fragment.DatePickerFragment;
 import com.example.vizax.with.fragment.TimePickerFragment;
+import com.example.vizax.with.util.RxBus;
 import com.example.vizax.with.util.SnackbarUtils;
 import com.example.vizax.with.util.StringUtil;
 import com.example.vizax.with.util.TimeUtil;
@@ -94,6 +96,7 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
     private EditInvitationPresenter Edit;
     private InvitationBean invitationBean;
     private Bundle bundle;
+    private int position;
     private int typeId;
 
     @Override
@@ -125,7 +128,7 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
         launchInvitationTitleEdtTxt.setText(invitationBean.getTitle());
         launchDescriptionEdiTxt.setText(invitationBean.getContent());
         launchSiteEdtTxt.setText(invitationBean.getPlace());
-        launchUpper.setText(invitationBean.getCurrentNumber());
+        launchUpper.setText(invitationBean.getTotalNumber());
         launchDateTxt.setText(invitationBean.getInvitationTime());
         launchTimeTxt.setText(invitationBean.getInvitationTime());
         launchSelectActivitySpinner.setSelection(StringUtil.getIndex(Integer.parseInt(invitationBean.getTypeId())));
@@ -139,6 +142,7 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
         launchDateTxt.setText(TimeUtil.getDate(invitationBean.getInvitationTime())[0]);
         launchTimeTxt.setText(TimeUtil.getDate(invitationBean.getInvitationTime())[1]);
 
+        position = bundle.getInt("position");
         spinner= (Spinner) findViewById(R.id.launch_selectActivity_spinner);
         sex=launchUnlimitedRdoBtn.getText().toString();
        /* launchHideInformationSwt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -152,13 +156,11 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
                     hidenBoolean=false;
             }
         });*/
-        launchSexRequirementsRdoGrp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                check_RdoBtn= (RadioButton) findViewById(launchSexRequirementsRdoGrp.getCheckedRadioButtonId());
-                sex=check_RdoBtn.getText().toString();
-            }
+        launchSexRequirementsRdoGrp.setOnCheckedChangeListener((group, checkedId) -> {
+            check_RdoBtn= (RadioButton) findViewById(launchSexRequirementsRdoGrp.getCheckedRadioButtonId());
+            sex=check_RdoBtn.getText().toString();
         });
+        launchToolbar.setLeftViewOnClickListener(v -> finish());
     }
     private void listpopupwindow( String subclass) {
 
@@ -215,7 +217,23 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
 
     @Override
     public void showEditSuccess(String msg) {
-        SnackbarUtils.show(root,msg,0,null);
+
+        InvitationBean invitationBean = new InvitationBean();
+        invitationBean.setTitle(launchInvitationTitleEdtTxt.getText().toString());
+        invitationBean.setContent(launchDescriptionEdiTxt.getText().toString());
+        invitationBean.setSexRequire(sex);
+        invitationBean.setInvitationTime(TimeUtil.formatDate(launchDateTxt.getText().toString())+" "+launchTimeTxt.getText().toString()+":00");
+        invitationBean.setPlace(launchSiteEdtTxt.getText().toString());
+        invitationBean.setTotalNumber(launchUpper.getText().toString());
+        // Log.w("haha",subclass_list.get(0));
+        //Log.w("haha",StringUtil.invitationIdUtil(subclass_list.get(0))==null?"haha":StringUtil.invitationIdUtil(subclass_list.get(0)));
+        invitationBean.setTypeId(StringUtil.invitationIdUtil(spinner.getSelectedItem().toString()));
+
+        InvitationMessage invitationMessage = new InvitationMessage(position,invitationBean);
+        RxBus.getDefault().post(invitationMessage);
+
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override

@@ -146,7 +146,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
 
             }
         });*/
-        mInvitationListPresenter = new InvitationPresenter(getApplicationContext());
+        mInvitationListPresenter = new InvitationPresenter(this);
 
         mInvitationListPresenter.attachView(this);
         //初始化头像 和 姓名
@@ -461,20 +461,12 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
     }
 
     @Override
-    public void addRecyclerView(int position) {
+    public void    addRecyclerView(int position) {
         //mRecyclerView.getAdapter().notifyItemChanged(position);
        // mRecyclerView.notifyMoreFinish(true,position);
         mRecyclerView.getAdapter().notifyDataSetChanged();
        // mInvitationListPresenter.getmAdapter().notifyItemChanged(position);
     }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
 
     class HeadViewHolder {
 

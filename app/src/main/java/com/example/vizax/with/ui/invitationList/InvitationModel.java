@@ -8,6 +8,7 @@ import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.util.GsonUtil;
 import com.example.vizax.with.util.SharedUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.builder.GetBuilder;
 import com.zhy.http.okhttp.builder.PostFormBuilder;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -22,7 +23,7 @@ public class InvitationModel implements InvitationContact.InvitationlModel {
     @Override
     public void getData(String typeId, String userId,String lastInvitationId,StringCallback stringCallback) {
         //System.out.println("type="+typeId+"userId="+userId);
-        PostFormBuilder builder =OkHttpUtils .post()
+        GetBuilder builder =OkHttpUtils .get()
                 .url(APIConstant.getApi(APIConstant.INVITATION_GETINVITATIONS));
         if(typeId != null&& !typeId.equals("")){
             builder. addParams("typeId",typeId);
@@ -63,7 +64,6 @@ public class InvitationModel implements InvitationContact.InvitationlModel {
     /*interface StopRefreshing{
         void stopRefreshing();
     }*/
-
 
 }
 

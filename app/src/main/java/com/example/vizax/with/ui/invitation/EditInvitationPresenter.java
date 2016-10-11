@@ -3,12 +3,18 @@ package com.example.vizax.with.ui.invitation;
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.vizax.with.App;
 import com.example.vizax.with.R;
+import com.example.vizax.with.bean.BaseEmptyBean;
 import com.example.vizax.with.fragment.DatePickerFragment;
 import com.example.vizax.with.fragment.TimePickerFragment;
+import com.example.vizax.with.util.GsonUtil;
+import com.example.vizax.with.util.SharedUtil;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,6 +24,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import okhttp3.Call;
+
 /**
  * Created by hasee on 2016/9/26.
  */
@@ -25,12 +33,13 @@ import java.util.List;
 public class EditInvitationPresenter implements EditInvitationContact.Presenter{
     private EditInvitationContact.View view;
     private static String date1;
-
+    private EditInvitationModel model;
     private Context context;
     Resources resources ;
+
     EditInvitationPresenter(Context context){
         this.context = context;
-
+        model = new EditInvitationModel();
     }
 
 
@@ -240,8 +249,9 @@ public class EditInvitationPresenter implements EditInvitationContact.Presenter{
 
         return title_list;
     }
+
     @Override
-    public void luanchInvitation(String type, String titletext, String descriptiontext, String sex, String invitation_date, String timetext, String site, String Upper, Boolean hidenBoolean,String title0) {
+    public void luanchInvitation(String invitationId,String type, String titletext, String descriptiontext, String sex, String invitation_date, String timetext, String site, String Upper, Boolean hidenBoolean,String title0) {
         System.out.println("aa  "+type+"aa  "+titletext+"aa  "+descriptiontext+"aa  "+sex+"aa  "+invitation_date+"aa  "+timetext+"aa  "+site+"aa  "+Upper+"aa  "+hidenBoolean+"aa  "+title0);
         String date;
         String invitationtype="";
@@ -304,6 +314,36 @@ public class EditInvitationPresenter implements EditInvitationContact.Presenter{
         {
             System.out.println("OKOKOKOKOKOKOKOKKOOKOKOK");
         }
+
+//        Log.w("haha1",invitation_date);
+        /*Log.w("haha2",timetext);
+        Log.w("haha3",date);
+        Log.w("haha4",invitationId);
+
+        Log.w("haha","token="+ SharedUtil.getString(App.instance,"token")+"&"+
+        "invitationId="+invitationId+"&"+
+        "content="+descriptiontext+"&"+
+        "totalNumber="+Upper+"&"+
+        "hiden="+false+"&"+
+        "sexRequire="+sex+"&"+
+        "place="+site);*/
+
+        model.editInvitation(invitationId, date, descriptiontext, Upper, false, sex, site, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                view.showEditFailure(e+"");
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                BaseEmptyBean baseEmptyBean = GsonUtil.toString(response);
+                if (baseEmptyBean.getCode()==200) {
+                    view.showEditSuccess("编辑成功");
+                }else {
+                    view.showEditFailure(baseEmptyBean.getMsg());
+                }
+            }
+        });
     }
 
     @Override

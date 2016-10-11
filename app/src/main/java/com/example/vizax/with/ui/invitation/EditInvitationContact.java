@@ -7,6 +7,7 @@ import com.example.vizax.with.base.BasePresenter;
 import com.example.vizax.with.base.BaseView;
 import com.example.vizax.with.fragment.DatePickerFragment;
 import com.example.vizax.with.fragment.TimePickerFragment;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 /**
  * Created by hasee on 2016/9/26.
@@ -23,12 +24,17 @@ public interface EditInvitationContact {
         void setDescriptionError();
         void setSiteError();
         void setUpperError();
+        void showEditSuccess(String msg);
+        void showEditFailure(String msg);
         void showCommitError(String text);
         void onDestroy();
     }
-    interface Modle{
 
+    interface Modle{
+        void editInvitation(String invitationId, String invitationTime, String content, String totalNumber,
+                            boolean hiden,String sexRequire, String place, StringCallback stringCallback);
     }
+
     interface Presenter extends BasePresenter<View> {
         void showDatePicker(TextView launchDateTxt);
         void showTimePicker(TextView launchTimeTxt);
@@ -36,6 +42,6 @@ public interface EditInvitationContact {
         void addUpper(EditText launchUpper);
         void showTitleListpopupwindow();
         void listpopupwindowItemOnclick(String text);
-        void luanchInvitation(String type, String titletext, String descriptiontext, String sex, String invitation_date, String timetext, String site, String Upper, Boolean hidenBoolean, String title0);
+        void luanchInvitation(String invitationId,String type, String titletext, String descriptiontext, String sex, String invitation_date, String timetext, String site, String Upper, Boolean hidenBoolean, String title0);
     }
 }

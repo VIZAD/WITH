@@ -61,4 +61,18 @@ public class TimeUtil {
         s[1] = time[0]+":"+time[1];
         return s;
     }
+
+    public static String formatDate(String t){
+
+        String s[] = t.split("年");
+        String s1[] = s[1].split("月");
+        String s2[] = s1[1].split("日");
+        if (Integer.parseInt(s1[0])<10){
+            s1[0] = "0"+s1[0];
+        }
+        if (Integer.parseInt(s2[0])<10){
+            s2[0] = "0"+s2[0];
+        }
+        return s[0]+"-"+s1[0]+"-"+s2[0];
+    }
 }

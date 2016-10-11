@@ -1,6 +1,7 @@
 package com.example.vizax.with.ui.invitation;
 
 import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +28,7 @@ import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.customView.BaseToolBar;
 import com.example.vizax.with.fragment.DatePickerFragment;
 import com.example.vizax.with.fragment.TimePickerFragment;
+import com.example.vizax.with.util.SnackbarUtils;
 import com.example.vizax.with.util.StringUtil;
 import com.example.vizax.with.util.TimeUtil;
 
@@ -75,6 +77,8 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
     Button launchEnsureBtn;
     @BindView(R.id.launch_cancelBtn)
     Button launchCancelBtn;
+    @BindView(R.id.root)
+    NestedScrollView root;
 
     private Spinner spinner;
     private List<String> subclass_list;
@@ -159,7 +163,7 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
     private void listpopupwindow( String subclass) {
 
         title_list = Edit.setTitle(subclass);
-        System.out.println("aaaaaaaaaaaaaaaa"+title_list);
+        //System.out.println("aaaaaaaaaaaaaaaa"+title_list);
         mListPop = new ListPopupWindow(this);
         mListPop.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1,title_list));
         mListPop.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -208,6 +212,17 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
     public void setUpperError() {
         launchUpper.setError("活动人数不能为空！");
     }
+
+    @Override
+    public void showEditSuccess(String msg) {
+        SnackbarUtils.show(root,msg,0,null);
+    }
+
+    @Override
+    public void showEditFailure(String msg) {
+        SnackbarUtils.show(root,msg,0,null);
+    }
+
     @Override
     public void showCommitError(String text) {
         Toast.makeText(this,text,Toast.LENGTH_LONG).show();
@@ -268,8 +283,8 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
                 Edit.addUpper(launchUpper);
                 break;
             case R.id.launch_ensureBtn:
-                Edit.luanchInvitation(subclass,launchInvitationTitleEdtTxt.getText().toString(),launchDescriptionEdiTxt.getText().toString(),
-                        sex,invitation_date,launchTimeTxt.getText().toString(),launchSiteEdtTxt.getText().toString(),launchUpper.getText().toString(),
+                Edit.luanchInvitation(invitationBean.getInvitaionId(),subclass,launchInvitationTitleEdtTxt.getText().toString(),launchDescriptionEdiTxt.getText().toString(),
+                        sex,TimeUtil.formatDate(launchDateTxt.getText().toString()),launchTimeTxt.getText().toString(),launchSiteEdtTxt.getText().toString(),launchUpper.getText().toString(),
                         false,title_list.get(0));
                 break;
         }

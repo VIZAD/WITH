@@ -5,6 +5,9 @@
     <dimen name="sliding_menu_width">91.2dp</dimen>
     <dimen name="tabLayoutTextSize">16sp</dimen>
 
+    <dimen name="text_size_13">13sp</dimen>
+    <dimen name="text_size_14">14sp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
 
     <!--毛志霖写的，发起页面所有文字的大小-->
     <dimen name="launch_invitation_textsize">18sp</dimen>

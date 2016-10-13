@@ -48,11 +48,12 @@ public class InvitationDetailPresenter implements InvitationDetailContact.Presen
     @Override
     public void pressJoin(InvitationBean mInvitationBeen) {
         mInvitationBean = mInvitationBeen;
+        System.out.println("人数="+mInvitationBean.getCurrentNumber()+"/"+mInvitationBean.getTotalNumber());
         if (mInvitationBean.isJoin()) {
             mInvitationDetailView.showDialog(InvitationDetailsActivity.QUIT);
             type = "2";//传2为退出
         } else {
-            if (mInvitationBean.getCurrentNumber() == mInvitationBean.getTotalNumber()) {
+            if (mInvitationBean.getCurrentNumber().equals(mInvitationBean.getTotalNumber()) ) {
                 mInvitationDetailView.showDialog(InvitationDetailsActivity.JOIN2);
                 type = "0";//传0为特批
             } else {

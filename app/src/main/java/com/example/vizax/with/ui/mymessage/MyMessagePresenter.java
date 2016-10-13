@@ -99,7 +99,6 @@ public class MyMessagePresenter implements MyMessageContact.Presenter {
                 Log.i("response", "messageresponsebeen:"+baseEmptyBean.toString());
                 if (baseEmptyBean.getCode()==200){
                     mMessageAdapter.getmDatas().getData().remove(adapterPosition);
-                    mMessageAdapter.getmDatas().getData().get(adapterPosition).setReaded(true);
                     mMessageAdapter.notifyItemRemoved(adapterPosition);
                 }else {
                     mMessageView.showToast(baseEmptyBean.getMsg());

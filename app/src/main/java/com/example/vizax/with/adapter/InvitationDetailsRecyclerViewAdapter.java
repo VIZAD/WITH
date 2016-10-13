@@ -51,18 +51,6 @@ public class InvitationDetailsRecyclerViewAdapter extends RecyclerView.Adapter<I
             holder.itemApplicantsOrginatorDetail.setVisibility(View.VISIBLE);
             holder.getItemApplicantsUsersDetail.setVisibility(View.VISIBLE);
 
-        } else {
-            holder.itemApplicantsRelativelayout.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    if (holder.remove.getVisibility() == View.GONE)
-                        holder.remove.setVisibility(View.VISIBLE);
-                    else
-                        holder.remove.setVisibility(View.GONE);
-                    return true;
-                }
-            });
-
         }
         Picasso.with(context)
                 .load(mMembersBean.get(position).getHeadUrl())
@@ -71,12 +59,16 @@ public class InvitationDetailsRecyclerViewAdapter extends RecyclerView.Adapter<I
                 .into(holder.itemApplicantsUserimg);
         holder.itemApplicantsUsername.setText(mMembersBean.get(position).getRealName());
         holder.itemApplicantsUsersex.setText(mMembersBean.get(position).getSex());
-       //隐藏参与者手机号码中间4位 以1831****272 显示
-        if(position == 0)
+        if(  mMembersBean.get(0).getUserId().equals(SharedUtil.getInt(App.instance,FieldConstant.userId)+"")) {
             phoneNum = mMembersBean.get(position).getPhone();
-        else
-            phoneNum = StringUtil.phoneUtil(mMembersBean.get(position).getPhone());
-
+        }
+        else {
+            //隐藏参与者手机号码中间4位 以1831****272 显示
+            if (position == 0)
+                phoneNum = mMembersBean.get(position).getPhone();
+            else
+                phoneNum = StringUtil.phoneUtil(mMembersBean.get(position).getPhone());
+        }
         holder.itemApplicantsUserphone.setText(phoneNum);
        // holder.itemApplicantsUserimg.setImageURI(Uri.parse(mMembersBean.get(position).getHeadUrl()));
 

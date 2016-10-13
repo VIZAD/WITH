@@ -1,5 +1,6 @@
 package com.example.vizax.with.ui.mymessage;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 
 import com.example.vizax.with.R;
 import com.example.vizax.with.bean.MyMessageBean;
+import com.example.vizax.with.util.CircleTransformation;
+import com.squareup.picasso.Picasso;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuAdapter;
 
 import java.text.SimpleDateFormat;
@@ -23,8 +26,10 @@ import java.util.List;
 public class MyMessageAdapter extends SwipeMenuAdapter<MyMessageAdapter.DefaultViewHolder> {
 
     private MyMessageBean mDatas;
-
-    public MyMessageAdapter(){}
+    private Context context;
+    public MyMessageAdapter(Context context){
+        this.context = context;
+    }
     public MyMessageAdapter(MyMessageBean mDatas) {
         this.mDatas = mDatas;
     }
@@ -70,6 +75,11 @@ public class MyMessageAdapter extends SwipeMenuAdapter<MyMessageAdapter.DefaultV
             if (mDatas.getData().get(position).isReaded()){
                 holder.unread.setVisibility(View.INVISIBLE);
             }
+            Picasso.with(context)
+                    .load(mDatas.getData().get(position).getHeadUrl())
+                    .placeholder(R.drawable.user0)
+                    .transform(new CircleTransformation())
+                    .into(holder.avatar);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +96,7 @@ public class MyMessageAdapter extends SwipeMenuAdapter<MyMessageAdapter.DefaultV
         TextView content;
         TextView time;
         ImageView unread;
+        ImageView avatar;
 
         OnItemClickListener mOnItemClickListener;
 
@@ -95,6 +106,7 @@ public class MyMessageAdapter extends SwipeMenuAdapter<MyMessageAdapter.DefaultV
             content = (TextView) itemView.findViewById(R.id.message_item_content);
             time = (TextView) itemView.findViewById(R.id.message_item_time);
             unread = (ImageView) itemView.findViewById(R.id.message_item_unread);
+            avatar = (ImageView) itemView.findViewById(R.id.message_item_avatar);
         }
 
         @Override

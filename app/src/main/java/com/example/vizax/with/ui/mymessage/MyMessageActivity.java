@@ -121,7 +121,7 @@ public class MyMessageActivity extends BaseActivity implements MyMessageContact.
 
 
         //初始化适配器
-        mMessageAdapter = new MyMessageAdapter();
+        mMessageAdapter = new MyMessageAdapter(this);
         mMessageAdapter.setmDatas(new MyMessageBean(new ArrayList<>()));
         mMessageAdapter.setOnItemClickListener(itemClickListener);//Item点击事件监听
         mMessageView.setAdapter(mMessageAdapter);

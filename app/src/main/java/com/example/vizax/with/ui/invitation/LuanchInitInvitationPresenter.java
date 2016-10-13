@@ -68,26 +68,18 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
     public  List<String> setspinner(int typeId)
     {
         List<String> data_list= new ArrayList<String>();
-        switch (typeId){
-            case 1:
-                data_list = Arrays.asList(context.getResources().getStringArray(R.array.sports));
-                break;
-            case 4:
-                data_list = Arrays.asList(context.getResources().getStringArray(R.array.study));
-                break;
-            case 3:
-                data_list = Arrays.asList(context.getResources().getStringArray(R.array.brpg));
-                break;
-            case 2:
-                data_list = Arrays.asList(context.getResources().getStringArray(R.array.onlineGame));
-                break;
-            case 5:
-                data_list = Arrays.asList(context.getResources().getStringArray(R.array.date));
-                break;
-            case 6:
-                data_list = Arrays.asList(context.getResources().getStringArray(R.array.other));
-                break;
-        }
+        if(typeId>=7&&typeId<=19)
+            data_list = Arrays.asList(context.getResources().getStringArray(R.array.sports));
+        else if(typeId>=20&&typeId<=28)
+            data_list = Arrays.asList(context.getResources().getStringArray(R.array.onlineGame));
+        else if(typeId>=29&&typeId<=38)
+            data_list = Arrays.asList(context.getResources().getStringArray(R.array.brpg));
+        else if(typeId>=39&&typeId<=46)
+            data_list = Arrays.asList(context.getResources().getStringArray(R.array.study));
+        else if(typeId>=47&&typeId<=53)
+            data_list = Arrays.asList(context.getResources().getStringArray(R.array.date));
+        else
+            data_list = Arrays.asList(context.getResources().getStringArray(R.array.other));
         return data_list;
     }
     public  String setTime(){
@@ -114,11 +106,8 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
         return time;
 
     }
-    public  List<String> setTitle(int typeId,String subclass){
+    public  List<String> setTitle(String subclass){
         List<String> title_list= new ArrayList<String>();
-
-        switch (typeId){
-            case 1:
                 switch (String.valueOf(subclass)){
                     case "篮球":
                         title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_basketball));
@@ -159,10 +148,6 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
                     case "其他运动":
                         title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_other));
                         break;
-                }
-                break;
-            case 4:
-                switch (String.valueOf(subclass)){
                     case "自习":
                         title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_selfstudy));
                         break;
@@ -187,10 +172,6 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
                     case "其他学习":
                         title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_other));
                         break;
-                }
-                break;
-            case 3:
-                switch (String.valueOf(subclass)){
                     case "三国杀":
                         title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_wwtk));
                         break;
@@ -218,10 +199,6 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
                     case "其他":
                         title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_other));
                         break;
-                }
-                break;
-            case 2:
-                switch (String.valueOf(subclass)){
                     case "英雄联盟":
                         title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_lol));
                         break;
@@ -246,10 +223,6 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
                     case "其他网游":
                         title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_other));
                         break;
-                }
-                break;
-            case 5:
-                switch (String.valueOf(subclass)){
                     case "吃饭":
                         title_list = Arrays.asList(context.getResources().getStringArray(R.array.title_dinner));
                         break;
@@ -271,12 +244,7 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
                     case "其他约会":
                         title_list = Arrays.asList(context.getResources().getStringArray(R.array.other));
                         break;
-                }
-                break;
-            case 6:
-                break;
         }
-
         return title_list;
     }
 

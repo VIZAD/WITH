@@ -175,7 +175,7 @@ public class LuanchInvitationActivity extends AppCompatActivity implements Luanc
     }
 
     private void listpopupwindow(LuanchInitInvitationPresenter init,String subclass) {
-        title_list = init.setTitle(typeId,subclass);
+        title_list = init.setTitle(subclass);
         mListPop = new ListPopupWindow(this);
         mListPop.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1,title_list));
         mListPop.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);

@@ -30,20 +30,20 @@
             android:id="@+id/reg_verify_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#11cd6e"
+            android:background="@drawable/login_ripple"
             android:layout_toRightOf="@+id/reg_usernum_edtTxt"
             android:text="验证码"
             android:textColor="#ffffff"
             android:textSize="20sp" />
 
-    <include
-        layout="@layout/line"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@+id/reg_usernum_edtTxt"
-        android:layout_alignLeft="@+id/usernum_edtTxt"
-        android:layout_alignRight="@+id/reg_verify_btn"
-        />
+        <include
+            layout="@layout/line"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/reg_usernum_edtTxt"
+            android:layout_alignLeft="@+id/usernum_edtTxt"
+            android:layout_alignRight="@+id/reg_verify_btn"
+            />
     </RelativeLayout>
 
     <RelativeLayout
@@ -51,18 +51,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         >
-    <EditText
-        android:id="@+id/reg_verifynum_edtTxt"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/comfrim_num"
-        android:hint="验证码"
-        android:inputType="number"
-        android:layout_marginBottom="2dp"
-        android:drawablePadding="10dp"
-        android:background="@null"
-        android:singleLine="true"
-        android:textSize="20sp" />
+        <EditText
+            android:id="@+id/reg_verifynum_edtTxt"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/comfrim_num"
+            android:hint="验证码"
+            android:inputType="number"
+            android:layout_marginBottom="2dp"
+            android:drawablePadding="10dp"
+            android:background="@null"
+            android:singleLine="true"
+            android:textSize="20sp" />
         <include
             layout="@layout/line"
             android:layout_width="match_parent"
@@ -77,44 +77,44 @@
         android:layout_marginTop="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-    <EditText
-        android:id="@+id/psw_reg_edtTxt"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/password"
-        android:hint="密码"
-        android:inputType="textPassword"
-        android:layout_marginBottom="2dp"
-        android:drawablePadding="10dp"
-        android:background="@null"
-        android:singleLine="true"
-        android:textSize="20sp" />
-    <include
-        layout="@layout/line"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@+id/psw_reg_edtTxt"
-        android:layout_alignLeft="@+id/psw_reg_edtTxt"
-        android:layout_alignRight="@+id/psw_reg_edtTxt"
-        />
+        <EditText
+            android:id="@+id/psw_reg_edtTxt"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/password"
+            android:hint="密码"
+            android:inputType="textPassword"
+            android:layout_marginBottom="2dp"
+            android:drawablePadding="10dp"
+            android:background="@null"
+            android:singleLine="true"
+            android:textSize="20sp" />
+        <include
+            layout="@layout/line"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/psw_reg_edtTxt"
+            android:layout_alignLeft="@+id/psw_reg_edtTxt"
+            android:layout_alignRight="@+id/psw_reg_edtTxt"
+            />
     </RelativeLayout>
     <RelativeLayout
         android:layout_marginTop="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/reg_conpsw_edtTxt"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/comfrim_num"
-        android:hint="确认密码"
-        android:drawablePadding="10dp"
-        android:background="@null"
-        android:inputType="textPassword"
-        android:layout_marginBottom="2dp"
-        android:singleLine="true"
-        android:textSize="20sp" />
+        <EditText
+            android:id="@+id/reg_conpsw_edtTxt"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/comfrim_num"
+            android:hint="确认密码"
+            android:drawablePadding="10dp"
+            android:background="@null"
+            android:inputType="textPassword"
+            android:layout_marginBottom="2dp"
+            android:singleLine="true"
+            android:textSize="20sp" />
         <include
             layout="@layout/line"
             android:layout_width="match_parent"
@@ -141,7 +141,7 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
-        android:background="#11cd6e"
+        android:background="@drawable/login_ripple"
         android:text="注册"
         android:textColor="#ffffff"
         android:textSize="20sp" />

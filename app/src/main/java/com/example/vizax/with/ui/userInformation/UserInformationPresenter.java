@@ -47,7 +47,7 @@ public class UserInformationPresenter  implements UserInformationContact.Present
 
     @Override
     public void setAvatar(String url) {
-
+Log.e("url",url);
         mUserInfoView.showUploadDialog();
         mUserInfoModuel.setUserAvatar(url, new StringCallback() {
             @Override

@@ -17,7 +17,7 @@ public class EditInvitationModel implements EditInvitationContact.Modle{
     @Override
     public void editInvitation(String invitationId, String invitationTime, String content, String totalNumber,
                                boolean hiden, String sexRequire, String place,StringCallback stringCallback) {
-        PrjOkHttpUtil.addToken()
+        OkHttpUtils.get().addParams("token",SharedUtil.getString(App.instance,"token"))
                 .url(APIConstant.getApi(APIConstant.INVITAION_ALTERINVITATION))
                 .addParams("invitationId",invitationId)
                 .addParams("invitationTime",invitationTime+":00")

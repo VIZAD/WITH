@@ -21,7 +21,6 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/name_ic"
-                android:drawablePadding="10dp"
                 android:hint="手机号码"
                 android:inputType="number"
                 android:singleLine="true"
@@ -45,7 +44,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/password"
-                android:drawablePadding="10dp"
+                android:inputType="textPassword"
                 android:hint="密码"
                 android:singleLine="true"
                 android:textSize="20sp" />

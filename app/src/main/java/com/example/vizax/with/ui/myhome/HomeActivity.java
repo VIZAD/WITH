@@ -583,6 +583,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
                     } else {
                         Intent it = new Intent(App.instance, MainActivity.class);
                         startActivity(it);
+                        overridePendingTransition(R.anim.zoom_in,R.anim.zoom_out);
                     }
 
                     break;

@@ -50,6 +50,7 @@ import rx.schedulers.Schedulers;
 public class InvitationActivity extends SwipeBackActivity implements InvitationContact.View {
     private static final String MY_INVITATION = "我发起的";
     private static final String MY_JOINED = "我参与的";
+    private static final String ELSE = "其他";
     @BindView(R.id.baseToolBar)
     BaseToolBar mBaseToolBar;
     @BindView(R.id.activity_my_focus_recyclerview)
@@ -218,9 +219,12 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
 
     private void initToolbar() {
         mBaseToolBar.setCenterText(type);
-        if (visible == View.GONE) {
+        if (type.equals(MY_JOINED)||type.equals(MY_INVITATION)||type.equals(ELSE)){
+        }else {
             showRightIcon();
         }
+
+
         mBaseToolBar.setLeftViewOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

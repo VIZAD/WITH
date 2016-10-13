@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader;
 import com.example.vizax.with.App;
+import com.example.vizax.with.EventBus.UserInfoMessage;
 import com.example.vizax.with.R;
 import com.example.vizax.with.adapter.InvitationRecyclerViewAdapter;
 import com.example.vizax.with.base.BaseActivity;
@@ -27,6 +28,8 @@ import com.example.vizax.with.util.SharedUtil;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.sunny.thousand.selectavatar.AvatarImageView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -195,6 +198,7 @@ public class UserInformationActivity extends BaseActivity implements UserInforma
 
     @Override
     public void upLoadSuccess() {
+
         Toast.makeText(UserInformationActivity.this, "设置新的头像成功", Toast.LENGTH_SHORT).show();
     }
 

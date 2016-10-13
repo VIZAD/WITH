@@ -203,7 +203,6 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
         InvitationBaseBean baseBean = mAdapter.getmData();
         int lLastIndex = baseBean.getData().size() - 1;
         finalItemId = baseBean.getData().get(lLastIndex).getInvitaionId();
-        mInvitationActivity.showToast("load more finalItemId:"+finalItemId);
         mInvitationModel.getData(null,null,finalItemId,new StringCallback() {
             @Override
             public void onAfter(int id) {

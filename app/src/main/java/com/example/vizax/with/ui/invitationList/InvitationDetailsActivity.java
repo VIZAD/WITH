@@ -126,6 +126,7 @@ public class InvitationDetailsActivity extends SwipeBackActivity implements Invi
 
     private void initView() {
 
+        itemInvitationTitle.setText(mInvitationBeanList.get(index).getTitle());
         itemInvitationOriginatorName.setText(mInvitationBeanList.get(index).getOriginatorrealName());
         itemInvitationInvitationTime.setText("活动时间:"+mInvitationBeanList.get(index).getInvitationTime());
         itemInvitationPublishTime.setText(TimeUtil.getTime(mInvitationBeanList.get(index).getPublishTime()));

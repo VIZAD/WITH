@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.vizax.with.App;
+import com.example.vizax.with.EventBus.UserInfoMessage;
 import com.example.vizax.with.R;
 import com.example.vizax.with.bean.BaseBean;
 import com.example.vizax.with.bean.BaseEmptyBean;
@@ -15,16 +17,20 @@ import com.example.vizax.with.bean.FollowBean;
 import com.example.vizax.with.bean.InvitationBaseBean;
 import com.example.vizax.with.bean.UserInforBean;
 import com.example.vizax.with.constant.APIConstant;
+import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.ui.invitationList.InvitationContact;
 import com.example.vizax.with.ui.invitationList.InvitationPresenter;
 import com.example.vizax.with.util.FileUtil;
 import com.example.vizax.with.util.FilesUtil;
 import com.example.vizax.with.util.GsonUtil;
+import com.example.vizax.with.util.SharedUtil;
 import com.example.vizax.with.util.UUIDUtil;
 import com.facebook.common.file.FileUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.FileCallBack;
 import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,7 +66,12 @@ public class UserInformationPresenter  implements UserInformationContact.Present
             public void onResponse(String response, int id) {
                 //Log.w("haha!!!!",response);
                 Log.w("haha",response);
-                mUserInfoView.upLoadSuccess();
+                BaseBean baseBean = GsonUtil.toString(response,BaseBean.class);
+                if(baseBean.getCode().equals("200")) {
+                    SharedUtil.putString(App.instance, FieldConstant.userUrl,baseBean.getData().toString());
+                    EventBus.getDefault().post(new UserInfoMessage(baseBean.getData().toString()));
+                    mUserInfoView.upLoadSuccess();
+                }
                 mUserInfoView.dimissUploadDialog();
             }
         });

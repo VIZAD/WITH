@@ -19,6 +19,8 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader;
 import com.example.vizax.with.App;
+import com.example.vizax.with.EventBus.DateEventMessage;
+import com.example.vizax.with.EventBus.UserInfoMessage;
 import com.example.vizax.with.R;
 import com.example.vizax.with.adapter.InvitationRecyclerViewAdapter;
 import com.example.vizax.with.base.BaseActivity;
@@ -50,6 +52,8 @@ import com.squareup.picasso.Picasso;
 
 import net.mobctrl.views.SuperSwipeRefreshLayout;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -129,6 +133,8 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
     @Override
     public void initUiAndListener() {
         ButterKnife.bind(this);
+        //注册eventBus
+        EventBus.getDefault().register(this);
         linearLayout_head = (LinearLayout) getLayoutInflater().inflate(R.layout.home_head_item, null);
         headViewHolder = new HeadViewHolder(linearLayout_head);
         slideBarViewHolder = new SlideBarViewHolder(mSideBar);
@@ -203,7 +209,19 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
         //mSwipeBackLayout = getSwipeBackLayout();
         //mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
     }
-
+    @Subscribe
+    public void onEventMainThread(UserInfoMessage message){//接收UserInfoMessage类的广播信息
+        Picasso.with(this)
+                .load(message.getUrl())
+                .placeholder(R.drawable.user0)
+                .transform(new CircleTransformation())
+                .into(myInfoUserAvatar);
+        Picasso.with(this)
+                .load(SharedUtil.getString(App.instance, FieldConstant.userUrl))
+                .placeholder(R.drawable.user0)
+                .transform(new CircleTransformation())
+                .into(imgIcon);
+    }
     /**
      * 初始化头像 和 姓名
      */
@@ -215,6 +233,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
                     .placeholder(R.drawable.user0)
                     .transform(new CircleTransformation())
                     .into(myInfoUserAvatar);
+
         }
     }
 
@@ -519,7 +538,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
 
         @OnClick({R.id.iv_sport1, R.id.iv_sport2, R.id.iv_sport3, R.id.ll_sport, R.id.iv_study1, R.id.iv_study2, R.id.iv_study3, R.id.ll_study, R.id.iv_board_game1, R.id.iv_board_game2, R.id.iv_board_game3, R.id.ll_board_game, R.id.iv_online_game1, R.id.iv_online_game2, R.id.iv_online_game3, R.id.ll_online_game, R.id.iv_date1, R.id.iv_date2, R.id.iv_date3, R.id.ll_date, R.id.ll_other})
         public void onClick(View view) {
-            HomeActivity.this.showToast("onclick" + view.getTag().toString());
+           // HomeActivity.this.showToast("onclick" + view.getTag().toString());
             HomeActivity.this.openHeadDetail(view.getTag().toString());
         }
 

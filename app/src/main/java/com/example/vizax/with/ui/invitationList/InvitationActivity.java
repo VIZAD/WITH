@@ -113,6 +113,7 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
                     invitationBean.setTypeId(mInvitation.getTypeId());
                     invitationBean.setContent(mInvitation.getContent());
 
+                    Toast.makeText(this,"jaja",Toast.LENGTH_SHORT).show();
                     mInvitationListPresenter.mAdapter.notifyDataSetChanged();
                 });
     }

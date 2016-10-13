@@ -23,7 +23,7 @@ if (keystoreFilepath) {
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    buildToolsVersion '24.0.1'
     defaultConfig {
         applicationId "com.example.vizax.with"
         minSdkVersion 15
@@ -82,28 +82,28 @@ android {
         }
     }
 
-    signingConfigs {
-        debug {
-            storeFile keyfile
-            storePassword keystorePSW
-            keyAlias keystoreAlias
-            keyPassword keystoreAliasPSW
-            println("====== signingConfigs.debug ======")
-        }
-        myConfig {
-            storeFile keyfile
-            storePassword keystorePSW
-            keyAlias keystoreAlias
-            keyPassword keystoreAliasPSW
-            println("====== signingConfigs.release ======")
-        }
-        /*release {
-            storeFile file('../with.jks') //签名文件路径
-            storePassword "with123456"
-            keyAlias "with"
-            keyPassword "with123456"  //签名密码
-        }*/
-    }
+//    signingConfigs {
+//        debug {
+//            storeFile keyfile
+//            storePassword keystorePSW
+//            keyAlias keystoreAlias
+//            keyPassword keystoreAliasPSW
+//            println("====== signingConfigs.debug ======")
+//        }
+//        myConfig {
+//            storeFile keyfile
+//            storePassword keystorePSW
+//            keyAlias keystoreAlias
+//            keyPassword keystoreAliasPSW
+//            println("====== signingConfigs.release ======")
+//        }
+//        /*release {
+//            storeFile file('../with.jks') //签名文件路径
+//            storePassword "with123456"
+//            keyAlias "with"
+//            keyPassword "with123456"  //签名密码
+//        }*/
+//    }
 
     //打包忽略掉第三方jar相同的文件
     packagingOptions {
@@ -175,7 +175,7 @@ repositories {
 
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

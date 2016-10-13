@@ -229,8 +229,13 @@ public class VerifyFragment extends Fragment implements VerifyContact.View {
             case R.id.verify_btn:
                 verify();
                 break;
-            case R.id.reg_verify_btn:
-                MsgVerify();
+            case R.id.reg_verify_btn://短信验证
+                mRegUsernum_str = TextUtil.getText(mRegUsernumEdtTxt);
+                if (mRegUsernum_str.length() != 11) {
+                    Toast.makeText(mActivity, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
+                }else{
+                    MsgVerify();
+                }
                 break;
             case R.id.reg_btn:
                 register();
@@ -285,13 +290,13 @@ public class VerifyFragment extends Fragment implements VerifyContact.View {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 if (msg.what == 1)
-                    Toast.makeText(mActivity, "提交验证码成功", Toast.LENGTH_SHORT).show();
-                else if (msg.what == 2)
-                    Toast.makeText(mActivity, "获取验证码成功", Toast.LENGTH_SHORT).show();
-                else if (msg.what == 3)
                     Toast.makeText(mActivity, "回调完成", Toast.LENGTH_SHORT).show();
+                else if (msg.what == 2)
+                    Toast.makeText(mActivity, "提交验证码成功", Toast.LENGTH_SHORT).show();
+                else if (msg.what == 3)
+                    Toast.makeText(mActivity, "获取验证码成功", Toast.LENGTH_SHORT).show();
                 else if (msg.what == 4)
-                    Toast.makeText(mActivity, "有错", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, "返回支持发送国家验证码", Toast.LENGTH_SHORT).show();
             }
         };
 

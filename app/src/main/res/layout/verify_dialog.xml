@@ -70,7 +70,7 @@
                 android:id="@+id/findbackpsw_explainitem_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#00000000"
+                android:background="@drawable/shenshu_ripple"
                 android:textSize="20dp"
                 android:text="找回密码"/>
         </LinearLayout>
@@ -92,7 +92,7 @@
                 android:id="@+id/explain_explainitem_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#00000000"
+                android:background="@drawable/shenshu_ripple"
                 android:textSize="20dp"
                 android:text="申诉" />
         </LinearLayout>
@@ -114,7 +114,7 @@
                 android:id="@+id/tologin_explainitem_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#00000000"
+                android:background="@drawable/shenshu_ripple"
                 android:textSize="20dp"
                 android:text="去登录" />
         </LinearLayout>

@@ -12,51 +12,44 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp">
 
-        <EditText
-            android:id="@+id/usernum_edtTxt"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:drawableLeft="@drawable/name_ic"
-            android:drawablePadding="10dp"
-            android:hint="手机号码"
-            android:inputType="number"
-            android:singleLine="true"
-            android:textSize="20sp" />
+            android:layout_height="wrap_content">
 
-        <include
-            layout="@layout/line"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_alignLeft="@+id/usernum_edtTxt"
-            android:layout_alignRight="@+id/usernum_edtTxt"
-            android:layout_below="@+id/usernum_edtTxt" />
+            <EditText
+                android:id="@+id/usernum_edtTxt"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/name_ic"
+                android:drawablePadding="10dp"
+                android:hint="手机号码"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textSize="20sp" />
+        </android.support.design.widget.TextInputLayout>
+
+
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp">
+        >
 
-        <EditText
-            android:id="@+id/psw_edtTxt"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="250dp"
-            android:drawablePadding="10dp"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:drawableLeft="@drawable/password"
-            android:hint="密码"
-            android:inputType="textPassword"
-            android:singleLine="true"
-            android:textSize="20sp" />
+            android:layout_height="wrap_content">
 
-        <include
-            layout="@layout/line"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_alignLeft="@+id/psw_edtTxt"
-            android:layout_alignRight="@+id/psw_edtTxt"
-            android:layout_below="@+id/psw_edtTxt" />
+            <EditText
+                android:id="@+id/psw_edtTxt"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/password"
+                android:drawablePadding="10dp"
+                android:hint="密码"
+                android:singleLine="true"
+                android:textSize="20sp" />
+        </android.support.design.widget.TextInputLayout>
     </RelativeLayout>
 
     <Button
@@ -65,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="25dp"
-        android:background="#11cd6e"
+        android:background="@drawable/login_ripple"
         android:text="登录"
         android:textColor="#ffffff"
         android:textSize="20sp" />

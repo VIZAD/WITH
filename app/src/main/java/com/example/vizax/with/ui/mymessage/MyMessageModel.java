@@ -46,7 +46,7 @@ public class MyMessageModel implements MyMessageContact.Modle{
 
     @Override
     public void agreeMessage(String token, int messageId,boolean isAccept,int invitationId, int applyUserId,StringCallback stringCallback) {
-        OkHttpUtils.post()
+       /* OkHttpUtils.post()
                 .url(APIConstant.getApi(APIConstant.USER_ACCEPTMESSAGE))
                 .addParams("token", token)
                 .addParams("applyUserId", applyUserId+"")
@@ -54,7 +54,7 @@ public class MyMessageModel implements MyMessageContact.Modle{
                 .addParams("messageId",messageId+"")
                 .addParams("invitationId",invitationId+"")
                 .build()
-                .execute(stringCallback);
+                .execute(stringCallback);*/
     }
 
 

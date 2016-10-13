@@ -101,23 +101,26 @@ public class VerifyPresenter implements VerifyContact.Presenter {
 
     @Override
     public void msgRegister(Handler handler, String phone) {
+
         EventHandler eh = new EventHandler() {
+
+
             @Override
             public void afterEvent(int event, int result, Object data) {
                 if (result == SMSSDK.RESULT_COMPLETE) {
-                    handler.sendEmptyMessage(3);
+                    handler.sendEmptyMessage(1);
                     //回调完成
                     if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
                         //提交验证码成功
-                        handler.sendEmptyMessage(1);
+                        handler.sendEmptyMessage(2);
 
                     } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                         //获取验证码成功
-                        handler.sendEmptyMessage(2);
+                        handler.sendEmptyMessage(3);
 
                     } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
                         //返回支持发送验证码的国家列表
-                        handler.sendEmptyMessage(3);
+                        handler.sendEmptyMessage(4);
                     }
                 } else {
                     ((Throwable) data).printStackTrace();

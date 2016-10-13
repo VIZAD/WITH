@@ -69,12 +69,12 @@ android {
     }*/
     android {
         productFlavors {
-            kuan {}
-/*            xiaomi {}
+            /*kuan {}
+            xiaomi {}
             qh360 {}
             baidu {}
-            wandoujia {}
-            yingyongbao {}*/
+            wandoujia {}*/
+            yingyongbao {}
         }
 
         productFlavors.all {
@@ -82,28 +82,28 @@ android {
         }
     }
 
-//    signingConfigs {
-//        debug {
-//            storeFile keyfile
-//            storePassword keystorePSW
-//            keyAlias keystoreAlias
-//            keyPassword keystoreAliasPSW
-//            println("====== signingConfigs.debug ======")
-//        }
-//        myConfig {
-//            storeFile keyfile
-//            storePassword keystorePSW
-//            keyAlias keystoreAlias
-//            keyPassword keystoreAliasPSW
-//            println("====== signingConfigs.release ======")
-//        }
-//        /*release {
-//            storeFile file('../with.jks') //签名文件路径
-//            storePassword "with123456"
-//            keyAlias "with"
-//            keyPassword "with123456"  //签名密码
-//        }*/
-//    }
+    signingConfigs {
+        debug {
+            storeFile keyfile
+            storePassword keystorePSW
+            keyAlias keystoreAlias
+            keyPassword keystoreAliasPSW
+            println("====== signingConfigs.debug ======")
+        }
+        myConfig {
+            storeFile keyfile
+            storePassword keystorePSW
+            keyAlias keystoreAlias
+            keyPassword keystoreAliasPSW
+            println("====== signingConfigs.release ======")
+        }
+        /*release {
+            storeFile file('../with.jks') //签名文件路径
+           storePassword "with123456"
+           keyAlias "with"
+            keyPassword "with123456"  //签名密码
+       }*/
+    }
 
     //打包忽略掉第三方jar相同的文件
     packagingOptions {
@@ -246,5 +246,7 @@ dependencies {
     compile 'com.yanzhenjie:recyclerview-swipe:1.0.2'
     //导航页
     compile 'com.heinrichreimersoftware:material-intro:1.6'
+    //相册选择
+    compile 'cn.finalteam.rxgalleryfinal:library:0.0.3'
     compile project(':PushSDK')
 }

@@ -30,6 +30,7 @@ import com.squareup.picasso.RequestCreator;
 import com.sunny.thousand.selectavatar.AvatarImageView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,9 +77,30 @@ public class UserInformationActivity extends BaseActivity implements UserInforma
         return true;
     }
 
+    @Subscribe
+    public void onEventMainThread(UserInfoMessage message){//接收UserInfoMessage类的广播信息
+        Picasso.with(this)
+                .load(message.getUrl())
+                .placeholder(R.drawable.user0)
+                .transform(new CircleTransformation())
+                .into(userInforAvatar);
+        Picasso.with(this)
+                .load(message.getUrl())
+                .placeholder(R.drawable.user0)
+                .transform(new CircleTransformation())
+                .into(userInforImg);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
     @Override
     public void initUiAndListener() {
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         mUserInforPresenter = new UserInformationPresenter();
         mUserInforPresenter.attachView(this);
         follow = (Button) findViewById(R.id.user_infor_follow);
@@ -105,29 +127,26 @@ public class UserInformationActivity extends BaseActivity implements UserInforma
         if(ifMy){
             userInforImg.setVisibility(View.GONE);
             userInforAvatar.setClickable(true);
-            userInforAvatar.setOnClickListener(view->{
-                Log.w("haha","!!!");
-                RxGalleryFinal
-                        .with(UserInformationActivity.this)
-                        .image()
-                        .multiple()
-                        .radio()
-                        .crop()
-                        .maxSize(1)
-                        .imageLoader(ImageLoaderType.PICASSO)
-                        .subscribe(new RxBusResultSubscriber<ImageRadioResultEvent>() {
-                            @Override
-                            protected void onEvent(ImageRadioResultEvent imageRadioResultEvent) throws Exception {
-                                //图片选择结果
-                                mUserInforPresenter.setAvatar(imageRadioResultEvent.getResult().getCropPath());
-                                Picasso.with(context)
-                                        .load(imageRadioResultEvent.getResult().getCropPath())
-                                        .transform(new CircleTransformation())
-                                        .into(userInforAvatar);
-                            }
-                        })
-                        .openGallery();
-            });
+            userInforAvatar.setOnClickListener(view-> RxGalleryFinal
+                    .with(UserInformationActivity.this)
+                    .image()
+                    .multiple()
+                    .radio()
+                    .crop()
+                    .maxSize(1)
+                    .imageLoader(ImageLoaderType.PICASSO)
+                    .subscribe(new RxBusResultSubscriber<ImageRadioResultEvent>() {
+                        @Override
+                        protected void onEvent(ImageRadioResultEvent imageRadioResultEvent) throws Exception {
+                            //图片选择结果
+                            mUserInforPresenter.setAvatar(imageRadioResultEvent.getResult().getCropPath());
+                            /*Picasso.with(UserInformationActivity.this)
+                                    .load(imageRadioResultEvent.getResult().getCropPath())
+                                    .transform(new CircleTransformation());*/
+                        }
+                    })
+                    .cropMaxResultSize(500,500)
+                    .openGallery());
            /* userInforAvatar.setAfterCropListener(new AvatarImageView.AfterCropListener() {
                 @Override
                 public void afterCrop(String url) {
@@ -190,10 +209,6 @@ public class UserInformationActivity extends BaseActivity implements UserInforma
                     .load(SharedUtil.getString(App.instance,FieldConstant.userUrl))
                     .placeholder(R.drawable.user0)
                     .transform(new CircleTransformation()).into(userInforAvatar);
-
-
-
-
         } else {
             userInforNameTxt.setText(mUserInforBean.getName());
             userInforNumTxt.setText(mUserInforBean.getStudentId());

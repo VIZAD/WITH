@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="E:\Android-projiect\WITH\PushSDK\src\main\shaders"/></dataSet><dataSet config="release"><source path="E:\Android-projiect\WITH\PushSDK\build-types\release\shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/Users/Brazen/Desktop/With/WITH1/PushSDK/src/main/shaders"/></dataSet><dataSet config="release"><source path="/Users/Brazen/Desktop/With/WITH1/PushSDK/build-types/release/shaders"/></dataSet></merger>

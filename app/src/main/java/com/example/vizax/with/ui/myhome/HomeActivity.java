@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -119,7 +120,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
     private LinearLayout linearLayout_head;
     private HeadViewHolder headViewHolder;
     private SlideBarViewHolder slideBarViewHolder;
-
+    private MaterialDialog exitDialog;
 
     @Override
     protected int initContentView() {
@@ -209,6 +210,18 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
         //设置swipback参数
         //mSwipeBackLayout = getSwipeBackLayout();
         //mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
+
+        exitDialog = new MaterialDialog
+                .Builder(this)
+                .title("提示")
+                .content("确定离开吗？")
+                .positiveText("确定")
+                .negativeText("取消")
+                .onPositive((dialog, which) -> {
+                    exitDialog.dismiss();
+                    finish();
+                })
+                .build();
     }
     @Subscribe
     public void onEventMainThread(UserInfoMessage message){//接收UserInfoMessage类的广播信息
@@ -266,15 +279,12 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
                 .content("确定退出吗?")
                 .positiveText("是")
                 .negativeText("否")
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        mInvitationListPresenter.quit();
-                        Intent intent = new Intent(App.instance, MainActivity.class);
+                .onPositive((dialog, which) -> {
+                    mInvitationListPresenter.quit();
+                    Intent intent = new Intent(App.instance, MainActivity.class);
 
-                        AppManager.getAppManager().finishAllActivity();
-                        startActivity(intent);
-                    }
+                    AppManager.getAppManager().finishAllActivity();
+                    startActivity(intent);
                 })
                 .build();
 
@@ -631,5 +641,16 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
                     break;
             }
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+            if (!isFinishing() && !exitDialog.isShowing()) {
+                exitDialog.show();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

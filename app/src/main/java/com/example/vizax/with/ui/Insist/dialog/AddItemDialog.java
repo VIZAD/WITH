@@ -128,7 +128,7 @@ public class AddItemDialog extends Dialog implements NumberPicker.OnValueChangeL
         //lp.alpha = 0.5f;
         setCanceledOnTouchOutside(true);
         lp.height = (int) (d.heightPixels);
-        lp.width = (int) (d.widthPixels*0.92);
+        lp.width = (int) (d.widthPixels*0.93);
         //lp.alpha = 0.6f;
         //lp.dimAmount = 0.7f;
         getWindow().setAttributes(lp);

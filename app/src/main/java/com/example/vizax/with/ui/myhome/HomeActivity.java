@@ -29,6 +29,7 @@ import com.example.vizax.with.bean.InvitationBean;
 import com.example.vizax.with.bean.UserInforBean;
 import com.example.vizax.with.constant.FieldConstant;
 import com.example.vizax.with.ui.Insist.InsistActivity;
+import com.example.vizax.with.ui.about.AboutActivity;
 import com.example.vizax.with.ui.changpsw.ChangePswActivity;
 import com.example.vizax.with.ui.invitation.EditInvitationActivity;
 import com.example.vizax.with.ui.invitation.LuanchInvitationActivity;
@@ -593,33 +594,35 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
                     //showHomeToast("修改密码");
                     break;
                 case R.id.my_invitation_txtVi:
-                    intent = new Intent(HomeActivity.this, InvitationActivity.class);
+                    intent = new Intent(App.instance, InvitationActivity.class);
                     intent.putExtra("type", "我发起的");
                     startActivity(intent);
                     break;
                 case R.id.my_participation_txtVi:
-                    intent = new Intent(HomeActivity.this, InvitationActivity.class);
+                    intent = new Intent(App.instance, InvitationActivity.class);
                     intent.putExtra("type", "我参与的");
                     startActivity(intent);
                     break;
                 case R.id.my_insist_txtVi:
-                    intent = new Intent(HomeActivity.this, InsistActivity.class);
+                    intent = new Intent(App.instance, InsistActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.my_news_txtVi:
-                    HomeActivity.this.showToast("我的信息");
-                    intent = new Intent(HomeActivity.this, MyMessageActivity.class);
+                    //HomeActivity.this.showToast("我的信息");
+                    intent = new Intent(App.instance, MyMessageActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.my_concern_txtVi:
-                    intent = new Intent(HomeActivity.this, MyConcernActivity.class);
+                    intent = new Intent(App.instance, MyConcernActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.my_setting_txtVi:
-                    HomeActivity.this.showToast("设置");
+                    //HomeActivity.this.showToast("设置");
+                    intent = new Intent(App.instance, AboutActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.my_quit_txtVi:
-                    HomeActivity.this.showToast("退出");
+                    //HomeActivity.this.showToast("退出");
                     mInvitationListPresenter.showQuitDialog();
                     break;
                 case R.id.my_update_txtVi:

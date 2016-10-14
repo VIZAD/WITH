@@ -108,6 +108,7 @@
     <string name="my_news_label">我的信息</string>
     <string name="my_concern_label">我的关注</string>
     <string name="setting_label">设置</string>
+    <string name="about_us">关于我们</string>
     <string name="quit_label">退出登录</string>
     <string name="check_update_label">检查更新</string>
 
@@ -558,7 +559,13 @@
         <item>看演唱会,求with！</item>
     </string-array>
     <string name="other_title_label">发起了一个活动</string>
+    <string name="zquprj_gmail_com">zquprj@gmail.com</string>
+    <string name="https_github_com_ruijiepan_withclient_git">https://github.com/RuijiePan/withClient.git</string>
+    <string name="https_github_com_vizad_with_git">https://github.com/VIZAD/WITH.git</string>
+    <string name="about_project_introduce_content">这是肇庆学院13软件安卓班的实训项目\n\n项目所用的基本上是Rx系列的框架 ( Square + ReactiveX ) :\nRxJava、RxAndroid、Okhttp3、Butterknife、Picasso、PhotoView、Umeng、Mob等\n\n以基本的MVP模式为主划分模块，抽出Presenter作为View代理业务层，减轻View层代码的耦合度，然后集成了现在主流的RxJava+RxAndroid+Okhttp+MVP组合框架。\n\n项目地址：https://github.com/VIZAD/WITH.git\n\n后台地址：https://github.com/RuijiePan/withClient.git\n\nApi接口提供：暂未开放</string>
     <string-array name="title_other">
         <item>发起了一个活动</item>
     </string-array>
+
+
 </resources>

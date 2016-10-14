@@ -58,6 +58,7 @@
         <activity android:name=".ui.changpsw.ChangePswActivity" />
         <activity android:name=".ui.Insist.InsistActivity" />
         <activity android:name=".ui.userInformation.UserInformationActivity" />
+        <activity android:name=".ui.about.AboutActivity" />
         <activity android:name=".ui.intro.MainIntoActivity"
             android:theme="@style/Theme.Intro">
         </activity>

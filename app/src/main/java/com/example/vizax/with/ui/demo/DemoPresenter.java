@@ -65,6 +65,8 @@ public class DemoPresenter implements DemoContact.Presenter {
         }
         return hs;
     }
+
+
     @Override
     public void login(String username, String password) {
 
@@ -150,6 +152,10 @@ public class DemoPresenter implements DemoContact.Presenter {
 //            }
 //        });
     }
+
+
+
+
 
     @Override
     public void attachView(@NonNull DemoContact.View View) {

@@ -48,7 +48,8 @@
         </activity>
         <activity android:name=".ui.invitationList.InvitationActivity" />
         <activity android:name=".ui.myconcern.MyConcernActivity" />
-        <activity android:name=".ui.mymessage.MyMessageActivity" />
+        <activity android:name=".ui.mymessage.MyMessageActivity"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".ui.invitationList.InvitationDetailsActivity"
             android:theme="@style/AppTheme" />

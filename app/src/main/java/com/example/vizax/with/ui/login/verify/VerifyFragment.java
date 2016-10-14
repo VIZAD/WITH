@@ -20,11 +20,13 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.R;
 import com.example.vizax.with.ui.login.MainActivity;
+import com.example.vizax.with.ui.login.UserMsg;
 import com.example.vizax.with.util.MaxLengthWatcher;
 import com.example.vizax.with.util.TextUtil;
 import com.example.vizax.with.util.swipeback.MsgVerifyUtil;
 
 import org.apache.http.conn.scheme.HostNameResolver;
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -317,6 +319,9 @@ public class VerifyFragment extends Fragment implements VerifyContact.View {
     @Override
     public void RegSuccess(String Msg) {
         Toast.makeText(mActivity,"注册成功"+  Msg, Toast.LENGTH_SHORT).show();
+        UserMsg userMsg = new UserMsg();
+        userMsg.setUserMsg(mUsernum_str, mUsername_str);
+        EventBus.getDefault().post(userMsg);
         mainActivity.showLoign();
         mRegUsernumEdtTxt.setText("");
         mRegVerifynumEdtTxt.setText("");

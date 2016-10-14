@@ -207,8 +207,8 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
             } else {
                 //我参与的活动 typeId传-1
                 if(type.equals(MY_JOINED)){
+                    System.out.println("我参与的");
                     fab.setVisibility(View.GONE);
-                    typeId = "-1";
                 }else if(type.equals(MY_CONCERNED)){
                     System.out.println("我的关注");
                     typeId = null;

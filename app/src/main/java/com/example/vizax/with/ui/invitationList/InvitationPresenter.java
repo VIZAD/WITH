@@ -203,7 +203,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
         InvitationBaseBean baseBean = mAdapter.getmData();
         int lLastIndex = baseBean.getData().size() - 1;
         finalItemId = baseBean.getData().get(lLastIndex).getInvitaionId();
-        mInvitationModel.getData(null,null,finalItemId,new StringCallback() {
+        mInvitationModel.getData(typeId,userId,finalItemId,new StringCallback() {
             @Override
             public void onAfter(int id) {
                 super.onAfter(id);

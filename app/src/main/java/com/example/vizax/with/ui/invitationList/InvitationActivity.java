@@ -370,7 +370,7 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
     @OnClick(R.id.invitation_fab)
     public void onClick() {
         openLaunch();
-        Toast.makeText(InvitationActivity.this,"dianji",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(InvitationActivity.this,"dianji",Toast.LENGTH_SHORT).show();
     }
     //发起活动
     @Override

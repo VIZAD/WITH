@@ -56,7 +56,7 @@
                         android:layout_marginTop="6dp"
                         android:layout_toEndOf="@id/about_avatar_iv"
                         android:layout_toRightOf="@id/about_avatar_iv"
-                        android:text="@string/team_name"
+                        android:text="Night's Watch of ZQU"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_16"
                         android:textStyle="bold"

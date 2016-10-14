@@ -128,6 +128,7 @@ public class LuanchInvitationActivity extends SwipeBackActivity implements Luanc
         mSwipeBackLayout = getSwipeBackLayout();
         mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
         launchToolbar.setLeftViewOnClickListener(v -> finish());
+        launchCancelBtn.setOnClickListener(v->finish());
     }
     @Override
     public void setluanchInvitationTitleEdtTxt(String text){

@@ -118,6 +118,7 @@ public class EditInvitationActivity extends SwipeBackActivity implements EditInv
         Edit=new EditInvitationPresenter(this);
         Edit.attachView(this);
         initSpinner();
+        launchToolbar.setCenterText("编辑活动");
         launchUnlimitedRdoBtn.setChecked(true);
         launchEnsureBtn.setText("确认编辑");
         launchCancelBtn.setText("取消编辑");
@@ -167,6 +168,7 @@ public class EditInvitationActivity extends SwipeBackActivity implements EditInv
         mSwipeBackLayout = getSwipeBackLayout();
         mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
         launchToolbar.setLeftViewOnClickListener(v -> finish());
+        launchCancelBtn.setOnClickListener(v->finish());
     }
     private void listpopupwindow( String subclass) {
 

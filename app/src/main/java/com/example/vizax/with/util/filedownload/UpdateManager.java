@@ -55,7 +55,7 @@ public class UpdateManager {
                             if (mVersion_code<versionBean.getData().getVersionCode()){
                                 showUpdateDialog(versionBean.getData().getVersionContent(),versionBean.getData().getVersionUrl());
                             }else {
-                                Toast.makeText(mContext,versionBean.getMsg(),Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext,"已经是最新版本了",Toast.LENGTH_LONG).show();
                             }
                         }else {
                             Toast.makeText(mContext,versionBean.getMsg(),Toast.LENGTH_SHORT).show();

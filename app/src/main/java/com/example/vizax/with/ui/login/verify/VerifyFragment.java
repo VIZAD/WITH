@@ -320,7 +320,7 @@ public class VerifyFragment extends Fragment implements VerifyContact.View {
     public void RegSuccess(String Msg) {
         Toast.makeText(mActivity,"注册成功"+  Msg, Toast.LENGTH_SHORT).show();
         UserMsg userMsg = new UserMsg();
-        userMsg.setUserMsg(mUsernum_str, mUsername_str);
+        userMsg.setUserMsg(mRegUsernum_str, mRegConpsw_str);
         EventBus.getDefault().post(userMsg);
         mainActivity.showLoign();
         mRegUsernumEdtTxt.setText("");

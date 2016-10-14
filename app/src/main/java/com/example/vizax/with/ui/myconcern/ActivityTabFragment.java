@@ -71,7 +71,7 @@ public class ActivityTabFragment extends Fragment implements InvitationContact.V
     private MaterialDialog mEdit, mJoinDialog, mJoing;
     public String token = "2";
     private int position;
-    private String userId;
+    private final String userId = "-1";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.invitation_activity, container, false);
@@ -86,7 +86,7 @@ public class ActivityTabFragment extends Fragment implements InvitationContact.V
         setType();
         //初始化recyclerView
         // token  = User.token;
-        mInvitationListPresenter.getDataAndSetAdapter(getActivity(), mRecyclerView, visible, typeId, userId);
+        mInvitationListPresenter.getDataAndSetAdapter(getActivity(), mRecyclerView, visible, null, "-1");
         //初始化toolbar
         initToolbar();
         //初始化superSwipeRefreshLayout

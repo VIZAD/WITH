@@ -86,7 +86,7 @@ public class InvitationRecyclerViewAdapter extends RecyclerView.Adapter<Invitati
             System.out.println("未参加");
             holder.itemInvitationJoinBtn.setImageResource(R.drawable.join_unselected);
         }
-        holder.itemInvitationOriginatorName.setText(mData.getData().get(position).getOriginatorNickname());
+        holder.itemInvitationOriginatorName.setText(mData.getData().get(position).getMembers().get(0).getRealName());
         holder.itemInvitationTitle.setText(mData.getData().get(position).getTitle());
       //  mData.getData().get(position).setContent("[肇庆学院航空杯]2015年即将结束，我们将迎来本学期最后一场狼人杀比赛--航空杯狼人杀比赛，希望广大杀友踊跃报名！");//临时数据
         String contents = StringUtil.cutContents(mData.getData().get(position).getContent(),57);

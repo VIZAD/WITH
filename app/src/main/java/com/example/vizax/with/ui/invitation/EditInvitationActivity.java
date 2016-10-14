@@ -42,8 +42,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
-public class EditInvitationActivity extends AppCompatActivity implements EditInvitationContact.View{
+public class EditInvitationActivity extends SwipeBackActivity implements EditInvitationContact.View{
 
     @BindView(R.id.launch_toolbar)
     BaseToolBar launchToolbar;
@@ -98,6 +100,7 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
     private Bundle bundle;
     private int position;
     private int typeId;
+    private SwipeBackLayout mSwipeBackLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,6 +163,9 @@ public class EditInvitationActivity extends AppCompatActivity implements EditInv
             check_RdoBtn= (RadioButton) findViewById(launchSexRequirementsRdoGrp.getCheckedRadioButtonId());
             sex=check_RdoBtn.getText().toString();
         });
+        //设置swipback参数
+        mSwipeBackLayout = getSwipeBackLayout();
+        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
         launchToolbar.setLeftViewOnClickListener(v -> finish());
     }
     private void listpopupwindow( String subclass) {

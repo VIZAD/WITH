@@ -38,8 +38,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
-public class LuanchInvitationActivity extends AppCompatActivity implements LuanchInvitationContact.View{
+
+public class LuanchInvitationActivity extends SwipeBackActivity implements LuanchInvitationContact.View{
 
     @BindView(R.id.launch_toolbar)
     BaseToolBar launchToolbar;
@@ -86,6 +89,7 @@ public class LuanchInvitationActivity extends AppCompatActivity implements Luanc
     private Boolean hidenBoolean;
     private RadioButton check_RdoBtn;
     private int typeId ;
+    private SwipeBackLayout mSwipeBackLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +124,10 @@ public class LuanchInvitationActivity extends AppCompatActivity implements Luanc
                 sex=check_RdoBtn.getText().toString();
             }
         });
+        //设置swipback参数
+        mSwipeBackLayout = getSwipeBackLayout();
+        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
+        launchToolbar.setLeftViewOnClickListener(v -> finish());
     }
     @Override
     public void setluanchInvitationTitleEdtTxt(String text){

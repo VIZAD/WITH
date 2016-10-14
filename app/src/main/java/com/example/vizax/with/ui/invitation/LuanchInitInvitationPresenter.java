@@ -67,16 +67,17 @@ public class LuanchInitInvitationPresenter implements LuanchInvitationContact.Pr
     }*/
     public  List<String> setspinner(int typeId)
     {
+        System.out.println("typeId="+typeId);
         List<String> data_list= new ArrayList<String>();
-        if(typeId>=7&&typeId<=19)
+        if(typeId>=7&&typeId<=19||typeId==1)
             data_list = Arrays.asList(context.getResources().getStringArray(R.array.sports));
-        else if(typeId>=20&&typeId<=28)
+        else if(typeId>=20&&typeId<=28||typeId==2)
             data_list = Arrays.asList(context.getResources().getStringArray(R.array.onlineGame));
-        else if(typeId>=29&&typeId<=38)
+        else if(typeId>=29&&typeId<=38||typeId==3)
             data_list = Arrays.asList(context.getResources().getStringArray(R.array.brpg));
-        else if(typeId>=39&&typeId<=46)
+        else if(typeId>=39&&typeId<=46||typeId==4)
             data_list = Arrays.asList(context.getResources().getStringArray(R.array.study));
-        else if(typeId>=47&&typeId<=53)
+        else if(typeId>=47&&typeId<=53||typeId==5)
             data_list = Arrays.asList(context.getResources().getStringArray(R.array.date));
         else
             data_list = Arrays.asList(context.getResources().getStringArray(R.array.other));

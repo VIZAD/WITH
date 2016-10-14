@@ -2,7 +2,8 @@
 <!--color属性即指定了波纹效果的颜色,且必须-->
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="#FF808080"
-    android:background="?android:attr/selectableItemBackground">
+    android:background="?android:attr/selectableItemBackground"
+    >
     <!--正常状态的显示效果-->
     <item android:drawable="@drawable/button_bg" />
 </ripple>

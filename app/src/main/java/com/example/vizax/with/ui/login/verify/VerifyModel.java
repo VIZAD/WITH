@@ -12,7 +12,7 @@ public class VerifyModel implements VerifyContact.Modle {
 
     @Override
     public void verify(String usernum, String username, String sex, StringCallback stringCallback) {
-        OkHttpUtils.post()
+        OkHttpUtils.get()
                 .url(APIConstant.getApi(APIConstant.USER_REGISTERVERTIFICATION))
                 .addParams("studentNumber", usernum)
                 .addParams("realName", username)

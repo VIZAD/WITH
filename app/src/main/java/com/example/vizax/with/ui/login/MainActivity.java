@@ -1,6 +1,7 @@
 package com.example.vizax.with.ui.login;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -10,18 +11,20 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.vizax.with.R;
 import com.example.vizax.with.base.BaseActivity;
 import com.example.vizax.with.ui.login.login.LoginFragment;
 import com.example.vizax.with.ui.login.verify.VerifyFragment;
 import com.example.vizax.with.ui.myhome.HomeActivity;
+import com.example.vizax.with.util.AnimationUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MainActivity extends BaseActivity implements MainContact.View{
+public class MainActivity extends BaseActivity implements MainContact.View {
 
 
     @BindView(R.id.main_tabLayout)
@@ -30,7 +33,9 @@ public class MainActivity extends BaseActivity implements MainContact.View{
     ViewPager mViewPager;
     LinearLayout lReg_lLayout;
     LinearLayout lVerify_lLayout;
-    MainPresenter mPresenter ;
+    MainPresenter mPresenter;
+    @BindView(R.id.root)
+    RelativeLayout mRoot;
 
     @Override
     protected int initContentView() {
@@ -39,13 +44,14 @@ public class MainActivity extends BaseActivity implements MainContact.View{
 
     @Override
     public void initUiAndListener() {
+        ButterKnife.bind(this);
+        //动画效果
+        //AnimationUtil.showCircularReveal(mRoot, 2, 1000);
         mPresenter = new MainPresenter(getApplicationContext());
-        if (!mPresenter.isFirstLogin()&&mPresenter.isHadLogin()){//不是第一次，并且已经登录,直接进入主页
+        if (!mPresenter.isFirstLogin() && mPresenter.isHadLogin()) {//不是第一次，并且已经登录,直接进入主页
             startActivity();
             finish();
         }
-
-        ButterKnife.bind(this);
         mPresenter.attachView(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
@@ -90,7 +96,8 @@ public class MainActivity extends BaseActivity implements MainContact.View{
     public void showLoign() {
         mViewPager.setCurrentItem(1);
     }
-    EditText  mRegUsernumEdtTxt, mRegVerifynumEdtTxt, mPswRegEdtTxt, mRegConpswEdtTxt;
+
+    EditText mRegUsernumEdtTxt, mRegVerifynumEdtTxt, mPswRegEdtTxt, mRegConpswEdtTxt;
 
     public void setLayout(LinearLayout lVerify_lLayout, LinearLayout lReg_lLayout,
                           EditText mRegUsernumEdtTxt,
@@ -108,7 +115,7 @@ public class MainActivity extends BaseActivity implements MainContact.View{
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            if (lVerify_lLayout!=null&&lVerify_lLayout.getVisibility() == View.GONE) {
+            if (lVerify_lLayout != null && lVerify_lLayout.getVisibility() == View.GONE) {
                 mRegUsernumEdtTxt.setText("");
                 mRegVerifynumEdtTxt.setText("");
                 mPswRegEdtTxt.setText("");
@@ -132,5 +139,12 @@ public class MainActivity extends BaseActivity implements MainContact.View{
     protected void onDestroy() {
         super.onDestroy();
         //mPresenter.de
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

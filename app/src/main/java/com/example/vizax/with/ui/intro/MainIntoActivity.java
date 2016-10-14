@@ -24,7 +24,7 @@ public class MainIntoActivity extends IntroActivity{
         setFullscreen(false);
         super.onCreate(savedInstanceState);
 
-        if(SharedUtil.getBoolean(App.instance,FieldConstant.isfirstlogin,true)){
+        if(SharedUtil.getBoolean(App.instance,FieldConstant.isfirstlogin,false)){
             startHomeActivity();
         }
 

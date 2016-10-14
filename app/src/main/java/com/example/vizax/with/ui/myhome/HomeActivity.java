@@ -612,6 +612,7 @@ public class HomeActivity extends BaseActivity implements InvitationContact.View
                     break;
                 case R.id.my_concern_txtVi:
                     intent = new Intent(HomeActivity.this, MyConcernActivity.class);
+                    intent.putExtra("type", "我的关注");
                     startActivity(intent);
                     break;
                 case R.id.my_setting_txtVi:

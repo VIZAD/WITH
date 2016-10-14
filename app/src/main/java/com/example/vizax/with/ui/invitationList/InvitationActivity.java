@@ -51,6 +51,7 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
     private static final String MY_INVITATION = "我发起的";
     private static final String MY_JOINED = "我参与的";
     private static final String ELSE = "其他";
+    private static final String MY_CONCERNED = "我的关注";
     @BindView(R.id.baseToolBar)
     BaseToolBar mBaseToolBar;
     @BindView(R.id.activity_my_focus_recyclerview)
@@ -208,6 +209,10 @@ public class InvitationActivity extends SwipeBackActivity implements InvitationC
                 if(type.equals(MY_JOINED)){
                     fab.setVisibility(View.GONE);
                     typeId = "-1";
+                }else if(type.equals(MY_CONCERNED)){
+                    System.out.println("我的关注");
+                    typeId = null;
+                    userId = "-1";
                 }
                 visible = View.GONE;
             }

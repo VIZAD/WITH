@@ -24,11 +24,15 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.vizax.with.App;
 import com.example.vizax.with.R;
 import com.example.vizax.with.constant.FieldConstant;
+import com.example.vizax.with.ui.login.UserMsg;
 import com.example.vizax.with.ui.login.bean.UserBean;
 import com.example.vizax.with.ui.myhome.HomeActivity;
 import com.example.vizax.with.util.MaxLengthWatcher;
 import com.example.vizax.with.util.SharedUtil;
 import com.example.vizax.with.util.TextUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.regex.Matcher;
 
@@ -62,10 +66,12 @@ public class LoginFragment extends Fragment implements LoginContact.View {
     private String mUsernum_str, mPsw_str;
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
+    private UserMsg userMsg;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         mView = inflater.inflate(R.layout.login_fragment, container, false);
         ButterKnife.bind(this, mView);
         mUsernum_edtTxt.setText(SharedUtil.getString(getContext(),FieldConstant.phone));
@@ -87,6 +93,13 @@ public class LoginFragment extends Fragment implements LoginContact.View {
                 .content("正在登录...")
                 .progress(true, 0)
                 .build();
+    }
+
+    @Subscribe
+    public void onEvent(UserMsg userMsg){
+        this.userMsg = userMsg;
+        mUsernum_edtTxt.setText(userMsg.UserNumStr);
+        mPsw_edtTxt.setText(userMsg.UserPswStr);
     }
 
     @OnClick({R.id.login_btn, R.id.for_txtVi})
@@ -143,6 +156,7 @@ public class LoginFragment extends Fragment implements LoginContact.View {
     public void loginSuccess(String Msg,UserBean.DataBean data) {
         //返回Msg数据
         Toast.makeText(mActivity, Msg, Toast.LENGTH_SHORT).show();
+
         //登录成功操作
         SharedUtil.putString(mActivity,FieldConstant.phone,mUsernum_str);
         SharedUtil.putString(App.instance,FieldConstant.password,mPsw_str);

@@ -134,7 +134,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
     }
 
     private void membersAdd(int position) {
-        mInvitationActivity.showToast("membersAdd ");
+        mInvitationActivity.showToast("报名成功 ");
         MembersBean newMember = new MembersBean();
         InvitationBaseBean baseBean = mAdapter.getmData();
         newMember.setUserId(String.valueOf(SharedUtil.getInt(App.instance,FieldConstant.userId)));
@@ -151,7 +151,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
         for(int i = 0;i <  baseBean.getData().get(position).getMembers().size();i++){
             if (baseBean.getData().get(position).getMembers().get(i).getUserId().equals(SharedUtil.getInt(App.instance,FieldConstant.userId)+"")){
                 baseBean.getData().get(position).getMembers().remove(i);
-                mInvitationActivity.showToast("membersReduce mebber position :"+i);
+                mInvitationActivity.showToast("退出成功");
                 break;
             }
         }
@@ -203,7 +203,7 @@ public class InvitationPresenter implements InvitationContact.InvitationPresente
         InvitationBaseBean baseBean = mAdapter.getmData();
         int lLastIndex = baseBean.getData().size() - 1;
         finalItemId = baseBean.getData().get(lLastIndex).getInvitaionId();
-        mInvitationModel.getData(null,null,finalItemId,new StringCallback() {
+        mInvitationModel.getData(typeId,userId,finalItemId,new StringCallback() {
             @Override
             public void onAfter(int id) {
                 super.onAfter(id);

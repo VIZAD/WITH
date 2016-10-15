@@ -284,16 +284,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="18dp"
                 android:textSize="@dimen/launch_invitation_textsize"
                 android:textColor="@color/my_black_text"
                 android:text="@string/upper_limit_label"/>
 
-
-
             <ImageButton
                 android:id="@+id/launch_remove_imgBtn"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
+                android:layout_marginRight="18dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_remove"
@@ -303,7 +301,7 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:id="@+id/launch_upper"
-                android:layout_width="30dp"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:text="6"
                 android:maxLength="2"
@@ -316,8 +314,7 @@
 
             <ImageButton
                 android:id="@+id/launch_add_imgBtn"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
+                android:layout_marginLeft="18dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_add"

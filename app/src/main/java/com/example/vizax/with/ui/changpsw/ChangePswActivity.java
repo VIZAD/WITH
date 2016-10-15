@@ -25,6 +25,7 @@ import java.util.regex.Pattern;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
 
 public class ChangePswActivity extends BaseActivity implements  ChangePswContact.View{
 
@@ -70,7 +71,7 @@ public class ChangePswActivity extends BaseActivity implements  ChangePswContact
                 .build();
 
         toolbar.setCenterText("个人资料");
-        toolbar.setLeftIcon(getResources().getDrawable(R.drawable.ic_keyboard_arrow_left));
+        toolbar.setLeftIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_36dp));
         toolbar.setLeftViewOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

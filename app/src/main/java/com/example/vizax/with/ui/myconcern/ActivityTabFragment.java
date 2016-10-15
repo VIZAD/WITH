@@ -141,7 +141,7 @@ public class ActivityTabFragment extends Fragment implements InvitationContact.V
         invitationRefresh.setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
             @Override
             public void onRefresh() {
-                mInvitationListPresenter.getDataAndSetAdapter(getActivity(), mRecyclerView, visible, typeId, userId);
+                mInvitationListPresenter.getDataAndSetAdapter(getActivity(), mRecyclerView, visible, typeId, "-1");
                 invitationRefresh.setRefreshing(false);
             }
 
@@ -158,7 +158,7 @@ public class ActivityTabFragment extends Fragment implements InvitationContact.V
         invitationRefresh.setOnPushLoadMoreListener(new SuperSwipeRefreshLayout.OnPushLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                mInvitationListPresenter.pullLoadMore(getActivity(), mRecyclerView, visible, typeId, userId);
+                mInvitationListPresenter.pullLoadMore(getActivity(), mRecyclerView, visible, typeId, "-1");
 
 
             }

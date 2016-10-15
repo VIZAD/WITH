@@ -34,6 +34,9 @@ public class StringUtil {
     public static  String invitationIdUtil(String title){
         String result = null;
         switch (title){
+            case "我参与的":
+                result = "-1";
+                break;
             case "我发起的":
                 result = null;
                 break;

@@ -90,6 +90,12 @@ public class DemoActivity extends BaseActivity implements DemoContact.View {
         return true;
     }
 
+
+
+
+
+
+
     @Override
     public void showLoading() {
         mDialog.show();

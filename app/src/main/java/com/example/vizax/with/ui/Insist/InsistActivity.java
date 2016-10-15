@@ -246,8 +246,6 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         //this.color = this.color == color1?color2:color1;
         //
         int finalRadius = Math.max(mView.getWidth(), mView.getHeight());
-
-
         Animator animator = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             animator = ViewAnimationUtils.createCircularReveal(mView, 0, topPosition, 0, finalRadius);
@@ -269,6 +267,21 @@ public class InsistActivity extends BaseActivity implements ViewAnimator.ViewAni
         mTxtVi_title.setTextColor(color_md);
         mTxtVi_center_txt.setTextColor(color_md);
         mTxtVi_foot_txt.setTextColor(color_txt);
+        //初始化日期
+        CalendarDay date = CalendarDay.today();
+        String year = String.valueOf(date.getYear());
+        String month = String.valueOf(date.getMonth()+1);
+        if(date.getMonth()<9) {
+            month = "0"+month;
+        }
+        String day = String.valueOf(date.getDay());
+        if(date.getDay()<9) {
+            day = "0"+day;
+        }
+        mCalendarDay = date;
+        mSelectedDay = date.getDay();
+        mSelectedDate = year+"-"+month+"-"+day;
+
         if(mNet==true && mCreateTask==false) {
             mTxtVi_title.setText(mMisson.getData().getCurrTasks().get(Integer.parseInt(mSelectedCase) - 1).getTitle().toString());
             mTxtVi_center_txt.setText(mMisson.getData().getCurrTasks().get(Integer.parseInt(mSelectedCase) - 1).getContent().toString());

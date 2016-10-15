@@ -2,6 +2,6 @@
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="#ff808080"
     android:background="?android:attr/selectableItemBackground">
-    <item android:drawable="@drawable/shenshu_button"/>
+    <item android:drawable="@drawable/button_bg"/>
 
 </ripple>
